@@ -20,7 +20,7 @@
 	padding:0;
 	list-style-type: none;
 	background-color: #ccc;
-	width: 20%;
+	width: 15%;
 	margin-right:0;
 	margin-left: 0;
 	margin-top:15px;
