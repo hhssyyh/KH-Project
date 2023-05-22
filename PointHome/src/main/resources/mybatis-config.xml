@@ -9,10 +9,18 @@
 <!-- 최상위 부모 객체 -->
 <configuration>
 
+    <settings>
+       <setting name="mapUnderscoreToCamelCase" value="true"/>
+       <setting name="jdbcTypeForNull" value="NULL"/>
+    </settings>
+    
 	<!-- daoMapper에서 쿼리태그에 사용할 -->
 	<!-- parameter/result Type의 value로 들어갈 이름을 alias -->	
 	<typeAliases>
 		<package name="com.pointhome.www"/>
 	</typeAliases>
 
+	
 </configuration>
+
+ 
