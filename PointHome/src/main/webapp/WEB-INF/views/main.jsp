@@ -96,14 +96,14 @@
 <!-- carosel -->	
 	<div>
 		<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-		  <div class="carousel-inner justify-content-center">
+		  <div class="carousel-inner">
 		    
 		    <div class="carousel-item active" >
-		      <img src="../resources/carosel.jpeg" class="d-block justify-content-center"  height="400px" alt="...">
+		      <img src="../resources/carosel.jpeg" class="d-block" height="400px" style="margin:0 auto;" alt="...">
 		    </div>
 		    
 		    <div class="carousel-item">
-		      <img src="../resources/dog.jpeg" class="d-block" height="400px" alt="개">
+		      <img src="../resources/dog.jpeg" class="d-block" style="margin:0 auto;" height="400px" alt="개">
 		    </div>
 		  </div>
 		  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
