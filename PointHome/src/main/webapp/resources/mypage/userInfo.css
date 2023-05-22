@@ -1,0 +1,109 @@
+@charset "UTF-8";
+
+body {
+   padding: 0;
+   margin: 0;
+}
+
+#myBanner {
+   height: 300px;
+   width: 100%;
+   
+   background-color: #ccc;
+}
+
+#profile {
+   display: flex;
+   align-items: center;
+   float: left;
+   padding-top: 70px;
+   padding-left: 25%;
+}
+
+#profileImg {
+   width: 150px;
+}
+
+#nickDiv {
+   text-align: center;
+   padding-left: 40px;
+}
+
+.nickBtn {
+   width: 130px;
+   font-size: 13px;
+   margin-top: 3px;
+}
+
+#profileBtnDiv {
+   float: right;
+   display: flex;
+   
+   justify-content: center;
+    text-align: center; 
+    align-items: center;
+    padding-right: 500px;
+    
+   height: 300px;
+   width: 300px;
+}
+
+.proBtn {
+   width: 150px;
+   font-size: 15px;
+   margin: 10px;
+}
+
+#userInfo {
+   height: 700px;
+   width: 1000px;
+   
+   background-color: #ccc;
+}
+
+
+#line {
+	border-top: 3px solid;
+}
+
+#profile2 {
+   padding-top: 0px;
+   padding-left: 35%;
+}
+#profileImg2 {
+   width: 100px;
+}
+
+.nickBtn2 {
+   width: 150px;
+   font-size: 18px;
+   margin-top: 24px;
+   margin-right: 145px;
+   
+}
+#btn2 {
+	float: right;
+}
+#photoDiv{
+   padding-left: 20px;
+   height:15px;
+   padding-top : 20px;
+}
+
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 { 
+	
+	margin-bottom: 2.5rem
+}
+
+#userId, #userPw, #userPhone, #userNick, #userName{
+	padding-left: 15px;
+}
+
+
+
+
+
+
+
+
+
