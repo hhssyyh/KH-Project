@@ -104,7 +104,7 @@
 		    
 		    <div class="carousel-item">
 		      <img src="../resources/dog.jpeg" class="d-block" style="margin:0 auto;" height="400px" alt="개">
-		    </div>
+		    </div> 
 		  </div>
 		  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
 		    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
