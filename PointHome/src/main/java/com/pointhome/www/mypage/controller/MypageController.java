@@ -11,4 +11,8 @@ public class MypageController {
 	@GetMapping("/view")
 	public void mypage() {}
 	
+	
+	@GetMapping("/userInfo")
+	public void mypageInfo() {}
+	
 }
