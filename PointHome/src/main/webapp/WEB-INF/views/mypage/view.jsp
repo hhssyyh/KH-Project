@@ -39,14 +39,15 @@
 
 	<div class="conRow">
 		<div id="reserveDiv" class="conRowDiv">
-			<h5>예약관리</h5>
+			<h5 class="conTitle">예약관리</h5>
+			<button class="btn btn-outline-light">전체 예약 조회</button>
 			<hr>
 		</div>
 		
 		<span class="stripe"></span>
 		
 		<div id="noticeDiv" class="conRowDiv">
-			<h5>공지사항</h5>
+			<h5 class="conTitle">공지사항</h5>
 			<hr>
 		</div>
 	</div>

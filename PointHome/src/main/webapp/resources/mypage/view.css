@@ -81,7 +81,11 @@ a {
 	margin-bottom: 80px;
 	
 	border: 1px solid #ccc;
- 	background-color: white; 
+ 	background-color: #FFFFFF; 
+}
+
+.conTitle {
+	float: left;
 }
 
 .stripe {
