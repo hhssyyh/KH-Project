@@ -35,8 +35,23 @@
 	
 	</select>
 	
+	<select id="viewBoardComment" resultType="FreeBoardComment" parameterType="int">
+	
+		select * from freeboard_comment
+		where freeboard_no = #{freeboard_no}
 		
-<!-- 	<insert id="fileInsert" parameterType="freeboard.dto.Filetest"> -->
+	</select>
+
+
+	<insert id="insertBoardComment" parameterType="FreeBoardComment">
+ 		INSERT INTO freeboard_comment (freeboard_no, comm_content )
+ 		VALUES (#{freeboardNo}, #{commContent})
+ 	</insert>
+	
+		
+<!-- 	<insert id="
+		fileInsert " parameterType="freeboard.dto.Filetest">
+		-->
 <!-- 		insert into boardfile (file_no -->
 <!--     , board_no  -->
 <!--     , origin_name -->

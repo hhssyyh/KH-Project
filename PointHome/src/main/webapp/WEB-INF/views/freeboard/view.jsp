@@ -34,7 +34,7 @@ div.fr{
 #cmt{
 	border-right:0px;
 	border-top:0px;
-	boder-left:0px;
+	border-left:0px;
 }
 </style>
 </head>
@@ -67,21 +67,35 @@ ${board.freeboardContent }
 </div>o
 <hr><br>
 <div class="comments">
-댓글 4개  <i class="bi bi-bar-chart-steps"></i>정렬기준
+댓글 4개 
+
+<div style="text-align: left">
+<i class="bi bi-bar-chart-steps"></i>정렬기준
+<select class="array">
+	<option value="a">조회순</option>
+	<option value="b">댓글순</option>
+	<option value="c">추천순</option>
+	<option value="d">날짜순</option>
+</select>
+</div>
+
 <!-- post 댓글 인서트 -->
-<form action="./viewTest.do" method="post">
-댓글작성자 <input type="text" name="user" size="80" id="cmt">
+<form action="./view" method="post">
+댓글작성자 <input type="text" name="commContent" size="80" id="cmt">
+<input type="text" value="${board.freeboardNo }" name="freeboardNo">
+
 <button>작성</button><br><br>
 
+<c:forEach var="boardCommentList" items="${boardCommentList }">
+<tr>
+	<td><i class="bi bi-person-circle"></i>사용자${boardCommentList.userNo }<td>
+	<td>${boardCommentList.commContent }</td>
+	<td>${boardCommentList.commDate }</td>
+	<br><br>
+</tr>
+</c:forEach>
+
 <!-- i태그 이미지 >> 사용자 프로필 가져오기 로 코맨트 for each 출력-->
-<i class="bi bi-person-circle"></i>사용자1<br>
-댓용 입니다 댓글내용인데요? 댓글내용인<br><br>
-<i class="bi bi-person-circle"></i>사용자<br>
-댓글내용 입니다 댓글내용인데요? 댓글내용인데요 ㅋㅁㄴㅇㄹㄴㅁㅇㅋ 잿글입니다<br><br>
-<i class="bi bi-person-circle"></i>사용자3<br>
-댓글내용 입니다 댓ㅁㄴㅇㄹㅁㄹ글내용인데요? 댓글내용인데요 ㅋㅋ 잿글입니다<br><br>
-<i class="bi bi-person-circle"></i>사용자4<br>
-댓글내용 내용인데요? 댓글내용인데요 ㅋㅋ 잿글입니다<br><br><br>
 </form>
 </div>
 </div><!-- div.container -->

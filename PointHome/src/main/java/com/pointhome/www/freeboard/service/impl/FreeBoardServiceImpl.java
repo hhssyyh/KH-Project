@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.pointhome.www.freeboard.dao.face.FreeBoardDao;
 import com.pointhome.www.freeboard.dto.FreeBoard;
+import com.pointhome.www.freeboard.dto.FreeBoardComment;
 import com.pointhome.www.freeboard.service.face.FreeBoardService;
 import com.pointhome.www.util.Paging;
 
@@ -40,6 +41,18 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 		
 		freeBoardDao.hit(boardNo);
 		return freeBoardDao.viewBoard(boardNo);
+	}
+
+	@Override
+	public List<FreeBoardComment> commentView(int freeboardNo) {
+		
+		return freeBoardDao.viewBoardComment(freeboardNo);
+	}
+
+	@Override
+	public void insert(FreeBoardComment comment) {
+		
+		freeBoardDao.insertBoardComment(comment);
 	}
 
 }

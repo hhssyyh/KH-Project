@@ -32,6 +32,7 @@
 <body>
 
 <div id="header">
+<img src="/resources/images/gg.png" class="img-fluid" alt="점">
 <h1><a class="text-info" href="/">HEADER</a></h1>
 </div>
 <div class="container text-center">
