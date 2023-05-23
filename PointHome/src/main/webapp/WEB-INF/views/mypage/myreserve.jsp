@@ -13,6 +13,7 @@
 <c:import url="/WEB-INF/views/layout/myprofile.jsp" />
 
 
+
 <div id="userInfo"
 	style="margin: 0 auto; margin-top: 200px; padding: 30px;">
 	<h4>예약관리</h4>

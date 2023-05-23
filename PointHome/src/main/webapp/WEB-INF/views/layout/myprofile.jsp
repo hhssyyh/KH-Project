@@ -42,8 +42,6 @@ a {
 	margin-top: 3px;
 }
 
-
-
  .proBtn {
 	width: 150px;
 	font-size: 15px;
