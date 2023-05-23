@@ -1,7 +1,5 @@
 package com.pointhome.www.mypage.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -22,19 +20,16 @@ public class MypageController {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired UserService userService;
 	
-	public void mypage() {}
-	
-
-	@GetMapping("/userInfo")
+	@GetMapping("/userinfo")
 	public void mypageInfo( Model model, HttpSession session) {
+		logger.debug("/mypage/userinfo [GET]");
 		
+		int userno= (int) session.getAttribute("userno"); 
+		logger.debug("userno : {}", userno);
 		
+		User res= userService.selectInfo(userno);
 		
-		int userno= Integer.parseInt((String) session.getAttribute("userno")); 
-		
-		  User res= userService.selectInfo(userno);
-		
-		  logger.debug("res{}",res);
+		logger.debug("res{}",res);
 		model.addAttribute("res", res);
 	}
 	
