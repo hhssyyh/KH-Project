@@ -4,17 +4,19 @@ import java.util.Date;
 
 public class FreeBoard {
 	
+	   private int userNo;
 	   private int freeboardNo;
 	   private int freeboardHit;
 	   private Date freeboardDate;
 	   private String freeboardTitle;
 	   private String freeboardContent;
 	
-	   public FreeBoard() {}
+	public FreeBoard() {}
 
-	public FreeBoard(int freeboardNo, int freeboardHit, Date freeboardDate, String freeboardTitle,
+	public FreeBoard(int userNo, int freeboardNo, int freeboardHit, Date freeboardDate, String freeboardTitle,
 			String freeboardContent) {
 		super();
+		this.userNo = userNo;
 		this.freeboardNo = freeboardNo;
 		this.freeboardHit = freeboardHit;
 		this.freeboardDate = freeboardDate;
@@ -24,8 +26,17 @@ public class FreeBoard {
 
 	@Override
 	public String toString() {
-		return "FreeBoard [freeboardNo=" + freeboardNo + ", freeboardHit=" + freeboardHit + ", freeboardDate="
-				+ freeboardDate + ", freeboardTitle=" + freeboardTitle + ", freeboardContent=" + freeboardContent + "]";
+		return "FreeBoard [userNo=" + userNo + ", freeboardNo=" + freeboardNo + ", freeboardHit=" + freeboardHit
+				+ ", freeboardDate=" + freeboardDate + ", freeboardTitle=" + freeboardTitle + ", freeboardContent="
+				+ freeboardContent + "]";
+	}
+
+	public int getUserNo() {
+		return userNo;
+	}
+
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
 	}
 
 	public int getFreeboardNo() {
@@ -67,6 +78,8 @@ public class FreeBoard {
 	public void setFreeboardContent(String freeboardContent) {
 		this.freeboardContent = freeboardContent;
 	}
+	
+	
 	   
 	   
 	

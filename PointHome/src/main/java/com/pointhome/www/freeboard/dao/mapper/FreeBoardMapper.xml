@@ -35,11 +35,33 @@
 	
 	</select>
 	
+<<<<<<< HEAD
+	<insert id="insertBoard" parameterType="FreeBoard">
+		<selectKey order="BEFORE" resultType="int" keyProperty="freeboardNo">
+			SELECT freeboard_no_seq.nextval FROM dual
+		</selectKey>
+=======
 	<select id="viewBoardComment" resultType="FreeBoardComment" parameterType="int">
 	
 		select * from freeboard_comment
 		where freeboard_no = #{freeboard_no}
+>>>>>>> branch 'master' of https://github.com/KHPage404/PointHome.git
 		
+<<<<<<< HEAD
+		INSERT INTO freeboard ( freeboard_no, freeboard_title, freeboard_content, user_no )
+		VALUES ( #{freeboardNo}, #{freeboardTitle}, #{freeboardContent}, #{userNo} )
+	</insert>
+		
+		
+	<insert id="insertFile" parameterType="FreeBoardFile">
+		insert into freeboard_file 
+		(freeboardfile_no
+	    , freeboard_no 
+	    , freeboardfile_origin
+	    , freeboardfile_stored)
+		values ( freeboardfile_no_seq.nextval, #{freeboardNo}, #{freeboardfileOrigin}, #{freeboardfileStored})
+	</insert>
+=======
 	</select>
 
 
@@ -58,6 +80,7 @@
 <!--     , stored_name) -->
 <!-- 		values ( #{file_no}, #{board_no}, #{origin_name}, #{stored_name}) -->
 <!-- 	</insert> -->
+>>>>>>> branch 'master' of https://github.com/KHPage404/PointHome.git
 
 
 
