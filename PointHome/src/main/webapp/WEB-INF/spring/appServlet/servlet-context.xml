@@ -79,6 +79,6 @@
 		com.pointhome.www.freeboard.controller,
 		com.pointhome.www.freeboard.service,
 		com.pointhome.www.mypage.controller
-		" />
+	" />
 	
 </beans:beans>

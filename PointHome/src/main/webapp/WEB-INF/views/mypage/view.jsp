@@ -8,14 +8,17 @@
 <link href="/resources/mypage/view.css" rel="stylesheet" >
 
 
-<h3 style="margin: 20px; margin-left: 30px; margin-top: 80px;"><a href="./view">MYMENU</a></h3>
+
+<div id="mypage">
+
+<h3 style="margin: 20px; margin-left: 30px;"><a href="./view">MYMENU</a></h3>
 
 <div id="myBanner">
 	<div id="profile">
 		<span><img id="profileImg" alt="" src="https://t1.daumcdn.net/cfile/tistory/2513B53E55DB206927"></span>
 		<div id="nickDiv">
 			<h1>NICKNAME</h1>
-			<button class="btn btn-outline-dark nickBtn ">회원정보수정</button>
+			<button class="btn btn-outline-dark nickBtn">회원정보수정</button>
 		</div>
 	</div>
 
@@ -32,20 +35,30 @@
 </div>
 
 
-<div id="mypageCon" class="container mt-5">
+<div id="mypageCon" class="container">
 
-	<div id="conRow">
-		<div id="reserveDiv">
-			예약관리
+	<div class="conRow">
+		<div id="reserveDiv" class="conRowDiv">
+			<h5>예약관리</h5>
+			<hr>
 		</div>
 		
-		<div id="">
+		<span class="stripe"></span>
+		
+		<div id="noticeDiv" class="conRowDiv">
+			<h5>공지사항</h5>
+			<hr>
 		</div>
+	</div>
 	
+	<div id="btnCon">
+		
 	</div>
 
+</div>
 
 </div>
+
 
 </body>
 </html>

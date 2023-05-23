@@ -10,6 +10,11 @@ a {
 	text-decoration: none;
 }
 
+#mypage {
+	margin-bottom: 100px;
+	padding-top: 60px;
+}
+
 #myBanner {
 	height: 300px;
 	width: 100%;
@@ -44,12 +49,11 @@ a {
 #profileBtnDiv {
 	float: right;
 	display: flex;
-	position: absolute;
 	
 	justify-content: center;
  	text-align: center; 
  	align-items: center;
-  	padding-left: 1200px; 
+  	padding-right: 700px; 
  	
 	height: 300px;
 	width: 300px;
@@ -61,7 +65,41 @@ a {
 	margin: 10px;
 }
 
+#mypageCon {
+	margin-top: 100px;
+}
+
+.conRow {
+	text-align: center;
+}
+
+.conRowDiv {
+	display: inline-block;
+	width: 40%;
+	height: 500px;
+	padding: 20px;
+	margin-bottom: 80px;
+	
+	border: 1px solid #ccc;
+ 	background-color: white; 
+}
+
+.stripe {
+	width: 1px;
+	height: 300px;
+}
+
 #reserveDiv {
+	margin-right: 50px;
+}
+
+#noticeDiv {
+	
+}
+
+#btnCon {
+	width: 80%;
+	height: 300px;
 	background-color: #ccc;
 }
 
