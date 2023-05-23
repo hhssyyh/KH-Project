@@ -16,16 +16,16 @@ public interface FreeBoardService {
 
 	public FreeBoard view(int board_no);
 
-<<<<<<< HEAD
+
 	public void write(FreeBoard board, List<MultipartFile> dataMul);
-=======
+
 	public List<FreeBoardComment> commentView(int freeboardNo);
 
 	public void insert(FreeBoardComment comment);
 
 
 
->>>>>>> branch 'master' of https://github.com/KHPage404/PointHome.git
+
 
 }
 
