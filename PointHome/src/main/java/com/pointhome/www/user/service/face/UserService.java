@@ -1,5 +1,7 @@
 package com.pointhome.www.user.service.face;
 
+import java.util.List;
+
 import com.pointhome.www.user.dto.User;
 
 public interface UserService {
@@ -26,5 +28,13 @@ public interface UserService {
 	 * @return - 회원의 정보
 	 */
 	public User getUser(User param);
+
+		/**
+		 * userno 가져와서 유저정보조회
+		 * @param userno
+		 * @return
+		 */
+	public User selectInfo(int userno);
+
 
 }

@@ -55,9 +55,8 @@ body {
 }
 
 #userInfo {
-   height: 700px;
+   height: 770px;
    width: 1000px;
-   
    background-color: #ccc;
 }
 
@@ -95,9 +94,7 @@ body {
 	margin-bottom: 2.5rem
 }
 
-#userId, #userPw, #userPhone, #userNick, #userName{
-	padding-left: 15px;
-}
+
 
 
 

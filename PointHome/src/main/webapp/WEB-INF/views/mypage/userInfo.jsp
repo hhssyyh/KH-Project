@@ -38,7 +38,6 @@
 
 
 
-
 <div id="userInfo"
 	style="margin: 0 auto; margin-top: 200px; padding: 30px;">
 	<h4>기본 회원정보</h4>
@@ -54,50 +53,54 @@
 		<div id="btn2">
 			<button class="btn btn-outline-dark nickBtn2 ">사진변경</button>
 		</div>
-		
+
 	</div>
-	
 	<hr>
 	<div id="userId">
-		<h5>아이디(이메일)</h5>
-		<input type="text" id="userIdInput">
+		<h5 style="margin-left: 13px;">아이디(이메일)</h5>
+		${res.userEmail }
 	</div>
 	<hr>
-	<div id="userNick">
-		<h5>닉네임</h5>
-	</div>
+ 
+
+	<div class="form-floating mb-3">
+		<input type="text" class="form-control" id="floatingInput"
+			style="width: 50%; margin-left: 215px;  " placeholder="Nickname"  >
+			 <label for="floatingInput" ><h5>닉네임</h5></label>
+	</div> 
 	<hr>
-	<div id="userPw">
-		<h5>비밀번호</h5>
+	<div class="form-floating mb-3">
+		<input type="text" class="form-control" id="floatingInput"
+			style="width: 50%; margin-left: 215px;  " placeholder="Password"  >
+			 <label for="floatingInput" ><h5>비밀번호</h5></label>
 	</div>
+	
+
 	<hr>
+	
 	<div id="userName">
-		<h5>이름(실명)</h5>
+		<h5 style="margin-left: 13px;">이름(실명)</h5>
 	</div>
 	<hr>
-	<div id="userPhone">
-		<h5>휴대전화</h5>
+	<div class="form-floating mb-3">
+		<input type="text" class="form-control" id="floatingInput"
+			style="width: 50%; margin-left: 215px;  " placeholder="Password"  >
+			 <label for="floatingInput" ><h5>비밀번호</h5></label>
 	</div>
-	
-	
-	<div id="actionBtn">
-	<button>회원탈퇴</button>
-	<button>수정완료</button>
+
+
+
+	<div id="actionBtn" style="text-align: center; padding-top: 30px;">
+		<button class="btn btn-outline-dark proBtn">회원탈퇴</button>
+		<button class="btn btn-outline-dark proBtn">수정완료</button>
 	</div>
 
 
 </div>
 
 
-
 </body>
 </html>
-
-
-
-
-
-
 
 
 

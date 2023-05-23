@@ -31,4 +31,10 @@ public interface UserDao {
 	 */
 	public User selectByUserEmailPw(User param);
 
+	/**
+	 * 유저 정보 조회한 다음 가져오기
+	 * @return
+	 */
+	public User selectByUserId();
+
 }
