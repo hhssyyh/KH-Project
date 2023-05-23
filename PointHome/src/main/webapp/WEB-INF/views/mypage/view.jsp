@@ -5,17 +5,162 @@
 
 <c:import url="/WEB-INF/views/layout/header.jsp"/>
 
-<link href="/resources/mypage/view.css" rel="stylesheet" >
+<style type="text/css">
+body {
+	padding: 0;
+	margin: 0;
+}
+
+a {
+	color: black;
+	text-decoration: none;
+}
+
+#mypage {
+	margin-bottom: 100px;
+	padding-top: 70px;
+}
+
+#myBanner {
+	height: 300px;
+	width: 100%;
+/* 	text-align: center; */
+	
+	background-color: #ccc;
+}
+
+#proBtnDiv {
+	display: inline-block;
+	float: right;
+	margin: 0 20px;
+	margin-top: 10px;
+	font-size: 25px;
+}
+
+.bi::before, [class^="bi-"]::before, [class*=" bi-"]::before {
+    margin: 5px;
+}
+
+#profile {
+   display: flex;
+   align-items: center;
+   float: left;
+   padding-top: 70px;
+   padding-left: 25%;
+
+}
+
+#profileImg {
+	display: inline-block;
+	width: 150px;
+}
+
+#nickDiv {
+	display: inline-block;
+	text-align: center;
+	padding-left: 40px;
+/* 	padding-top: 30px; */
+}
+
+.nickBtn {
+	width: 130px;
+	font-size: 13px;
+	margin-top: 3px;
+}
+
+#profileBtnDiv {
+	float: right;
+	display: flex;
+	
+	justify-content: center;
+	text-align: center; 
+	align-items: center;
+	padding-right: 600px;
+	 
+	height: 300px;
+	width: 300px;
+
+}
+
+.proBtn {
+	width: 150px;
+	font-size: 15px;
+	margin: 10px;
+}
+
+//------------------------------------
+
+#mypageCon {
+	margin-top: 100px;
+}
+
+.conRow {
+	text-align: center;
+}
+
+.conRowDiv {
+	display: inline-block;
+	width: 500px;
+	height: 500px;
+	padding: 20px;
+	margin-bottom: 80px;
+	text-align: left;
+	
+	border: 1px solid #ccc;
+ 	background-color: white; 
+}
+
+.conTitle {
+	display: inline-block;
+	font-size: 20px;
+	margin-left: 8px;
+}
+
+.stripe {
+	width: 1px;
+	height: 300px;
+}
+
+#reserveDiv {
+	margin-right: 50px;
+}
+
+#noticeDiv {
+	
+}
+
+#btnCon {
+	width: 1060px;
+	height: 500px;
+	margin: 0 auto;
+	
+	border: 1px solid #ccc;
+ 	background-color: white;
+}
 
 
-<h3 style="margin: 20px; margin-left: 30px; margin-top: 80px;"><a href="./view">MYMENU</a></h3>
+</style>
+
+
+
+<div id="mypage">
+
+<div style="margin: 10px; margin-left: 40px;">
+	<a href="./view" style="font-size: 30px;">MYMENU</a>
+	
+<!-- 	<div id="proBtnDiv"> -->
+<!-- 		<a href="#"><i class="bi bi-chat-dots"></i></a> -->
+<!-- 		<a href="#"><i class="bi bi-bell"></i></a> -->
+<!-- 		<a href="#"><i class="bi bi-bag-heart"></i></a> -->
+<!-- 	</div> -->
+</div>
 
 <div id="myBanner">
 	<div id="profile">
 		<span><img id="profileImg" alt="" src="https://t1.daumcdn.net/cfile/tistory/2513B53E55DB206927"></span>
 		<div id="nickDiv">
-			<h1>NICKNAME</h1>
-			<button class="btn btn-outline-dark nickBtn ">회원정보수정</button>
+			<div style="font-size: 40px;">NICKNAME</div>
+			<a href="./userInfo"><button class="btn btn-outline-dark nickBtn">회원정보수정</button></a>
 		</div>
 	</div>
 
@@ -32,20 +177,31 @@
 </div>
 
 
-<div id="mypageCon" class="container mt-5">
+<div id="mypageCon" class="container">
 
-	<div id="conRow">
-		<div id="reserveDiv">
-			예약관리
+	<div class="conRow">
+		<div id="reserveDiv" class="conRowDiv">
+			<div class="conTitle">예약관리</div>
+			<button class="btn btn-outline-secondary" style="float: right; font-size: 13px;">전체 예약 조회</button>
+			<hr>
 		</div>
 		
-		<div>
+		<span class="stripe"></span>
+		
+		<div id="noticeDiv" class="conRowDiv">
+			<div class="conTitle">공지사항</div>
+			<hr>
 		</div>
+	</div>
 	
+	<div id="btnCon">
+		
 	</div>
 
+</div>
 
 </div>
+
 
 </body>
 </html>
