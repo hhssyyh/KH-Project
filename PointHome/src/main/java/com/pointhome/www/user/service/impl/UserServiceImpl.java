@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
 	public User selectInfo(int userno) {
 
 		
-		return userDao.selectByUserId();
+		return userDao.selectByUserId(userno);
 	}
 
 

@@ -33,8 +33,9 @@ public interface UserDao {
 
 	/**
 	 * 유저 정보 조회한 다음 가져오기
+	 * @param userno 
 	 * @return
 	 */
-	public User selectByUserId();
+	public User selectByUserId(int userno);
 
 }

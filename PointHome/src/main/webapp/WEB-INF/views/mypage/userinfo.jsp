@@ -7,7 +7,6 @@
 
 <link href="/resources/mypage/userInfo.css" rel="stylesheet">
 
-
 <div id="mypage">
 
 <c:import url="/WEB-INF/views/layout/myprofile.jsp" />
@@ -33,18 +32,20 @@
 	<hr>
 	<div id="userId">
 		<h5 style="margin-left: 13px;">아이디(이메일)</h5>
-		${res.userEmail }
+		<input type="text" class="form-control" id="floatingInput" style="width: 50%; margin-left: 215px; margin-top:-68px;  " placeholder="${res.userEmail }" disabled  >
+			 <label for="floatingInput" ></label>
+		
 	</div>
 	<hr>
  
 
 	<div class="form-floating mb-3">
-		<input type="text" class="form-control" id="floatingInput" style="width: 50%; margin-left: 215px;  " placeholder="Nickname"  >
+		<input type="text" class="form-control" id="floatingInput" style="width: 50%; margin-left: 215px;  height: 40px; " placeholder="Nickname"  >
 			 <label for="floatingInput" ><h5>닉네임</h5></label>
 	</div> 
 	<hr>
 	<div class="form-floating mb-3">
-		<input type="text" class="form-control" id="floatingInput" style="width: 50%; margin-left: 215px;  " placeholder="Password"  >
+		<input type="text" class="form-control" id="floatingInput" style="width: 50%; margin-left: 215px;  height: 40px;  " placeholder="Password"  >
 			 <label for="floatingInput" ><h5>비밀번호</h5></label>
 	</div>
 	
@@ -53,11 +54,13 @@
 	
 	<div id="userName">
 		<h5 style="margin-left: 13px;">이름(실명)</h5>
+		<input type="text" class="form-control" id="floatingInput" style="width: 50%; margin-left: 215px; margin-top:-68px;  " placeholder="${res.userName }" disabled  >
+			 <label for="floatingInput" ></label>
+		
 	</div>
 	<hr>
 	<div class="form-floating mb-3">
-		<input type="text" class="form-control" id="floatingInput"
-			style="width: 50%; margin-left: 215px;  " placeholder="Password"  >
+		<input type="text" class="form-control" id="floatingInput" style="width: 50%; margin-left: 215px; color:black;  height: 40px; " placeholder="${res.userPw }"  >
 			 <label for="floatingInput" ><h5>비밀번호</h5></label>
 	</div>
 
