@@ -14,18 +14,17 @@ import com.pointhome.www.user.dto.User;
 import com.pointhome.www.user.service.face.UserService;
 
 @Controller
-@RequestMapping("/user")
 public class userController {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired UserService userService;
 	
-	@GetMapping("/join")
+	@GetMapping("/user/join")
 	public void join() {
 		logger.debug("/user/join [GET]");
 	}
 
-	@PostMapping("/join")
+	@PostMapping("/user/join")
 	public String joinProc(User user) {
 		logger.debug("/user/join [POST]");
 		logger.debug("{}", user);
@@ -35,35 +34,45 @@ public class userController {
 		return "redirect:./login";
 	}
 
-	@GetMapping("/login")
+	@GetMapping("/user/login")
 	public void login() {
 		logger.debug("/user/login [GET]");
 		
 	}
 
-	@PostMapping("/login")
+	@PostMapping("/user/login")
 	public String loginProc(User Param, HttpSession session) {
 		logger.debug("/user/login [POST]");
 		logger.debug("{}", Param);
 		
 		Boolean login = userService.isLogin(Param);
 		
+		
 		if (login) {
 			
-			User user = userService.getUser(Param);
+			User user = new User();
+			user = userService.getUser(Param);
 			
-			session.setAttribute("login", login);
+			logger.debug("{}", login);
+			logger.debug("{}", user.getUserNo());
+			session.setAttribute("login", true);
 			session.setAttribute("userno", user.getUserNo());
 			
-			logger.info("userno: {}", user.getUserNo());
-		
-			return "redirect:/freeboard/list";
+			return "redirect:/";
 		}
-		
-		return "./login";
+
+		return "redirect:/user/login";
 		
 	}
 
+	@GetMapping("/user/logout")
+	public String logout(HttpSession session) {
+		logger.debug("/user/logout [GET]");
+		
+		session.invalidate();
+		
+		return "redirect:/";
+	}
 
 
 }

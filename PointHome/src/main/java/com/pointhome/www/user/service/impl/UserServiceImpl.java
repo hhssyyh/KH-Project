@@ -43,4 +43,12 @@ public class UserServiceImpl implements UserService {
 		return user;
 	}
 
+	@Override
+	public User selectInfo(int userno) {
+
+		
+		return userDao.selectByUserId();
+	}
+
+
 }
