@@ -1,6 +1,5 @@
 package com.pointhome.www.user.service.face;
 
-import java.util.List;
 
 import com.pointhome.www.user.dto.User;
 

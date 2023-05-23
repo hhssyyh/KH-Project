@@ -64,7 +64,7 @@ ${board.freeboardDate }
 <div id="content" style="text-align: center">
 <!-- 본문 내용 가져오기 -->
 ${board.freeboardContent }
-</div>o
+</div>
 <hr><br>
 <div class="comments">
 댓글 4개 

@@ -35,12 +35,30 @@
 	
 	</select>
 	
+	<insert id="insertBoard" parameterType="FreeBoard">
+		<selectKey order="BEFORE" resultType="int" keyProperty="freeboardNo">
+			SELECT freeboard_no_seq.nextval FROM dual
+		</selectKey>
+		INSERT INTO freeboard ( freeboard_no, freeboard_title, freeboard_content, user_no )
+		VALUES ( #{freeboardNo}, #{freeboardTitle}, #{freeboardContent}, #{userNo} )
+	</insert>
 	<select id="viewBoardComment" resultType="FreeBoardComment" parameterType="int">
 	
 		select * from freeboard_comment
 		where freeboard_no = #{freeboard_no}
 		
 	</select>
+		
+		
+	<insert id="insertFile" parameterType="FreeBoardFile">
+		insert into freeboard_file 
+		(freeboardfile_no
+	    , freeboard_no 
+	    , freeboardfile_origin
+	    , freeboardfile_stored)
+		values ( freeboardfile_no_seq.nextval, #{freeboardNo}, #{freeboardfileOrigin}, #{freeboardfileStored})
+	</insert>
+
 
 
 	<insert id="insertBoardComment" parameterType="FreeBoardComment">
@@ -49,15 +67,7 @@
  	</insert>
 	
 		
-<!-- 	<insert id="
-		fileInsert " parameterType="freeboard.dto.Filetest">
-		-->
-<!-- 		insert into boardfile (file_no -->
-<!--     , board_no  -->
-<!--     , origin_name -->
-<!--     , stored_name) -->
-<!-- 		values ( #{file_no}, #{board_no}, #{origin_name}, #{stored_name}) -->
-<!-- 	</insert> -->
+
 
 
 

@@ -42,11 +42,15 @@ a {
 	margin-top: 3px;
 }
 
+.btnRow {
+	margin-top: 10px;
+}
+
  .proBtn {
 	width: 150px;
 	font-size: 15px;
 	margin: 10px;
-} 
+}
 </style>
 
 
@@ -59,7 +63,7 @@ a {
 		<span><img id="profileImg" alt="" src="https://t1.daumcdn.net/cfile/tistory/2513B53E55DB206927"></span>
 		<div id="nickDiv">
 			<div style="font-size: 40px;">NICKNAME</div>
-			<a href="./userInfo"><button class="btn btn-outline-dark nickBtn">회원정보수정</button></a>
+			<a href="./userinfo"><button class="btn btn-outline-dark nickBtn">회원정보수정</button></a>
 		</div>
 	</div>
 

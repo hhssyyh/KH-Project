@@ -48,7 +48,7 @@
 	</select>	
 
 	<select id="selectByUserEmailPw" resultType="User" parameterType="User">
-		SELECT * FROM user_tb
+		SELECT user_no FROM user_tb
 		WHERE 1=1 AND 
 			user_email = #{userEmail} AND
 			user_pw = #{userPw}

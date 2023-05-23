@@ -47,4 +47,10 @@ public class MypageController {
 	@GetMapping("/mypick")
 	public void mypick() {}
 	
+	
+	@GetMapping("/serviceCenter")
+	public void mypageService() {}
+	
+	
+	
 }
