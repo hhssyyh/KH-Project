@@ -28,6 +28,8 @@ public class MypageController {
 	@GetMapping("/userInfo")
 	public void mypageInfo( Model model, HttpSession session) {
 		
+		
+		
 		int userno= Integer.parseInt((String) session.getAttribute("userno")); 
 		
 		  User res= userService.selectInfo(userno);
