@@ -3,6 +3,7 @@ package com.pointhome.www.freeboard.dao.face;
 import java.util.List;
 
 import com.pointhome.www.freeboard.dto.FreeBoard;
+import com.pointhome.www.freeboard.dto.FreeBoardFile;
 import com.pointhome.www.util.Paging;
 
 public interface FreeBoardDao {
@@ -16,6 +17,8 @@ public interface FreeBoardDao {
 	public void hit(int boardNo);
 
 	public void insertBoard(FreeBoard board);
+
+	public void insertFile(FreeBoardFile freeboardFile);
 
 
 

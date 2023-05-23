@@ -45,13 +45,14 @@
 	</insert>
 		
 		
-<!-- 	<insert id="fileInsert" parameterType="freeboard.dto.Filetest"> -->
-<!-- 		insert into boardfile (file_no -->
-<!--     , board_no  -->
-<!--     , origin_name -->
-<!--     , stored_name) -->
-<!-- 		values ( #{file_no}, #{board_no}, #{origin_name}, #{stored_name}) -->
-<!-- 	</insert> -->
+	<insert id="insertFile" parameterType="FreeBoardFile">
+		insert into freeboard_file 
+		(freeboardfile_no
+	    , freeboard_no 
+	    , freeboardfile_origin
+	    , freeboardfile_stored)
+		values ( freeboardfile_no_seq.nextval, #{freeboardNo}, #{freeboardfileOrigin}, #{freeboardfileStored})
+	</insert>
 
 
 

@@ -142,7 +142,7 @@ font-family: 'Gowun Batang', serif;
 
    <textarea style="display: none" id="freeboardContent" name="freeboardContent" ></textarea>
 
-   <input type="file" name="file">
+   <input type="file" name="dataMul">
 
    <div class="modal">
       <div class="modal_body" >게시글을 등록하시겠습니까?&nbsp;&nbsp;&nbsp;    

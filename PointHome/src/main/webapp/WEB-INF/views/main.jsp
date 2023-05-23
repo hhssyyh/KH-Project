@@ -71,7 +71,7 @@
 			</c:otherwise>
 	    </c:choose>
 	    
-	    <a href="#">자유게시판</a>
+	    <a href="/freeboard/list">자유게시판</a>
 	  </div>
 	</nav>
 	

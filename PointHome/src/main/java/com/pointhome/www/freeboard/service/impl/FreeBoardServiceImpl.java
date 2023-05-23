@@ -1,11 +1,15 @@
 package com.pointhome.www.freeboard.service.impl;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.ServletContext;
 
 import org.apache.jasper.tagplugins.jstl.core.ForEach;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,6 +22,8 @@ import com.pointhome.www.util.Paging;
 
 @Service
 public class FreeBoardServiceImpl implements FreeBoardService {
+	
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired FreeBoardDao freeBoardDao;
 	@Autowired private ServletContext context;
@@ -53,21 +59,58 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	public void write(FreeBoard board, List<MultipartFile> dataMul) {
 
 		freeBoardDao.insertBoard(board);
+		logger.info("boardno: {}", board.getFreeboardNo());
 		
-//		if(dataMul.getSize() <= 0 ) {
-//			
-//			
-//			
-//			return;
-//		}
+		for(MultipartFile m : dataMul ) {
+			if(m.getSize() <= 0 ) {
+				
+				logger.info("0보다 작음, 처리 중단");
+				
+				continue;
+			}
 		
-		String storedPath = context.getRealPath("upload");
-		
-		File storedFolder = new File(storedPath);
-		if(!storedFolder.exists()) {
+			String storedPath = context.getRealPath("upload");
+			logger.info("storedPath : {}", storedPath);
+			
+			File storedFolder = new File(storedPath);
+			
 			storedFolder.mkdir();
-		}
+			File dest = null;
+			String originName = null;
+			String storedName = null;
+			
+			do {
+			originName = m.getOriginalFilename();
+			storedName = originName + UUID.randomUUID().toString().split("-")[4];
+			
+			logger.info("storedName : {}", storedName);
 		
+			dest = new File(storedFolder, storedName);
+			
+			} while(dest.exists());
+			
+				try {
+					m.transferTo(dest);
+				} catch (IllegalStateException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			
+			FreeBoardFile freeboardFile = new FreeBoardFile();
+			
+			freeboardFile.setFreeboardNo(board.getFreeboardNo());
+			freeboardFile.setFreeboardfileOrigin(originName);
+			freeboardFile.setFreeboardfileStored(storedName);
+			
+			logger.info("filetest :{} ", freeboardFile);
+			
+			freeBoardDao.insertFile(freeboardFile);
+			
+
+		
+		
+		}
 	}
 
 }
