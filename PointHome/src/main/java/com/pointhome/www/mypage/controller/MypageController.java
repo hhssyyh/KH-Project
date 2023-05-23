@@ -44,4 +44,7 @@ public class MypageController {
 	@GetMapping("/myreservedetail")
 	public void myreservedetail() {}
 	
+	@GetMapping("/mypick")
+	public void mypick() {}
+	
 }
