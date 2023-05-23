@@ -55,7 +55,7 @@ body {
 }
 
 #userInfo {
-   height: 770px;
+   height: 1200px;
    width: 1000px;
    background-color: #ccc;
 }
@@ -94,7 +94,16 @@ body {
 	margin-bottom: 2.5rem
 }
 
-
+.PostCodeBtn {
+	width: 150px;
+   font-size: 18px;
+   margin-top: -99px;
+   margin-left: 723px;
+	
+}
+#divPw, #divPw2, #divNick , #divBirth, #divPhone,#divPostCode {
+	margin-bottom: -10px;
+}
 
 
 
