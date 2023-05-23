@@ -1,12 +1,18 @@
 package com.pointhome.www.freeboard.service.impl;
 
+import java.io.File;
 import java.util.List;
 
+import javax.servlet.ServletContext;
+
+import org.apache.jasper.tagplugins.jstl.core.ForEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.pointhome.www.freeboard.dao.face.FreeBoardDao;
 import com.pointhome.www.freeboard.dto.FreeBoard;
+import com.pointhome.www.freeboard.dto.FreeBoardFile;
 import com.pointhome.www.freeboard.service.face.FreeBoardService;
 import com.pointhome.www.util.Paging;
 
@@ -14,6 +20,7 @@ import com.pointhome.www.util.Paging;
 public class FreeBoardServiceImpl implements FreeBoardService {
 	
 	@Autowired FreeBoardDao freeBoardDao;
+	@Autowired private ServletContext context;
 
 	@Override
 	public Paging getPaging(int curPage) {
@@ -40,6 +47,27 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 		
 		freeBoardDao.hit(boardNo);
 		return freeBoardDao.viewBoard(boardNo);
+	}
+
+	@Override
+	public void write(FreeBoard board, List<MultipartFile> dataMul) {
+
+		freeBoardDao.insertBoard(board);
+		
+//		if(dataMul.getSize() <= 0 ) {
+//			
+//			
+//			
+//			return;
+//		}
+		
+		String storedPath = context.getRealPath("upload");
+		
+		File storedFolder = new File(storedPath);
+		if(!storedFolder.exists()) {
+			storedFolder.mkdir();
+		}
+		
 	}
 
 }

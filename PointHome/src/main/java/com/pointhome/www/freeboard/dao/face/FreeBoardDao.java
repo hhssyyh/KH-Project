@@ -15,6 +15,8 @@ public interface FreeBoardDao {
 	
 	public void hit(int boardNo);
 
+	public void insertBoard(FreeBoard board);
+
 
 
 }

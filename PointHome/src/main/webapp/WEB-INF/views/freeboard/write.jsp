@@ -28,7 +28,7 @@
 
 
 $(function() {      
-      $("#content").summernote({
+      $("#freeboardContent").summernote({
          height: 300,
          placeholder: "본문 내용",
          focus: true
@@ -137,10 +137,10 @@ font-family: 'Gowun Batang', serif;
 <form action="./write" method="post" enctype="multipart/form-data">
    
    
-   <input type="text" id="title" name="title" placeholder= "제목" style="width:300px;"><br><br>
+   <input type="text" id="freeboardTitle" name="freeboardTitle" placeholder= "제목" style="width:300px;" required ><br><br>
    
 
-   <textarea style="display: none" id="content" name="content"></textarea>
+   <textarea style="display: none" id="freeboardContent" name="freeboardContent" ></textarea>
 
    <input type="file" name="file">
 

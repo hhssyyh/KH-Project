@@ -15,4 +15,10 @@ public class MypageController {
 	@GetMapping("/userInfo")
 	public void mypageInfo() {}
 	
+	
+	@GetMapping("/serviceCenter")
+	public void mypageService() {}
+	
+	
+	
 }

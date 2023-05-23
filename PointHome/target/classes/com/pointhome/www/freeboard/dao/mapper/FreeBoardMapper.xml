@@ -35,6 +35,15 @@
 	
 	</select>
 	
+	<insert id="insertBoard" parameterType="FreeBoard">
+		<selectKey order="BEFORE" resultType="int" keyProperty="freeboardNo">
+			SELECT freeboard_no_seq.nextval FROM dual
+		</selectKey>
+		
+		INSERT INTO freeboard ( freeboard_no, freeboard_title, freeboard_content, user_no )
+		VALUES ( #{freeboardNo}, #{freeboardTitle}, #{freeboardContent}, #{userNo} )
+	</insert>
+		
 		
 <!-- 	<insert id="fileInsert" parameterType="freeboard.dto.Filetest"> -->
 <!-- 		insert into boardfile (file_no -->

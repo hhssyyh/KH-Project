@@ -50,15 +50,17 @@ public class userController {
 		
 		if (login) {
 			
-			User user = new User();
-			user = userService.getUser(Param);
+			User user = userService.getUser(Param);
 			
 			session.setAttribute("login", login);
 			session.setAttribute("userno", user.getUserNo());
+			
+			logger.info("userno: {}", user.getUserNo());
 		
+			return "redirect:/freeboard/list";
 		}
 		
-		return "redirect:/main";
+		return "./login";
 		
 	}
 
