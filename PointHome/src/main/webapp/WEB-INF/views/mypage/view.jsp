@@ -17,7 +17,7 @@ a {
 }
 
 #mypageCon {
-	margin-top: 100px;
+ 	margin-top: 50px; 
 }
 
 .conRow {
@@ -29,7 +29,7 @@ a {
 	width: 500px;
 	height: 500px;
 	padding: 20px;
-	margin-bottom: 80px;
+	margin-bottom: 70px;
 	text-align: left;
 	
 	border: 1px solid #ccc;
@@ -48,7 +48,7 @@ a {
 }
 
 #reserveDiv {
-	margin-right: 50px;
+	margin-right: 70px;
 }
 
 #noticeDiv {

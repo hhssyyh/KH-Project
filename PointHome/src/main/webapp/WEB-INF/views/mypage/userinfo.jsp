@@ -13,9 +13,8 @@
 <c:import url="/WEB-INF/views/layout/myprofile.jsp" />
 
 
-<div id="userInfo"
-	style="margin: 0 auto; margin-top: 200px; padding: 30px;">
-	<h4>기본 회원정보</h4>
+<div id="userInfo" class="container mt-5" style="padding: 30px;">
+	<div>기본 회원정보</div>
 	<hr id="line">
 
 	<div id="photoDiv">
