@@ -16,7 +16,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.pointhome.www.freeboard.dao.face.FreeBoardDao;
 import com.pointhome.www.freeboard.dto.FreeBoard;
+<<<<<<< HEAD
 import com.pointhome.www.freeboard.dto.FreeBoardFile;
+=======
+import com.pointhome.www.freeboard.dto.FreeBoardComment;
+>>>>>>> branch 'master' of https://github.com/KHPage404/PointHome.git
 import com.pointhome.www.freeboard.service.face.FreeBoardService;
 import com.pointhome.www.util.Paging;
 
@@ -56,6 +60,7 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	}
 
 	@Override
+<<<<<<< HEAD
 	public void write(FreeBoard board, List<MultipartFile> dataMul) {
 
 		freeBoardDao.insertBoard(board);
@@ -111,6 +116,17 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 		
 		
 		}
+=======
+	public List<FreeBoardComment> commentView(int freeboardNo) {
+		
+		return freeBoardDao.viewBoardComment(freeboardNo);
+	}
+
+	@Override
+	public void insert(FreeBoardComment comment) {
+		
+		freeBoardDao.insertBoardComment(comment);
+>>>>>>> branch 'master' of https://github.com/KHPage404/PointHome.git
 	}
 
 }

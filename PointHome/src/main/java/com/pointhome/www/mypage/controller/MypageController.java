@@ -20,6 +20,11 @@ public class MypageController {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired UserService userService;
 	
+	@GetMapping("/view")
+	public void view() {
+		
+	}
+	
 	@GetMapping("/userinfo")
 	public void mypageInfo( Model model, HttpSession session) {
 		logger.debug("/mypage/userinfo [GET]");

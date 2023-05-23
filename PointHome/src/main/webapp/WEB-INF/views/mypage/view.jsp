@@ -5,47 +5,100 @@
 
 <c:import url="/WEB-INF/views/layout/header.jsp"/>
 
-<link href="/resources/mypage/view.css" rel="stylesheet" >
+<style type="text/css">
+body {
+	padding: 0;
+	margin: 0;
+}
+
+a {
+	color: black;
+	text-decoration: none;
+}
+
+#mypageCon {
+	margin-top: 100px;
+}
+
+.conRow {
+	text-align: center;
+}
+
+.conRowDiv {
+	display: inline-block;
+	width: 500px;
+	height: 500px;
+	padding: 20px;
+	margin-bottom: 80px;
+	text-align: left;
+	
+	border: 1px solid #ccc;
+ 	background-color: white; 
+}
+
+.conTitle {
+	display: inline-block;
+	font-size: 20px;
+	margin-left: 8px;
+}
+
+.stripe {
+	width: 1px;
+	height: 300px;
+}
+
+#reserveDiv {
+	margin-right: 50px;
+}
+
+#noticeDiv {
+	
+}
+
+#btnCon {
+	width: 1060px;
+	height: 500px;
+	margin: 0 auto;
+	
+	border: 1px solid #ccc;
+ 	background-color: white;
+}
 
 
-<h3 style="margin: 20px; margin-left: 30px; margin-top: 80px;"><a href="./view">MYMENU</a></h3>
-
-<div id="myBanner">
-	<div id="profile">
-		<span><img id="profileImg" alt="" src="https://t1.daumcdn.net/cfile/tistory/2513B53E55DB206927"></span>
-		<div id="nickDiv">
-			<h1>NICKNAME</h1>
-			<button class="btn btn-outline-dark nickBtn ">회원정보수정</button>
-		</div>
-	</div>
-
-	<div id="profileBtnDiv">
-		<div class="btnRow">
-			<button class="btn btn-outline-dark proBtn">1:1 채팅 문의</button>
-			<button class="btn btn-outline-dark proBtn">알림 내역</button>
-		</div>
-		<div class="btnRow">
-			<button class="btn btn-outline-dark proBtn">찜 내역</button>
-			<button class="btn btn-outline-dark proBtn">후기 작성</button>
-		</div>
-	</div>
-</div>
+</style>
 
 
-<div id="mypageCon" class="container mt-5">
 
-	<div id="conRow">
-		<div id="reserveDiv">
-			예약관리
+<div id="mypage">
+
+<c:import url="/WEB-INF/views/layout/myprofile.jsp" />
+
+
+<div id="mypageCon" class="container">
+
+	<div class="conRow">
+		<div id="reserveDiv" class="conRowDiv">
+			<div class="conTitle">예약관리</div>
+			<button class="btn btn-outline-secondary" style="float: right; font-size: 13px;">전체 예약 조회</button>
+			<hr>
 		</div>
 		
-		<div>
+		<span class="stripe"></span>
+		
+		<div id="noticeDiv" class="conRowDiv">
+			<div class="conTitle">공지사항</div>
+			<hr>
 		</div>
+	</div>
 	
+	<div id="btnCon">
+		
 	</div>
 
+</div>
 
 </div>
+
 
 </body>
 </html>
