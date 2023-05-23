@@ -39,7 +39,7 @@
 			예약관리
 		</div>
 		
-		<div id="">
+		<div>
 		</div>
 	
 	</div>

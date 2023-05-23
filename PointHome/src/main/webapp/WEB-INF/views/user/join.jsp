@@ -20,7 +20,7 @@
 
 	<!-- 로고 -->
 	<div class="h1 mt-3 mb-5">
-		<a class="navbar-brand h1 text-center col-5" href="/">점집닷컴</a>
+		<a class="navbar-brand h1 text-center col-5" href="./">점집닷컴</a>
 	</div>
 	<!-- 로고 시작 끝 -->
 

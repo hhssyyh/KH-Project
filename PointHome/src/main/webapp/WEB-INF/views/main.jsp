@@ -21,9 +21,10 @@
 	list-style-type: none;
 	background-color: #ccc;
 	width: 15%;
+	margin-top:60px;
 	margin-right:0;
 	margin-left: 0;
-	margin-top:15px;
+	
 	position: fixed;
 	height: 100%;
 	overflow: auto;	
@@ -52,30 +53,37 @@
 <div id="header"> 
 	<nav class="navbar bg-light fixed-top">
 	  <div class="container-fluid">
-	    <a class="navbar-brand" href="#">
+	    <a class="navbar-brand" href="/">
 	      <!-- <img src="/docs/5.2/assets/brand/bootstrap-logo.svg" alt="Logo" width="30" height="24" class="d-inline-block align-text-top"> -->
 	      PointHouse
 	    </a>
 	    <a href="/user/login">login</a>
+	    <a href="#">자유게시판</a>
 	  </div>
 	</nav>
 	
-	<div class="bg-light">
-	<ul class="nav justify-content-center">
-	  <li class="nav-item">
-	    <a class="nav-link active" aria-current="page" href="#">Active</a>
-	  </li>
-	  <li class="nav-item">
-	    <a class="nav-link" href="#">Link</a>
-	  </li>
-	  <li class="nav-item">
-	    <a class="nav-link" href="#">Link</a>
-	  </li>
-	  <li class="nav-item">
-	    <a class="nav-link disabled">Disabled</a>
-	  </li>
-	</ul>
+	
+	<!-- tab -->	
+	<div class="bg-light fixed-top" style="margin-top: 60px; margin-left: 15%;">
+		<ul class="nav justify-content-center">
+		  <li class="nav-item">
+		    <a class="nav-link active" aria-current="page" href="#">Active</a>
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link" href="#">사주</a>
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link" href="#">타로</a>
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link" href="#">타로버블티</a>
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link" href="#"></a>
+		  </li>
+		</ul>
 	</div>
+	<!-- tab end -->
 </div>
 <!-- sidebar -->
 <div id="sidebar">
@@ -91,7 +99,7 @@
 
 
 
-<div style="padding-bottom: 105px; padding-top:105px; margin-left:21%;">
+<div style="padding-bottom: 105px; padding-top:105px; margin-left:16%;">
 
 <!-- carosel -->	
 	<div>
@@ -99,7 +107,7 @@
 		  <div class="carousel-inner">
 		    
 		    <div class="carousel-item active" >
-		      <img src="../resources/carosel.jpeg" class="d-block" height="400px" style="margin:0 auto;" alt="...">
+		      <img src="../resources/carosel.jpeg" class="d-block w-70" height="400px" style="margin:0 auto;" alt="...">
 		    </div>
 		    
 		    <div class="carousel-item">
@@ -122,7 +130,7 @@
 
 	<div style="display:flex;">
 
-		<div><p style="font-size:30px;" >신규상담사</p></div>
+		<div><p style="font-size:30px;">인기상담사</p></div>
 		<div><a href="./main" style="font-size:20px; margin-left: 10px" >TOP10</a></div>
 		
 	</div>
@@ -133,8 +141,10 @@
 		  <img src="../resources/dog.jpeg" class="card-img-top" height="200px" alt="ex">
 		<!-- img end  -->
 		  <div class="card-body">
-		    <h5 class="card-title">Card title</h5>
-		    <p class="card-text">11</p>
+		    <h5 class="card-title">제휴사 이름</h5>
+		    <p class="card-text">가격</p>
+		    <p class="card-text">별점</p>
+		    <p class="card-text">후기(?)</p>
 		    <a href="#" class="btn btn-primary">상세페이지</a>
 		  </div>
 		</div>
@@ -177,11 +187,45 @@
 		</div>		
 	</div>
 
+<div style="margin:20px;"></div>
 
+	<div style="display:flex;">
 
+		<div><p style="font-size:30px;">신규상담사</p></div>
+		<div><a href="./main" style="font-size:20px; margin-left: 10px" >NEW</a></div>
+		
+	</div>
+	
 
+<div class="justify-content-center" style="display:flex;">
+	<!-- img -->
+	<div class="card" style="width: 300px;">
+	  <img src="../resources/dog.jpeg" class="card-img-top" height="200px" alt="ex">
+	<!-- img end  -->
+	  <div class="card-body">
+	    <h5 class="card-title">제휴사 이름</h5>
+	    <p class="card-text">가격</p>
+	    <p class="card-text">별점</p>
+	    <p class="card-text">가격</p>
+	    <p class="card-text">가격</p>
+	    <a href="#" class="btn btn-primary">상세페이지</a>
+	  </div>
+	</div>
+	
+	<div style="margin-right: 10px"></div>
+	
+	<!-- img -->
+	<div class="card" style="width: 300px;">
+	  <img src="" class="card-img-top" alt="ex">
+	<!-- img end  -->
+	  <div class="card-body">
+	    <h5 class="card-title">title</h5>
+	    <p class="card-text">text</p>
+	    <a href="#" class="btn btn-primary">상세페이지</a>
+	  </div>
+	</div>
 </div>
 <!-- margin-left: 20% -->
-
+</div>
 </body>
 </html>
