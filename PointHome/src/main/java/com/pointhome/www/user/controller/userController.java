@@ -40,7 +40,7 @@ public class userController {
 		
 	}
 
-	@PostMapping("/login")
+	@PostMapping("/user/login")
 	public String loginProc(User Param, HttpSession session) {
 		logger.debug("/user/login [POST]");
 		logger.debug("{}", Param);
