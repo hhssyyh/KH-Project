@@ -51,8 +51,7 @@ body {
 <c:import url="/WEB-INF/views/layout/myprofile.jsp" />
 
 
-<div id="userInfo"
-	style="margin: 0 auto; margin-top: 200px; padding: 30px; border-radius: 30px; border: 1px solid;">
+<div id="userInfo" class="container" style="padding: 30px; border-radius: 30px; border: 1px solid;">
 	 <h4><i class="bi bi-box2-heart-fill"></i> 찜목록</h4>
 	<hr id="line">
 	
