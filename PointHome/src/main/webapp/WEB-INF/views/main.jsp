@@ -12,8 +12,11 @@
 <style type="text/css">
 #header {
 
+}
 
-
+a{
+	color:black;
+	text-decoration: none;
 }
 
 #sidebar ul {
