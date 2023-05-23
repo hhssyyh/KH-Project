@@ -17,7 +17,7 @@ a {
 }
 
 #mypageCon {
- 	margin-top: 50px; 
+ 	margin-top: 30px; 
 }
 
 .conRow {
@@ -29,7 +29,7 @@ a {
 	width: 500px;
 	height: 500px;
 	padding: 20px;
-	margin-bottom: 70px;
+	margin-bottom: 55px;
 	text-align: left;
 	
 	border: 1px solid #ccc;
@@ -56,7 +56,7 @@ a {
 }
 
 #btnCon {
-	width: 1060px;
+	width: 1080px;
 	height: 500px;
 	margin: 0 auto;
 	
@@ -73,6 +73,13 @@ a {
 
 <c:import url="/WEB-INF/views/layout/myprofile.jsp" />
 
+<div class="text-center mb-5">
+	<button class="btn btn-outline-secondary">상담내역</button>
+	<button class="btn btn-outline-secondary">상품 구매내역</button>
+	<button class="btn btn-outline-secondary">결제내역</button>
+	<button class="btn btn-outline-secondary">나의 문의</button>
+	<button class="btn btn-outline-secondary">고객센터</button>
+</div>
 
 <div id="mypageCon" class="container">
 
@@ -86,14 +93,23 @@ a {
 		<span class="stripe"></span>
 		
 		<div id="noticeDiv" class="conRowDiv">
-			<div class="conTitle">공지사항</div>
+			<div class="conTitle"><a href="/">공지사항</a></div>
 			<hr>
 		</div>
 	</div>
 	
-	<div id="btnCon">
+<!-- 	<div id="btnCon"> -->
+<!-- 		<div> -->
+<!-- 			<button>상담내역</button> -->
+<!-- 			<button>상품 구매내역</button> -->
+<!-- 			<button>결제내역</button> -->
+<!-- 		</div> -->
 		
-	</div>
+<!-- 		<div> -->
+<!-- 			<button>나의 문의</button> -->
+<!-- 			<button>고객센터</button> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
 
 </div>
 
