@@ -42,11 +42,11 @@ body {
 
 
 
-.proBtn {
+ .proBtn {
 	width: 150px;
 	font-size: 15px;
 	margin: 10px;
-}
+} 
 
 #userInfo {
 	height: 400px;
@@ -96,15 +96,13 @@ body {
 		</div>
 	</div>
 
-		<div class="btnRow">
-			<button class="btn btn-outline-dark proBtn">1:1 채팅 문의</button>
-			<button class="btn btn-outline-dark proBtn">알림 내역</button>
-		</div>
-		<div class="btnRow">
-			<button class="btn btn-outline-dark proBtn">찜 내역</button>
-			<button class="btn btn-outline-dark proBtn">후기 작성</button>
-		</div>
 </div>
+		<div class="btnRow">
+			<button class="btn btn-outline-dark proBtn" style="margin: 8px; margin-left: 1000px; margin-top: -400px;">1:1 채팅 문의</button>
+			<button class="btn btn-outline-dark proBtn" style="margin: 8px; margin-left: 1200px; margin-top: -447px;">알림 내역</button>
+			<button class="btn btn-outline-dark proBtn" style="margin: 8px; margin-left: 1000px; margin-top: -400px;">찜 내역</button>
+			<button class="btn btn-outline-dark proBtn" style="margin: 8px; margin-left: 1200px; margin-top: -447px;">후기 작성</button>   
+		</div>
 
 <div id="mypageCon"></div>
 
