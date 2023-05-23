@@ -43,7 +43,7 @@
 
 <div class="container">
 <div class="mt-3">
-  <a href="#"><img height="50" src="/resources/login/user/img/btnG_iconCircle.png"/></a>
+  <a href="#"><img height="50" src="/resources/login/user/img/btnG_logo_round.png"/></a>
   <a href="#"><img height="50" src="/resources/login/user/img/kakao_logo_round.png"/></a>
 </div>
 </div>
