@@ -80,11 +80,12 @@
 
 </table>
 
-
+<c:if test="${not empty login and login}">
 <!-- 작성 버튼 -->
 <div class="float-end mb-3">
-	<a href="./write"><button id="btnWrite">글쓰기</button></a>
+	<a href="./write"><button id="btnWrite" class="btn btn-info">글쓰기</button></a>
 </div>
+</c:if>
 <div class="clearfix"></div>
 
 </div><!-- div.container -->

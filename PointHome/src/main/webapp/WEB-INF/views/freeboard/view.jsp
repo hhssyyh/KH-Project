@@ -78,11 +78,14 @@ ${board.freeboardContent }
 	<option value="d">날짜순</option>
 </select>
 </div>
+<%-- 비로그인상태: ${empty login }<br> --%>
+<%-- 로그인상태 : ${not empty login and login} --%>
 
+<c:if test="${not empty login and login}">
 <!-- post 댓글 인서트 -->
 <form action="./view" method="post">
 댓글작성자 <input type="text" name="commContent" size="80" id="cmt">
-<input type="text" value="${board.freeboardNo }" name="freeboardNo">
+<input type="hidden" value="${board.freeboardNo }" name="freeboardNo">
 
 <button>작성</button><br><br>
 
@@ -94,6 +97,7 @@ ${board.freeboardContent }
 	<br><br>
 </tr>
 </c:forEach>
+</c:if>
 
 <!-- i태그 이미지 >> 사용자 프로필 가져오기 로 코맨트 for each 출력-->
 </form>
