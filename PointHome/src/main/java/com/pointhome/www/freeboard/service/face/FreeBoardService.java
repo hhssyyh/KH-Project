@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.pointhome.www.freeboard.dto.FreeBoard;
 import com.pointhome.www.freeboard.dto.FreeBoardComment;
+import com.pointhome.www.freeboard.dto.FreeBoardFile;
 import com.pointhome.www.util.Paging;
 
 public interface FreeBoardService {
@@ -24,6 +25,12 @@ public interface FreeBoardService {
 
 	public void insert(FreeBoardComment comment);
 
+	public List<MultipartFile> getMultiFile(int freeboardNo);
+
+	public FreeBoardFile getFile(int fileNo);
+
+	public void delete(FreeBoard board);
+	
 	public int isRecommend(int freeboardNo, int userNo);
 
 	public int getCntRecommend(int freeboardNo);
@@ -31,8 +38,6 @@ public interface FreeBoardService {
 	public void updateRecommend(int freeboardNo, Integer userNo);
 
 	public List<Map<String, Object>> getList(Paging paging);
-
-
 
 
 

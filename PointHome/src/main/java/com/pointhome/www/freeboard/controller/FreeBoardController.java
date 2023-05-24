@@ -2,7 +2,6 @@ package com.pointhome.www.freeboard.controller;
 
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.pointhome.www.freeboard.dto.FreeBoard;
-
 
 import com.pointhome.www.freeboard.dto.FreeBoardComment;
 
@@ -72,6 +70,9 @@ public class FreeBoardController {
 		model.addAttribute("boardCommentList", boardCommentList);
 		model.addAttribute("commentCnt", boardCommentList.size());
 		
+		List<MultipartFile> file = freeBoardService.getMultiFile(freeboardNo);
+		model.addAttribute("file", file);
+		
 		model.addAttribute("isRecommend", isRecommend);
 		model.addAttribute("cntRecommend", cntRecommend);
 		
@@ -122,6 +123,12 @@ public class FreeBoardController {
 		model.addAttribute("isRecommend", isRecommend);
 		model.addAttribute("cntRecommend", cntRecommend);
 		
+	}
+	
+	@RequestMapping("/delete")
+	public String delete(FreeBoard board) {
+		freeBoardService.delete(board);
+		return "redirect:./list";
 	}
 	
 
