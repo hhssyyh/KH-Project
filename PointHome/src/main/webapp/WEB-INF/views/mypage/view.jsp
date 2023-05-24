@@ -64,7 +64,10 @@ a {
  	background-color: white;
 }
 
-
+.myBtn {
+	width: 10%;
+	margin-right: 10px;
+}
 </style>
 
 
@@ -73,13 +76,15 @@ a {
 
 <c:import url="/WEB-INF/views/layout/myprofile.jsp" />
 
-<div class="text-center mb-5">
-	<button class="btn btn-outline-secondary">상담내역</button>
-	<button class="btn btn-outline-secondary">상품 구매내역</button>
-	<button class="btn btn-outline-secondary">결제내역</button>
-	<button class="btn btn-outline-secondary">나의 문의</button>
-	<button class="btn btn-outline-secondary">고객센터</button>
+<div class="text-center mb-4">
+	<button class="btn btn-outline-secondary myBtn">상담내역</button>
+	<button class="btn btn-outline-secondary myBtn">상품 구매내역</button>
+	<button class="btn btn-outline-secondary myBtn">결제내역</button>
+	<button class="btn btn-outline-secondary myBtn">나의 문의</button>
+	<button class="btn btn-outline-secondary myBtn">고객센터</button>
 </div>
+
+<hr style="width: 60%; margin: 0 auto; margin-bottom: 80px;">
 
 <div id="mypageCon" class="container">
 
@@ -120,6 +125,6 @@ a {
 </html>
 
 
-
+<c:import url="/WEB-INF/views/layout/footer.jsp"/>
 
 
