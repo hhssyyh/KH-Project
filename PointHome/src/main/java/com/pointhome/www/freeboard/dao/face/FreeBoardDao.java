@@ -1,11 +1,12 @@
 package com.pointhome.www.freeboard.dao.face;
 
 import java.util.List;
+import java.util.Map;
 
 import com.pointhome.www.freeboard.dto.FreeBoard;
 
 import com.pointhome.www.freeboard.dto.FreeBoardFile;
-
+import com.pointhome.www.freeboard.dto.FreeBoardRecommend;
 import com.pointhome.www.freeboard.dto.FreeBoardComment;
 
 import com.pointhome.www.util.Paging;
@@ -27,6 +28,17 @@ public interface FreeBoardDao {
 	public List<FreeBoardComment> viewBoardComment(int freeboardNo);
 
 	public void insertBoardComment(FreeBoardComment comment);
+
+	public int selectByBoardUserNo(FreeBoardRecommend recommend);
+
+	public int selectCntRecommend(int freeboardNo);
+
+	public void deleteRecommend(FreeBoardRecommend recommend);
+
+	public void insertRecommend(FreeBoardRecommend recommend);
+
+	public List<Map<String, Object>> selectAllMap(Paging paging);
+
 
 
 

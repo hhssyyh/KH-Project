@@ -1,6 +1,7 @@
 package com.pointhome.www.freeboard.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -41,30 +42,38 @@ public class FreeBoardController {
 
 		Paging paging = freeBoardService.getPaging(curPage);
 
-		List<FreeBoard> list = freeBoardService.list(paging);
-
-		logger.info("list{}",list);
+//		List<FreeBoard> list = freeBoardService.list(paging);
+//		logger.info("list{}",list);
+//		model.addAttribute("list", list);
+		
+		//FreeBoard, FreeBoardComment, FreeBoardRecommend, User
+		List<Map<String, Object>> list = freeBoardService.getList(paging);
+		
+		logger.info("!!!!!!!!!!!!!!!!{}", list);
 
 		model.addAttribute("list", list);
-
 		model.addAttribute("paging", paging);
-
 
 	}
 
 	@GetMapping("/view")
-	public void BoardView(int freeboardNo,Model model) {
+	public void BoardView(int freeboardNo,Model model, HttpSession session) {
 		logger.info("/freeboard/view [GET]");
 
 		FreeBoard board = freeBoardService.view(freeboardNo);
 		
 		List<FreeBoardComment> boardCommentList = freeBoardService.commentView(freeboardNo);
+		logger.info("{}",boardCommentList);
+		
+		int isRecommend = freeBoardService.isRecommend(freeboardNo, (Integer)session.getAttribute("userno"));
+		int cntRecommend = freeBoardService.getCntRecommend(freeboardNo);
 		
 		model.addAttribute("board", board);
-		
-		logger.info("{}",boardCommentList);
 		model.addAttribute("boardCommentList", boardCommentList);
+		model.addAttribute("commentCnt", boardCommentList.size());
 		
+		model.addAttribute("isRecommend", isRecommend);
+		model.addAttribute("cntRecommend", cntRecommend);
 		
 	}
 	
@@ -88,20 +97,42 @@ public class FreeBoardController {
 	 }
 
 	@PostMapping("/view")
-	public String BoardView(FreeBoardComment comment,Model model) {
+	public String BoardView(FreeBoardComment comment,Model model, HttpSession session) {
 		logger.info("/freeboard/view [Post]");
 		logger.info("{}",comment);
+		
+		comment.setUserNo((Integer)session.getAttribute("userno"));
 		
 		freeBoardService.insert(comment);
 		
 		model.addAttribute("freeboardNo", comment.getFreeboardNo());
 		
 		
-		
 		return "redirect:./view";
 	}	
+	
+	@RequestMapping("/recommend")
+	public void recommend(int freeboardNo,Model model, HttpSession session) {
+		
+		freeBoardService.updateRecommend(freeboardNo, (Integer)session.getAttribute("userno"));
+		
+		int isRecommend = freeBoardService.isRecommend(freeboardNo, (Integer)session.getAttribute("userno"));
+		int cntRecommend = freeBoardService.getCntRecommend(freeboardNo);
+		
+		model.addAttribute("isRecommend", isRecommend);
+		model.addAttribute("cntRecommend", cntRecommend);
+		
+	}
 	
 
 
 
 }
+
+
+
+
+
+
+
+

@@ -6,7 +6,6 @@
 <mapper namespace="com.pointhome.www.freeboard.dao.face.FreeBoardDao">
 
 	<select id="selectAll" resultType="FreeBoard" parameterType="Paging">
-		
 		select * from (
 			select rownum rnum , B.*  from ( 
 				select * from freeboard 
@@ -14,26 +13,37 @@
 			) B 
 		)board
 		where rnum between #{startNo} and #{endNo}
-		
 	</select>
+	
+	<select id="selectAllMap" parameterType="Paging" resultType="Map">
+		SELECT * FROM (
+			SELECT rownum rnum, B.* from (
+			    SELECT f.*, (SELECT count(*) FROM freeboard_comment fc WHERE fc.freeboard_no = f.freeboard_no) commentCnt
+			    ,(SELECT count(*) FROM freeboard_recommend fr WHERE fr.board_no = f.freeboard_no) recommendCnt , u.user_nick
+			    FROM freeboard f
+			    INNER JOIN user_tb u ON f.user_no = u.user_no
+			    WHERE 1=1
+			    ORDER BY f.freeboard_no DESC
+			) B
+		) 
+		WHERE rnum BETWEEN #{startNo} and #{endNo}
+	</select>
+	
 	
 	<select id="selectCntAll" resultType="int">
 		select count(*) from freeboard	
-	
 	</select>
 
 	<update id="hit" parameterType="int">
 		update freeboard set  freeboard_hit = freeboard_hit+1
 		where freeboard_no = #{freeboard_no}
-		
-	
 	</update>	
-	<select id="viewBoard" resultType="FreeBoard" parameterType="int">
 	
+	<select id="viewBoard" resultType="FreeBoard" parameterType="int">
 		select * from freeboard
 		where freeboard_no = #{freeboard_no}
-	
 	</select>
+	
 	
 	<insert id="insertBoard" parameterType="FreeBoard">
 		<selectKey order="BEFORE" resultType="int" keyProperty="freeboardNo">
@@ -42,11 +52,10 @@
 		INSERT INTO freeboard ( freeboard_no, freeboard_title, freeboard_content, user_no )
 		VALUES ( #{freeboardNo}, #{freeboardTitle}, #{freeboardContent}, #{userNo} )
 	</insert>
-	<select id="viewBoardComment" resultType="FreeBoardComment" parameterType="int">
 	
+	<select id="viewBoardComment" resultType="FreeBoardComment" parameterType="int">
 		select * from freeboard_comment
 		where freeboard_no = #{freeboard_no}
-		
 	</select>
 		
 		
@@ -62,13 +71,37 @@
 
 
 	<insert id="insertBoardComment" parameterType="FreeBoardComment">
- 		INSERT INTO freeboard_comment (freeboard_no, comm_content )
- 		VALUES (#{freeboardNo}, #{commContent})
+ 		INSERT INTO freeboard_comment (comm_no, freeboard_no, comm_content, user_no)
+ 		VALUES (freeboard_comment_no_seq.nextval, #{freeboardNo}, #{commContent}, #{userNo})
  	</insert>
 	
-		
+	
+	<select id="selectByBoardUserNo" parameterType="FreeBoardRecommend" resultType="int">
+		SELECT count(*) FROM freeboard_recommend
+		WHERE user_no=#{userNo} AND board_no=#{boardNo}
+	</select>
 
+	<select id="selectCntRecommend" parameterType="int" resultType="int">
+		SELECT count(*) FROM freeboard_recommend
+		WHERE board_no=#{boardNo}
+	</select>
 
-
+	<delete id="deleteRecommend" parameterType="FreeBoardRecommend">
+		DELETE FROM freeboard_recommend
+		WHERE user_no=#{userNo} AND board_no=#{boardNo}
+	</delete>
+	
+	<insert id="insertRecommend" parameterType="FreeBoardRecommend">
+		INSERT INTO freeboard_recommend (user_no, board_no)
+		VALUES (#{userNo}, #{boardNo})
+	</insert>
 
 </mapper>
+
+
+
+
+
+
+
+
