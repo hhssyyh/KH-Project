@@ -71,9 +71,6 @@ public class FreeBoardController {
 		
 		List<MultipartFile> file = freeBoardService.getMultiFile(freeboardNo);
 		model.addAttribute("file", file);
-		
-		model.addAttribute("isRecommend", isRecommend);
-
 		model.addAttribute("cntRecommend", cntRecommend);
 
 		// 추천부분
