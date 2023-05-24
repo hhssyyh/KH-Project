@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.pointhome.www.freeboard.dto.FreeBoard;
 import com.pointhome.www.freeboard.dto.FreeBoardComment;
+import com.pointhome.www.user.dto.User;
 import com.pointhome.www.util.Paging;
 
 public interface FreeBoardService {
@@ -16,7 +17,6 @@ public interface FreeBoardService {
 	public List<FreeBoard> list(Paging paging);
 
 	public FreeBoard view(int board_no);
-
 
 	public void write(FreeBoard board, List<MultipartFile> dataMul);
 
@@ -32,6 +32,9 @@ public interface FreeBoardService {
 
 	public List<Map<String, Object>> getList(Paging paging);
 
+	public void deleteComment(int commNo);
+
+	public User viewUser(int userNo);
 
 
 

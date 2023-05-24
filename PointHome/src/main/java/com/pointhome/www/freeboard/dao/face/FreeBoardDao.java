@@ -4,11 +4,10 @@ import java.util.List;
 import java.util.Map;
 
 import com.pointhome.www.freeboard.dto.FreeBoard;
-
+import com.pointhome.www.freeboard.dto.FreeBoardComment;
 import com.pointhome.www.freeboard.dto.FreeBoardFile;
 import com.pointhome.www.freeboard.dto.FreeBoardRecommend;
-import com.pointhome.www.freeboard.dto.FreeBoardComment;
-
+import com.pointhome.www.user.dto.User;
 import com.pointhome.www.util.Paging;
 
 public interface FreeBoardDao {
@@ -39,8 +38,8 @@ public interface FreeBoardDao {
 
 	public List<Map<String, Object>> selectAllMap(Paging paging);
 
+	public void deleteComment(int commNo);
 
-
-
+	public User selectUserNo(int userNo);
 
 }
