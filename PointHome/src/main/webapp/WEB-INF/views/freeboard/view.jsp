@@ -2,21 +2,88 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-<c:import url="/WEB-INF/views/layout/header.jsp" />
 
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 
 <style type="text/css">
 div.content {
 	min-height: 300px;
 }
-div.fr{
+
+div.fr {
 	text-align: right;
 }
-#cmt{
-	border-right:0px;
-	border-top:0px;
-	border-left:0px;
+
+#cmt {
+	border-right: 0px;
+	border-top: 0px;
+	border-left: 0px;
+}
+
+.modal {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: none;
+	background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal.show {
+	display: block;
+}
+
+.modal2 {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: none;
+	background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal2.show {
+	display: block;
+}
+
+.modal_body {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 500px;
+	height: 100px;
+	padding: 40px;
+	text-align: center;
+	background-color: rgb(255, 255, 255);
+	border-radius: 10px;
+	box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+	transform: translateX(-50%) translateY(-50%);
+}
+
+.modal2_body {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 500px;
+	height: 100px;
+	padding: 40px;
+	text-align: center;
+	background-color: rgb(255, 255, 255);
+	border-radius: 10px;
+	box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+	transform: translateX(0%) translateY(0%);
 }
 </style>
 
@@ -42,6 +109,7 @@ $(function() {
 		})
 	})
 })
+
 </script>
 
 
@@ -51,7 +119,7 @@ $(function() {
 <hr>
 <!-- title JSTL로 가지고 오기 -->
 <h3>${board.freeboardTitle }</h3>
-<i class="bi bi-person-circle fs-1" style="height:200px"></i> writer_nick <br>
+<i class="bi bi-person-circle fs-1" style="height:200px"></i> ${viewUser.userNick } <br>
 <!-- 날짜 -->
 <fmt:formatDate value="${board.freeboardDate }" pattern="yy/MM/dd hh:mm"/>
 
@@ -61,6 +129,7 @@ $(function() {
 	<span class="cmtCount me-2">댓글 ${commentCnt }</span>
 	<span id="recommend">
 		<span class="hit me-2">추천수 ${cntRecommend }</span>
+		
 		<span>
 			<c:if test="${isRecommend eq 0 }">
 				<button id="recommendBtn">추천</button>
@@ -69,6 +138,7 @@ $(function() {
 				<button id="recommendBtn">추천 취소</button>
 			</c:if>
 		</span>
+		
 	</span>
 </div>
 
@@ -77,6 +147,84 @@ $(function() {
 <div id="content" style="text-align: center">
 <!-- 본문 내용 가져오기 -->
 ${board.freeboardContent }
+
+<c:forEach var="bfile" items="${file}"><br>
+
+<%-- ${fn:contains(fn:toLowerCase(bfile.freeboardfileOrigin), "gif") } --%>
+<%-- ${fn:contains(bfile.freeboardfileOrigin, 'gif') } --%>
+<c:choose>
+<c:when test="${fn:contains(fn:toLowerCase(bfile.freeboardfileOrigin), 'gif') }">
+<img src="/upload/${bfile.freeboardfileStored}"  alt="">
+</c:when>
+<c:when test="${fn:contains(fn:toLowerCase(bfile.freeboardfileOrigin), 'png') }">
+<img src="/upload/${bfile.freeboardfileStored}"  alt="">
+</c:when>
+<c:when test="${fn:contains(fn:toLowerCase(bfile.freeboardfileOrigin), 'jpg') }">
+<img src="/upload/${bfile.freeboardfileStored}"  alt="">
+</c:when>
+
+<%-- 		<a href="./download?fileNo=${bfile.freeboardfileNo}">${bfile.freeboardfileOrigin }</a> --%>
+
+</c:choose>
+
+</c:forEach>
+
+<hr>
+
+<div style="font-size:12px;"  >
+첨부파일
+<c:forEach var="bfile" items="${file}">
+<a href="./download?fileNo=${bfile.freeboardfileNo}">${bfile.freeboardfileOrigin }</a>
+</c:forEach>
+</div>
+
+</div>
+
+<!-- 첨부파일 -->
+
+<!-- <div class="mb-3"> -->
+<%-- 		<c:forEach var="boardFile" items="${file}"> --%>
+
+<%-- 			<a href="./download?fileNo=${boardFile.freeboardfileNo}">${boardFile.freeboardfileOrigin }</a><br> --%>
+
+<%-- 		</c:forEach> --%>
+<!-- </div> -->
+
+<hr>
+
+<div class="modal">
+<div class="modal_body" >게시글을 수정하시겠습니까?
+
+<a href="./update?freeboardNo=${board.freeboardNo}"><button type="submit" class="btn btn-outline-primary btn-default btn-xs">확인</button></a>
+<button type="button" class="btn btn-outline-primary btn-default btn-xs">취소</button>
+</div>
+
+</div>
+
+<div class="modal2">
+<div class="modal2_body" >게시글을 삭제하시겠습니까?
+
+<a href="./delete?freeboardNo=${board.freeboardNo}"><button type="button" class="btn btn-outline-primary btn-default btn-xs">확인</button></a>
+<a href="/freeboard/list"><button type="button" class="btn btn-outline-primary btn-default btn-xs">취소</button></a>
+</div>
+</div>
+
+<div class="text-end">
+<c:if test="${userno eq board.userNo}">
+<button type="button" class="btn-open-popup btn btn-secondary" >수정</button>
+<button type="button" class="btn-reset-popup btn btn-secondary" >삭제</button>
+</c:if>
+</div>
+
+<!--    <div class="text-end"> -->
+
+<%--   		<a href="./update?freeboardNo=${board.freeboardNo}"><button type="button" class="btn-open-popup btn-secondary" >수정</button></a> --%>
+<%--    		<a href="./delete?freeboardNo=${board.freeboardNo}"><button type="button" class="btn-reset-popup btn-secondary" >삭제</button></a> --%>
+
+<!--    </div> -->
+<br>
+<div class="comments">
+댓글 ${commentCnt }개
 </div>
 
 <hr><br>
@@ -84,7 +232,6 @@ ${board.freeboardContent }
 <div class="mb-5" style="text-align: center;">
 	<a href="./list"><button>목록</button></a>
 </div>
-
 
 <div class="comments">
 댓글 ${commentCnt }개
@@ -111,9 +258,17 @@ ${board.freeboardContent }
 
 <c:forEach var="boardCommentList" items="${boardCommentList }">
 <tr>
-	<td><i class="bi bi-person-circle"></i>사용자${boardCommentList.userNo }<td> 
+	<td><i class="bi bi-person-circle"></i>${userNick} ${boardCommentList.userNo }<td> 
 	<td>${boardCommentList.commContent }</td> 
 	<td><fmt:formatDate value="${boardCommentList.commDate }" pattern="yy/MM/dd hh:mm"/></td>
+	<td>
+	
+	<c:if test="${not empty userno and userno eq boardCommentList.userNo}">
+		<a><button type="button">수정</button></a>
+		<a href="./commentDelete?commNo=${boardCommentList.commNo}&freeboardNo=${board.freeboardNo}"><button type="button">삭제</button></a>
+	</c:if>
+	
+	</td>
 	<br><br>
 </tr>
 </c:forEach>
@@ -126,5 +281,51 @@ ${board.freeboardContent }
 
 <c:import url="/WEB-INF/views/layout/footer.jsp" />
 
+<script>
+  const body = document.querySelector('body');
+  const modal = document.querySelector('.modal');
+  const btnOpenPopup = document.querySelector('.btn-open-popup');
 
+  btnOpenPopup.addEventListener('click', () => {
+    modal.classList.toggle('show');
+
+    if (modal.classList.contains('show')) {
+      body.style.overflow = 'hidden';
+    }
+  });
+
+  modal.addEventListener('click', (event) => {
+    if (event.target === modal) {
+      modal.classList.toggle('show');
+
+      if (!modal.classList.contains('show')) {
+        body.style.overflow = 'auto';
+      }
+    }
+  });
+</script>
+
+<script>
+  const body2 = document.querySelector('body');
+  const modal2 = document.querySelector('.modal2');
+  const btnOpenPopup2 = document.querySelector('.btn-reset-popup');
+
+  btnOpenPopup2.addEventListener('click', () => {
+    modal2.classList.toggle('show');
+
+    if (modal2.classList.contains('show')) {
+      body2.style.overflow = 'hidden';
+    }
+  });
+
+  modal2.addEventListener('click', (event) => {
+    if (event.target === modal2) {
+      modal2.classList.toggle('show');
+
+      if (!modal2.classList.contains('show')) {
+        body2.style.overflow = 'auto';
+      }
+    }
+  });
+</script>
 

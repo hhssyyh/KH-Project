@@ -16,12 +16,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.pointhome.www.freeboard.dao.face.FreeBoardDao;
 import com.pointhome.www.freeboard.dto.FreeBoard;
-
+import com.pointhome.www.freeboard.dto.FreeBoardComment;
 import com.pointhome.www.freeboard.dto.FreeBoardFile;
 import com.pointhome.www.freeboard.dto.FreeBoardRecommend;
-import com.pointhome.www.freeboard.dto.FreeBoardComment;
-
 import com.pointhome.www.freeboard.service.face.FreeBoardService;
+import com.pointhome.www.user.dto.User;
 import com.pointhome.www.util.Paging;
 
 @Service
@@ -160,7 +159,39 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 
 		}
 	}
-	
+
+	@Override
+	public void deleteComment(int commNo) {
+		freeBoardDao.deleteComment(commNo);
+	}
+
+	@Override
+	public User viewUser(int userNo) {
+		
+		return freeBoardDao.selectUserNo(userNo);
+		
+	}
+
+	@Override
+	public List<MultipartFile> getMultiFile (int freeboardNo) {
+
+		return freeBoardDao.getMultiFiles(freeboardNo);
+	}
+
+	@Override
+	public FreeBoardFile getFile(int fileNo) {
+
+		logger.info("ds{}", freeBoardDao.selectFile(fileNo));
+		return freeBoardDao.selectFile(fileNo);
+	}
+
+	@Override
+	public void delete(FreeBoard board) {
+
+		freeBoardDao.deleteFile(board);
+		freeBoardDao.deleteBoard(board);
+
+	}
 
 }
 
