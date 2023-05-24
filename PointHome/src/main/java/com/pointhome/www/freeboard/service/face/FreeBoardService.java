@@ -1,6 +1,7 @@
 package com.pointhome.www.freeboard.service.face;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,6 +23,14 @@ public interface FreeBoardService {
 	public List<FreeBoardComment> commentView(int freeboardNo);
 
 	public void insert(FreeBoardComment comment);
+
+	public int isRecommend(int freeboardNo, int userNo);
+
+	public int getCntRecommend(int freeboardNo);
+
+	public void updateRecommend(int freeboardNo, Integer userNo);
+
+	public List<Map<String, Object>> getList(Paging paging);
 
 
 

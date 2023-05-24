@@ -3,19 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+<c:import url="/WEB-INF/views/layout/header.jsp" />
 
-
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <style type="text/css">
-#header, #footer {
+ #header, #footer {
 	text-align: center;
 }
 
@@ -29,27 +20,27 @@
 
 #header a {
 	text-decoration: none;
-}
+} 
 </style>
-</head>
-<body>
 
-<div id="header">
-<img src="/resources/images/gg.png" class="img-fluid" alt="점">
-<h1><a class="text-info" href="/">HEADER</a></h1>
+<div id="header" style="margin-top: 60px; margin-bottom: 80px;">
+	<img src="/resources/images/gg.png" class="img-fluid" alt="점">
 </div>
+
+
 <div class="container text-center">
 
 <h1 style="text-align: center">자유게시판</h1>
 <div style="text-align: right">
-<i class="bi bi-bar-chart-steps"></i>정렬기준
-<select class="array">
-	<option value="a">조회순</option>
-	<option value="b">댓글순</option>
-	<option value="c">추천순</option>
-	<option value="d">날짜순</option>
-</select>
+	<i class="bi bi-bar-chart-steps"></i>정렬기준
+	<select class="array">
+		<option value="a">조회순</option>
+		<option value="b">댓글순</option>
+		<option value="c">추천순</option>
+		<option value="d">날짜순</option>
+	</select>
 </div>
+
 <hr>
 
 <table class="table table-hover table-sm">
@@ -57,7 +48,6 @@
 <tr>
 	<th>글번호</th>
 	<th>제목</th>
-	<th>작성자</th>
 	<th>닉네임</th>
 	<th>조회수</th>
 	<th>작성일</th>
@@ -67,30 +57,30 @@
 </thead>
 <c:forEach var="board" items="${list }">
 <tr>
-	<td>${board.freeboardNo }</td>
-	<td class="text-start"><a href="./view?freeboardNo=${board.freeboardNo }">${board.freeboardTitle }</a></td>
-	<td>${id }</td>
-	<td>${nick}</td>
-	<td>${board.freeboardHit }</td>
-	<td><fmt:formatDate value="${board.freeboardDate }" pattern="yy/MM/dd hh:mm:ss"/>
-	<td>23</td>
-	<td>8</td>
+	<td>${board.FREEBOARD_NO }</td>
+	<td class="text-start"><a href="./view?freeboardNo=${board.FREEBOARD_NO }">${board.FREEBOARD_TITLE }</a></td>
+	<td>${board.USER_NICK}</td>
+	<td>${board.FREEBOARD_HIT }</td>
+	<td><fmt:formatDate value="${board.FREEBOARD_DATE }" pattern="yy/MM/dd hh:mm"/>
+	<td>${board.COMMENTCNT }</td>
+	<td>${board.RECOMMENDCNT }</td>
 </tr>
 </c:forEach>
 
 </table>
 
-
+<c:if test="${not empty login and login}">
 <!-- 작성 버튼 -->
 <div class="float-end mb-3">
-	<a href="./write"><button id="btnWrite">글쓰기</button></a>
+	<a href="./write"><button id="btnWrite" class="btn btn-info">글쓰기</button></a>
 </div>
 <div class="clearfix"></div>
-
+</c:if>
 </div><!-- div.container -->
 
+
 <!-- 페이징 -->
-<div><!-- href로 링크만 넣어주면 됨 -->
+<div style="margin-bottom: 200px;"><!-- href로 링크만 넣어주면 됨 -->
 <ul class="pagination justify-content-center">
 
 	<%--첫 페이지로 이동 --%>
@@ -162,9 +152,11 @@
 
 </div>
 
-<hr>
-<div id="footer">
-<h1><a class="text-info" href="/">FOOTER</a></h1>
-</div>
-</body>
-</html>
+
+
+
+<c:import url="/WEB-INF/views/layout/footer.jsp" />
+
+
+
+

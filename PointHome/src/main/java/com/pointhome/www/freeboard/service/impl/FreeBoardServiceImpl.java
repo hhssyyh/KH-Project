@@ -3,6 +3,7 @@ package com.pointhome.www.freeboard.service.impl;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
@@ -17,7 +18,7 @@ import com.pointhome.www.freeboard.dao.face.FreeBoardDao;
 import com.pointhome.www.freeboard.dto.FreeBoard;
 
 import com.pointhome.www.freeboard.dto.FreeBoardFile;
-
+import com.pointhome.www.freeboard.dto.FreeBoardRecommend;
 import com.pointhome.www.freeboard.dto.FreeBoardComment;
 
 import com.pointhome.www.freeboard.service.face.FreeBoardService;
@@ -44,12 +45,15 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	@Override
 	public List<FreeBoard> list(Paging paging) {
 		
-		
-		
 		return freeBoardDao.selectAll(paging);
-		
-		
 	}
+	
+	@Override
+	public List<Map<String, Object>> getList(Paging paging) {
+		
+		return freeBoardDao.selectAllMap(paging);
+	}
+	
 
 	@Override
 	public FreeBoard view(int boardNo) {
@@ -127,5 +131,45 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 		freeBoardDao.insertBoardComment(comment);
 
 	}
+	
+	
+	@Override
+	public int isRecommend(int freeboardNo, int userNo) {
+		FreeBoardRecommend recommend = new FreeBoardRecommend(userNo, freeboardNo);
+		
+		return freeBoardDao.selectByBoardUserNo(recommend);
+	}
+	
+	@Override
+	public int getCntRecommend(int freeboardNo) {
+		
+		return freeBoardDao.selectCntRecommend(freeboardNo);
+	}
+	
+	@Override
+	public void updateRecommend(int freeboardNo, Integer userNo) {
+		FreeBoardRecommend recommend = new FreeBoardRecommend(userNo, freeboardNo);
+		
+		int isRecommend = freeBoardDao.selectByBoardUserNo(recommend);
+		
+		if( isRecommend == 1 ) {
+			freeBoardDao.deleteRecommend(recommend);
+			
+		} else if( isRecommend == 0 ) {
+			freeBoardDao.insertRecommend(recommend);
+
+		}
+	}
+	
 
 }
+
+
+
+
+
+
+
+
+
+
