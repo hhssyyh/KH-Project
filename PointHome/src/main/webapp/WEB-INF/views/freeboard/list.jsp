@@ -23,6 +23,28 @@
 } 
 </style>
 
+<script type="text/javascript">
+$(function() {
+	$("#filterDiv").on('click', "#selectFilter", function(){
+		console.log("click")
+		$.ajax({
+			   type : 'get',           // 타입 (get, post, put 등등)
+			   url : './listFilter',  // 요청할 서버url
+			   dataType : 'html',       // 데이터 타입 (html, xml, json, text 등등)
+			   data : {  // 보낼 데이터 (Object , String, Array)
+				   
+			   }, 
+			   success : function(result) { // 결과 성공 콜백함수
+			        $("#filterDiv").html(result)
+			   },
+			   error : function(request, status, error) { // 결과 에러 콜백함수
+			   }
+		})
+	})
+})
+</script>
+
+
 <div id="header" style="margin-top: 60px; margin-bottom: 80px;">
    <img src="/resources/images/gg.png" class="img-fluid" alt="점">
 </div>
@@ -31,15 +53,15 @@
 <div class="container text-center">
 
 <h1 style="text-align: center">자유게시판</h1>
-<div style="text-align: right">
-   <i class="bi bi-bar-chart-steps"></i>정렬기준
-   <select class="array">
-      <option value="a">조회순</option>
-      <option value="b">댓글순</option>
-      <option value="c">추천순</option>
-      <option value="d">날짜순</option>
-   </select>
-</div>
+
+<div id="filterDiv" style="text-align: right">
+	<i class="bi bi-bar-chart-steps"></i>정렬기준
+	<select class="array" id="filter" name="filter" onchange="selectFilter">
+		<option value="hit">조회순</option>
+		<option value="comment">댓글순</option>
+		<option value="recommend">추천순</option>
+		<option value="date">날짜순</option>
+	</select>
 
 <hr>
 
