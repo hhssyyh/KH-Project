@@ -10,7 +10,7 @@ a {
 
 #mypage {
 	margin-bottom: 100px;
-	padding-top: 60px;
+	padding-top: 70px;
 }
 
 #myBanner {
