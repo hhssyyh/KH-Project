@@ -1,30 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<c:import url="/WEB-INF/views/layout/header.jsp" />
+
+
 <style type="text/css">
-#header, #footer {
-	text-align: center;
-}
-
-#header h1 {
-	line-height: 3em;
-}
-
-#footer {
-	margin-top: 30px;
-}
-
-#header a {
-	text-decoration: none;
-}
 div.content {
 	min-height: 300px;
 }
@@ -37,14 +19,33 @@ div.fr{
 	border-left:0px;
 }
 </style>
-</head>
-<body>
 
-<div id="header">
-<h1><a class="text-info" href="/">HEADER</a></h1>
-</div>
 
-<div class="container">
+<script type="text/javascript">
+$(function() {
+	$("#recommend").on('click', "#recommendBtn", function(){
+		console.log("click")
+		$.ajax({
+			   type : 'get',           // 타입 (get, post, put 등등)
+			   url : './recommend',  // 요청할 서버url
+			   dataType : 'html',       // 데이터 타입 (html, xml, json, text 등등)
+			   data : {  // 보낼 데이터 (Object , String, Array)
+				   freeboardNo : ${board.freeboardNo }
+			   }, 
+			   success : function(result) { // 결과 성공 콜백함수
+			    	console.log(result)
+			        $("#recommend").html(result)
+			   },
+			   error : function(request, status, error) { // 결과 에러 콜백함수
+			        console.log(error)
+			   }
+		})
+	})
+})
+</script>
+
+
+<div class="container" style="margin-top: 180px; margin-bottom: 200px;">
 
 <h1 style="text-align: center">게시글 상세보기</h1>
 <hr>
@@ -52,22 +53,41 @@ div.fr{
 <h3>${board.freeboardTitle }</h3>
 <i class="bi bi-person-circle fs-1" style="height:200px"></i> writer_nick <br>
 <!-- 날짜 -->
-${board.freeboardDate }
-<!-- 조회수 추천수 -->
+<fmt:formatDate value="${board.freeboardDate }" pattern="yy/MM/dd hh:mm"/>
 
+<!-- 조회수 추천수 -->
 <div class="fr">
-	<span class="count">조회수 ${board.freeboardHit }</span>
-	<span class="hit">추천수 8</span>
-	<span class="cmtCount">댓글 4</span>
+	<span class="count me-2">조회수 ${board.freeboardHit }</span>
+	<span class="cmtCount me-2">댓글 ${commentCnt }</span>
+	<span id="recommend">
+		<span class="hit me-2">추천수 ${cntRecommend }</span>
+		<span>
+			<c:if test="${isRecommend eq 0 }">
+				<button id="recommendBtn">추천</button>
+			</c:if>
+			<c:if test="${isRecommend eq 1 }">
+				<button id="recommendBtn">추천 취소</button>
+			</c:if>
+		</span>
+	</span>
 </div>
+
 <hr>
+
 <div id="content" style="text-align: center">
 <!-- 본문 내용 가져오기 -->
 ${board.freeboardContent }
 </div>
+
 <hr><br>
+
+<div class="mb-5" style="text-align: center;">
+	<a href="./list"><button>목록</button></a>
+</div>
+
+
 <div class="comments">
-댓글 4개 
+댓글 ${commentCnt }개
 
 <div style="text-align: left">
 <i class="bi bi-bar-chart-steps"></i>정렬기준
@@ -78,8 +98,7 @@ ${board.freeboardContent }
 	<option value="d">날짜순</option>
 </select>
 </div>
-<%-- 비로그인상태: ${empty login }<br> --%>
-<%-- 로그인상태 : ${not empty login and login} --%>
+
 
 <c:if test="${not empty login and login}">
 <!-- post 댓글 인서트 -->
@@ -88,25 +107,24 @@ ${board.freeboardContent }
 <input type="hidden" value="${board.freeboardNo }" name="freeboardNo">
 
 <button>작성</button><br><br>
+</c:if>
 
 <c:forEach var="boardCommentList" items="${boardCommentList }">
 <tr>
-	<td><i class="bi bi-person-circle"></i>사용자${boardCommentList.userNo }<td>
-	<td>${boardCommentList.commContent }</td>
-	<td>${boardCommentList.commDate }</td>
+	<td><i class="bi bi-person-circle"></i>사용자${boardCommentList.userNo }<td> 
+	<td>${boardCommentList.commContent }</td> 
+	<td><fmt:formatDate value="${boardCommentList.commDate }" pattern="yy/MM/dd hh:mm"/></td>
 	<br><br>
 </tr>
 </c:forEach>
-</c:if>
 
 <!-- i태그 이미지 >> 사용자 프로필 가져오기 로 코맨트 for each 출력-->
 </form>
 </div>
 </div><!-- div.container -->
-<hr>
-<div id="footer">
-<h1><a class="text-info" href="/">FOOTER</a></h1>
-</div>
 
-</body>
-</html>
+
+<c:import url="/WEB-INF/views/layout/footer.jsp" />
+
+
+
