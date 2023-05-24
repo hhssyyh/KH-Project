@@ -114,7 +114,23 @@
 		INSERT INTO freeboard_recommend (user_no, board_no)
 		VALUES (#{userNo}, #{boardNo})
 	</insert>
-
+	
+	<select id="v" resultType="FreeBoardComment" parameterType="int">
+		select * from freeboard_comment
+		where freeboard_no = #{freeboard_no}
+	</select>
+	
+	<delete id="deleteComment" parameterType="int">
+		DELETE FROM freeboard_comment
+		WHERE comm_no = #{commNo}
+	</delete>	
+	
+	<!-- 이거는 상세페이지에서 유저 정보 보여주기 -->
+	<select id="selectUserNo" resultType="User" parameterType="int">
+		SELECT * FROM user_tb
+		WHERE user_no = #{userNo}
+	</select>
+	
 </mapper>
 
 

@@ -107,6 +107,7 @@ $(function() {
 		})
 	})
 })
+
 </script>
 
 
@@ -116,7 +117,7 @@ $(function() {
 <hr>
 <!-- title JSTL로 가지고 오기 -->
 <h3>${board.freeboardTitle }</h3>
-<i class="bi bi-person-circle fs-1" style="height:200px"></i> writer_nick <br>
+<i class="bi bi-person-circle fs-1" style="height:200px"></i> ${viewUser.userNick } <br>
 <!-- 날짜 -->
 <fmt:formatDate value="${board.freeboardDate }" pattern="yy/MM/dd hh:mm"/>
 
@@ -126,6 +127,7 @@ $(function() {
 	<span class="cmtCount me-2">댓글 ${commentCnt }</span>
 	<span id="recommend">
 		<span class="hit me-2">추천수 ${cntRecommend }</span>
+		
 		<span>
 			<c:if test="${isRecommend eq 0 }">
 				<button id="recommendBtn">추천</button>
@@ -134,6 +136,7 @@ $(function() {
 				<button id="recommendBtn">추천 취소</button>
 			</c:if>
 		</span>
+		
 	</span>
 </div>
 
@@ -228,7 +231,6 @@ ${board.freeboardContent }
 	<a href="./list"><button>목록</button></a>
 </div>
 
-
 <div class="comments">
 댓글 ${commentCnt }개
 
@@ -254,9 +256,17 @@ ${board.freeboardContent }
 
 <c:forEach var="boardCommentList" items="${boardCommentList }">
 <tr>
-	<td><i class="bi bi-person-circle"></i>사용자${boardCommentList.userNo }<td> 
+	<td><i class="bi bi-person-circle"></i>${userNick} ${boardCommentList.userNo }<td> 
 	<td>${boardCommentList.commContent }</td> 
 	<td><fmt:formatDate value="${boardCommentList.commDate }" pattern="yy/MM/dd hh:mm"/></td>
+	<td>
+	
+	<c:if test="${not empty userno and userno eq boardCommentList.userNo}">
+		<a><button type="button">수정</button></a>
+		<a href="./commentDelete?commNo=${boardCommentList.commNo}&freeboardNo=${board.freeboardNo}"><button type="button">삭제</button></a>
+	</c:if>
+	
+	</td>
 	<br><br>
 </tr>
 </c:forEach>

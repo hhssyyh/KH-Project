@@ -20,6 +20,7 @@ import com.pointhome.www.freeboard.dto.FreeBoardComment;
 import com.pointhome.www.freeboard.dto.FreeBoardFile;
 import com.pointhome.www.freeboard.dto.FreeBoardRecommend;
 import com.pointhome.www.freeboard.service.face.FreeBoardService;
+import com.pointhome.www.user.dto.User;
 import com.pointhome.www.util.Paging;
 
 @Service
@@ -158,6 +159,19 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 
 		}
 	}
+
+	@Override
+	public void deleteComment(int commNo) {
+		freeBoardDao.deleteComment(commNo);
+	}
+
+	@Override
+	public User viewUser(int userNo) {
+		
+		return freeBoardDao.selectUserNo(userNo);
+		
+	}
+
 	@Override
 	public List<MultipartFile> getMultiFile (int freeboardNo) {
 
