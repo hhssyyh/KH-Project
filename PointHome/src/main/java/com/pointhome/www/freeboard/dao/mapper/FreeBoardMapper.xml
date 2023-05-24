@@ -75,7 +75,26 @@
  		VALUES (freeboard_comment_no_seq.nextval, #{freeboardNo}, #{commContent}, #{userNo})
  	</insert>
 	
+	<select id="getMultiFiles" parameterType="int" resultType="FreeBoardFile">
+	select * from freeboard_file
+	where freeboard_no = #{freeboard_no}
+	</select>
+
+	<select id="selectFile" parameterType="int" resultType="FreeBoardFile">
+		select * from freeboard_file
+		where freeboardFile_no = #{freeboardFile_no}
+	</select>
 	
+	<delete id="deleteFile" parameterType="int">
+		delete freeboard_file
+		where freeboard_no = #{freeboardNo}
+	</delete>
+	
+	<delete id="deleteBoard" parameterType="FreeBoard">
+		delete freeboard
+		where freeboard_no = #{freeboardNo}
+	</delete>
+
 	<select id="selectByBoardUserNo" parameterType="FreeBoardRecommend" resultType="int">
 		SELECT count(*) FROM freeboard_recommend
 		WHERE user_no=#{userNo} AND board_no=#{boardNo}

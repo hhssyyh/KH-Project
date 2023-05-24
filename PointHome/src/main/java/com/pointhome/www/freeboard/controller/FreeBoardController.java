@@ -2,7 +2,6 @@ package com.pointhome.www.freeboard.controller;
 
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -68,6 +67,13 @@ public class FreeBoardController {
 		model.addAttribute("board", board);
 		model.addAttribute("boardCommentList", boardCommentList);
 		model.addAttribute("commentCnt", boardCommentList.size());
+
+		
+		List<MultipartFile> file = freeBoardService.getMultiFile(freeboardNo);
+		model.addAttribute("file", file);
+		
+		model.addAttribute("isRecommend", isRecommend);
+
 		model.addAttribute("cntRecommend", cntRecommend);
 
 		// 추천부분
@@ -125,6 +131,13 @@ public class FreeBoardController {
 		model.addAttribute("isRecommend", isRecommend);
 		model.addAttribute("cntRecommend", cntRecommend);
 
+	}
+
+	
+	@RequestMapping("/delete")
+	public String delete(FreeBoard board) {
+		freeBoardService.delete(board);
+		return "redirect:./list";
 	}
 
 	@GetMapping("/commentDelete")
