@@ -29,6 +29,34 @@
 		WHERE rnum BETWEEN #{startNo} and #{endNo}
 	</select>
 	
+	<select id="selectBoardByFilter" parameterType="Map" resultType="Map">
+		SELECT * FROM (
+			SELECT rownum rnum, B.* from (
+			    SELECT f.*
+			    , (SELECT count(*) FROM freeboard_comment fc WHERE fc.freeboard_no = f.freeboard_no) commentCnt
+			    ,(SELECT count(*) FROM freeboard_recommend fr WHERE fr.board_no = f.freeboard_no) recommendCnt
+			     , u.user_nick
+			    FROM freeboard f
+			    INNER JOIN user_tb u ON f.user_no = u.user_no
+			    <choose>
+			    	<when test='filter.equalsIgnoreCase("date")'>
+			    		ORDER BY f.freeboard_no DESC
+			    	</when>
+			    	<when test='filter.equalsIgnoreCase("hit")'>
+			    		ORDER BY f.freeboard_hit DESC
+			    	</when>
+			    	<when test='filter.equals("comment")'>
+			    		ORDER BY commentCnt DESC
+			    	</when>
+			    	<when test='filter eq "recommend".toString()'>
+			    		ORDER BY recommendCnt DESC
+			    	</when>
+			    </choose>
+			) B
+		) 
+		WHERE rnum BETWEEN #{paging.startNo} and #{paging.endNo}
+	</select>
+	
 	
 	<select id="selectCntAll" resultType="int">
 		select count(*) from freeboard	
@@ -133,8 +161,23 @@
 		SELECT * FROM user_tb
 		WHERE user_no = #{userNo}
 	</select>
+  
+	<select id="selectBoardbyBoardNo" resultType="FreeBoard" parameterType="int">
+		select * from freeboard
+		where freeboard_no = #{freeboard_no}	
+	</select>
 	
+	<select id="selectBoardFilebyBoardNo" resultType="FreeBoardFile" parameterType="int">
+		select * from freeboard_file
+		where freeboard_no = #{freeboard_no}	
+	</select>
 	
+	<update id="update" parameterType="FreeBoard">
+		update freeboard set 
+		freeboard_title = #{freeboardTitle},
+		freeboard_content = #{freeboardContent}
+		where freeboard_no = #{freeboardNo}
+  </update>
 
 </mapper>
 

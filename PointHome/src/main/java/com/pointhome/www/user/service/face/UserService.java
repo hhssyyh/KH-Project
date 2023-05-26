@@ -31,7 +31,7 @@ public interface UserService {
 		/**
 		 * userno 가져와서 유저정보조회
 		 * @param userno
-		 * @return
+		 * @return 이거 컨트롤러에서 안썼던데 왜 만든거야 ??????
 		 */
 	public User selectInfo(int userno);
 

@@ -47,6 +47,9 @@ public class MypageController {
 	@GetMapping("/mypick")
 	public void mypick() {}
 	
+	@GetMapping("/myreview")
+	public void myreview() {}
+	
 	
 	@GetMapping("/serviceCenter")
 	public void mypageService() {}

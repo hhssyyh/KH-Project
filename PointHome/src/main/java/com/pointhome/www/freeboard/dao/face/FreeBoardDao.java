@@ -3,6 +3,7 @@ package com.pointhome.www.freeboard.dao.face;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.pointhome.www.freeboard.dto.FreeBoard;
@@ -54,6 +55,12 @@ public interface FreeBoardDao {
 
 	public void updateComment(FreeBoardComment comment);
 
+	public FreeBoard selectBoardbyBoardNo(int freeboardNo);
 
+	public List<Map<String, Object>> selectBoardByFilter(@Param("paging") Paging paging, @Param("filter") String filter);
 
+  public List<FreeBoardFile> selectBoardFilebyBoardNo(int freeboardNo);
+
+	public void update(FreeBoard board);
 }
+

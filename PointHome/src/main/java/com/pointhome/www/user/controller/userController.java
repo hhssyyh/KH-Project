@@ -11,12 +11,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.pointhome.www.user.dto.User;
 import com.pointhome.www.user.service.face.UserService;
+import com.pointhome.www.user.service.impl.OAuthService;
 
 @Controller
 public class userController {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired UserService userService;
+	@Autowired OAuthService oAuthService;
 	
 	@GetMapping("/user/join")
 	public void join() {
@@ -29,6 +31,7 @@ public class userController {
 		logger.debug("{}", user);
 
 		userService.addUser(user);
+		// userJoin 중복검사 안함
 
 		return "redirect:./login";
 	}
