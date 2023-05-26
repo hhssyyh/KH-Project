@@ -80,7 +80,9 @@
 		com.pointhome.www.freeboard.controller,
 		com.pointhome.www.freeboard.service,
 		com.pointhome.www.mypage.controller,
-		com.pointhome.www.partner.controller
+		com.pointhome.www.mypage.service,
+		com.pointhome.www.partner.controller,
+		com.pointhome.www.partner.service
 		com.pointhome.www.admin.controller
 		com.pointhome.www.admin.service
 		" />

@@ -115,12 +115,11 @@
 
 
 
-
-
 		<div id="actionBtn" style="text-align: center; padding-top: 30px;">
 			<button class="btn btn-outline-dark proBtn">회원탈퇴</button>
 			<button class="btn btn-outline-dark proBtn">수정완료</button>
 		</div>
+
 
 
 	</div>
