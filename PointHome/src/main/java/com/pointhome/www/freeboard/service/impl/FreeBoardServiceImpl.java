@@ -193,6 +193,7 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 
 	}
 	
+
 	@Override
 	public FreeBoard selectBoard(int freeboardNo) {
 		
@@ -204,6 +205,13 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 
 		
 		return freeBoardDao.selectBoardFilebyBoardNo(freeboardNo);
+
+	
+	@Override
+	public List<Map<String, Object>> selectBoardByFilter(Paging paging, String filter) {
+		
+		return freeBoardDao.selectBoardByFilter(paging, filter);
+
 	}
 
 	@Override

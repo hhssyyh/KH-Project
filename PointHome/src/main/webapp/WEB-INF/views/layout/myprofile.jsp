@@ -9,8 +9,7 @@ a {
 }
 
 #mypage {
-	margin-bottom: 100px;
-	padding-top: 70px;
+ 	margin-bottom: 100px; 
 }
 
 #myBanner {
@@ -54,7 +53,7 @@ a {
 </style>
 
 
-<div style="margin: 10px; margin-left: 40px;">
+<div style="margin: 10px; margin-left: 40px; margin-top: 80px;">
 	<a href="./view" style="font-size: 30px;">MYMENU</a>
 </div>
 

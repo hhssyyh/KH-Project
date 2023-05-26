@@ -49,6 +49,9 @@ public interface FreeBoardService {
 
 	public void update(FreeBoard board, List<MultipartFile> dataMul);
 
+	public List<Map<String, Object>> selectBoardByFilter(Paging paging, String filter);
+
+
 
 }
 

@@ -8,20 +8,47 @@
 <style type="text/css">
  #header, #footer {
    text-align: center;
-}
 
 #header h1 {
    line-height: 3em;
 }
-
-#footer {
-   margin-top: 30px;
-}
-
-#header a {
-   text-decoration: none;
-} 
 </style>
+
+
+<script type="text/javascript">
+$(function() {
+	console.log("${paging.curPage}")
+})
+
+function filterSelect() {
+	console.log("click")
+// 	$.ajax({
+// 		   type : 'get',           // 타입 (get, post, put 등등)
+// 		   url : './listFilter',  // 요청할 서버url
+// 		   dataType : 'html',       // 데이터 타입 (html, xml, json, text 등등)
+// 		   data : {  // 보낼 데이터 (Object , String, Array)
+// 		   		curPage : ${paging.curPage}
+// 				, filter : $("#filter").val()
+// 		   }, 
+// 		   success : function(result) { // 결과 성공 콜백함수
+// 		        $("#listTable").html(result)
+// 		   },
+// 		   error : function(request, status, error) { // 결과 에러 콜백함수
+// 		   }
+// 	})
+
+	console.log( $("#filter").val() )
+
+	//curPage 유지
+	// 	var curPage = ( ${not empty param.curPage} ) ?"curPage="+${param.curPage } + "&" : ""
+// 	var filter = $("#filter").val();
+// 	location.href = "?" + curPage + "filter=" + filter
+	
+	//curPage 초기화
+	var filter = $("#filter").val();
+	location.href = "?filter=" + filter
+}
+</script>
 
 <script type="text/javascript">
 $(function() {
@@ -56,16 +83,40 @@ $(function() {
 
 <div id="filterDiv" style="text-align: right">
 	<i class="bi bi-bar-chart-steps"></i>정렬기준
-	<select class="array" id="filter" name="filter" onchange="selectFilter">
-		<option value="hit">조회순</option>
-		<option value="comment">댓글순</option>
-		<option value="recommend">추천순</option>
-		<option value="date">날짜순</option>
+
+	<select class="array" id="filter" name="filter" onchange="filterSelect()">
+		<!-- 안바뀌네 -->
+		<c:choose>
+			<c:when test="${filter eq 'hit' }">
+				<option value="date">날짜순</option>
+				<option value="hit" selected>조회순</option>
+				<option value="comment">댓글순</option>
+				<option value="recommend">추천순</option>
+			</c:when>
+			<c:when test="${filter eq 'comment' }">
+				<option value="date">날짜순</option>
+				<option value="hit">조회순</option>
+				<option value="comment" selected>댓글순</option>
+				<option value="recommend">추천순</option>
+			</c:when>
+			<c:when test="${filter eq 'recommend' }">
+				<option value="date">날짜순</option>
+				<option value="hit">조회순</option>
+				<option value="comment">댓글순</option>
+				<option value="recommend" selected>추천순</option>
+			</c:when>
+			<c:otherwise>
+				<option value="date" selected>날짜순</option>
+				<option value="hit">조회순</option>
+				<option value="comment">댓글순</option>
+				<option value="recommend">추천순</option>
+			</c:otherwise>
+		</c:choose>
 	</select>
 
 <hr>
 
-<table class="table table-hover table-sm">
+<table id="listTable" class="table table-hover table-sm text-center">
 <thead>
 <tr>
    <th>글번호</th>
@@ -88,8 +139,8 @@ $(function() {
    <td>${board.RECOMMENDCNT }</td>
 </tr>
 </c:forEach>
-
 </table>
+
 
 <c:if test="${not empty login and login}">
 <!-- 작성 버튼 -->
@@ -98,6 +149,11 @@ $(function() {
 </div>
 <div class="clearfix"></div>
 </c:if>
+
+<c:if test="${empty login and !login}">
+	<br><br>
+</c:if>
+
 </div><!-- div.container -->
 
 
@@ -174,6 +230,7 @@ $(function() {
 
 </div>
 
+</div>
 
 
 

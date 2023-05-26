@@ -81,7 +81,7 @@ a {
 	<button class="btn btn-outline-secondary myBtn">상품 구매내역</button>
 	<button class="btn btn-outline-secondary myBtn">결제내역</button>
 	<button class="btn btn-outline-secondary myBtn">나의 문의</button>
-	<button class="btn btn-outline-secondary myBtn">고객센터</button>
+	<a href="./serviceCenter"><button class="btn btn-outline-secondary myBtn">고객센터</button></a>
 </div>
 
 <hr style="width: 60%; margin: 0 auto; margin-bottom: 80px;">

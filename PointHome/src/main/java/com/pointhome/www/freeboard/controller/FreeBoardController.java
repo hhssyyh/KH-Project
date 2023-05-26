@@ -17,7 +17,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.pointhome.www.freeboard.dto.FreeBoard;
 import com.pointhome.www.freeboard.dto.FreeBoardComment;
+
 import com.pointhome.www.freeboard.dto.FreeBoardFile;
+
 import com.pointhome.www.freeboard.service.face.FreeBoardService;
 import com.pointhome.www.user.dto.User;
 import com.pointhome.www.util.Paging;
@@ -33,9 +35,7 @@ public class FreeBoardController {
 
 
 	@GetMapping("/list")
-	public void BoardList( @RequestParam(defaultValue = "0") int curPage,
-			Model model
-			) {
+	public void BoardList( @RequestParam(defaultValue = "0") int curPage, @RequestParam(defaultValue = "date") String filter, Model model) {
 		logger.info("/freeboard/list [GET]");
 
 		Paging paging = freeBoardService.getPaging(curPage);
@@ -45,12 +45,18 @@ public class FreeBoardController {
 		//		model.addAttribute("list", list);
 
 		//FreeBoard, FreeBoardComment, FreeBoardRecommend, User
-		List<Map<String, Object>> list = freeBoardService.getList(paging);
+
+//		List<Map<String, Object>> list = freeBoardService.getList(paging);
+		List<Map<String, Object>> list = freeBoardService.selectBoardByFilter(paging, filter);
+
 
 		logger.info("!!!!!!!!!!!!!!!!{}", list);
 
 		model.addAttribute("list", list);
 		model.addAttribute("paging", paging);
+
+		model.addAttribute("filter", filter);
+
 	}
 
 	@GetMapping("/view")
@@ -84,6 +90,7 @@ public class FreeBoardController {
 		User viewUser = freeBoardService.viewUser(board.getUserNo());
 		
 		model.addAttribute("viewUser", viewUser);
+
 	}
 
 
@@ -91,6 +98,7 @@ public class FreeBoardController {
 	public void write() {
 		logger.info("/board/write");
 	}
+
 
 	@PostMapping("/write")
 	public String writeRes(FreeBoard board, List<MultipartFile> dataMul, HttpSession session ) 
@@ -149,7 +157,6 @@ public class FreeBoardController {
 		
 		return "redirect:./view";
 	}
-
 	
 	@GetMapping("/update")
 	public void update(int freeboardNo, Model model) {

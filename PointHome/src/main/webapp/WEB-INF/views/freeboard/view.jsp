@@ -4,14 +4,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<c:import url="/WEB-INF/views/layout/header.jsp" />
+
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 
@@ -116,6 +111,7 @@ $(function() {
 		})
 	})
 })
+
 </script>
 
 <div class="container" style="margin-top: 180px; margin-bottom: 200px;">
@@ -123,10 +119,9 @@ $(function() {
 <h1 style="text-align: center">게시글 상세보기</h1>
 <hr>
 <!-- title JSTL로 가지고 오기 -->
-<div id="freeboardTitle">
-	<h3>${board.freeboardTitle }</h3>
-</div>
-<i class="bi bi-person-circle fs-1" style="height:200px"></i>user_nick <br>
+<h3>${board.freeboardTitle }</h3>
+<i class="bi bi-person-circle fs-1" style="height:200px"></i> ${viewUser.userNick } <br>
+
 <!-- 날짜 -->
 <fmt:formatDate value="${board.freeboardDate }" pattern="yy/MM/dd hh:mm"/>
 
@@ -136,6 +131,7 @@ $(function() {
 	<span class="cmtCount me-2">댓글 ${commentCnt }</span>
 	<span id="recommend">
 		<span class="hit me-2">추천수 ${cntRecommend }</span>
+		
 		<span>
 			<c:if test="${isRecommend eq 0 }">
 				<button id="recommendBtn">추천</button>
@@ -144,6 +140,7 @@ $(function() {
 				<button id="recommendBtn">추천 취소</button>
 			</c:if>
 		</span>
+		
 	</span>
 </div>
 
@@ -229,7 +226,6 @@ ${board.freeboardContent }
 
 <!--    </div> -->
 
-
 <div class="comments">
 댓글 ${commentCnt }개
 
@@ -246,9 +242,17 @@ ${userno} <input type="text" name="commContent" size="80" id="cmt">
 
 <c:forEach var="boardCommentList" items="${boardCommentList }">
 <tr>
-	<td><i class="bi bi-person-circle"></i>사용자${boardCommentList.userNo }<td> 
+	<td><i class="bi bi-person-circle"></i>${userNick} ${boardCommentList.userNo }<td> 
 	<td>${boardCommentList.commContent }</td> 
 	<td><fmt:formatDate value="${boardCommentList.commDate }" pattern="yy/MM/dd hh:mm"/></td>
+	<td>
+	
+	<c:if test="${not empty userno and userno eq boardCommentList.userNo}">
+		<a><button type="button">수정</button></a>
+		<a href="./commentDelete?commNo=${boardCommentList.commNo}&freeboardNo=${board.freeboardNo}"><button type="button">삭제</button></a>
+	</c:if>
+	
+	</td>
 	<br><br>
 </tr>
 </c:forEach>
@@ -263,7 +267,7 @@ ${userno} <input type="text" name="commContent" size="80" id="cmt">
 
 
 
-     <script>
+<script>
   const body2 = document.querySelector('body');
   const modal2 = document.querySelector('.modal2');
   const btnOpenPopup2 = document.querySelector('.btn-reset-popup');
