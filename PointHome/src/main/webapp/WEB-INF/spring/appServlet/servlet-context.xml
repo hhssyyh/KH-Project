@@ -81,6 +81,8 @@
 		com.pointhome.www.freeboard.service,
 		com.pointhome.www.mypage.controller,
 		com.pointhome.www.partner.controller
+		com.pointhome.www.admin.controller
+		com.pointhome.www.admin.service
 		" />
 	
 </beans:beans>
