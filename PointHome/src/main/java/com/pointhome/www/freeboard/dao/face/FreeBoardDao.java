@@ -53,6 +53,7 @@ public interface FreeBoardDao {
 
 	public User selectUserNo(int userNo);
 
+	public void updateComment(FreeBoardComment comment);
 
 	public FreeBoard selectBoardbyBoardNo(int freeboardNo);
 
@@ -62,8 +63,4 @@ public interface FreeBoardDao {
 
 	public void update(FreeBoard board);
 }
-
-
-
-
 
