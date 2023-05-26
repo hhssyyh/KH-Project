@@ -142,11 +142,19 @@
 		where freeboard_no = #{freeboard_no}
 	</select>
 	
+	<!-- 댓글 삭제 -->	
 	<delete id="deleteComment" parameterType="int">
 		DELETE FROM freeboard_comment
 		WHERE comm_no = #{commNo}
 	</delete>	
 	
+	<!-- 댓글 수정 -->
+	<update id="updateComment" parameterType="FreeBoardComment">
+		UPDATE freeboard_comment
+		SET comm_content = #{commContent}, comm_date = current_date
+		WHERE comm_no = #{commNo}
+	</update>
+		
 	<!-- 이거는 상세페이지에서 유저 정보 보여주기 -->
 	<select id="selectUserNo" resultType="User" parameterType="int">
 		SELECT * FROM user_tb
@@ -169,7 +177,7 @@
 		freeboard_content = #{freeboardContent}
 		where freeboard_no = #{freeboardNo}
 	</update>
-
+  
 </mapper>
 
 
