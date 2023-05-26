@@ -193,13 +193,85 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 
 	}
 	
+
+	@Override
+	public FreeBoard selectBoard(int freeboardNo) {
+		
+		return freeBoardDao.selectBoardbyBoardNo(freeboardNo);
+	}
+	
+	@Override
+	public List<FreeBoardFile> selectBoardFile(int freeboardNo) {
+
+		
+		return freeBoardDao.selectBoardFilebyBoardNo(freeboardNo);
+
 	
 	@Override
 	public List<Map<String, Object>> selectBoardByFilter(Paging paging, String filter) {
 		
 		return freeBoardDao.selectBoardByFilter(paging, filter);
+
 	}
 
+	@Override
+	public void update( FreeBoard board, List<MultipartFile> dataMul) {
+		freeBoardDao.deleteFile(board);
+		freeBoardDao.update(board);
+		
+		for(MultipartFile m : dataMul ) {
+			if(m.getSize() <= 0 ) {
+				
+				logger.info("0보다 작음, 처리 중단");
+				
+				continue;
+			}
+			
+		
+			String storedPath = context.getRealPath("upload");
+			logger.info("storedPath : {}", storedPath);
+			
+			File storedFolder = new File(storedPath);
+			
+			storedFolder.mkdir();
+			File dest = null;
+			String originName = null;
+			String storedName = null;
+			
+			do {
+				logger.debug("!!!!!!!!!++++++++++++++++");
+				originName = m.getOriginalFilename();
+				storedName = originName + UUID.randomUUID().toString().split("-")[4];
+				
+				logger.info("storedName : {}", storedName);
+			
+				dest = new File(storedFolder, storedName);
+			
+			} while(dest.exists());
+			
+				try {
+					m.transferTo(dest);
+				} catch (IllegalStateException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			
+			FreeBoardFile freeboardFile = new FreeBoardFile();
+			
+			freeboardFile.setFreeboardNo(board.getFreeboardNo());
+			freeboardFile.setFreeboardfileOrigin(originName);
+			freeboardFile.setFreeboardfileStored(storedName);
+			
+			logger.info("filetest :{} ", freeboardFile);
+			
+			
+			
+			logger.info("++++++++++++++++++++++++삭제");
+			freeBoardDao.insertFile(freeboardFile);
+		}
+
+	}
 }
 
 

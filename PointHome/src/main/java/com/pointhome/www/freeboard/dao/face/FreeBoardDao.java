@@ -53,11 +53,15 @@ public interface FreeBoardDao {
 
 	public User selectUserNo(int userNo);
 
+
+	public FreeBoard selectBoardbyBoardNo(int freeboardNo);
+
 	public List<Map<String, Object>> selectBoardByFilter(@Param("paging") Paging paging, @Param("filter") String filter);
 
+  public List<FreeBoardFile> selectBoardFilebyBoardNo(int freeboardNo);
+
+	public void update(FreeBoard board);
 }
-
-
 
 
 

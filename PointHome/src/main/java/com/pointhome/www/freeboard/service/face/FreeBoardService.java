@@ -43,7 +43,14 @@ public interface FreeBoardService {
 
 	public User viewUser(int userNo);
 
+	public FreeBoard selectBoard(int freeboardNo);
+
+	public List<FreeBoardFile> selectBoardFile(int freeboardNo);
+
+	public void update(FreeBoard board, List<MultipartFile> dataMul);
+
 	public List<Map<String, Object>> selectBoardByFilter(Paging paging, String filter);
+
 
 
 }
