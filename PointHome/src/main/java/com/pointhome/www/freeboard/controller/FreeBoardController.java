@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.pointhome.www.freeboard.dto.FreeBoard;
 import com.pointhome.www.freeboard.dto.FreeBoardComment;
+import com.pointhome.www.freeboard.dto.FreeBoardFile;
 import com.pointhome.www.freeboard.service.face.FreeBoardService;
 import com.pointhome.www.user.dto.User;
 import com.pointhome.www.util.Paging;
@@ -149,6 +150,43 @@ public class FreeBoardController {
 		return "redirect:./view";
 	}
 
+	
+	@GetMapping("/update")
+	public void update(int freeboardNo, Model model) {
+		FreeBoard board = freeBoardService.selectBoard(freeboardNo);
+		logger.info("update freeboard: {}", board);
+		
+		model.addAttribute("board", board);
+		
+		
+		List<FreeBoardFile> boardFile = freeBoardService.selectBoardFile(freeboardNo);
+		logger.info("update freeboardFile: {}", boardFile);
+		
+	}
+	
+	@PostMapping("/update")
+	public String updateRes(FreeBoard board, List<MultipartFile> dataMul) {
+		
+		logger.info("확인: {}", board);
+		freeBoardService.update(board, dataMul);
+		logger.debug("!!!!!!{}", dataMul);
+		logger.info("!!!!!!!!확인: {}", board.getFreeboardNo());
+		
+		return "redirect:./view?freeboardNo=" + board.getFreeboardNo();
+	}
+	
+	
+	@RequestMapping("/download")
+	public String download(int fileNo, Model model) {
+		
+		FreeBoardFile freeboardFile  = freeBoardService.getFile(fileNo);
+		logger.info("ㄴㄴ:{}",freeboardFile);
+		model.addAttribute("downFile", freeboardFile);
+		
+		return "down";
+	}
+	
+	
 }
 
 

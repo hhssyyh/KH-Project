@@ -52,4 +52,10 @@ public interface FreeBoardDao {
 
 	public User selectUserNo(int userNo);
 
+	public FreeBoard selectBoardbyBoardNo(int freeboardNo);
+
+	public List<FreeBoardFile> selectBoardFilebyBoardNo(int freeboardNo);
+
+	public void update(FreeBoard board);
+
 }

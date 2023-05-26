@@ -125,6 +125,23 @@
 		WHERE user_no = #{userNo}
 	</select>
 	
+	<select id="selectBoardbyBoardNo" resultType="FreeBoard" parameterType="int">
+		select * from freeboard
+		where freeboard_no = #{freeboard_no}	
+	</select>
+	
+	<select id="selectBoardFilebyBoardNo" resultType="FreeBoardFile" parameterType="int">
+		select * from freeboard_file
+		where freeboard_no = #{freeboard_no}	
+	</select>
+	
+	<update id="update" parameterType="FreeBoard">
+		update freeboard set 
+		freeboard_title = #{freeboardTitle},
+		freeboard_content = #{freeboardContent}
+		where freeboard_no = #{freeboardNo}
+	</update>
+	
 </mapper>
 
 
