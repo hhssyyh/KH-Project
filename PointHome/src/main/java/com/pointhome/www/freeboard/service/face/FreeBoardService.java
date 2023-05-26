@@ -43,6 +43,8 @@ public interface FreeBoardService {
 
 	public User viewUser(int userNo);
 
+	public List<Map<String, Object>> selectBoardByFilter(Paging paging, String filter);
+
 
 }
 
