@@ -74,21 +74,6 @@ public class PartnerController {
 		return "redirect:./login";
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 	}
 	
 	@GetMapping("/pages/404-error")
