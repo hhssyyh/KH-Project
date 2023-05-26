@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.google.gson.JsonObject;
 import com.pointhome.www.user.dto.User;
 
 public interface UserService {
@@ -63,7 +64,11 @@ public interface UserService {
 	 * @param state - 인가토큰
 	 * @return - Access토큰을 받기 위한 apiURL주소
 	 */
-	public String getTokenNaver(String code, String state);
+	public String getApiURL(String code, String state);
+
+	public JsonObject getTokenNaver(String apiURL);
+
+	public Map<String, Object> getUserInfoNaver(JsonObject token);
 
 
 }

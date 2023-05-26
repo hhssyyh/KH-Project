@@ -129,108 +129,20 @@ public class userController {
 		String code = request.getParameter("code");
 		String state = (String)session.getAttribute("state");
 
-		String apiURL = userService.getTokenNaver(code, state);
-		
-		String accessToken = "";
-		String refreshToken = "";
+		String apiURL = userService.getApiURL(code, state);
+		JsonObject Token = userService.getTokenNaver(apiURL);
+		Map<String, Object> userInfo = userService.getUserInfoNaver(Token);				
 
-		try {
-			URL url = new URL(apiURL);
-			
-			HttpURLConnection con = (HttpURLConnection)url.openConnection();
-			
-			con.setRequestMethod("GET");
-			
-			int responseCode = con.getResponseCode();
-			
-			BufferedReader br;
-			
-			if (responseCode == 200) { // 정상 호출
-				br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-			} else {  // 에러 발생
-				br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
-			}
+//		userInfo.get("email");
+//		User user = new User();
+//		user.setUserEmail();
+//		userService.getUser();
+//		if( ) {
+//			
+//		}
+//
 
-			String inputLine;
-			String res = "";;
-
-			while ((inputLine = br.readLine()) != null) {
-				res += inputLine;
-			}
-
-			br.close();
-
-			if (responseCode == 200) {
-				logger.debug(res.toString());
-
-				Gson gson = new Gson();
-
-				JsonObject jsonObj = gson.fromJson(res, JsonObject.class);
-				logger.debug("{}", jsonObj);
-
-				accessToken = jsonObj.get("access_token").getAsString();
-				refreshToken = jsonObj.get("refresh_token").getAsString();
-				logger.debug("{}", accessToken);
-				logger.debug("{}", refreshToken);
-
-			}
-
-			
-			
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-////////////////////////////////////////////////////////////////
-
-		if(accessToken != null) { // access_token을 잘 받아왔다면
-
-			try {
-
-				String apiurl = "https://openapi.naver.com/v1/nid/me";
-				URL url = new URL(apiurl);
-				HttpURLConnection con = (HttpURLConnection)url.openConnection();
-				con.setRequestMethod("GET");
-//				con.setRequestProperty("Authorization", header);
-				int responseCode = con.getResponseCode();
-				BufferedReader br;
-
-				if(responseCode==200) { // 정상 호출
-				  br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-				} else {  // 에러 발생
-				  br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
-				}
-
-				String inputLine;
-				StringBuffer res = new StringBuffer();
-				while ((inputLine = br.readLine()) != null) {
-				  res.append(inputLine);
-				}
-
-				br.close();
-
-//				Gson gson = new Gson();
-//				Object obj = gson.fromJson(res, JsonObject.class);
-//				JSONObject jsonObj = (JSONObject)obj;
-//				JSONObject resObj = (JSONObject)jsonObj.get("response");
-//				 
-				//왼쪽 변수 이름은 원하는 대로 정하면 된다. 
-				//단, 우측의 get()안에 들어가는 값은 와인색 상자 안의 값을 그대로 적어주어야 한다.
-//				String naverCode = (String)resObj.get("id");
-//				String email = (String)resObj.get("email");
-//				String name = (String)resObj.get("name");
-//				String nickName = (String)resObj.get("nickname");
-				
-		    } catch (Exception e) {
-
-		    	e.printStackTrace();
-
-		    }
-
-		}
-		
-		
-		
+	
 		  return "redirect:/";
 		  
 	}
