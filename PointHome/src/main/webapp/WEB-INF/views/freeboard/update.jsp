@@ -117,10 +117,10 @@ font-size:16px;
 $(function() {      
       $("#freeboardContent").summernote({
          height: 300,
-    
-         placeholder: "${board.freeboardContent }",
          focus: true
       })
+
+      $(".note-editable").html('${board.freeboardContent}')
 })
 
 
@@ -132,7 +132,6 @@ $(function() {
 
 <h1 style="text-align: center">게시글 수정하기</h1>
 <hr>
-
 <form action="./update" method="post" enctype="multipart/form-data">
 
 <input type="hidden" name="freeboardNo" value="${board.freeboardNo}">
