@@ -206,6 +206,7 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 		
 		return freeBoardDao.selectBoardFilebyBoardNo(freeboardNo);
 
+	}
 	@Override
 	public void updateComment(FreeBoardComment comment) {
 		freeBoardDao.updateComment(comment);
