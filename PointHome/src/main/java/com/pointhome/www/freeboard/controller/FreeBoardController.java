@@ -32,9 +32,7 @@ public class FreeBoardController {
 
 
 	@GetMapping("/list")
-	public void BoardList( @RequestParam(defaultValue = "0") int curPage,
-			Model model
-			) {
+	public void BoardList( @RequestParam(defaultValue = "0") int curPage, @RequestParam(defaultValue = "date") String filter, Model model) {
 		logger.info("/freeboard/list [GET]");
 
 		Paging paging = freeBoardService.getPaging(curPage);
@@ -44,12 +42,14 @@ public class FreeBoardController {
 		//		model.addAttribute("list", list);
 
 		//FreeBoard, FreeBoardComment, FreeBoardRecommend, User
-		List<Map<String, Object>> list = freeBoardService.getList(paging);
+//		List<Map<String, Object>> list = freeBoardService.getList(paging);
+		List<Map<String, Object>> list = freeBoardService.selectBoardByFilter(paging, filter);
 
 		logger.info("!!!!!!!!!!!!!!!!{}", list);
 
 		model.addAttribute("list", list);
 		model.addAttribute("paging", paging);
+		model.addAttribute("filter", filter);
 	}
 
 	@GetMapping("/view")
@@ -148,6 +148,8 @@ public class FreeBoardController {
 		
 		return "redirect:./view";
 	}
+	
+	
 
 }
 

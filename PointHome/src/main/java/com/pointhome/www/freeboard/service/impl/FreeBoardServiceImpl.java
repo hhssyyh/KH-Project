@@ -192,6 +192,13 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 		freeBoardDao.deleteBoard(board);
 
 	}
+	
+	
+	@Override
+	public List<Map<String, Object>> selectBoardByFilter(Paging paging, String filter) {
+		
+		return freeBoardDao.selectBoardByFilter(paging, filter);
+	}
 
 }
 
