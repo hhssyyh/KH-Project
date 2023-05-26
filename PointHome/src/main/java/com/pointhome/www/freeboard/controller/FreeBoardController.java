@@ -2,6 +2,7 @@ package com.pointhome.www.freeboard.controller;
 
 import java.util.List;
 import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -81,7 +82,6 @@ public class FreeBoardController {
 		}
 
 		User viewUser = freeBoardService.viewUser(board.getUserNo());
-		
 		model.addAttribute("viewUser", viewUser);
 	}
 
@@ -149,6 +149,31 @@ public class FreeBoardController {
 		return "redirect:./view";
 	}
 
+	@GetMapping("/updateComment")
+	public void updateComment(FreeBoardComment comment, int freeboardNo, Model model, HttpSession session) {
+				
+		logger.info("수정 가져오기");
+		
+		FreeBoard board = freeBoardService.view(freeboardNo);
+		model.addAttribute("board", board);
+		
+		
+		comment.setUserNo((Integer)session.getAttribute("userno"));	
+		
+		
+		freeBoardService.updateComment(comment);
+		
+		List<FreeBoardComment> boardCommentList = freeBoardService.commentView(freeboardNo);
+		model.addAttribute("boardCommentList", boardCommentList);
+		
+		
+		User viewUser = freeBoardService.viewUser(board.getUserNo());
+		model.addAttribute("viewUser", viewUser);
+		
+		
+		logger.info("**아아아아아아아 {}",comment);
+		model.addAttribute("comment", comment);
+	}
 }
 
 

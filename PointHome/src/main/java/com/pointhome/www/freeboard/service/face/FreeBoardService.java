@@ -43,6 +43,8 @@ public interface FreeBoardService {
 
 	public User viewUser(int userNo);
 
+	public void updateComment(FreeBoardComment comment);
+
 
 }
 

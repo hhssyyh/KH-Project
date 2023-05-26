@@ -193,6 +193,12 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 
 	}
 
+	@Override
+	public void updateComment(FreeBoardComment comment) {
+		freeBoardDao.updateComment(comment);
+		
+	}
+
 }
 
 

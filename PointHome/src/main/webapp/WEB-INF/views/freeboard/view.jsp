@@ -5,15 +5,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<c:import url="../layout/header.jsp" />
 
 <style type="text/css">
 div.content {
@@ -90,6 +82,10 @@ div.fr {
 
 <script type="text/javascript">
 $(function() {
+// 	$(".commContent").hide()
+	$(".commInput").hide()
+	$(".commBtnInput").hide()
+	
 	$("#recommend").on('click', "#recommendBtn", function(){
 		console.log("click")
 		$.ajax({
@@ -108,9 +104,105 @@ $(function() {
 			   }
 		})
 	})
+	
 })
 
+function updateComment(th){
+	console.log("updateComment")
+//	console.log($(th))
+//	console.log($(th).parents("tr").find(".comm").find(".commContent").val())
+// 	console.log($(th).parents("tr").find(".commContent").text().trim())
+// 	$(".commInput").html('<input type="text" value="'+th.parent().parent().parent()+'">')
+// 	$(".commContent").hide()
+// 	$(".commBtnInput").show()
+// 	$(".commBtnComment").hide()
+
+
+	$(".commBtnInput").children(":nth-child(2)").each(function() {
+		cancel(this)
+	})
+
+	var commentText = $(th).parents("tr").find(".commContent").text().trim()
+	
+	console.log(commentText)
+	
+	$(th).parents("tr").find(".commContent").hide()
+	$(th).parents("tr").find(".commBtnComment").hide()
+	
+	$(th).parents("tr").find(".commInput").children().val( commentText )
+	$(th).parents("tr").find(".commInput").show()
+	$(th).parents("tr").find(".commBtnInput").show()
+	
+//	updateCom( $(th).attr("data-commNo"), commentText )
+// 	updateCom( $(th).attr("data-commNo"), $(th).parents("tr").find(".commContent").text().trim() )
+
+// 	$.ajax({0
+// 		type: "get"
+// 		, url: "./updateComment"
+// 		, dataType: "html"
+// 		, data: {
+// 			commNo: $(th).attr("data-commNo")
+// 			, commentText: commentText
+// 		}
+// 		, success: function(data){
+// 			$(".commentTr").html(result)
+// 		}
+// 		, error: function() {
+// 			console.log("error")
+// 		}
+// 	})
+}
+
+function cancel(th) {
+	console.log("cancel")
+// 	$(".commContent").show()
+// 	$(".commInput").html("")
+// 	$(".commBtnInput").hide()
+// 	$(".commBtnComment").show()
+	
+	$(th).parents("tr").find(".commContent").show()
+	$(th).parents("tr").find(".commBtnComment").show()
+	
+	$(th).parents("tr").find(".commInput").hide()
+	$(th).parents("tr").find(".commBtnInput").hide()
+}
+
+
+function updateCom(th, commNo) {
+	console.log("클릭")
+	console.log(commNo)	
+	console.log($(th).parents("#commentTr").find(".commUpdateContent"+commNo).val())
+	
+	
+	var commentText = $(th).parents("#commentTr").find(".commUpdateContent"+commNo).val()
+	
+	if(commentText == ""){
+		commentText = "공백입니다"
+	}
+	
+	console.log(commentText)
+
+	
+	$.ajax({
+		type: "get"
+		, url: "./updateComment"
+		, dataType: "html"
+		, data: {
+			commNo: commNo
+			, commContent: commentText
+			, freeboardNo: ${board.freeboardNo} 
+		}
+		, success: function(data){
+			$("#commentTr").html(data)
+		}
+		, error: function() {
+			console.log("error")
+		}
+	})
+}
+
 </script>
+
 
 
 <div class="container" style="margin-top: 180px; margin-bottom: 200px;">
@@ -254,78 +346,45 @@ ${board.freeboardContent }
 <input type="hidden" value="${board.freeboardNo }" name="freeboardNo">
 
 <button>작성</button><br><br>
+</form>
 </c:if>
 
+<table id="commentTr">
 <c:forEach var="boardCommentList" items="${boardCommentList }">
 <tr>
-	<td><i class="bi bi-person-circle"></i>${userNick} ${boardCommentList.userNo }<td> 
-	<td>${boardCommentList.commContent }</td> 
+	<td><i class="bi bi-person-circle"></i>${viewUser.userNick }<td> 
+	<td class="comm">
+		<div class="commContent">
+			${boardCommentList.commContent }
+		</div>
+		<div class="commInput">
+			<input class="commUpdateContent${boardCommentList.commNo}" type="text" name="commUpdateContent">
+		</div>
+	</td> 
 	<td><fmt:formatDate value="${boardCommentList.commDate }" pattern="yy/MM/dd hh:mm"/></td>
-	<td>
 	
-	<c:if test="${not empty userno and userno eq boardCommentList.userNo}">
-		<a><button type="button">수정</button></a>
-		<a href="./commentDelete?commNo=${boardCommentList.commNo}&freeboardNo=${board.freeboardNo}"><button type="button">삭제</button></a>
-	</c:if>
-	
+	<td class="commBtn">
+		<c:if test="${not empty userno and userno eq boardCommentList.userNo}">
+			<div class="commBtnComment">
+				<button type="button" onclick="updateComment(this)">수정</button>
+				<a href="./commentDelete?commNo=${boardCommentList.commNo}&freeboardNo=${board.freeboardNo}"><button type="button">삭제</button></a>
+			</div>
+			<div class="commBtnInput">
+				<button onclick="updateCom(this, ${boardCommentList.commNo})">완료</button> 
+				<button onclick="cancel(this)">취소</button>
+			</div>
+		</c:if>
 	</td>
+	
 	<br><br>
 </tr>
 </c:forEach>
+</table>
 
 <!-- i태그 이미지 >> 사용자 프로필 가져오기 로 코맨트 for each 출력-->
-</form>
 </div>
 </div><!-- div.container -->
 
 
 <c:import url="/WEB-INF/views/layout/footer.jsp" />
-
-<script>
-  const body = document.querySelector('body');
-  const modal = document.querySelector('.modal');
-  const btnOpenPopup = document.querySelector('.btn-open-popup');
-
-  btnOpenPopup.addEventListener('click', () => {
-    modal.classList.toggle('show');
-
-    if (modal.classList.contains('show')) {
-      body.style.overflow = 'hidden';
-    }
-  });
-
-  modal.addEventListener('click', (event) => {
-    if (event.target === modal) {
-      modal.classList.toggle('show');
-
-      if (!modal.classList.contains('show')) {
-        body.style.overflow = 'auto';
-      }
-    }
-  });
-</script>
-
-<script>
-  const body2 = document.querySelector('body');
-  const modal2 = document.querySelector('.modal2');
-  const btnOpenPopup2 = document.querySelector('.btn-reset-popup');
-
-  btnOpenPopup2.addEventListener('click', () => {
-    modal2.classList.toggle('show');
-
-    if (modal2.classList.contains('show')) {
-      body2.style.overflow = 'hidden';
-    }
-  });
-
-  modal2.addEventListener('click', (event) => {
-    if (event.target === modal2) {
-      modal2.classList.toggle('show');
-
-      if (!modal2.classList.contains('show')) {
-        body2.style.overflow = 'auto';
-      }
-    }
-  });
-</script>
 
