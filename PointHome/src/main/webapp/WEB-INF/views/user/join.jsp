@@ -255,13 +255,13 @@
 	</form>
 	
 </div>
+</div>
+</div>
 
 <!-- 우 여백 -->
 <div class="col-3"></div>
 <!-- 우 여백 끝 -->
 
-</div>
-</div>
 </div>
 
 <c:import url="../layout/footer.jsp"/>
