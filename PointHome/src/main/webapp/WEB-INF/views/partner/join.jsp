@@ -24,24 +24,24 @@
       <a class="navbar-brand h1 text-center col-5" href="./">PointHone</a>
    </div>
 
-   <form action="/partner/join" method="post">
+	<form action="/partner/join" method="post">
 
-   <div class="row g-2 mb-3">
-      <div class="form-floating col-8">
-         <input type="email" class="form-control" name="partnerEmail" id="partnerEmail" placeholder="이메일">
-         <label for="partnerEmail">이메일</label>
-      </div>
-             
-      <div class="form-floating col-4">
-         <select class="form-select" name="partnerEmailSelect" id="partnerEmailSelect">
-            <option selected>직접입력</option>
-            <option value="@gmail.com">@gmail.com</option>
-            <option value="@naver.com">@naver.com</option>
-            <option value="@hanmail.net">@hanmail.net</option>
-         </select> 
-         <label for="partnerEmailSelect">선택</label>
-      </div>
-   </div>
+	<div class="row g-2 mb-3">
+		<div class="form-floating col-8">
+		   <input type="email" class="form-control" name="partnerEmail" id="partnerEmail" placeholder="이메일">
+		   <label for="partnerEmail">이메일</label>
+		</div>
+		       
+		<div class="form-floating col-4">
+			<select class="form-select" name="partnerEmailSelect" id="partnerEmailSelect">
+				<option selected>직접입력</option>
+				<option value="@gmail.com">@gmail.com</option>
+				<option value="@naver.com">@naver.com</option>
+				<option value="@hanmail.net">@hanmail.net</option>
+			</select> 
+			<label for="partnerEmailSelect">선택</label>
+		</div>
+	</div>
 
       <div class="form-floating mb-3">
          <input type="text" class="form-control" name="partnerPw" id="partnerPw" placeholder="비밀번호">
@@ -68,49 +68,49 @@
          <input type="text" class="form-control" name="partnerPhone" id="partnerPhone" placeholder="연락처">
          <label for="partnerPhone">연락처</label>
       </div>
-   
-   <div class="row g-2 mb-3">
-   
-   <div class="form-floating col-9">
-      <input type="text" class="form-control" name="partnerShop" id="partnerShop" placeholder="상호명">
-      <label for="partnerShop">상호명</label>
-   </div>
+	
+	<div class="row g-2 mb-3">
+	
+	<div class="form-floating col-9">
+		<input type="text" class="form-control" name="partnerShop" id="partnerShop" placeholder="상호명">
+		<label for="partnerShop">상호명</label>
+	</div>
 
-   <div class="form-floating col-3">
-      <select class="form-select" name="partnerType" id="partnerType">
-               <option selected value="t">타로</option>
-               <option value="c">철학</option>
-               <option value="s">신점</option>
-      </select>
-      <label for="partnerType">제휴타입</label>
-   </div>
+	<div class="form-floating col-3">
+		<select class="form-select" name="partnerType" id="partnerType">
+		         <option value="t" selected>타로</option>
+		         <option value="c">철학</option>
+		         <option value="s">신점</option>
+		</select>
+		<label for="partnerType">제휴타입</label>
+	</div>
 
-   </div>
-   
-   <div class="row g-2 mb-3">
+	</div>
+	
+	<div class="row g-2 mb-3">
 
-      <div class="form-floating col-9">
-         <input type="text" class="form-control" name="partnerAccount" id="partnerAccount" placeholder="계좌">
-         <label for="partnerAccount">계좌</label>
-      </div>
+		<div class="form-floating col-9">
+		   <input type="text" class="form-control" name="partnerAccount" id="partnerAccount" placeholder="계좌">
+		   <label for="partnerAccount">계좌</label>
+		</div>
 
-      <div class="form-floating col-3">
-         <select class="form-select" name="partnerBank" id="partnerBank">
-                  <option selected value="국민">국민</option>
-                  <option value="sc제일">sc제일</option>
-                  <option value="신한">신한</option>
-                  <option value="우리">우리</option>
-                  <option value="외환">외환</option>
-                  <option value="기업">기업</option>
-                  <option value="농협">농협</option>
-                  <option value="수협">수협</option>
-                  <option value="KBE하나">KBE하나</option>
-                  <option value="한국시티">한국시티</option>            
-         </select> 
-         <label for="partnerBank">은행</label>
-      </div>
-      
-   </div>
+		<div class="form-floating col-3">
+		   <select class="form-select" name="partnerBank" id="partnerBank">
+		            <option value="국민" selected>국민</option>
+		            <option value="sc제일">sc제일</option>
+		            <option value="신한">신한</option>
+		            <option value="우리">우리</option>
+		            <option value="외환">외환</option>
+		            <option value="기업">기업</option>
+		            <option value="농협">농협</option>
+		            <option value="수협">수협</option>
+		            <option value="KBE하나">KBE하나</option>
+		            <option value="한국시티">한국시티</option>            
+		   </select> 
+		   <label for="partnerBank">은행</label>
+		</div>
+		
+	</div>
 
    <div class="form-floating mb-3">
       <select class="form-select" name="partnerGender" id="partnerGender">
@@ -208,17 +208,6 @@
 <!-- 우 여백 -->
 <div class="col-3"></div>
 <!-- 우 여백 끝 -->
-
-</div>
-
-<!-- 우 여백 -->
-<div class="col-3"></div>
-<!-- 우 여백 끝 -->
-
-</div>
-</div>
-</div>
-
 
 
 <c:import url="../layout/footer.jsp"/>
