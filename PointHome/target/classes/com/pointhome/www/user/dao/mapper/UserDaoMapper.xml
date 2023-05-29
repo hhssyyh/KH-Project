@@ -58,4 +58,13 @@
 		SELECT * FROM user_tb
 		WHERE user_no = #{userNo}
 	</select>
+	
+	<select id="selectCntByUserEmail" resultType="int" parameterType="User">
+		SELECT count(*) FROM user_tb
+		WHERE 1=1
+			AND user_email = #{userEmail} 
+			AND user_phone = #{userPhone} 
+	</select>
+	
+	
 </mapper>

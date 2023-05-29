@@ -58,13 +58,23 @@ public interface UserService {
 
 	public JsonObject getTokenNaver(String apiURL);
 
-	public Map<String, Object> getUserInfoNaver(JsonObject token);
+	public User getUserInfoNaver(JsonObject token);
 
 	/**
+	 * MypageController에서,
 	 * userno 가져와서 유저정보조회
 	 * @param userno
-	 * @return 이거 컨트롤러에서 안썼던데 왜 만든거야 ??????
+	 * @return 
 	 */
 	public User selectInfo(int userno);
+
+	/**
+	 * 사용자의 Email & Phone을
+	 * 이용한 회원가입 여부 조회
+	 * 
+	 * @param userInfo - 회원가입시 입력 받은 파라미터
+	 * @return - [1]: 존재 | [0]: 없음
+	 */
+	public int getCntUserByEmailPhone(User userInfo);
 
 }

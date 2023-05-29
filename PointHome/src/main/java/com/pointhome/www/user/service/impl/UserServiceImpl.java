@@ -167,11 +167,11 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Map<String, Object> getUserInfoNaver(JsonObject token) {
+	public User getUserInfoNaver(JsonObject token) {
 	
 		  String host = "https://openapi.naver.com/v1/nid/me";
           
-		  Map<String, Object> result = new HashMap<>();
+		  User user = new User();
           
           try {
         	  
@@ -205,26 +205,33 @@ public class UserServiceImpl implements UserService {
               JsonObject response = jsonObject.getAsJsonObject("response");
               logger.debug("response : {}", response);
 
-              String id = response.get("id").getAsString();
-              String nickname = response.get("nickname").getAsString();
-              String age_range = response.get("age").getAsString();
-              String email = response.get("email").getAsString();
+              String name = response.get("name").getAsString().trim();
+              String nickname = response.get("nickname").getAsString().trim();
+              String email = response.get("email").getAsString().trim();
+              char gender = response.get("gender").getAsString().charAt(0);
+              String phone = response.get("mobile").getAsString().replaceAll("[^0-9]", "").trim();
+              int birthyear = response.get("birthyear").getAsInt();
+              int birthmonth = Integer.parseInt(response.get("birthday").getAsString().split("-")[0]);
+              int birthday = Integer.parseInt(response.get("birthday").getAsString().split("-")[1]);
 
-              result.put("id", id);
-              result.put("nickname", nickname);
-              result.put("age_range", age_range);
-              result.put("email", email);
-
+              user.setUserEmail(email);
+              user.setUserName(name);
+              user.setUserNick(nickname);
+              user.setUserGender(gender);
+              user.setUserPhone(phone);
+              user.setUserBirthYear(birthyear);
+              user.setUserBirthMonth(birthmonth);
+              user.setUserBirthDay(birthday);
+              
               br.close();
 
           } catch (IOException e) {
               e.printStackTrace();
           }
           
-          
-          logger.debug("result : {}", result);
-          return result;
+          logger.debug("user : {}", user);
 
+          return user;
 		
 	}
 
@@ -232,6 +239,12 @@ public class UserServiceImpl implements UserService {
 	public User selectInfo(int userno) {
 
 		return userDao.selectByUserId(userno);
+	}
+	
+	@Override
+	public int getCntUserByEmailPhone(User userInfo) {
+		
+		return userDao.selectCntByUserEmail(userInfo);
 	}
 	
 }
