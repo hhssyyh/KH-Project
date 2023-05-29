@@ -12,6 +12,8 @@ import com.pointhome.www.admin.dao.face.AdminDao;
 import com.pointhome.www.admin.dto.Admin;
 import com.pointhome.www.admin.dto.AdminNotice;
 import com.pointhome.www.admin.service.face.AdminService;
+import com.pointhome.www.freeboard.dto.FreeBoard;
+import com.pointhome.www.freeboard.dto.FreeBoardComment;
 import com.pointhome.www.user.dto.User;
 
 @Service
@@ -58,5 +60,19 @@ public class AdminServiceImpl implements AdminService {
 		return alist;
 	}
 	
+	@Override
+	public List<FreeBoard> userPost(int userno) {
+		List<FreeBoard> fbList = adminDao.selectUserPost(userno);
+		
+		return fbList;
+		
+		
+	}
+	
+	@Override
+	public List<FreeBoardComment> userCmt(int userno) {
+		List<FreeBoardComment> cmtList = adminDao.selectUserCmt(userno);
+		return cmtList;
+	}
 	
 }

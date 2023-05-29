@@ -5,6 +5,8 @@ import java.util.Map;
 
 import com.pointhome.www.admin.dto.Admin;
 import com.pointhome.www.admin.dto.AdminNotice;
+import com.pointhome.www.freeboard.dto.FreeBoard;
+import com.pointhome.www.freeboard.dto.FreeBoardComment;
 import com.pointhome.www.user.dto.User;
 
 public interface AdminService {
@@ -40,6 +42,18 @@ public interface AdminService {
 	 * @return 모든 공지 게시글
 	 */
 	public List<AdminNotice> noticeList();
+	/**
+	 * 선택한 유저의 게시글을 조회한다.
+	 * @param userno - 유저
+	 * @return - 글 전체 조회 
+	 */
+	public List<FreeBoard> userPost(int userno);
+	/**
+	 *  댓글 전체 조회
+	 * @param userno - 유저 번호
+	 * @return 유저 번호로 조회한 전체 댓글
+	 */
+	public List<FreeBoardComment> userCmt(int userno);
 	
 	
 	

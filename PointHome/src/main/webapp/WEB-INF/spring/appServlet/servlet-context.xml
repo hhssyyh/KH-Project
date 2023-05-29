@@ -85,9 +85,11 @@
 		com.pointhome.www.mypage.controller,
 		com.pointhome.www.mypage.service,
 		com.pointhome.www.partner.controller,
-		com.pointhome.www.partner.service
-		com.pointhome.www.admin.controller
+		com.pointhome.www.partner.service,
+		com.pointhome.www.user.kakao.controller,
+		com.pointhome.www.user.kakao.service,
+		com.pointhome.www.admin.controller,
 		com.pointhome.www.admin.service
 		" />
-	
+  
 </beans:beans>

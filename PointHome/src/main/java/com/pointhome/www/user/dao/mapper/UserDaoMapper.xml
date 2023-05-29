@@ -54,9 +54,8 @@
 			user_pw = #{userPw}
 	</select>	
 	 
-	 <select id="selectByUserId" resultType="User" parameterType="int">
-	 	select * from user_tb
-	 	where user_no =#{userno}
-	 
-	 </select>
+	<select id="selectByUserId" resultType="User" parameterType="int">
+		SELECT * FROM user_tb
+		WHERE user_no = #{userNo}
+	</select>
 </mapper>

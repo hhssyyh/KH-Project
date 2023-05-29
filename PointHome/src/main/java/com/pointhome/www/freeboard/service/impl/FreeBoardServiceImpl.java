@@ -205,7 +205,14 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 
 		
 		return freeBoardDao.selectBoardFilebyBoardNo(freeboardNo);
+
 	}
+	@Override
+	public void updateComment(FreeBoardComment comment) {
+		freeBoardDao.updateComment(comment);
+		
+	}
+
 	
 	@Override
 	public List<Map<String, Object>> selectBoardByFilter(Paging paging, String filter) {

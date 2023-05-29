@@ -5,6 +5,8 @@ import java.util.Map;
 
 import com.pointhome.www.admin.dto.Admin;
 import com.pointhome.www.admin.dto.AdminNotice;
+import com.pointhome.www.freeboard.dto.FreeBoard;
+import com.pointhome.www.freeboard.dto.FreeBoardComment;
 import com.pointhome.www.user.dto.User;
 
 public interface AdminDao {
@@ -37,6 +39,18 @@ public interface AdminDao {
 	 * @return map으로 반환
 	 */
 	public Map<String, Object> selectUserInfo(int userNo);
+	/**
+	 * 해당 유저의 게시글 조회
+	 * @param userno - 해당 유저
+	 * @return 해당 유저의 모든 게시글
+	 */
+	public List<FreeBoard> selectUserPost(int userno);
+	/**
+	 * 해당 유저를 통해 모든 댓글 조회
+	 * @param userno - 해당 유저 
+	 * @return 전체 댓글 조회
+	 */
+	public List<FreeBoardComment> selectUserCmt(int userno);
 	
 
 	

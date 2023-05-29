@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.pointhome.www.admin.dto.Admin;
 import com.pointhome.www.admin.dto.AdminNotice;
 import com.pointhome.www.admin.service.face.AdminService;
+import com.pointhome.www.freeboard.dto.FreeBoard;
+import com.pointhome.www.freeboard.dto.FreeBoardComment;
 import com.pointhome.www.user.dto.User;
 
 @Controller
@@ -94,6 +96,8 @@ public class AdminController {
 		
 	}
 	
+	
+	
 	@GetMapping("/noticelist")
 	public void adminnotice(Model model) {
 		logger.debug("/admin/noticelist");	
@@ -106,6 +110,45 @@ public class AdminController {
 	@GetMapping("/write")
 	public void writeGet() {
 		logger.debug("/admin/write");
+		
+	}
+
+
+	
+//	about AJAX ctr
+	
+	@GetMapping("/ajax/boardchkajax")
+	public String boardChkAjaxGet(int userno, Model model) {
+		logger.debug("/admin/ajax/boardchkajax [GET]");
+		
+		logger.debug("ajax - {}", userno);	
+		
+		List<FreeBoard> fbList = adminService.userPost(userno);
+		
+		model.addAttribute("fbList", fbList);
+		logger.debug("{}", fbList);
+		return "/admin/ajax/boardchkajax"; 
+	}
+	
+	@GetMapping("/ajax/cmtchkajax")
+	public void cmtChkAjax(int userno, Model model) {
+		logger.debug("/admin/ajax/cmtchkajax [GET]");
+		
+		logger.debug("ajax - {}", userno);
+		
+		List<FreeBoardComment> cmtList = adminService.userCmt(userno);
+		logger.debug("{}", cmtList);
+		
+		model.addAttribute("cmtList", cmtList);
+	}
+	
+	
+	
+	
+	
+	
+	@GetMapping("/prc/prc")
+	public void prcGet() {
 		
 	}
 	

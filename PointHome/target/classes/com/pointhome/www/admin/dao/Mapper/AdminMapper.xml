@@ -21,6 +21,8 @@
 	<select id="selectAllAdminNotice" resultType="AdminNotice">
 		SELECT *
 		FROM ADMIN_NOTICE
+
+
 	
 	</select>
 
@@ -35,4 +37,16 @@
 	WHERE u.user_no = #{userNo}
 	</select>
 	
+	<select id="selectUserPost" parameterType="int" resultType="FreeBoard">
+		SELECT FREEBOARD_NO, FREEBOARD_TITLE, FREEBOARD_HIT,FREEBOARD_DATE
+		FROM freeboard
+		where user_no = #{userno}
+	</select>
+	
+	<select id="selectUserCmt" parameterType="int" resultType="FreeBoardComment">
+		select COMM_NO, COMM_CONTENT, COMM_DATE, FREEBOARD_NO
+		FROM FREEBOARD_COMMENT
+		WHERE user_no = #{userno}
+		ORDER BY FREEBOARD_NO desc, comm_no desc
+	</select>
 </mapper>
