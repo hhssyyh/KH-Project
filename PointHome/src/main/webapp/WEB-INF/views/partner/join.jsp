@@ -203,11 +203,15 @@
      <button class="btn btn-primary btn-lg" type="submit">가입하기</button>
    </div>
    </form>
+</div>
+</div>
+</div>
 
 
 <!-- 우 여백 -->
 <div class="col-3"></div>
 <!-- 우 여백 끝 -->
 
+</div>
 
 <c:import url="../layout/footer.jsp"/>
