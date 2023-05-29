@@ -31,6 +31,13 @@ public interface AdminDao {
 	 */
 	public List<AdminNotice> selectAllAdminNotice();
 	
+	/**
+	 *  해당 유저의 모든 정보 조회
+	 * @param userNo - 선택한 유저
+	 * @return map으로 반환
+	 */
+	public Map<String, Object> selectUserInfo(int userNo);
+	
 
 	
 	

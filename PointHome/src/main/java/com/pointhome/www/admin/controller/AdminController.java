@@ -1,6 +1,7 @@
 package com.pointhome.www.admin.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -71,7 +72,7 @@ public class AdminController {
 		
 	}
 	
-	// 나중에 모든 DB 어떻게 삭제할건지 정해야함
+	// 나중에 모든 DB 어떻게 삭제할건지 정해야함 / 추후 개발
 	@GetMapping("/userdelete")
 	public String userdeleteGet(User userno) {
 		
@@ -82,12 +83,14 @@ public class AdminController {
 		return "redirect:/admin/usermanage";
 	}
 	
+	
 	@GetMapping("/userdetail")
-	public void userdetail(int userNo) {
+	public void userdetail(int userNo, Model model) {
 		logger.debug("{}",userNo);
 		
-		adminService.userdetail(userNo);
+		Map<String, Object> detailList = adminService.userdetail(userNo);
 		
+		model.addAttribute("detailList", detailList);
 		
 	}
 	
@@ -100,6 +103,10 @@ public class AdminController {
 		model.addAttribute("noticelist", noticelist);
 	}
 	
-	
+	@GetMapping("/write")
+	public void writeGet() {
+		logger.debug("/admin/write");
+		
+	}
 	
 }

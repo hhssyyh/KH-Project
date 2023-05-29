@@ -18,11 +18,21 @@
 		FROM USER_TB
 	</select>
 	
-	<select id="selectAllAdminNotice" resultType="">
+	<select id="selectAllAdminNotice" resultType="AdminNotice">
 		SELECT *
-		FROM admin_notice
+		FROM ADMIN_NOTICE
 	
 	</select>
 
+	<select id="selectUserInfo" parameterType="int" resultType="map">
+	select u.*, (select count(*)
+            	from freeboard f
+            	where f.user_no = #{userNo}) as FREEBOARD
+            	,(select count(*)
+            	from freeboard_comment fc
+            	where fc.user_no = #{userNo}) as FREEBOARDCOMMENT
+	FROM user_tb u
+	WHERE u.user_no = #{userNo}
+	</select>
 	
 </mapper>

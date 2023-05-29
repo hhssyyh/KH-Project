@@ -10,9 +10,9 @@ a {
 	list-style-type: none;
 	background-color: #ccc;
 	width: 15%;
-	
-	margin-right:0;
-	margin-left: 0;
+	margin: 0 0 0 0;
+	/* margin-right:0;
+	margin-left: 0; */
 	
 	position: fixed;
 	height: 100%;

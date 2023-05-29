@@ -31,8 +31,9 @@ public interface AdminService {
 	/**
 	 * 선택한 유저의 상세 조회 
 	 * @param userNo - 선택한 유저
+	 * @return 
 	 */
-	public void userdetail(int userNo);
+	public Map<String, Object> userdetail(int userNo);
 	
 	/**
 	 * 공지글 전체 조회

@@ -43,16 +43,19 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public void userdetail(int userNo) {
-		
-		
+	public Map<String, Object> userdetail(int userNo) {
+		Map<String, Object> dlist = adminDao.selectUserInfo(userNo);
+		logger.debug("{}",dlist);
+		return dlist;
 	}
 	
 	@Override
 	public List<AdminNotice> noticeList() {
 		
-		List<AdminNotice> list = adminDao.selectAllAdminNotice();
-		return list;
+		List<AdminNotice> alist = adminDao.selectAllAdminNotice();
+		
+		logger.debug("{}", alist);
+		return alist;
 	}
 	
 	
