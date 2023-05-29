@@ -89,7 +89,7 @@ a{
 	<div class="bg-light fixed-top" style="margin-top: 60px; margin-left: 15%;">
 		<ul class="nav justify-content-center">
 		  <li class="nav-item">
-		    <a class="nav-link active" aria-current="page" href="#">Active</a>
+		    <a class="nav-link active" aria-current="page" href="#">전체</a>
 		  </li>
 		  <li class="nav-item">
 		    <a class="nav-link" href="#">사주</a>
@@ -98,10 +98,7 @@ a{
 		    <a class="nav-link" href="#">타로</a>
 		  </li>
 		  <li class="nav-item">
-		    <a class="nav-link" href="#">타로버블티</a>
-		  </li>
-		  <li class="nav-item">
-		    <a class="nav-link" href="#"></a>
+		    <a class="nav-link" href="#">신점</a>
 		  </li>
 		</ul>
 	</div>

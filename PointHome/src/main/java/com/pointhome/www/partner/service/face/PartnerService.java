@@ -1,6 +1,9 @@
 package com.pointhome.www.partner.service.face;
 
+import java.util.List;
+
 import com.pointhome.www.partner.dto.Partner;
+import com.pointhome.www.util.Paging;
 
 public interface PartnerService {
 
@@ -26,6 +29,12 @@ public interface PartnerService {
 	 * @return - 회원의 정보
 	 */
 	public Partner getPartner(Partner partner);
+
+	public Paging getPaging(int curPage);
+
+	public List<Partner> list(Paging paging);
+
+	
 
 
 }

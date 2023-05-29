@@ -11,7 +11,7 @@
 
 <div class="container">
 
-<div class="row text-center">
+<div class="row text-center" style="margin-top: 60px; margin-bottom: 80px;">
 
 <!-- 좌여백 -->
 <div class="col-3"></div>
@@ -87,7 +87,7 @@
 	<!-- 연락처 시작 -->
 	<div class="form-floating mb-3">
 		<input type="text" class="form-control" name="userPhone" id="userPhone" placeholder="연락처">
-		<label for="floatingInput">연락처</label>
+		<label for="userPhone">연락처</label>
 	</div>
 	<!-- 연락처 끝 -->
 
@@ -133,7 +133,7 @@
 		<div class="col-8">
 			<div class="form-floating">
 				<input type="text" class="form-control" name="userPostCode" id="userPostCode" placeholder="우편번호">
-				<label for="">우편번호</label>
+				<label for="userPostCode">우편번호</label>
 			</div>
 		</div>
 		
@@ -146,21 +146,21 @@
 
 	<div class="form-floating mb-3">
 		<input type="text" class="form-control" name="userAddress" id="userAddress" placeholder="주소">
-		<label for="floatingInput">주소</label>
+		<label for="userAddress">주소</label>
 	</div>
 	
 	<div class="row g-2 mb-3">
 		<div class="col-6">
 			<div class="form-floating">
 				<input type="text" class="form-control" name="userDetailAddress" id="userDetailAddress" placeholder="상세주소">
-				<label for="">상세주소</label>
+				<label for="userDetailAddress">상세주소</label>
 			</div>
 		</div>
 		
 		<div class="col-6 mb-3">
 			<div class="form-floating">
 				<input type="text" class="form-control" name="userExtraAddress" id="userExtraAddress" placeholder="참고항목">
-				<label for="">참고사항</label>
+				<label for="userExtraAddress">참고사항</label>
 			</div>
 		</div>
 	</div>
