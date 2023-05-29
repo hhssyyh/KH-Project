@@ -1,9 +1,5 @@
 package com.pointhome.www.user.controller;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,16 +13,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.pointhome.www.user.dto.User;
 import com.pointhome.www.user.service.face.UserService;
+import com.pointhome.www.user.service.impl.OAuthService;
 
 @Controller
 public class userController {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired UserService userService;
+	@Autowired OAuthService oAuthService;
 	
 	@GetMapping("/user/join")
 	public void join() {
@@ -39,6 +36,7 @@ public class userController {
 		logger.debug("{}", user);
 
 		userService.addUser(user);
+		// userJoin 중복검사 안함
 
 		return "redirect:./login";
 	}

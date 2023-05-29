@@ -58,6 +58,9 @@
 		<beans:property name="order" value="0"/>
 
 	</beans:bean>
+	
+	<!-- DownloadView 클래스를 스프링 빈으로 등록한다 -->
+	<beans:bean id="down" class="com.pointhome.www.freeboard.view.DownloadView" />
 
 	<!-- DownloadView클래스를 스피링 빈으로 등록 -->
 <!-- 	<beans:bean id="down" class="file.view.DownloadView"/> -->
@@ -80,7 +83,13 @@
 		com.pointhome.www.freeboard.controller,
 		com.pointhome.www.freeboard.service,
 		com.pointhome.www.mypage.controller,
-		com.pointhome.www.partner.controller
+		com.pointhome.www.mypage.service,
+		com.pointhome.www.partner.controller,
+		com.pointhome.www.partner.service,
+		com.pointhome.www.user.kakao.controller,
+		com.pointhome.www.user.kakao.service,
+		com.pointhome.www.admin.controller,
+		com.pointhome.www.admin.service
 		" />
-	
+  
 </beans:beans>

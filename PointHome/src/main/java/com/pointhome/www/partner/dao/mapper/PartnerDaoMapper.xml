@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.pointhome.www.partner.dao.face.PartnerDao">
+
+
+	<insert id="insertPartner" parameterType="Partner">
+		insert into Partner_tb	(
+		partner_no,
+		partner_name,
+		partner_pw,
+		partner_nick,
+		partner_email,
+		partner_phone,
+		partner_bank,
+		partner_account,
+		partner_gender,
+		partner_birthyear,
+		partner_birthmonth,
+		partner_birthday,
+		partner_postcode,
+		partner_address,
+		partner_detailaddress,
+		partner_extraaddress)
+		
+		values(
+		partner_tb_seq.nextval,	
+		#{partnerName},
+		#{partnerPw},
+		#{partnerNick},
+		#{partnerEmail},
+		#{partnerPhone},
+		#{partnerBank},
+		#{partnerAccount},
+		#{partnerGender},
+		#{partnerBirthyear},
+		#{partnerBirthmonth},
+		#{partnerBirthday},
+		#{partnerPostcode},
+		#{partnerAddress},
+		#{partnerDetailaddress},
+		#{partnerExtraaddress}		)
+	</insert>
+
+	<!-- 중복검사 -->	
+	<select id="selectCntByEmailPhone" resultType="int" parameterType="Partner">
+		select count(*) from partner_tb
+		where partner_email = #{partnerEmail} or partner_phone = #{partnerPhone}
+	
+	</select>
+	
+	<select id="selectCntByPartnerEmailPw" resultType="int" parameterType="Partner">
+		select count(*) from partner_tb
+		where partner_email = #{partnerEmail} 
+		and partner_pw = #{partnerPw}
+	</select> 
+
+	<select id="selectByPartnerEmailPw" resultType="Partner" parameterType="Partner">
+	
+		select partner_no from partner_tb
+		where partner_email=#{partnerEmail} and partner_pw =#{partnerPw}
+	
+	</select>
+
+</mapper>

@@ -58,13 +58,6 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User selectInfo(int userno) {
-
-		
-		return userDao.selectByUserId(userno);
-	}
-
-	@Override
 	public String generateState() {
 
 	    SecureRandom random = new SecureRandom();
@@ -128,9 +121,6 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public JsonObject getTokenNaver(String apiURL) {
-
-		String accessToken = "";
-		String refreshToken = "";
 
 		try {
 			URL url = new URL(apiURL);
@@ -238,4 +228,10 @@ public class UserServiceImpl implements UserService {
 		
 	}
 
+	@Override
+	public User selectInfo(int userno) {
+
+		return userDao.selectByUserId(userno);
+	}
+	
 }

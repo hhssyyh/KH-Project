@@ -3,9 +3,6 @@ package com.pointhome.www.user.service.face;
 
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import com.google.gson.JsonObject;
 import com.pointhome.www.user.dto.User;
 
@@ -33,13 +30,6 @@ public interface UserService {
 	 * @return - 회원의 정보
 	 */
 	public User getUser(User param);
-
-	/**
-	 * userno 가져와서 유저정보조회
-	 * @param userno
-	 * @return
-	 */
-	public User selectInfo(int userno);
 
 	/**
 	 * 토큰 생성 코드
@@ -70,5 +60,11 @@ public interface UserService {
 
 	public Map<String, Object> getUserInfoNaver(JsonObject token);
 
+	/**
+	 * userno 가져와서 유저정보조회
+	 * @param userno
+	 * @return 이거 컨트롤러에서 안썼던데 왜 만든거야 ??????
+	 */
+	public User selectInfo(int userno);
 
 }
