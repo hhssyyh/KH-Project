@@ -249,5 +249,5 @@ a{
 </div>
 <!-- margin-left: 20% -->
 </div>
-</body>
-</html>
+
+<c:import url="./layout/footer.jsp"></c:import>
