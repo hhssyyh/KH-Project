@@ -1,17 +1,24 @@
 package com.pointhome.www.partner.controller;
 
+import java.util.List;
+
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 import com.pointhome.www.partner.dto.Partner;
 import com.pointhome.www.partner.service.face.PartnerService;
+import com.pointhome.www.util.Paging;
 
 @Controller
 @RequestMapping("/partner")
@@ -83,6 +90,34 @@ public class PartnerController {
 		
 	}
 	
+	@GetMapping("/list")
+	public void BoardList( @RequestParam(defaultValue = "0") int curPage, Model model) {
+		logger.info("/freeboard/list [GET]");
+
+		Paging paging = partnerService.getPaging(curPage);
+
+				List<Partner> list = partnerService.list(paging);
+		//		logger.info("list{}",list);
+		//		model.addAttribute("list", list);
+
+		//FreeBoard, FreeBoardComment, FreeBoardRecommend, User
+
+//		List<Map<String, Object>> list = freeBoardService.getList(paging);
+//		List<Map<String, Object>> list = partnerService.selectBoardByFilter(paging, filter);
+
+
+		logger.info("!!!!!!!!!!!!!!!!{}", list);
+
+		model.addAttribute("list", list);
+		model.addAttribute("paging", paging);
+
 	
+
+	}
+	
+
+
+
 	
 }
+    
