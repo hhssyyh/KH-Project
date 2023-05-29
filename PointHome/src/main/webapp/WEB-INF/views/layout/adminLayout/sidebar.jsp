@@ -10,9 +10,9 @@ a {
 	list-style-type: none;
 	background-color: #ccc;
 	width: 15%;
-	
-	margin-right:0;
-	margin-left: 0;
+	margin: 54px 0 0 0;
+	/* margin-right:0;
+	margin-left: 0; */
 	
 	position: fixed;
 	height: 100%;
@@ -41,7 +41,7 @@ a {
 		<li><a href="/admin/usermanage">회원관리</a></li>
 		<li><a href="#">결제관리</a></li>
 		<li><a href="#">리뷰조회</a></li>
-		<li><a href="#"></a></li>
+		<li><a href="#">공지사항</a></li>
 	</ul> 
 </div>
 
