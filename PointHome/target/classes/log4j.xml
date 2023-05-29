@@ -12,7 +12,7 @@
 		</layout>
 	</appender>
 	
-	<!-- Application Loggers -->
+<!-- 	Application Loggers -->
 	<logger name="com.pointhome.www">
 		<level value="debug" />
 	</logger>
