@@ -89,7 +89,7 @@ a{
 	<div class="bg-light fixed-top" style="margin-top: 60px; margin-left: 15%;">
 		<ul class="nav justify-content-center">
 		  <li class="nav-item">
-		    <a class="nav-link active" aria-current="page" href="#">Active</a>
+		    <a class="nav-link active" aria-current="page" href="#">메인</a>
 		  </li>
 		  <li class="nav-item">
 		    <a class="nav-link" href="#">사주</a>
@@ -164,9 +164,25 @@ a{
 		<!-- img end  -->
 		  <div class="card-body">
 		    <h5 class="card-title">제휴사 이름</h5>
-		    <p class="card-text">가격</p>
-		    <p class="card-text">별점</p>
-		    <p class="card-text">후기(?)</p>
+    <table>
+	    	<tr>
+	    		<th>가격</th>
+	    		<td>1000</td>
+	    		<th>가격</th>
+	    		<td>1000</td>
+	    		
+	    	</tr>
+	    	<tr>
+	    		<th>후기</th>
+	    		<th>10</th>
+	    	</tr>
+	    	<tr>
+	    		<th>별점</th>
+	    		<th>5</th>
+	    	</tr>
+	    	
+	    </table>
+	
 		    <a href="#" class="btn btn-primary">상세페이지</a>
 		  </div>
 		</div>
@@ -226,10 +242,9 @@ a{
 	<!-- img end  -->
 	  <div class="card-body">
 	    <h5 class="card-title">제휴사 이름</h5>
-	    <p class="card-text">가격</p>
-	    <p class="card-text">별점</p>
-	    <p class="card-text">가격</p>
-	    <p class="card-text">가격</p>
+	    
+	    
+
 	    <a href="#" class="btn btn-primary">상세페이지</a>
 	  </div>
 	</div>
@@ -249,5 +264,5 @@ a{
 </div>
 <!-- margin-left: 20% -->
 </div>
-</body>
-</html>
+
+<c:import url="./layout/footer.jsp"></c:import>

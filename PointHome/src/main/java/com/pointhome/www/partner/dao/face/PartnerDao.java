@@ -1,6 +1,9 @@
 package com.pointhome.www.partner.dao.face;
 
+import java.util.List;
+
 import com.pointhome.www.partner.dto.Partner;
+import com.pointhome.www.util.Paging;
 
 public interface PartnerDao {
 
@@ -35,6 +38,12 @@ public interface PartnerDao {
 	 * @return - select된 회원의 정보
 	 */
 	public Partner selectByPartnerEmailPw(Partner partner);
+
+	public int selectCntAll();
+
+	public List<Partner> selectAll(Paging paging);
+
+
 
 	
 

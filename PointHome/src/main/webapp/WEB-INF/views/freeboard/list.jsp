@@ -8,8 +8,12 @@
 <style type="text/css">
  #header, #footer {
    text-align: center;
+
+#header h1 {
+   line-height: 3em;
 }
 </style>
+
 
 <script type="text/javascript">
 $(function() {
@@ -43,8 +47,28 @@ function filterSelect() {
 	//curPage 초기화
 	var filter = $("#filter").val();
 	location.href = "?filter=" + filter
-	
 }
+</script>
+
+<script type="text/javascript">
+$(function() {
+	$("#filterDiv").on('click', "#selectFilter", function(){
+		console.log("click")
+		$.ajax({
+			   type : 'get',           // 타입 (get, post, put 등등)
+			   url : './listFilter',  // 요청할 서버url
+			   dataType : 'html',       // 데이터 타입 (html, xml, json, text 등등)
+			   data : {  // 보낼 데이터 (Object , String, Array)
+				   
+			   }, 
+			   success : function(result) { // 결과 성공 콜백함수
+			        $("#filterDiv").html(result)
+			   },
+			   error : function(request, status, error) { // 결과 에러 콜백함수
+			   }
+		})
+	})
+})
 </script>
 
 
@@ -59,6 +83,7 @@ function filterSelect() {
 
 <div id="filterDiv" style="text-align: right">
 	<i class="bi bi-bar-chart-steps"></i>정렬기준
+
 	<select class="array" id="filter" name="filter" onchange="filterSelect()">
 		<!-- 안바뀌네 -->
 		<c:choose>

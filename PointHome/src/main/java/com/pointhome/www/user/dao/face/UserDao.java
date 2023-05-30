@@ -31,11 +31,15 @@ public interface UserDao {
 	 */
 	public User selectByUserEmailPw(User param);
 
-	/**
-	 * 유저 정보 조회한 다음 가져오기
-	 * @param userno 
-	 * @return
-	 */
 	public User selectByUserId(int userno);
+
+	/**
+	 * Naver에서 받은 User정보를
+	 * 이용한 회원 조회
+	 * 
+	 * @param userInfo - Naver에서 읽어온 정보 파라미터
+	 * @return - [1]: 존재 | [0]: 없음
+	 */
+	public int selectCntByUserEmail(User userInfo);
 
 }

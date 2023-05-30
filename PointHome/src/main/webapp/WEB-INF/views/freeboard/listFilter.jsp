@@ -8,6 +8,19 @@
 </head>
 <body>
 
+
+<i class="bi bi-bar-chart-steps"></i>정렬기준
+<select class="array" id="filter" name="filter" onchange="selectFilter">
+	<option value="hit">조회순</option>
+	<option value="comment">댓글순</option>
+	<option value="recommend">추천순</option>
+	<option value="date">날짜순</option>
+</select>
+
+
+</body>
+</html>
+
 <!-- 여기 안씀 -->
 <thead>
 <tr>
@@ -35,6 +48,4 @@
 
 </body>
 </html>
-
-
 

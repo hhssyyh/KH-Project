@@ -1,5 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.net.URLEncoder" %>
+<%@ page import="java.security.SecureRandom" %>
+<%@ page import="java.math.BigInteger" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:import url="../layout/header.jsp"/>
 
@@ -36,15 +38,15 @@
 <a href="./join" class="btn btn-outline-secondary btn-lg" type="button">회원가입</a>
 
 <div class="nav justify-content-center col">
-	<div class="nav-item"><a class="nav-link" href="#">아이디 찾기</a></div>	
+	<div class="nav-item"><a class="nav-link" href="./searchid">아이디 찾기</a></div>	
 	<div class="nav-item">|</div>	
-	<div class="nav-item"><a class="nav-link" href="#">비밀번호 찾기</a></div>
+	<div class="nav-item"><a class="nav-link" href="./searchpw">비밀번호 찾기</a></div>
 </div>
 
 <div class="container">
-<div class="mt-3">
-  <a href="#"><img height="50" src="/resources/login/user/img/btnG_logo_round.png"/></a>
-  <a href="#"><img height="50" src="/resources/login/user/img/kakao_logo_round.png"/></a>
+<div class="mt-3 text-center mb-5">
+  <a href="./naverlogin"><img height="50" src="/resources/login/user/img/btnG_logo_round.png"/></a>
+  <a href="./kakaologin"><img height="50" src="/resources/login/user/img/kakao_logo_round.png"/></a>
 </div>
 </div>
 </div>

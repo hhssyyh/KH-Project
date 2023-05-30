@@ -15,6 +15,8 @@
 		partner_nick,
 		partner_email,
 		partner_phone,
+		partner_shopname,
+		partner_type,		
 		partner_bank,
 		partner_account,
 		partner_gender,
@@ -33,6 +35,8 @@
 		#{partnerNick},
 		#{partnerEmail},
 		#{partnerPhone},
+		#{partnerShopname},
+		#{partnerType},
 		#{partnerBank},
 		#{partnerAccount},
 		#{partnerGender},
@@ -63,6 +67,21 @@
 		select partner_no from partner_tb
 		where partner_email=#{partnerEmail} and partner_pw =#{partnerPw}
 	
+	</select>
+	
+	
+	<select id="selectAll" resultType="Partner" parameterType="Paging">
+		select * from (
+			select rownum rnum , B.*  from ( 
+				select * from partner_tb
+				order by partner_no desc 
+			) B 
+		)partner_tb
+		where rnum between #{startNo} and #{endNo}
+	</select>
+	
+	<select id="selectCntAll" resultType="int">
+		select count(*) from partner_tb	
 	</select>
 
 </mapper>

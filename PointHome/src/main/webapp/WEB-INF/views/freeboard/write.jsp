@@ -24,14 +24,20 @@
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang&family=Nanum+Brush+Script&display=swap" rel="stylesheet">
 
 <script type="text/javascript">
-
-
 $(function() {      
-      $("#freeboardContent").summernote({
+      
+	$("#freeboardContent").summernote({
          height: 300,
          placeholder: "본문 내용",
          focus: true
       })
+      
+      $("#btnCancle").click(function(){
+    		history.go(-1)();
+    	});
+
+	
+      
 })
 
 
@@ -121,13 +127,14 @@ a {
 *{
 font-family: 'Gowun Batang', serif;
 }
+#writeContainter {
+	margin-top: 54px;
+}
 </style>
 
 
 
-
-
-<div class="container" style="margin-top: 150px; margin-bottom: 200px;">
+<div id="writeContainter" class="container">
 
 <br><br>
 
@@ -147,14 +154,14 @@ font-family: 'Gowun Batang', serif;
    <div class="modal">
       <div class="modal_body" >게시글을 등록하시겠습니까?&nbsp;&nbsp;&nbsp;    
       <button type="submit" class="btn btn-outline-primary btn-default btn-xs">확인</button>
-      <button type="submit" class="btn btn-outline-primary btn-default btn-xs">취소</button>
+      <button type="button" class="btn btn-outline-primary btn-default btn-xs btnModalCancle" >취소</button>
       </div>     
     </div>
 
    <div class="modal2">
       <div class="modal2_body" >게시글작성을 중단하시겠습니까?&nbsp;&nbsp;&nbsp;    
-      <a href="/pro/main"><button type="button" class="btn btn-outline-primary btn-default btn-xs">확인</button></a>
-      <a href="/pro/main"><button type="button" class="btn btn-outline-primary btn-default btn-xs">취소</button></a>
+      <button type="button" class="btn btn-outline-primary btn-default btn-xs" id="btnCancle">확인</button>
+      <button type="button" class="btn btn-outline-primary btn-default btn-xs">취소</button>
       </div>
     </div>
 
@@ -165,21 +172,15 @@ font-family: 'Gowun Batang', serif;
    <hr>
 </form>
 
-
-
-
-
-
-
 </div>
 
      <script>
       const body = document.querySelector('body');
       const modal = document.querySelector('.modal');
       const btnOpenPopup = document.querySelector('.btn-open-popup');
-
+      const btnModalCancle = document.querySelector('.btnModalCancle');
       btnOpenPopup.addEventListener('click', () => {
-        modal.classList.toggle('show');
+        modal.classList.toggle('show'); 
 
         if (modal.classList.contains('show')) {
           body.style.overflow = 'hidden';
@@ -195,12 +196,17 @@ font-family: 'Gowun Batang', serif;
           }
         }
       });
+
+
+      
     </script>
 
      <script>
       const body2 = document.querySelector('body');
       const modal2 = document.querySelector('.modal2');
       const btnOpenPopup2 = document.querySelector('.btn-reset-popup');
+      const btnClosePopup = document.querySelector('.btnModalCancl');
+      
 
       btnOpenPopup2.addEventListener('click', () => {
         modal2.classList.toggle('show');
@@ -219,6 +225,10 @@ font-family: 'Gowun Batang', serif;
           }
         }
       });
+      
+    
+      
+      
     </script>
     
 
