@@ -108,7 +108,6 @@ public class userController {
 
 
 
-
 	@GetMapping("/user/searchid")
 	public void searchid() {
 		logger.debug("/user/searchid [GET]");
@@ -189,5 +188,4 @@ public class userController {
 	}
 	
 }
-
 

@@ -3,6 +3,12 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<style>
+img {width: 100px; height: 100px;}
+</style>
+
+
+
 <c:import url="/WEB-INF/views/layout/header.jsp" />
 
 <link href="/resources/mypage/userInfo.css" rel="stylesheet">
@@ -13,7 +19,9 @@
 <c:import url="/WEB-INF/views/layout/myprofile.jsp" />
 
 
-<form action="./update" method="get">
+
+
+<form action="./update" method="post" enctype="multipart/form-data">
 
 	<div id="userInfo" class="container mt-5" style="padding: 40px;">
 		<div style="font-size: 20px;">기본 회원정보</div>
@@ -23,11 +31,17 @@
 			<h6>사진</h6>
 		</div>
 		<div id="profile2">
-			<span><img id="profileImg2" alt="" src="https://t1.daumcdn.net/cfile/tistory/2513B53E55DB206927"></span>
+			<div id="image_container"><img id="profileImg2" alt="" src="https://t1.daumcdn.net/cfile/tistory/2513B53E55DB206927"></div>
 
-			<div id="btn2">
-				<button type="button" class="btn btn-outline-dark nickBtn2" style="font-size: 15px;">사진변경</button>
+<!-- 			<div id="btn2"> -->
+<!-- 				<button type="button" class="btn btn-outline-dark nickBtn2" style="font-size: 15px;" onclick="onClickUpload();">사진변경</button> -->
+<!-- 			</div> -->
+			
+			<div class="btn2">
+				<label for="file" class="btn btn-outline-dark nickBtn2" style="font-size: 15px;">사진 변경</label>
+				<input type="file" name="file" id="file" accept=".jpg, .png, .gif" style="display: none;" onchange="setThumbnail(event);">
 			</div>
+		
 
 		</div>
 		<hr>
@@ -35,7 +49,7 @@
 			<h6 style="margin-left: 13px;">이름(실명)</h6>
 			<input type="text" class="form-control" id="floatingInput"
 				style="width: 50%; margin-left: 215px; margin-top: -68px;"
-				placeholder="${res.userName }" disabled>
+				placeholder="${res.userName }" value="${res.userName }" disabled>
 			<label for="floatingInput"></label>
 
 		</div>
@@ -66,14 +80,16 @@
 		</div>
 
 		<hr>
-		<div id="divBirth">
-			<h6 style="margin-left: 13px;">생년월일</h6>
-			<input type="text" class="form-control" id="floatingInput"
-				style="width: 13%; margin-left: 215px; margin-top: -68px;"
-				placeholder="${res.userBirthYear }${res.userBirthMonth  }${res.userBirthDay  }" disabled>
-			<label for="floatingInput"></label>
-		</div>
-		<hr>
+		
+ <div id="divBirth">
+         <h6 style="margin-left: 13px;">생년월일</h6>
+         <input type="text" class="form-control" id="floatingInput"
+            style="width: 13%; margin-left: 215px; margin-top: -68px;"
+            placeholder="${res.userBirthYear }${res.userBirthMonth  }${res.userBirthDay  }" disabled>
+         <label for="floatingInput"></label>
+      </div>
+      <hr>
+
 		<div id="divPhone">
 			<h6 style="margin-left: 13px;">연락처</h6>
 			<input type="text" class="form-control" id="floatingInput"
@@ -117,6 +133,21 @@
 </form>
 
 </div>
+
+    <script>
+      function setThumbnail(event) {
+        var reader = new FileReader();
+
+        reader.onload = function(event) {
+          var img = document.getElementById("profileImg2");
+          img.setAttribute("src", event.target.result);
+//           document.querySelector("div#image_container").appendChild(img);
+        };
+
+        reader.readAsDataURL(event.target.files[0]);
+      }
+    </script>
+
 
 </body>
 </html>
