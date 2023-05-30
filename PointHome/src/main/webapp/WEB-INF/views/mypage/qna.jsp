@@ -5,38 +5,31 @@
 
 <c:import url="/WEB-INF/views/layout/header.jsp"/>
 
-
-
 <link href="/resources/mypage/view.css" rel="stylesheet">
 
 
 <style>
-	#serviceDiv {
-	   height: 900px;
-	   width: 1000px;
-	   
-	   background-color: #ccc;
-	}
+#serviceDiv {
+   height: 900px;
+   width: 1000px;
+   background-color: #ccc;
+}
 	
-	
-	#line {
-		border-top: 3px solid;
-	}
-
-      table {
-        width: 100%;
-      }
+#line {
+	border-top: 3px solid;
+}
+table {
+	width: 100%;
+}
       
-       th, td {
+th, td {
     border-bottom: 1px solid #444444;
     padding: 10px;
-  }
+}
 </style>
 
 
-
 <c:import url="/WEB-INF/views/layout/myprofile.jsp" />
-
 
 <div id="mypageCon" class="container">
 
@@ -45,7 +38,6 @@
 		<h4>고객센터</h4>
 		<hr id="line">
 
-		
 		
 		<div id="serviceDiv2" style="background-color: white; padding: 30px; margin-bottom: 50px; "> 
 		고객센터<br>
@@ -109,7 +101,3 @@
 
 
 <c:import url="/WEB-INF/views/layout/footer.jsp" />
-
-
-
-

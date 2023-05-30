@@ -72,6 +72,23 @@ public class userController {
 		
 		return "redirect:/";
 	}
+	
+	
+	@GetMapping("/user/qna")
+	public void qna() {}
 
+	
+//	@GetMapping("/user/")
 
 }
+
+
+
+
+
+
+
+
+
+
+

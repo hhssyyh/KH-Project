@@ -1,10 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<c:import url="/WEB-INF/views/layout/header.jsp" />
 
 <!-- include libraries(jQuery, bootstrap) -->
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
@@ -42,7 +41,10 @@ $(function() {
 
 <style type="text/css">
 
-
+a {
+	color: black;
+	text-decoration: none;
+}
 
       .modal {
         position: absolute;
@@ -116,18 +118,16 @@ $(function() {
   transform: translateX(-50%) translateY(-50%);
 }
 
-
-
 *{
 font-family: 'Gowun Batang', serif;
 }
 </style>
 
 
-</head>
-<body>
 
-<div class="container">
+
+
+<div class="container" style="margin-top: 150px; margin-bottom: 200px;">
 
 <br><br>
 
@@ -223,5 +223,4 @@ font-family: 'Gowun Batang', serif;
     
 
 
-</body>
-</html>
+<c:import url="/WEB-INF/views/layout/footer.jsp" />

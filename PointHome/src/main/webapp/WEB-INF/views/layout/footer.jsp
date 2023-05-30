@@ -10,7 +10,7 @@
 }
 
 .footA {
-	font-size: 18px;
+	font-size: 17px;
 /* 	font-weight: bold; */
 }
 
@@ -21,7 +21,7 @@
 </style>
 
 
-<div id="footer" class="">
+<div id="footer">
 	<div class="mb-3 ms-3">
 		<a href="#" class="footA pe-2">이용약관</a>
 		<span class="footA">|</span>

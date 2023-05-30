@@ -140,6 +140,7 @@
 	<select id="viewBoardComment" resultType="FreeBoardComment" parameterType="int">
 		select * from freeboard_comment
 		where freeboard_no = #{freeboard_no}
+		ORDER BY comm_no DESC
 	</select>
 	
 	<delete id="deleteComment" parameterType="int">
