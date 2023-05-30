@@ -1,6 +1,7 @@
 package com.pointhome.www.partner.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -72,6 +73,34 @@ public class PartnerServiceImpl implements PartnerService {
 	public List<Partner> list(Paging paging) {
 		
 		List<Partner> list = partnerDao.selectAll(paging);
+		
+		logger.info("service!!!!!!!!!!!!!!!!{}", list);
+		
+		return list;
+	}
+
+	@Override
+	public Paging getTypePaging(Map<String, Object> pagingMap) {
+		
+		logger.info("맵 !!!!!!!!!!!!!!!!{}", pagingMap.get("partnerType"));
+		logger.info("맵 !!!!!!!!!!!!!!!!{}", pagingMap.get("curPage"));
+		
+		int totalPage = partnerDao.selectCntTypeAll(pagingMap);
+		
+		logger.info("total: {}", totalPage);
+		
+		Paging paging = new Paging(totalPage, (int) pagingMap.get("curPage"));
+		
+		return paging;
+	}
+
+	@Override
+	public List<Partner> typelist(Map<String, Object> listMap) {
+		
+		logger.info("리스트 !!!!!!!!!!!!!!!!{}", listMap.get("partnerType"));
+		logger.info("리스트 !!!!!!!!!!!!!!!!{}", listMap.get("paging"));
+		
+		List<Partner> list = partnerDao.selectTypeListAll(listMap);
 		
 		logger.info("service!!!!!!!!!!!!!!!!{}", list);
 		

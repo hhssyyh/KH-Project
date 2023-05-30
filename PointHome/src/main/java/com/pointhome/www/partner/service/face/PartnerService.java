@@ -1,6 +1,7 @@
 package com.pointhome.www.partner.service.face;
 
 import java.util.List;
+import java.util.Map;
 
 import com.pointhome.www.partner.dto.Partner;
 import com.pointhome.www.util.Paging;
@@ -33,6 +34,10 @@ public interface PartnerService {
 	public Paging getPaging(int curPage);
 
 	public List<Partner> list(Paging paging);
+
+	public Paging getTypePaging(Map<String, Object> pagingMap);
+
+	public List<Partner> typelist(Map<String, Object> listMap);
 
 	
 
