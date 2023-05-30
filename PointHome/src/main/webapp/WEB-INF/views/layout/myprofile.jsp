@@ -42,6 +42,7 @@ a {
 }
 
 .btnRow {
+	
 	margin-top: 10px;
 }
 
@@ -50,6 +51,8 @@ a {
 	font-size: 15px;
 	margin: 10px;
 }
+
+
 </style>
 
 
@@ -60,6 +63,8 @@ a {
 <div id="myBanner">
 	<div id="profile">
 		<span><img id="profileImg" alt="" src="https://t1.daumcdn.net/cfile/tistory/2513B53E55DB206927"></span>
+		
+		
 		<div id="nickDiv">
 			<div style="font-size: 40px;">NICKNAME</div>
 			<a href="./userinfo"><button class="btn btn-outline-dark nickBtn">회원정보수정</button></a>
