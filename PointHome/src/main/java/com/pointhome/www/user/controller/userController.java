@@ -91,6 +91,24 @@ public class userController {
 		
 		return "redirect:/";
 	}
+	
+	
+	@GetMapping("/user/qna")
+	public void qna() {}
+
+	
+//	@GetMapping("/user/")
+
+}
+
+
+
+
+
+
+
+
+
 
 	@GetMapping("/user/searchid")
 	public void searchid() {
@@ -173,4 +191,3 @@ public class userController {
 	
 
 
-}

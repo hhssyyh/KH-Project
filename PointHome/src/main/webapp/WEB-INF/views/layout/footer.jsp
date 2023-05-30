@@ -1,21 +1,35 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
-<div class="container">
-<footer class="mb-5">
-<div class="row">
 
-	<div class="col-8"></div>
-	<div class="col-4">
-	    <ul class="nav justify-content-end">
-	      <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">제휴 등록</a></li>
-	      <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">고객 센터</a></li>
-	      <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">이용약관</a></li>
-	      <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">개인정보 취급 방침</a></li>
-	    </ul>
-	</div>
+<style type="text/css">
+#footer {
+	width: 100%;
+	height: 280px;
+	padding: 50px 80px;
+	background-color: #ccc;
+}
 
-</div>
+.footA {
+	font-size: 17px;
+/* 	font-weight: bold; */
+}
+
+.footInfo {
+	font-size: 16px;
+/* 	font-weight: bold; */
+}
+</style>
+
+
+<div id="footer">
+	<div class="mb-3 ms-3">
+		<a href="#" class="footA pe-2">이용약관</a>
+		<span class="footA">|</span>
+		<a href="#" class="footA pe-2 ps-2">제휴 등록 신청</a>
+		<span class="footA">|</span>
+		<a href="#" class="footA ps-2">개인정보 취급 방침</a>
+  </div>
 
 <div class="d-flex flex-wrap justify-content-between align-items-center py-2 border-top"></div>
 
@@ -37,7 +51,6 @@
 </div>
 </div>
 
-</footer>
 </div>
 
 
