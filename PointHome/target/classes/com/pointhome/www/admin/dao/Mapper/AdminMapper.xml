@@ -5,48 +5,105 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.pointhome.www.admin.dao.face.AdminDao">
-	
-	<select id="selectAdminIdPw" parameterType="Admin" resultType="int">
-		SELECT count(*) 
+
+	<select id="selectAdminIdPw" parameterType="Admin"
+		resultType="int">
+		SELECT count(*)
 		FROM ADMIN_TB
-		WHERE 1=1 
-			AND admin_id = #{adminId} AND admin_pw = #{adminPw}
+		WHERE 1=1
+			AND admin_id = #{adminId} 
+			AND admin_pw = #{adminPw}
 	</select>
-	
+
 	<select id="selectAllUser" resultType="User">
 		SELECT *
 		FROM USER_TB
 	</select>
-	
+
 	<select id="selectAllAdminNotice" resultType="AdminNotice">
 		SELECT *
 		FROM ADMIN_NOTICE
-
-
-	
+		<if test="filter != 'a'">
+		WHERE div = #{filter}
+		</if>
+		ORDER BY notice_no DESC
 	</select>
 
 	<select id="selectUserInfo" parameterType="int" resultType="map">
-	select u.*, (select count(*)
-            	from freeboard f
-            	where f.user_no = #{userNo}) as FREEBOARD
-            	,(select count(*)
-            	from freeboard_comment fc
-            	where fc.user_no = #{userNo}) as FREEBOARDCOMMENT
-	FROM user_tb u
-	WHERE u.user_no = #{userNo}
+		select u.*, (select count(*)
+		from freeboard f
+		where f.user_no = #{userNo}) as FREEBOARD
+		,(select count(*)
+		from freeboard_comment fc
+		where fc.user_no = #{userNo}) as FREEBOARDCOMMENT
+		FROM user_tb u
+		WHERE u.user_no = #{userNo}
 	</select>
-	
-	<select id="selectUserPost" parameterType="int" resultType="FreeBoard">
-		SELECT FREEBOARD_NO, FREEBOARD_TITLE, FREEBOARD_HIT,FREEBOARD_DATE
+
+	<select id="selectUserPost" parameterType="int"
+		resultType="FreeBoard">
+		SELECT FREEBOARD_NO, FREEBOARD_TITLE,
+		FREEBOARD_HIT,FREEBOARD_DATE
 		FROM freeboard
 		where user_no = #{userno}
 	</select>
-	
-	<select id="selectUserCmt" parameterType="int" resultType="FreeBoardComment">
+
+	<select id="selectUserCmt" parameterType="int"
+		resultType="FreeBoardComment">
 		select COMM_NO, COMM_CONTENT, COMM_DATE, FREEBOARD_NO
-		FROM FREEBOARD_COMMENT
+		FROM
+		FREEBOARD_COMMENT
 		WHERE user_no = #{userno}
-		ORDER BY FREEBOARD_NO desc, comm_no desc
+		ORDER BY FREEBOARD_NO desc,
+		comm_no desc
 	</select>
+
+	<select id="selectAdminNo" parameterType="Admin" resultType="int">
+		select admin_no
+		from admin_tb
+		where 1=1
+			AND admin_id = #{adminId}
+			AND admin_pw = #{adminPw}
+	</select>
+
+	<insert id="insertNotice" parameterType="AdminNotice">
+
+		<selectKey order="BEFORE" resultType="int" keyProperty="noticeNo">
+			SELECT notice_no_seq.nextval FROM dual
+		</selectKey>
+		
+		insert into Admin_notice(
+		notice_no,
+		notice_title,
+		notice_content,
+		admin_no,
+		div)
+
+		values(
+		#{noticeNo},
+		#{noticeTitle},
+		#{noticeContent},
+		#{adminNo},
+		#{div})
+
+
+	</insert>
+
+	<insert id="insertFile" parameterType="AdminNoticeFile">
+		insert into admin_notice_file
+		(
+		admin_fileno,
+		admin_file_origin,
+		admin_file_stored,
+		notice_no)
+		
+		values(
+		admin_fileno_seq.nextval,
+		#{admin_file_origin},
+		#{admin_file_stored},
+		#{notice_no})
+
+	</insert>
+
+
 </mapper>
