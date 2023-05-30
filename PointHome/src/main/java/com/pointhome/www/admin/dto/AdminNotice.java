@@ -8,24 +8,26 @@ public class AdminNotice {
 	private String noticeContent;
 	private Date noticeDate;
 	private int adminNo;
+	private char div;
 	
 	public AdminNotice() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public AdminNotice(int noticeNo, String noticeTitle, String noticeContent, Date noticeDate, int adminNo) {
+	public AdminNotice(int noticeNo, String noticeTitle, String noticeContent, Date noticeDate, int adminNo, char div) {
 		super();
 		this.noticeNo = noticeNo;
 		this.noticeTitle = noticeTitle;
 		this.noticeContent = noticeContent;
 		this.noticeDate = noticeDate;
 		this.adminNo = adminNo;
+		this.div = div;
 	}
 
 	@Override
 	public String toString() {
 		return "AdminNotice [noticeNo=" + noticeNo + ", noticeTitle=" + noticeTitle + ", noticeContent=" + noticeContent
-				+ ", noticeDate=" + noticeDate + ", adminNo=" + adminNo + "]";
+				+ ", noticeDate=" + noticeDate + ", adminNo=" + adminNo + ", div=" + div + "]";
 	}
 
 	public int getNoticeNo() {
@@ -67,6 +69,13 @@ public class AdminNotice {
 	public void setAdminNo(int adminNo) {
 		this.adminNo = adminNo;
 	}
-	
+
+	public char getDiv() {
+		return div;
+	}
+
+	public void setDiv(char div) {
+		this.div = div;
+	}
 	
 }

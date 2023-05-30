@@ -3,59 +3,83 @@ package com.pointhome.www.admin.dto;
 import java.util.Date;
 
 public class AdminNoticeFile {
-	private int adminFileno;
-	private String adminFilename;
-	private Date adminFiledate;
-	private int noticeNo;
+	private int admin_fileno;
+	private String admin_file_origin;
+	private String admin_file_stored;
+	private Date admin_filedate;
+	private int notice_no;
+	
 	
 	public AdminNoticeFile() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public AdminNoticeFile(int adminFileno, String adminFilename, Date adminFiledate, int noticeNo) {
+
+	public AdminNoticeFile(int admin_fileno, String admin_file_origin, String admin_file_stored, Date admin_filedate,
+			int notice_no) {
 		super();
-		this.adminFileno = adminFileno;
-		this.adminFilename = adminFilename;
-		this.adminFiledate = adminFiledate;
-		this.noticeNo = noticeNo;
+		this.admin_fileno = admin_fileno;
+		this.admin_file_origin = admin_file_origin;
+		this.admin_file_stored = admin_file_stored;
+		this.admin_filedate = admin_filedate;
+		this.notice_no = notice_no;
 	}
 
 	@Override
 	public String toString() {
-		return "AdminNoticeFile [adminFileno=" + adminFileno + ", adminFilename=" + adminFilename + ", adminFiledate="
-				+ adminFiledate + ", noticeNo=" + noticeNo + "]";
+		return "AdminNoticeFile [admin_fileno=" + admin_fileno + ", admin_file_origin=" + admin_file_origin
+				+ ", admin_file_stored=" + admin_file_stored + ", admin_filedate=" + admin_filedate + ", notice_no="
+				+ notice_no + "]";
 	}
 
-	public int getAdminFileno() {
-		return adminFileno;
+
+	public int getAdmin_fileno() {
+		return admin_fileno;
 	}
 
-	public void setAdminFileno(int adminFileno) {
-		this.adminFileno = adminFileno;
+
+	public void setAdmin_fileno(int admin_fileno) {
+		this.admin_fileno = admin_fileno;
 	}
 
-	public String getAdminFilename() {
-		return adminFilename;
+
+	public String getAdmin_file_origin() {
+		return admin_file_origin;
 	}
 
-	public void setAdminFilename(String adminFilename) {
-		this.adminFilename = adminFilename;
+
+	public void setAdmin_file_origin(String admin_file_origin) {
+		this.admin_file_origin = admin_file_origin;
 	}
 
-	public Date getAdminFiledate() {
-		return adminFiledate;
+
+	public String getAdmin_file_stored() {
+		return admin_file_stored;
 	}
 
-	public void setAdminFiledate(Date adminFiledate) {
-		this.adminFiledate = adminFiledate;
+
+	public void setAdmin_file_stored(String admin_file_stored) {
+		this.admin_file_stored = admin_file_stored;
 	}
 
-	public int getNoticeNo() {
-		return noticeNo;
+
+	public Date getAdmin_filedate() {
+		return admin_filedate;
 	}
 
-	public void setNoticeNo(int noticeNo) {
-		this.noticeNo = noticeNo;
+
+	public void setAdmin_filedate(Date admin_filedate) {
+		this.admin_filedate = admin_filedate;
+	}
+
+
+	public int getNotice_no() {
+		return notice_no;
+	}
+
+
+	public void setNotice_no(int notice_no) {
+		this.notice_no = notice_no;
 	}
 	
 	
