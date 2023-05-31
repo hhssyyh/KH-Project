@@ -23,7 +23,7 @@
 			user_extraaddress
 			)
 		VALUES (
-			user_tb_seq.nextval, 
+			#{userNo}, 
 			#{userName},
 			#{userPw},
 			#{userNick},
@@ -59,12 +59,27 @@
 		WHERE user_no = #{userNo}
 	</select>
 	
-	<select id="selectCntByUserEmail" resultType="int" parameterType="User">
+	<select id="selectCntByUserEmailPhone" resultType="int" parameterType="User">
 		SELECT count(*) FROM user_tb
 		WHERE 1=1
 			AND user_email = #{userEmail} 
 			AND user_phone = #{userPhone} 
 	</select>
+
+	<select id="selectUserNoByEmailPhone" resultType="int" parameterType="User">
+		SELECT * FROM user_tb
+		WHERE 1=1
+			AND user_email = #{userEmail} 
+			AND user_phone = #{userPhone} 
+	</select>
+
+	<select id="selectUserIndex" resultType="int">
+		SELECT user_TB_seq.NEXTVAL FROM dual
+	</select>
 	
+	<insert id="insertUserSocial" parameterType="UserSocial">
+		INSERT INTO usersocial_tb
+		VALUES (#{socialId}, #{userNo}, #{socialType})
+	</insert>
 	
 </mapper>
