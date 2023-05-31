@@ -67,6 +67,8 @@ a {
 		
 		<div id="nickDiv">
 			<div style="font-size: 40px;">NICKNAME</div>
+			${profile }
+<%-- 			<img src="/upload/${profile.userImg}"  alt=""> --%>
 			<a href="./userinfo"><button class="btn btn-outline-dark nickBtn">회원정보수정</button></a>
 		</div>
 	</div>

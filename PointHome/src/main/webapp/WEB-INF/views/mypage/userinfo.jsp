@@ -29,6 +29,8 @@ img {width: 100px; height: 100px;}
 
 		<div id="photoDiv">
 			<h6>사진</h6>
+			${profile }
+			${user }
 		</div>
 		<div id="profile2">
 			<div id="image_container"><img id="profileImg2" alt="" src="https://t1.daumcdn.net/cfile/tistory/2513B53E55DB206927"></div>
@@ -100,27 +102,38 @@ img {width: 100px; height: 100px;}
 		<hr>
 		<div id="divPostCode">
 			<h6 style="margin-left: 13px;">우편번호</h6>
-			<input type="text" class="form-control" id="floatingInput"
+			<input type="text" class="form-control" id="userPostCode"
 				style="width: 23%; margin-left: 215px; margin-top: -68px;"
-				value="${res.userPostCode}" name="userPostCode">
+				placeholder="${res.userPostCode}" name="userPostCode">
 			<label for="floatingInput"></label>
 		</div>
-		<button class="btn btn-outline-dark PostCodeBtn" style="font-size: 15px;">우편번호 확인</button>
+		<button type="button" class="btn btn-outline-dark PostCodeBtn" style="font-size: 15px;" onclick="kakaoPostcode()">우편번호 확인</button>
 
 		<hr>
+		
 		<div id="divAddress">
 			<h6 style="margin-left: 13px;">주소</h6>
-			<input type="text" class="form-control" id="floatingInput"
+			<input type="text" class="form-control" id="userAddress"
 				style="width: 50%; margin-left: 215px; margin-top: -72px;"
-				value="${res.userAddress }" name="userAddress">
-			<input type="text" class="form-control" id="floatingInput"
+				placeholder="${res.userAddress }" name="userAddress">
+			<input type="text" class="form-control" id="userDetailAddress"
 				style="width: 50%; margin-left: 215px; margin-top: 0px;"
-				value="${res.userDetailAddress }" name="userDetailAddress">
-			<input type="text" class="form-control" id="floatingInput"
+				placeholder="${res.userDetailAddress }" name="userDetailAddress">
+			<input type="text" class="form-control" id="userExtraAddress"
 				style="width: 50%; margin-left: 215px; margin-top: 0px;"
-				value="${res.userExtraAddress }" name="userExtraAddress">
+				placeholder="${res.userExtraAddress }" name="userExtraAddress">
 			<label for="floatingInput"></label>
 		</div>
+		
+				
+	<div id="layer" style="display:none;position:fixed;overflow:hidden;z-index:1;-webkit-overflow-scrolling:touch;">
+		<img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnCloseLayer" style="cursor:pointer;position:absolute;right:-3px;top:-3px;z-index:1" onclick="closeDaumPostcode()" alt="닫기 버튼">
+	</div>
+		
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script src="/resources/join/user/js/Kakao_postAPI.js"></script>
+	<!-- 주소 끝 -->
+		
 
 
 		<div id="actionBtn" style="text-align: center; padding-top: 30px;">

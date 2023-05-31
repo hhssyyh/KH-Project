@@ -77,9 +77,37 @@
 		SELECT user_TB_seq.NEXTVAL FROM dual
 	</select>
 	
+
+	<update id="updateUser" parameterType="User">
+		UPDATE user_tb 
+		SET
+	 	user_nick = #{userNick},
+	 	user_phone = #{userPhone},
+	 	user_postcode = #{userPostCode},
+	 	user_address = #{userAddress},
+		user_detailaddress = #{userDetailAddress},
+		user_extraaddress = #{userExtraAddress}
+		WHERE
+		user_no = #{userNo}
+	</update>
+	
+	<delete id="deleteFile" parameterType="UserFile">
+		DELETE userfile_tb
+		WHERE user_no = #{userNo}
+	</delete>
+	
+	<insert id="insertFile" parameterType="UserFile">
+		INSERT INTO userfile_tb
+		(userfile_no
+		, user_no
+		, user_img)
+		VALUES (userfile_tb_seq.nextval, #{userNo}, #{userImg})
+
+
 	<insert id="insertUserSocial" parameterType="UserSocial">
 		INSERT INTO usersocial_tb
 		VALUES (#{socialId}, #{userNo}, #{socialType})
+
 	</insert>
 	
 </mapper>

@@ -1,7 +1,11 @@
 package com.pointhome.www.user.dao.face;
 
 import com.pointhome.www.user.dto.User;
+
+import com.pointhome.www.user.dto.UserFile;
+
 import com.pointhome.www.user.dto.UserSocial;
+
 
 public interface UserDao {
 
@@ -65,5 +69,12 @@ public interface UserDao {
 	 * @param socialParam - 소셜가입시 읽어온 회원의 정보
 	 */
 	public void insertUserSocial(UserSocial socialParam);
+
+	public void updateUser(User user);
+
+	public void deleteFile(UserFile userFile);
+
+	public void insertFile(UserFile userFile);
+
 
 }

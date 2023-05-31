@@ -57,12 +57,25 @@ public class MypageController {
 	public void mypageService() {}
 
 	@PostMapping("/update")
-	public String userEdit(User user, MultipartFile file) {
+	public String userEdit(User user, MultipartFile file, HttpSession session, Model model) {
 		
-		logger.info("{}", user);
+		int userno= (int) session.getAttribute("userno"); 
+		
+		logger.info("{}", userno);
 		logger.info("{}", file);
 		
-		return "redirect: ./view";
+		user.setUserNo(userno);
+		logger.info("{}", user);
+		
+		userService.update(user, file);
+		
+		
+		
+		model.addAttribute("profile", file);
+		model.addAttribute("user", user);
+		
+		
+		return "/mypage/view";
 	}
 	
 	
