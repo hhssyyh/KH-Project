@@ -151,7 +151,7 @@ function updateCom(th, commNo) {
 	var commentText = $(th).parents("#commentTr").find(".commUpdateContent"+commNo).val()
 	
 	if(commentText == ""){
-		commentText = "공백입니다"
+		commentText = " "
 	}
 	
 	console.log(commentText)
@@ -197,10 +197,10 @@ function updateCom(th, commNo) {
 		
 		<span>
 			<c:if test="${isRecommend eq 0 }">
-				<button id="recommendBtn">추천</button>
+				<button id="recommendBtn" class="btn btn-secondary">>추천</button>
 			</c:if>
 			<c:if test="${isRecommend eq 1 }">
-				<button id="recommendBtn">추천 취소</button>
+				<button id="recommendBtn" class="btn btn-secondary">>추천 취소</button>
 			</c:if>
 		</span>
 		
@@ -299,8 +299,7 @@ ${board.freeboardContent }
 <form action="./view" method="post">
 ${userno} <input type="text" name="commContent" size="80" id="cmt">
 <input type="hidden" value="${board.freeboardNo }" name="freeboardNo">
-
-<button>작성</button><br><br>
+<button class="btn btn-secondary">작성</button><br><br>
 </form>
 </c:if>
 
@@ -321,12 +320,12 @@ ${userno} <input type="text" name="commContent" size="80" id="cmt">
 	<td class="commBtn">
 		<c:if test="${not empty userno and userno eq boardCommentList.userNo}">
 			<div class="commBtnComment">
-				<button type="button" onclick="updateComment(this)">수정</button>
-				<a href="./commentDelete?commNo=${boardCommentList.commNo}&freeboardNo=${board.freeboardNo}"><button type="button">삭제</button></a>
+				<button type="button" onclick="updateComment(this)" class="btn btn-secondary">수정</button>
+				<a href="./commentDelete?commNo=${boardCommentList.commNo}&freeboardNo=${board.freeboardNo}"><button type="button" class="btn btn-secondary">>삭제</button></a>
 			</div>
 			<div class="commBtnInput">
-				<button onclick="updateCom(this, ${boardCommentList.commNo})">완료</button> 
-				<button onclick="cancel(this)">취소</button>
+				<button onclick="updateCom(this, ${boardCommentList.commNo})" class="btn btn-secondary">완료</button> 
+				<button onclick="cancel(this)" class="btn btn-secondary">>취소</button>
 			</div>
 		</c:if>
 	</td>

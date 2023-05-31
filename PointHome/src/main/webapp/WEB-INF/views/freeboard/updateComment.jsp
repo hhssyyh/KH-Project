@@ -157,12 +157,12 @@ function updateCom(th, commNo) {
 	<td class="commBtn">
 		<c:if test="${not empty userno and userno eq boardCommentList.userNo}">
 			<div class="commBtnComment">
-				<button type="button" onclick="updateComment(this)">수정</button>
-				<a href="./commentDelete?commNo=${boardCommentList.commNo}&freeboardNo=${board.freeboardNo}"><button type="button">삭제</button></a>
+				<button type="button" onclick="updateComment(this)" class="btn btn-secondary">수정</button>
+				<a href="./commentDelete?commNo=${boardCommentList.commNo}&freeboardNo=${board.freeboardNo}"><button type="button" class="btn btn-secondary">삭제</button></a>
 			</div>
 			<div class="commBtnInput">
-				<button onclick="updateCom(this, ${boardCommentList.commNo})">완료</button> 
-				<button onclick="cancel(this)">취소</button>
+				<button onclick="updateCom(this, ${boardCommentList.commNo})" class="btn btn-secondary">완료</button> 
+				<button onclick="cancel(this)" class="btn btn-secondary">>취소</button>
 			</div>
 		</c:if>
 	</td>
