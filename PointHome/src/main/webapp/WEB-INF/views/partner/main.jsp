@@ -1,255 +1,111 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<!-- 부트스트랩 -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+<c:import url="/WEB-INF/views/layout/partnerLayout/header.jsp" />
 
-<!-- jQuery -->
-<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-
-<!-- Libs CSS -->
-<link href="/resources/partner/libs/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-<link href="/resources/partner/libs/dropzone/dist/dropzone.css" rel="stylesheet">
-<link href="/resources/partner/libs/@mdi/font/css/materialdesignicons.min.css" rel="stylesheet">
-<link href="/resources/partner/css/theme.css" rel="stylesheet">
-
-<!-- <style type="text/css">
-#sidebar ul {
-	padding:0;
-	list-style-type: none;
-	background-color: #ccc;
-	width: 15%;
-	margin-top:60px;
-	margin-right:0;
-	margin-left: 0;
-	
-	position: fixed;
+<style type="text/css">
+#sidebarContainer {
+	margin-top:54px;
+	width:15%;
 	height: 100%;
-	overflow: auto;	
+	background-color: white;
+	position: fixed;
 }
 
-#sidebar li a {
-	text-decoration: none;
-	display: block;
-	color: #000;
-	padding: 8px 15px 8px 15px;
-	font-weight: bold;
+#container{
+	margin-left:16%;
+	padding-top: 60px;
 }
 
-#sidebar li a:hover {
-	background-color: #333;
-	color: #fff;
+td {
+	margin-right:30px;
+
 }
+
+
 </style>
 
 
-</head>
-<body>
-
-<h1>메인</h1>
-
-<div id="sidebar">
-	<ul class="bg-light">
-		<li><a href="#">메뉴1</a></li>
-		<li><a href="#">메뉴2</a></li>
-		<li><a href="#">메뉴3</a></li>
-		<li><a href="#">메뉴3</a></li>
-	</ul>
+<div id="sidebarContainer">
+	<div class="accordion accordion-flush" id="accordionFlushExample">
+	
+	 <div class="accordion-body"><a href="/partner/main">대시보드</a></div>
+	 <!-- #1 -->
+	  <div class="accordion-item">
+	    <h2 class="accordion-header" id="flush-headingOne">
+	      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+	        상점관리
+	      </button>
+	    </h2>
+	    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+	      <div class="accordion-body"><a href="./shopsetting">상점수정</a></div>
+	    </div>
+	  </div>
+	  <!-- #2 -->
+	  <div class="accordion-item">
+	    <h2 class="accordion-header" id="flush-headingTwo">
+	      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+	       	예약관리
+	      </button>
+	    </h2>
+	    <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+			<div class="accordion-body"><a href="./usermanage">회원관리</a></div>				   		
+	    </div>
+	  </div>
+	  
+	  <!-- #3 -->
+	  	  <div class="accordion-item">
+	    <h2 class="accordion-header" id="flush-headingThree">
+	      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+	        문의/리뷰
+	      </button>
+	    </h2>
+	    <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+			<div class="accordion-body"><a href="./usermanage">회원관리</a></div>				   		
+	    </div>
+	  </div>
+	  
+	  <!-- #4 -->
+	  	  <div class="accordion-item">
+	    <h2 class="accordion-header" id="flush-headingFour">
+	      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+	        공지관리
+	      </button>
+	    </h2>
+	    <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
+			<div class="accordion-body"><a href="./usermanage">회원관리</a></div>				   		
+	    </div>
+	  </div>
+	  
+	</div>
 </div>
- -->
- <div class="nav-scroller" style="overflow: hidden; width: auto; height: 97%;">
-        <!-- Brand logo -->
-        <a class="navbar-brand" href="../index.html">
-            <img src="./resources/partner/images/brand/logo/logo.svg" alt="">
-        </a>
-        <!-- Navbar nav -->
-        <ul class="navbar-nav flex-column" id="sideNavbar">
-            <li class="nav-item">
-                <a class="nav-link has-arrow " href="../index.html">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home nav-icon icon-xs me-2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>  Dashboard
-                </a>
 
-            </li>
+<div id="container">
 
+	<h1>대시보드</h1>
+	<div style="border: 1px solid; ">
+	<h3>오늘 할 일</h3>
+	
+		<table>
+			<tr>
+				<th>신규예약</th>
+				<td>1</td>
+				
+				<th>문의</th>
+				<td>1</td>
+				
+				<th>???</th>
+				<td>1</td>
+			</tr>
+		</table>
+	</div>
+	
+	
 
-         <!-- Nav item -->
-         <li class="nav-item">
-            <div class="navbar-heading">Layouts &amp; Pages</div>
-        </li>
-
-
-             <!-- Nav item -->
-             <li class="nav-item">
-                <a class="nav-link has-arrow " href="#!" data-bs-toggle="collapse" data-bs-target="#navPages" aria-expanded="false" aria-controls="navPages">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layers nav-icon icon-xs me-2"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg> Pages
-                </a>
-
-                <div id="navPages" class="collapse  show " data-bs-parent="#sideNavbar">
-                    <ul class="nav flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link  active " href="../pages/profile.html">
-                                Profile
-                </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link has-arrow   " href="../pages/settings.html">
-                                Settings
-                                </a>
-
-                        </li>
-
-
-                        <li class="nav-item">
-                            <a class="nav-link " href="../pages/billing.html">
-                                Billing
-                </a>
-                        </li>
+	
+</div>
 
 
 
 
-                        <li class="nav-item">
-                            <a class="nav-link " href="../pages/pricing.html">
-                               Pricing
-                </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link " href="../pages/404-error.html">
-                                404 Error
-                </a>
-                        </li>
-                    </ul>
-                </div>
-
-                </li>
-
-
-                        <!-- Nav item -->
-                        <li class="nav-item">
-                            <a class="nav-link has-arrow  collapsed " href="#!" data-bs-toggle="collapse" data-bs-target="#navAuthentication" aria-expanded="false" aria-controls="navAuthentication">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-lock nav-icon icon-xs me-2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg> Authentication
-                            </a>
-                            <div id="navAuthentication" class="collapse " data-bs-parent="#sideNavbar">
-                                <ul class="nav flex-column">
-                                    <li class="nav-item">
-                                        <a class="nav-link " href="../pages/sign-in.html"> Sign In</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link  " href="../pages/sign-up.html"> Sign Up</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link " href="../pages/forget-password.html">
-                                             Forget Password
-                                </a>
-                                    </li>
-
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link " href="../pages/layout.html">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sidebar nav-icon icon-xs me-2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="3" x2="9" y2="21"></line></svg>
-                                Layouts
-                            </a>
-                        </li>
-
-                        <!-- Nav item -->
-                        <li class="nav-item">
-                            <div class="navbar-heading">UI Components</div>
-                        </li>
-
-                        <!-- Nav item -->
-                        <li class="nav-item">
-                            <a class="nav-link has-arrow " href="../docs/accordions.html">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-package nav-icon icon-xs me-2"><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"></line><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>  Components
-                            </a>
-                         </li>
-                  
-
-                        <li class="nav-item">
-                            <a class="nav-link has-arrow  collapsed " href="#!" data-bs-toggle="collapse" data-bs-target="#navMenuLevel" aria-expanded="false" aria-controls="navMenuLevel">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-corner-left-down nav-icon icon-xs me-2"><polyline points="14 15 9 20 4 15"></polyline><path d="M20 4h-7a4 4 0 0 0-4 4v12"></path></svg> Menu Level
-                            </a>
-                            <div id="navMenuLevel" class="collapse " data-bs-parent="#sideNavbar">
-                                <ul class="nav flex-column">
-                                    <li class="nav-item">
-                                        <a class="nav-link has-arrow " href="#!" data-bs-toggle="collapse" data-bs-target="#navMenuLevelSecond" aria-expanded="false" aria-controls="navMenuLevelSecond">
-                                    Two Level
-                                </a>
-                                        <div id="navMenuLevelSecond" class="collapse" data-bs-parent="#navMenuLevel">
-                                            <ul class="nav flex-column">
-                                                <li class="nav-item">
-                                                    <a class="nav-link " href="#!">  NavItem 1</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link " href="#!">  NavItem 2</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link has-arrow  collapsed  " href="#!" data-bs-toggle="collapse" data-bs-target="#navMenuLevelThree" aria-expanded="false" aria-controls="navMenuLevelThree">
-                                    Three Level
-                                </a>
-                                        <div id="navMenuLevelThree" class="collapse " data-bs-parent="#navMenuLevel">
-                                            <ul class="nav flex-column">
-                                                <li class="nav-item">
-                                                    <a class="nav-link  collapsed " href="#!" data-bs-toggle="collapse" data-bs-target="#navMenuLevelThreeOne" aria-expanded="false" aria-controls="navMenuLevelThreeOne">
-                                                         NavItem 1
-                                            </a>
-                                                    <div id="navMenuLevelThreeOne" class="collapse collapse " data-bs-parent="#navMenuLevelThree">
-                                                        <ul class="nav flex-column">
-                                                            <li class="nav-item">
-                                                                <a class="nav-link " href="#!">
-                                                                     NavChild Item 1
-                                                        </a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link " href="#!">  Nav Item 2</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-
-                                         <!-- Nav item -->
-                        <li class="nav-item">
-                            <div class="navbar-heading">Documentation</div>
-                        </li>
-
-                        <!-- Nav item -->
-                        <li class="nav-item">
-                            <a class="nav-link has-arrow " href="../docs/index.html">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clipboard nav-icon icon-xs me-2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>  Docs
-                            </a>
-                         </li>
-                         <li class="nav-item">
-                            <a class="nav-link has-arrow " href="../docs/changelog.html">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-git-pull-request nav-icon icon-xs me-2"><circle cx="18" cy="18" r="3"></circle><circle cx="6" cy="6" r="3"></circle><path d="M13 6h3a2 2 0 0 1 2 2v7"></path><line x1="6" y1="9" x2="6" y2="21"></line></svg>  Changelog
-                            </a>
-                         </li>
-
-
-
-
-                    </ul>
-
-                </div>
-                
-                <div class="bg-primary pt-10 pb-21"></div>
-
-
-</body>
-</html>

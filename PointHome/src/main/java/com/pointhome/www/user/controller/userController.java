@@ -102,34 +102,35 @@ public class userController {
 	@GetMapping("/user/qna")
 	public void qna() {}
 
+
 	@GetMapping("/user/searchid")
 	public void searchid() {
 		logger.debug("/user/searchid [GET]");
 		
 	}
-
+	
 	@PostMapping("/user/searchid")
 	public void searchidProc() {
 		logger.debug("/user/searchid [POST]");
 		
 	}
-
+	
 	@GetMapping("/user/searchpw")
 	public void searchpw() {
 		logger.debug("/user/searchpw [GET]");
 		
 	}
-
+	
 	@PostMapping("/user/searchpw")
 	public void searchpwProc() {
 		logger.debug("/user/searchpw [POST]");
 		
 	}
-
+	
 	@GetMapping("/user/naverlogin")
 	public ModelAndView naverlogin(HttpSession session) {
 		logger.debug("/user/naverlogin [GET]");
-
+		
 		Map<String, Object> map = userService.getStateApiUrl();
 				
 	    String apiURL = (String) map.get("apiURL");
@@ -141,16 +142,16 @@ public class userController {
 	    // 외부 URL로 retrun
 	    return new ModelAndView("redirect:" + apiURL);
 	}
-
+	
 	@GetMapping("/user/callback")
 	public String naverCallback(HttpServletRequest request, HttpSession session, Model model) {
 		logger.debug("/user/callback [GET]");
 
 		String code = request.getParameter("code");
 		String state = (String)session.getAttribute("state");
-		
+
 //		session.invalidate();
-		
+
 		String apiURL = userService.getApiURL(code, state);
 		JsonObject Token = userService.getTokenNaver(apiURL);
 		User userInfo = userService.getUserInfoNaver(Token);				
@@ -176,7 +177,7 @@ public class userController {
 			return "redirect:/";
 		}
 		
-		  
+		
 	}
 	
 	
@@ -186,5 +187,9 @@ public class userController {
 		logger.debug("/user/kakaoLogin [GET]");
 		
 	}
+
+	
+	
 	
 }
+

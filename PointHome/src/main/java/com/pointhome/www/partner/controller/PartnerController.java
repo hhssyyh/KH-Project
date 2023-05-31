@@ -79,7 +79,7 @@ public class PartnerController {
 			session.setAttribute("login", true);
 			session.setAttribute("partner_no", part.getPartnerNo());
 			
-			return "redirect:/";
+			return "redirect:./main";
 		}
 		return "redirect:./login";
 		

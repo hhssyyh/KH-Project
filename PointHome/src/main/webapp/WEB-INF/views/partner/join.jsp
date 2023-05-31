@@ -53,9 +53,8 @@
          <label for="partnerPwChk">비밀번호 확인</label>
       </div>
 
-
       <div class="form-floating mb-3">
-         <input type="text" class="form-control" name="partnerNick" id="partnerNick" placeholder="닉네임">
+         <input type="text" class="form-control" name="partnerNick" id="partnerNick" placeholder="이름">
          <label for="partnerNick">닉네임</label>
       </div>
 
@@ -72,8 +71,8 @@
 	<div class="row g-2 mb-3">
 	
 	<div class="form-floating col-9">
-		<input type="text" class="form-control" name="partnerShop" id="partnerShop" placeholder="상호명">
-		<label for="partnerShop">상호명</label>
+		<input type="text" class="form-control" name="partnerShopname" id="partnerShopname" placeholder="상호명">
+		<label for="partnerShopname">상호명</label>
 	</div>
 
 	<div class="form-floating col-3">
