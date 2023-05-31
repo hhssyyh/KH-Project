@@ -15,7 +15,6 @@ import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +26,7 @@ import com.google.gson.JsonObject;
 import com.pointhome.www.user.dao.face.UserDao;
 import com.pointhome.www.user.dto.User;
 import com.pointhome.www.user.dto.UserFile;
+import com.pointhome.www.user.dto.UserSocial;
 import com.pointhome.www.user.service.face.UserService;
 
 @Service
@@ -212,9 +212,10 @@ public class UserServiceImpl implements UserService {
               JsonObject response = jsonObject.getAsJsonObject("response");
               logger.debug("response : {}", response);
 
+              String email = response.get("email").getAsString().trim();
+              String id = response.get("id").getAsString().trim();
               String name = response.get("name").getAsString().trim();
               String nickname = response.get("nickname").getAsString().trim();
-              String email = response.get("email").getAsString().trim();
               char gender = response.get("gender").getAsString().charAt(0);
               String phone = response.get("mobile").getAsString().replaceAll("[^0-9]", "").trim();
               int birthyear = response.get("birthyear").getAsInt();
@@ -222,6 +223,7 @@ public class UserServiceImpl implements UserService {
               int birthday = Integer.parseInt(response.get("birthday").getAsString().split("-")[1]);
 
               user.setUserEmail(email);
+              user.setUserPw(id); // 최초 소셜로그인시, 소셜 고유ID를 Pw로 설정
               user.setUserName(name);
               user.setUserNick(nickname);
               user.setUserGender(gender);
@@ -250,9 +252,26 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public int getCntUserByEmailPhone(User userInfo) {
-		
-		return userDao.selectCntByUserEmail(userInfo);
+		int res = userDao.selectCntByUserEmailPhone(userInfo);
+		logger.debug("res : {}", res);
+		return res;
 	}
+
+	@Override
+	public int getUserNoByEmailPhone(User userInfo) {
+		
+		return userDao.selectUserNoByEmailPhone(userInfo);
+	}
+
+	@Override
+	public int getUserIndex() {
+		return userDao.selectUserIndex();
+	}
+	@Override
+	public void addUserSocial(UserSocial socialParam) {
+		userDao.insertUserSocial(socialParam);
+	}
+
 
 	@Override
 	public void update(User user, MultipartFile file) {

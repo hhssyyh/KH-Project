@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.pointhome.www.admin.dto.Admin;
 import com.pointhome.www.admin.dto.AdminNotice;
+import com.pointhome.www.admin.dto.AdminNoticeFile;
 import com.pointhome.www.freeboard.dto.FreeBoard;
 import com.pointhome.www.freeboard.dto.FreeBoardComment;
 import com.pointhome.www.user.dto.User;
@@ -31,7 +32,7 @@ public interface AdminDao {
 	 * DB에서 모든 공지 게시글 조회
 	 * @return 모든 공지글 조회 
 	 */
-	public List<AdminNotice> selectAllAdminNotice();
+	public List<AdminNotice> selectAllAdminNotice(char filterchar);
 	
 	/**
 	 *  해당 유저의 모든 정보 조회
@@ -51,6 +52,27 @@ public interface AdminDao {
 	 * @return 전체 댓글 조회
 	 */
 	public List<FreeBoardComment> selectUserCmt(int userno);
+
+	/**
+	 * 운영사 번호 조회
+	 * @param admin - 운영사 
+	 * @return 운영사 번호 
+	 */
+	public int selectAdminNo(Admin admin);
+	
+	/**
+	 * 공지사항 작성폼으로부터 입력된 정보를 삽입
+	 * @param  작성한 글 정보
+	 * @return - 성공[1] 실패[0]
+	 */
+	public int insertNotice(AdminNotice adminnotice);
+
+	/**
+	 * 공지사항 작성폼에 파일 삽입
+	 * 
+	 * @param noticeFile
+	 */
+	public void insertFile(AdminNoticeFile noticeFile);
 	
 
 	
