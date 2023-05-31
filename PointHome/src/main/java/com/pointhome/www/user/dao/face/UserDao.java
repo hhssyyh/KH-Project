@@ -76,5 +76,19 @@ public interface UserDao {
 
 	public void insertFile(UserFile userFile);
 
+	/**
+	 * 이메일(아이디)를 이용하여 사용자 정보 조회
+	 * @param userInfo - 사용자 정보
+	 * @return 조회된 사용자 정보 1 성공 0 실패
+	 */
+	public int selectCntUserByEmail(User userInfo);
+
+	/**
+	 * 카카오에서 가져온 유저정보를 통해 userno을 조회
+	 * @param userInfo -카카오로부터 읽어온 사용자 정보 
+	 * @return 사용자의 userno
+	 */
+	public int selectUserNoByEmail(User userInfo);
+
 
 }
