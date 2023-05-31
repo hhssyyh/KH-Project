@@ -86,22 +86,19 @@ a{
 	
 	
 	<!-- tab -->	
-	<div class="bg-light fixed-top" style="margin-top: 60px; margin-left: 15%;">
+	<div class="bg-light fixed-top" style="margin-top: 50px; margin-left: 15%;">
 		<ul class="nav justify-content-center">
 		  <li class="nav-item">
-		    <a class="nav-link active" aria-current="page" href="#">메인</a>
+		    <a class="nav-link active" aria-current="page" href="/partner/list">전체</a>
 		  </li>
 		  <li class="nav-item">
-		    <a class="nav-link" href="#">사주</a>
+		    <a class="nav-link" href="/partner/typelist?partnerType=c">사주</a>
 		  </li>
 		  <li class="nav-item">
-		    <a class="nav-link" href="#">타로</a>
+		    <a class="nav-link" href="/partner/typelist?partnerType=t">타로</a>
 		  </li>
 		  <li class="nav-item">
-		    <a class="nav-link" href="#">타로버블티</a>
-		  </li>
-		  <li class="nav-item">
-		    <a class="nav-link" href="#"></a>
+		    <a class="nav-link" href="/partner/typelist?partnerType=s">신점</a>
 		  </li>
 		</ul>
 	</div>

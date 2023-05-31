@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.JsonObject;
 import com.pointhome.www.user.dto.User;
+import com.pointhome.www.user.dto.UserSocial;
 import com.pointhome.www.user.service.face.UserService;
 import com.pointhome.www.user.service.impl.OAuthService;
 
@@ -33,28 +34,34 @@ public class userController {
 	}
 
 	@PostMapping("/user/join")
-	public String joinProc(User user) {
+	public String joinProc(User user, UserSocial socialParam, HttpSession session) {
 		logger.debug("/user/join [POST]");
-		logger.debug("{}", user);
-		
-		int res = userService.getCntUserByEmailPhone(user);
-		logger.debug("회원가입 여부 res : {}", res);
-		
-		if(res < 0) {
-			logger.debug("회원가입한적 없음");
-			
-			return "/user/join";
-		}
+		logger.debug("user : {}", user);
+		logger.debug("socialParam : {}", socialParam);
 
-		logger.debug("회원가입한적 없음, 회원가입 진행");
+		int userNo = userService.getUserIndex();
+
+		user.setUserNo(userNo);
+		logger.debug("user : {}", user);
 		userService.addUser(user);
 		
-		return "redirect:user/login";
+		if(socialParam.getSocialId() != null) {
+
+			socialParam.setUserNo(userNo);
+			logger.debug("socialParam : {}", socialParam);
+			userService.addUserSocial(socialParam);
+			session.setAttribute("login", true); 
+			session.setAttribute("userno", socialParam.getUserNo()); 
+			
+			return "redirect:/";
+		}
+		
+		return "redirect:/user/login";
 
 	}
 
 	@GetMapping("/user/login")
-	public void login() {
+	public void login(HttpSession session) {
 		logger.debug("/user/login [GET]");
 		
 	}
@@ -92,18 +99,9 @@ public class userController {
 		return "redirect:/";
 	}
 	
-	
 	@GetMapping("/user/qna")
 	public void qna() {}
 
-	
-//	@GetMapping("/user/")
-	
-	
-	
-	
-	
-	
 
 	@GetMapping("/user/searchid")
 	public void searchid() {
@@ -134,24 +132,26 @@ public class userController {
 		logger.debug("/user/naverlogin [GET]");
 		
 		Map<String, Object> map = userService.getStateApiUrl();
-		
-		String apiURL = (String) map.get("apiURL");
-		String state = (String) map.get("state");
-		logger.debug("{}",apiURL);
-		
-		session.setAttribute("state", state);
-		
-		// 외부 URL로 retrun
-		return new ModelAndView("redirect:" + apiURL);
+				
+	    String apiURL = (String) map.get("apiURL");
+	    String state = (String) map.get("state");
+	    logger.debug("apiURL : {}",apiURL);
+	    
+	    session.setAttribute("state", state);
+	    
+	    // 외부 URL로 retrun
+	    return new ModelAndView("redirect:" + apiURL);
 	}
 	
 	@GetMapping("/user/callback")
 	public String naverCallback(HttpServletRequest request, HttpSession session, Model model) {
 		logger.debug("/user/callback [GET]");
-		
+
 		String code = request.getParameter("code");
 		String state = (String)session.getAttribute("state");
-		
+
+//		session.invalidate();
+
 		String apiURL = userService.getApiURL(code, state);
 		JsonObject Token = userService.getTokenNaver(apiURL);
 		User userInfo = userService.getUserInfoNaver(Token);				
@@ -159,18 +159,22 @@ public class userController {
 		
 		int res = userService.getCntUserByEmailPhone(userInfo);
 		logger.debug("회원 가입 내역 [1]있음 | [0]없음 => res : {}", res);
-		
-		
-		if ( res > 0 ) {
-			logger.debug("회원 가입내역 존재");
-			
-			return "redirect:/";
-			
-		} else {
+
+		if ( res < 1 ) {
 			logger.debug("회원 가입내역 없음");
 			model.addAttribute("userInfo", userInfo);
+			model.addAttribute("socialType", 'k'); // 카카오일때, K (char)
 			
 			return "/user/join";
+			
+		} else {
+			
+			logger.debug("회원 가입내역 존재");
+			int userno = userService.getUserNoByEmailPhone(userInfo);
+			session.setAttribute("login", true); 
+			session.setAttribute("userno", userno); 
+			
+			return "redirect:/";
 		}
 		
 		
@@ -183,21 +187,9 @@ public class userController {
 		logger.debug("/user/kakaoLogin [GET]");
 		
 	}
-	
+
 	
 	
 	
 }
-
-
-
-
-
-
-
-
-
-
-	
-
 

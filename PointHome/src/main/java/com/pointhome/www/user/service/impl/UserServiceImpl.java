@@ -1,6 +1,7 @@
 package com.pointhome.www.user.service.impl;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
@@ -11,16 +12,21 @@ import java.net.URLEncoder;
 import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
+import javax.servlet.ServletContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.pointhome.www.user.dao.face.UserDao;
 import com.pointhome.www.user.dto.User;
+import com.pointhome.www.user.dto.UserFile;
+import com.pointhome.www.user.dto.UserSocial;
 import com.pointhome.www.user.service.face.UserService;
 
 @Service
@@ -28,6 +34,7 @@ public class UserServiceImpl implements UserService {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired UserDao userDao;
+	@Autowired private ServletContext context;
 	
 	@Override
 	public void addUser(User user) {
@@ -205,9 +212,10 @@ public class UserServiceImpl implements UserService {
               JsonObject response = jsonObject.getAsJsonObject("response");
               logger.debug("response : {}", response);
 
+              String email = response.get("email").getAsString().trim();
+              String id = response.get("id").getAsString().trim();
               String name = response.get("name").getAsString().trim();
               String nickname = response.get("nickname").getAsString().trim();
-              String email = response.get("email").getAsString().trim();
               char gender = response.get("gender").getAsString().charAt(0);
               String phone = response.get("mobile").getAsString().replaceAll("[^0-9]", "").trim();
               int birthyear = response.get("birthyear").getAsInt();
@@ -215,6 +223,7 @@ public class UserServiceImpl implements UserService {
               int birthday = Integer.parseInt(response.get("birthday").getAsString().split("-")[1]);
 
               user.setUserEmail(email);
+              user.setUserPw(id); // 최초 소셜로그인시, 소셜 고유ID를 Pw로 설정
               user.setUserName(name);
               user.setUserNick(nickname);
               user.setUserGender(gender);
@@ -243,8 +252,70 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public int getCntUserByEmailPhone(User userInfo) {
+		int res = userDao.selectCntByUserEmailPhone(userInfo);
+		logger.debug("res : {}", res);
+		return res;
+	}
+
+	@Override
+	public int getUserNoByEmailPhone(User userInfo) {
 		
-		return userDao.selectCntByUserEmail(userInfo);
+		return userDao.selectUserNoByEmailPhone(userInfo);
+	}
+
+	@Override
+	public int getUserIndex() {
+		return userDao.selectUserIndex();
+	}
+	@Override
+	public void addUserSocial(UserSocial socialParam) {
+		userDao.insertUserSocial(socialParam);
+	}
+
+
+	@Override
+	public void update(User user, MultipartFile file) {
+		
+		userDao.updateUser(user);
+		
+		if( file.getSize() <= 0 ) {
+			return;
+		}
+		
+		String storedPath = context.getRealPath("upload");
+		File storedFolder = new File(storedPath);
+		if( !storedFolder.exists() ) {
+			storedFolder.mkdir();
+		}
+		
+		
+		
+		String originName = file.getOriginalFilename();
+		String storedName = originName + UUID.randomUUID().toString().split("-")[4];
+		
+		File dest = new File(storedFolder, storedName);
+
+		logger.info("dsaffffffff{}",storedPath);
+		
+		try {
+			file.transferTo(dest);
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		UserFile userFile = new UserFile();
+		userFile.setUserNo(user.getUserNo());
+		userFile.setUserImg(storedName);
+		
+		logger.info("{}", userFile);
+		
+		userDao.deleteFile(userFile);
+		userDao.insertFile(userFile);
+		
+
+		
 	}
 	
 }

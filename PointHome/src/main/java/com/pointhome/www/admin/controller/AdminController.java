@@ -13,6 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.pointhome.www.admin.dto.Admin;
 import com.pointhome.www.admin.dto.AdminNotice;
@@ -47,9 +49,12 @@ public class AdminController {
 		boolean adminChk = adminService.adminLogin(admin);
 		logger.debug("{}", adminChk);
 		
+		int adminNo = adminService.getAdmin(admin);
+		logger.debug("adminNo : {}", adminNo);
+		
 		if(adminChk) {
 			session.setAttribute("adminSession", true);
-			session.setAttribute("admin", "admin");
+			session.setAttribute("adminNo", adminNo);
 			return "redirect:/admin/main";  
 			
 		}
@@ -99,19 +104,40 @@ public class AdminController {
 	
 	
 	@GetMapping("/noticelist")
-	public void adminnotice(Model model) {
+	public void adminnotice(Model model, @RequestParam(defaultValue = "a") char filter) {
 		logger.debug("/admin/noticelist");	
 		
-		List<AdminNotice> noticelist = adminService.noticeList();
+		List<AdminNotice> noticelist = adminService.noticeList(filter);
 		
 		model.addAttribute("noticelist", noticelist);
+		model.addAttribute("filter", filter);
 	}
 	
-	@GetMapping("/write")
-	public void writeGet() {
-		logger.debug("/admin/write");
+
+	
+	@GetMapping("/writenotice") 
+	public void writeNotice() {
+		logger.debug("/admin/writernotice [Get]");
+		
 		
 	}
+	
+	@PostMapping("/writenotice")
+	public String writeNoticePost(HttpSession session, List<MultipartFile> dataMul, AdminNotice adminnotice) {
+		logger.debug("/admin/writenotice [Post]");
+		
+		adminnotice.setAdminNo((Integer)session.getAttribute("adminNo"));
+		
+		logger.info("adminNo : {}", session.getAttribute("adminNo"));
+		logger.debug("dataMul : {}",dataMul);
+		logger.debug("adminnotice : {}",adminnotice);
+				
+		adminService.writeNotice(adminnotice,dataMul);
+		
+		 return "redirect:/admin/noticelist";
+	}
+	
+	
 
 
 	

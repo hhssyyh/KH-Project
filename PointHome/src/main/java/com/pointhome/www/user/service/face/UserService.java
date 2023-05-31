@@ -3,8 +3,11 @@ package com.pointhome.www.user.service.face;
 
 import java.util.Map;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.google.gson.JsonObject;
 import com.pointhome.www.user.dto.User;
+import com.pointhome.www.user.dto.UserSocial;
 
 public interface UserService {
 
@@ -56,8 +59,21 @@ public interface UserService {
 	 */
 	public String getApiURL(String code, String state);
 
+	/**
+	 * 네이버에 접속하여
+	 * 엑세스/ 리프레쉬 토큰을 발행
+	 * @param apiURL - 토큰을 받기 위한 URL
+	 * @return - AccessToken, RefreshToken 값
+	 */
 	public JsonObject getTokenNaver(String apiURL);
 
+	/**
+	 * 네이버에서 엑세스토큰을 이용한
+	 * 사용자의 정보
+	 * 
+	 * @param token - 액세스토큰
+	 * @return - User dto에 맞춰 파싱된 사용자 정보
+	 */
 	public User getUserInfoNaver(JsonObject token);
 
 	/**
@@ -76,5 +92,32 @@ public interface UserService {
 	 * @return - [1]: 존재 | [0]: 없음
 	 */
 	public int getCntUserByEmailPhone(User userInfo);
+
+
+	public void update(User user, MultipartFile file);
+
+	/**
+	 * 사용자의 Email & Phone을
+	 * 이용한 회원 정보 조회
+	 * 
+	 * @param userInfo
+	 * @return
+	 */
+	public int getUserNoByEmailPhone(User userInfo);
+
+	/**
+	 * 회원가입시 추가될 다음 회원의 인덱스
+	 * 
+	 * @return - userNo
+	 */
+	public int getUserIndex();
+	
+	/**
+	 * 소셜 회원가입의 경우
+	 * 회원의 소셜ID, TYPE을 추가
+	 * @param socialParam - 소셜가입시 읽어온 회원의 정보
+	 */
+	public void addUserSocial(UserSocial socialParam);
+
 
 }

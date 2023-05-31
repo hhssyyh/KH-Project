@@ -26,9 +26,9 @@
 <script type="text/javascript">
 $(function() {      
       
-	$("#freeboardContent").summernote({
+	$("#noticeContent").summernote({
          height: 300,
-         placeholder: "본문 내용",
+        /*  placeholder: "본문 내용", */
          focus: true
       })
       
@@ -141,27 +141,30 @@ font-family: 'Gowun Batang', serif;
 <h1 class="text-center">게시글 작성</h1><br>
 <hr><br>
 
-<form action="./write" method="post" enctype="multipart/form-data">
+<form action="./writenotice" method="post" enctype="multipart/form-data">
+
+	<input type="radio" name="div" value="p" checked="checked">제휴사
+	<input type="radio" name="div" value="u" >사용자
    
    
-   <input type="text" id="freeboardTitle" name="freeboardTitle" placeholder= "제목" style="width:300px;" required ><br><br>
+   <input type="text" id="noticeTitle" name="noticeTitle" placeholder= "제목" style="width:300px;" required ><br><br>
    
 
-   <textarea style="display: none" id="freeboardContent" name="freeboardContent" ></textarea>
+   <textarea style="display: none" id="noticeContent" name="noticeContent" ></textarea>
 
    <input type="file" name="dataMul" multiple="multiple">
 
    <div class="modal">
       <div class="modal_body" >게시글을 등록하시겠습니까?&nbsp;&nbsp;&nbsp;    
       <button type="submit" class="btn btn-outline-primary btn-default btn-xs">확인</button>
-      <button type="button" class="btnModalCancle btn btn-outline-primary btn-default btn-xs " >취소</button>
+      <button type="button" class="btn btn-outline-primary btn-default btn-xs btnModalCancle" >취소</button>
       </div>     
     </div>
 
    <div class="modal2">
       <div class="modal2_body" >게시글작성을 중단하시겠습니까?&nbsp;&nbsp;&nbsp;    
       <button type="button" class="btn btn-outline-primary btn-default btn-xs" id="btnCancle">확인</button>
-      <button type="button" class="btnModalCancle2 btn btn-outline-primary btn-default btn-xs">취소</button>
+      <button type="button" class="btn btn-outline-primary btn-default btn-xs">취소</button>
       </div>
     </div>
 
@@ -199,9 +202,7 @@ font-family: 'Gowun Batang', serif;
         }
       });
 
-      btnModalCancle.addEventListener('click', (event) => {
-    	  modal.classList.remove('show'); 
-      });
+
       
     </script>
 
@@ -209,7 +210,7 @@ font-family: 'Gowun Batang', serif;
       const body2 = document.querySelector('body');
       const modal2 = document.querySelector('.modal2');
       const btnOpenPopup2 = document.querySelector('.btn-reset-popup');
-      const btnModalCancle2 = document.querySelector('.btnModalCancle2');
+      const btnClosePopup = document.querySelector('.btnModalCancl');
       
 
       btnOpenPopup2.addEventListener('click', () => {
@@ -228,10 +229,6 @@ font-family: 'Gowun Batang', serif;
             body2.style.overflow = 'auto';
           }
         }
-      });
-      
-      btnModalCancle2.addEventListener('click', (event) => {
-    	  modal2.classList.remove('show'); 
       });
       
       

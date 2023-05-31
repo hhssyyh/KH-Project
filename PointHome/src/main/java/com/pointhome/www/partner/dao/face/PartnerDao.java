@@ -1,6 +1,7 @@
 package com.pointhome.www.partner.dao.face;
 
 import java.util.List;
+import java.util.Map;
 
 import com.pointhome.www.partner.dto.Partner;
 import com.pointhome.www.util.Paging;
@@ -42,6 +43,10 @@ public interface PartnerDao {
 	public int selectCntAll();
 
 	public List<Partner> selectAll(Paging paging);
+
+	public int selectCntTypeAll(Map<String, Object> pagingMap);
+
+	public List<Partner> selectTypeListAll(Map<String, Object> listMap);
 
 
 
