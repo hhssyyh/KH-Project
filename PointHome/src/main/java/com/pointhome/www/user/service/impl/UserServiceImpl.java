@@ -1,12 +1,15 @@
 package com.pointhome.www.user.service.impl;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.security.SecureRandom;
@@ -15,6 +18,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +26,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.pointhome.www.user.dao.face.UserDao;
 import com.pointhome.www.user.dto.User;
@@ -317,5 +322,175 @@ public class UserServiceImpl implements UserService {
 
 		
 	}
+	
+	
+	@Override
+	public String getKakaoAccessToken (String code) {
+		String access_Token = "";
+		String refresh_Token = "";
+		//토큰 발급 요청 주소 [POST] - http body에 데이터를 전달 
+		String reqUrl = "https://kauth.kakao.com/oauth/token";
+		
+		try {
+			URL url = new URL(reqUrl);
+			HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+			
+			//해당 url에 POST로 정보를 넘겨주는 코드
+			conn.setRequestMethod("POST");
+			conn.setDoOutput(true);
+			
+			//토큰을 발급받기 위한 정보 4개를 sb에 담는다
+			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
+			StringBuilder sb = new StringBuilder();
+			sb.append("grant_type=authorization_code");
+			sb.append("&client_id=9bc229ac39da11c0c4922d0b6b945cad"); // TODO REST_API_KEY 입력
+            sb.append("&redirect_uri=http://localhost:8888/user/kakaocallback"); // TODO 인가코드 받은 redirect_uri 입력
+            sb.append("&code=" + code);
+            bw.write(sb.toString());
+            bw.flush();
+            
+            int responseCode = conn.getResponseCode();
+            logger.debug("response : {}",responseCode);
+            
+            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            
+            String line = "";
+            String result = "";
+            
+            while((line = br.readLine()) != null) {
+            	result += line;
+            }
+            
+            logger.debug("response body : {} " , result);
+            
+            Gson gson = new Gson();
+            
+            JsonElement je = gson.fromJson(result, JsonElement.class);
+            
+            access_Token = je.getAsJsonObject().get("access_token").getAsString();
+            refresh_Token = je.getAsJsonObject().get("refresh_token").getAsString();
+            
+            logger.debug("oauthService() access_Token : " + access_Token);
+            logger.debug("oauthService() refresh_Token : " + refresh_Token);
+            
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return access_Token;
+	}
+
+	@Override
+	public User getUserInfo (String access_Token) {
+	    
+	    // 요청하는 클라이언트마다 가진 정보가 다를 수 있기에 HashMap타입으로 선언
+	    User userInfo = new User();
+	    String reqURL = "https://kapi.kakao.com/v2/user/me";
+	    try {
+	        URL url = new URL(reqURL);
+	        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+	        conn.setRequestMethod("POST");
+	        
+	        //    요청에 필요한 Header에 포함될 내용
+	        conn.setRequestProperty("Authorization", "Bearer " + access_Token);
+	        
+	        int responseCode = conn.getResponseCode();
+	        logger.debug("responseCode : " + responseCode);
+	        
+	        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+	        
+	        String line = "";
+	        String result = "";
+	        
+	        while ((line = br.readLine()) != null) {
+	            result += line;
+	        }
+	        logger.debug("response body : {}" + result);
+	        
+            Gson gson = new Gson();
+	        
+	        JsonObject element = gson.fromJson(result, JsonObject.class);
+	        logger.debug(" 카카오에서 받아온 사용자 정보 : {}", element);	
+	        
+	        JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
+	        logger.debug("properties :{}",properties);
+	        		
+	        JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
+	        logger.debug("kakao_account :{}",kakao_account);
+	        
+	        JsonObject profile = kakao_account.getAsJsonObject().get("profile").getAsJsonObject();
+	        logger.debug("profile : {}",profile);
+	        
+	        String email = kakao_account.getAsJsonObject().get("email").getAsString();
+	        String id = element.getAsJsonObject().get("id").getAsString();
+	        String nickname = properties.getAsJsonObject().get("nickname").getAsString();
+	        String genderStr = kakao_account.getAsJsonObject().get("gender").getAsString();
+	        char gender = genderStr.toUpperCase().charAt(0);
+	        String birthMonthStr = kakao_account.getAsJsonObject().get("birthday").getAsString().substring(0,2);
+	        int birthMonth = Integer.parseInt(birthMonthStr);
+	        String birthDayStr = kakao_account.getAsJsonObject().get("birthday").getAsString().substring(2,4);
+	        int birthDay = Integer.parseInt(birthDayStr);
+	        
+	        
+	        userInfo.setUserEmail(email);
+	        userInfo.setUserPw(id);
+	        userInfo.setUserNick(nickname);
+	        userInfo.setUserGender(gender);
+	        userInfo.setUserBirthMonth(birthMonth);
+	        userInfo.setUserBirthDay(birthDay);
+	        
+	        
+	    } catch (IOException e) {
+	    	
+	        e.printStackTrace();
+	    }
+	    
+	    return userInfo;
+	}
+	
+	@Override
+	public void kakaoLogout(String access_Token) {
+	    String reqURL = "https://kapi.kakao.com/v1/user/logout";
+	    try {
+	        URL url = new URL(reqURL);
+	        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+	        conn.setRequestMethod("POST");
+	        conn.setRequestProperty("Authorization", "Bearer " + access_Token);
+	        
+	        int responseCode = conn.getResponseCode();
+	        logger.debug("responseCode : " + responseCode);
+	        
+	        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+	        
+	        String result = "";
+	        String line = "";
+	        
+	        while ((line = br.readLine()) != null) {
+	            result += line;
+	        }
+	        
+	        logger.debug(result);
+	        
+	    } catch (IOException e) {
+	        
+	    	e.printStackTrace();
+	    
+	    }
+	}
+	@Override
+	public int getCntUserByEmail(User userInfo) {
+		
+		
+		return userDao.selectCntUserByEmail(userInfo);
+	}
+
+	@Override
+	public int getUserNo(User userInfo) {
+		
+		return userDao.selectUserNoByEmail(userInfo);
+	}
+	
 	
 }

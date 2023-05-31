@@ -157,14 +157,14 @@ font-family: 'Gowun Batang', serif;
    <div class="modal">
       <div class="modal_body" >게시글을 등록하시겠습니까?&nbsp;&nbsp;&nbsp;    
       <button type="submit" class="btn btn-outline-primary btn-default btn-xs">확인</button>
-      <button type="button" class="btn btn-outline-primary btn-default btn-xs btnModalCancle" >취소</button>
+      <button type="button" class="btnModalCancle btn btn-outline-primary btn-default btn-xs" >취소</button>
       </div>     
     </div>
 
    <div class="modal2">
       <div class="modal2_body" >게시글작성을 중단하시겠습니까?&nbsp;&nbsp;&nbsp;    
       <button type="button" class="btn btn-outline-primary btn-default btn-xs" id="btnCancle">확인</button>
-      <button type="button" class="btn btn-outline-primary btn-default btn-xs">취소</button>
+      <button type="button" class="btnModalCancle2 btn btn-outline-primary btn-default btn-xs">취소</button>
       </div>
     </div>
 
@@ -201,6 +201,10 @@ font-family: 'Gowun Batang', serif;
           }
         }
       });
+      
+      btnModalCancle.addEventListener('click', (event) => {
+    	  modal.classList.remove('show'); 
+      });
 
 
       
@@ -210,7 +214,7 @@ font-family: 'Gowun Batang', serif;
       const body2 = document.querySelector('body');
       const modal2 = document.querySelector('.modal2');
       const btnOpenPopup2 = document.querySelector('.btn-reset-popup');
-      const btnClosePopup = document.querySelector('.btnModalCancl');
+      const btnModalCancle2 = document.querySelector('.btnModalCancle2');
       
 
       btnOpenPopup2.addEventListener('click', () => {
@@ -230,6 +234,11 @@ font-family: 'Gowun Batang', serif;
           }
         }
       });
+      
+      btnModalCancle2.addEventListener('click', (event) => {
+    	  modal2.classList.remove('show'); 
+      });
+      
       
       
     </script>
