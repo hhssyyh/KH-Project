@@ -1,6 +1,7 @@
 package com.pointhome.www.user.dao.face;
 
 import com.pointhome.www.user.dto.User;
+import com.pointhome.www.user.dto.UserFile;
 
 public interface UserDao {
 
@@ -41,5 +42,12 @@ public interface UserDao {
 	 * @return - [1]: 존재 | [0]: 없음
 	 */
 	public int selectCntByUserEmail(User userInfo);
+
+	public void updateUser(User user);
+
+	public void deleteFile(UserFile userFile);
+
+	public void insertFile(UserFile userFile);
+
 
 }

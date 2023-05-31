@@ -3,6 +3,8 @@ package com.pointhome.www.user.service.face;
 
 import java.util.Map;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.google.gson.JsonObject;
 import com.pointhome.www.user.dto.User;
 
@@ -76,5 +78,7 @@ public interface UserService {
 	 * @return - [1]: 존재 | [0]: 없음
 	 */
 	public int getCntUserByEmailPhone(User userInfo);
+
+	public void update(User user, MultipartFile file);
 
 }
