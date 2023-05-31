@@ -5,183 +5,284 @@
 
 <mapper namespace="com.pointhome.www.freeboard.dao.face.FreeBoardDao">
 
-	<select id="selectAll" resultType="FreeBoard" parameterType="Paging">
-		select * from (
-			select rownum rnum , B.*  from ( 
-				select * from freeboard 
-				order by freeboard_no desc 
-			) B 
-		)board
-		where rnum between #{startNo} and #{endNo}
-	</select>
-	
-	<select id="selectAllMap" parameterType="Paging" resultType="Map">
-		SELECT * FROM (
-			SELECT rownum rnum, B.* from (
-			    SELECT f.*, (SELECT count(*) FROM freeboard_comment fc WHERE fc.freeboard_no = f.freeboard_no) commentCnt
-			    ,(SELECT count(*) FROM freeboard_recommend fr WHERE fr.board_no = f.freeboard_no) recommendCnt , u.user_nick
-			    FROM freeboard f
-			    INNER JOIN user_tb u ON f.user_no = u.user_no
-			    WHERE 1=1
-			    ORDER BY f.freeboard_no DESC
-			) B
-		) 
-		WHERE rnum BETWEEN #{startNo} and #{endNo}
-	</select>
-	
-	<select id="selectBoardByFilter" parameterType="Map" resultType="Map">
-		SELECT * FROM (
-			SELECT rownum rnum, B.* from (
-			    SELECT f.*
-			    , (SELECT count(*) FROM freeboard_comment fc WHERE fc.freeboard_no = f.freeboard_no) commentCnt
-			    ,(SELECT count(*) FROM freeboard_recommend fr WHERE fr.board_no = f.freeboard_no) recommendCnt
-			     , u.user_nick
-			    FROM freeboard f
-			    INNER JOIN user_tb u ON f.user_no = u.user_no
-			    <choose>
-			    	<when test='filter.equalsIgnoreCase("date")'>
-			    		ORDER BY f.freeboard_no DESC
-			    	</when>
-			    	<when test='filter.equalsIgnoreCase("hit")'>
-			    		ORDER BY f.freeboard_hit DESC
-			    	</when>
-			    	<when test='filter.equals("comment")'>
-			    		ORDER BY commentCnt DESC
-			    	</when>
-			    	<when test='filter eq "recommend".toString()'>
-			    		ORDER BY recommendCnt DESC
-			    	</when>
-			    </choose>
-			) B
-		) 
-		WHERE rnum BETWEEN #{paging.startNo} and #{paging.endNo}
-	</select>
-	
-	
-	<select id="selectCntAll" resultType="int">
-		select count(*) from freeboard	
-	</select>
+   <select id="selectCntAll" resultType="int">
+      select count(*) from (
+                  SELECT * FROM (
+         SELECT rownum rnum, B.* from (
+         SELECT f.*
+         , (SELECT count(*) FROM freeboard_comment fc WHERE fc.freeboard_no =
+         f.freeboard_no) commentCnt
+         ,(SELECT count(*) FROM freeboard_recommend fr WHERE fr.board_no =
+         f.freeboard_no) recommendCnt
+         , u.user_nick
+         FROM freeboard f
+         INNER JOIN user_tb u ON f.user_no = u.user_no
+         
+         <if test='searchType.equals("freeboard_title")'>
+            WHERE freeboard_title LIKE concat(concat('%', #{keyword}), '%')
+         </if>
+   
+         <if test='searchType.equals("freeboard_content")'>
+            WHERE f.freeboard_content LIKE concat(concat('%', #{keyword}), '%')
+         </if>
+   
+         <if test='searchType.equals("freeboard_titcont")'>
+            WHERE f.freeboard_title LIKE concat(concat('%', #{keyword}), '%')
+            or f.freeboard_content LIKE concat(concat('%', #{keyword}), '%')
+         </if>
+         
+         <choose>
+            <when test='filter.equalsIgnoreCase("date")'>
+               ORDER BY f.freeboard_no DESC
+            </when>
+            <when test='filter.equalsIgnoreCase("hit")'>
+               ORDER BY f.freeboard_hit DESC
+            </when>
+            <when test='filter.equals("comment")'>
+               ORDER BY commentCnt DESC
+            </when>
+            <when test='filter eq "recommend".toString()'>
+               ORDER BY recommendCnt DESC
+            </when>
+         </choose>
+         ) B
+         )
+      )
+   
+   </select>
 
-	<update id="hit" parameterType="int">
-		update freeboard set  freeboard_hit = freeboard_hit+1
-		where freeboard_no = #{freeboard_no}
-	</update>	
-	
-	<select id="viewBoard" resultType="FreeBoard" parameterType="int">
-		select * from freeboard
-		where freeboard_no = #{freeboard_no}
-	</select>
-	
-	
-	<insert id="insertBoard" parameterType="FreeBoard">
-		<selectKey order="BEFORE" resultType="int" keyProperty="freeboardNo">
-			SELECT freeboard_no_seq.nextval FROM dual
-		</selectKey>
-		INSERT INTO freeboard ( freeboard_no, freeboard_title, freeboard_content, user_no )
-		VALUES ( #{freeboardNo}, #{freeboardTitle}, #{freeboardContent}, #{userNo} )
-	</insert>
-		
-	<insert id="insertFile" parameterType="FreeBoardFile">
-		insert into freeboard_file 
-		(freeboardfile_no
-	    , freeboard_no 
-	    , freeboardfile_origin
-	    , freeboardfile_stored)
-		values ( freeboardfile_no_seq.nextval, #{freeboardNo}, #{freeboardfileOrigin}, #{freeboardfileStored})
-	</insert>
+   <update id="hit" parameterType="int">
+      update freeboard set
+      freeboard_hit = freeboard_hit+1
+      where freeboard_no = #{freeboard_no}
+   </update>
+
+   <select id="viewBoard" resultType="FreeBoard"
+      parameterType="int">
+      select * from freeboard
+      where freeboard_no =
+      #{freeboard_no}
+   </select>
+
+
+   <insert id="insertBoard" parameterType="FreeBoard">
+      <selectKey order="BEFORE" resultType="int"
+         keyProperty="freeboardNo">
+         SELECT freeboard_no_seq.nextval FROM dual
+      </selectKey>
+      INSERT INTO freeboard ( freeboard_no, freeboard_title,
+      freeboard_content, user_no )
+      VALUES ( #{freeboardNo},
+      #{freeboardTitle}, #{freeboardContent}, #{userNo} )
+   </insert>
+
+   <insert id="insertFile" parameterType="FreeBoardFile">
+      insert into freeboard_file
+      (freeboardfile_no
+      , freeboard_no
+      , freeboardfile_origin
+      , freeboardfile_stored)
+      values ( freeboardfile_no_seq.nextval,
+      #{freeboardNo}, #{freeboardfileOrigin}, #{freeboardfileStored})
+   </insert>
 
 
 
-	<insert id="insertBoardComment" parameterType="FreeBoardComment">
- 		INSERT INTO freeboard_comment (comm_no, freeboard_no, comm_content, user_no)
- 		VALUES (freeboard_comment_no_seq.nextval, #{freeboardNo}, #{commContent}, #{userNo})
- 	</insert>
-	
-	<select id="getMultiFiles" parameterType="int" resultType="FreeBoardFile">
-	select * from freeboard_file
-	where freeboard_no = #{freeboard_no}
-	</select>
+   <insert id="insertBoardComment" parameterType="FreeBoardComment">
+      INSERT INTO freeboard_comment (comm_no, freeboard_no, comm_content, user_no)
+      VALUES (freeboard_comment_no_seq.nextval, #{freeboardNo},
+      #{commContent}, #{userNo})
+   </insert>
 
-	<select id="selectFile" parameterType="int" resultType="FreeBoardFile">
-		select * from freeboard_file
-		where freeboardFile_no = #{freeboardFile_no}
-	</select>
-	
-	<delete id="deleteFile" parameterType="int">
-		delete freeboard_file
-		where freeboard_no = #{freeboardNo}
-	</delete>
-	
-	<delete id="deleteBoard" parameterType="FreeBoard">
-		delete freeboard
-		where freeboard_no = #{freeboardNo}
-	</delete>
+   <select id="getMultiFiles" parameterType="int"
+      resultType="FreeBoardFile">
+      select * from freeboard_file
+      where freeboard_no = #{freeboard_no}
+   </select>
 
-	<select id="selectByBoardUserNo" parameterType="FreeBoardRecommend" resultType="int">
-		SELECT count(*) FROM freeboard_recommend
-		WHERE user_no=#{userNo} AND board_no=#{boardNo}
-	</select>
+   <select id="selectFile" parameterType="int"
+      resultType="FreeBoardFile">
+      select * from freeboard_file
+      where freeboardFile_no =
+      #{freeboardFile_no}
+   </select>
 
-	<select id="selectCntRecommend" parameterType="int" resultType="int">
-		SELECT count(*) FROM freeboard_recommend
-		WHERE board_no=#{boardNo}
-	</select>
+   <delete id="deleteFile" parameterType="int">
+      delete freeboard_file
+      where freeboard_no = #{freeboardNo}
+   </delete>
 
-	<delete id="deleteRecommend" parameterType="FreeBoardRecommend">
-		DELETE FROM freeboard_recommend
-		WHERE user_no=#{userNo} AND board_no=#{boardNo}
-	</delete>
-	
-	<insert id="insertRecommend" parameterType="FreeBoardRecommend">
-		INSERT INTO freeboard_recommend (user_no, board_no)
-		VALUES (#{userNo}, #{boardNo})
-	</insert>
-	
-	<select id="viewBoardComment" resultType="FreeBoardComment" parameterType="int">
-		select * from freeboard_comment
-		where freeboard_no = #{freeboard_no}
-		ORDER BY comm_no DESC
-	</select>
-	
-	<!-- 댓글 삭제 -->	
-	<delete id="deleteComment" parameterType="int">
-		DELETE FROM freeboard_comment
-		WHERE comm_no = #{commNo}
-	</delete>	
-	
-	<!-- 댓글 수정 -->
-	<update id="updateComment" parameterType="FreeBoardComment">
-		UPDATE freeboard_comment
-		SET comm_content = #{commContent}, comm_date = current_date
-		WHERE comm_no = #{commNo}
-	</update>
-		
-		
-	<!-- 이거는 상세페이지에서 유저 정보 보여주기 -->
-	<select id="selectUserNo" resultType="User" parameterType="int">
-		SELECT * FROM user_tb
-		WHERE user_no = #{userNo}
-	</select>
-  
-	<select id="selectBoardbyBoardNo" resultType="FreeBoard" parameterType="int">
-		select * from freeboard
-		where freeboard_no = #{freeboard_no}	
-	</select>
-	
-	<select id="selectBoardFilebyBoardNo" resultType="FreeBoardFile" parameterType="int">
-		select * from freeboard_file
-		where freeboard_no = #{freeboard_no}	
-	</select>
-	
-	<update id="update" parameterType="FreeBoard">
-		update freeboard set 
-		freeboard_title = #{freeboardTitle},
-		freeboard_content = #{freeboardContent}
-		where freeboard_no = #{freeboardNo}
-  </update>
+   <delete id="deleteBoard" parameterType="FreeBoard">
+      delete freeboard
+      where
+      freeboard_no = #{freeboardNo}
+   </delete>
 
+   <select id="selectByBoardUserNo"
+      parameterType="FreeBoardRecommend" resultType="int">
+      SELECT count(*) FROM
+      freeboard_recommend
+      WHERE user_no=#{userNo} AND board_no=#{boardNo}
+   </select>
+
+   <select id="selectCntRecommend" parameterType="int"
+      resultType="int">
+      SELECT count(*) FROM freeboard_recommend
+      WHERE
+      board_no=#{boardNo}
+   </select>
+
+   <delete id="deleteRecommend" parameterType="FreeBoardRecommend">
+      DELETE FROM
+      freeboard_recommend
+      WHERE user_no=#{userNo} AND board_no=#{boardNo}
+   </delete>
+
+   <insert id="insertRecommend" parameterType="FreeBoardRecommend">
+      INSERT INTO
+      freeboard_recommend (user_no, board_no)
+      VALUES (#{userNo}, #{boardNo})
+   </insert>
+
+   <select id="viewBoardComment" resultType="FreeBoardComment"
+      parameterType="int">
+      select * from freeboard_comment
+      where freeboard_no =
+      #{freeboard_no}
+   </select>
+
+   <!-- 댓글 삭제 -->
+   <delete id="deleteComment" parameterType="int">
+      DELETE FROM
+      freeboard_comment
+      WHERE comm_no = #{commNo}
+   </delete>
+
+   <!-- 댓글 수정 -->
+   <update id="updateComment" parameterType="FreeBoardComment">
+      UPDATE
+      freeboard_comment
+      SET comm_content = #{commContent}, comm_date =
+      current_date
+      WHERE comm_no = #{commNo}
+   </update>
+
+   <!-- 이거는 상세페이지에서 유저 정보 보여주기 -->
+   <select id="selectUserNo" resultType="User" parameterType="int">
+      SELECT * FROM user_tb
+      WHERE user_no = #{userNo}
+   </select>
+
+   <select id="selectBoardbyBoardNo" resultType="FreeBoard"
+      parameterType="int">
+      select * from freeboard
+      where freeboard_no =
+      #{freeboard_no}
+   </select>
+
+   <select id="selectBoardFilebyBoardNo" resultType="FreeBoardFile"
+      parameterType="int">
+      select * from freeboard_file
+      where freeboard_no =
+      #{freeboard_no}
+   </select>
+
+   <update id="update" parameterType="FreeBoard">
+      update freeboard set
+      freeboard_title = #{freeboardTitle},
+      freeboard_content =
+      #{freeboardContent}
+      where freeboard_no = #{freeboardNo}
+   </update>
+   
+   <select id="selectAllSearch" parameterType="Map" resultType="Map">   
+               SELECT * FROM (
+      SELECT rownum rnum, B.* from (
+      SELECT f.*
+      , (SELECT count(*) FROM freeboard_comment fc WHERE fc.freeboard_no =
+      f.freeboard_no) commentCnt
+      ,(SELECT count(*) FROM freeboard_recommend fr WHERE fr.board_no =
+      f.freeboard_no) recommendCnt
+      , u.user_nick
+      FROM freeboard f
+      INNER JOIN user_tb u ON f.user_no = u.user_no
+      
+      <if test='searchType.equals("freeboard_title")'>
+         WHERE freeboard_title LIKE concat(concat('%', #{keyword}), '%')
+      </if>
+
+      <if test='searchType.equals("freeboard_content")'>
+         WHERE f.freeboard_content LIKE concat(concat('%', #{keyword}), '%')
+      </if>
+
+      <if test='searchType.equals("freeboard_titcont")'>
+         WHERE f.freeboard_title LIKE concat(concat('%', #{keyword}), '%')
+         or f.freeboard_content LIKE concat(concat('%', #{keyword}), '%')
+      </if>
+      
+      <choose>
+         <when test='filter.equalsIgnoreCase("date")'>
+            ORDER BY f.freeboard_no DESC
+         </when>
+         <when test='filter.equalsIgnoreCase("hit")'>
+            ORDER BY f.freeboard_hit DESC
+         </when>
+         <when test='filter.equals("comment")'>
+            ORDER BY commentCnt DESC
+         </when>
+         <when test='filter eq "recommend".toString()'>
+            ORDER BY recommendCnt DESC
+         </when>
+      </choose>
+      ) B
+      )
+      WHERE rnum BETWEEN #{paging.startNo} and #{paging.endNo}
+   </select>
+   
+   <sql id="selectFree">
+         SELECT * FROM (
+      SELECT rownum rnum, B.* from (
+      SELECT f.*
+      , (SELECT count(*) FROM freeboard_comment fc WHERE fc.freeboard_no =
+      f.freeboard_no) commentCnt
+      ,(SELECT count(*) FROM freeboard_recommend fr WHERE fr.board_no =
+      f.freeboard_no) recommendCnt
+      , u.user_nick
+      FROM freeboard f
+      INNER JOIN user_tb u ON f.user_no = u.user_no
+      
+      <if test='searchType.equals("freeboard_title")'>
+         WHERE freeboard_title LIKE concat(concat('%', #{keyword}), '%')
+      </if>
+
+      <if test='searchType.equals("freeboard_content")'>
+         WHERE f.freeboard_content LIKE concat(concat('%', #{keyword}), '%')
+      </if>
+
+      <if test='searchType.equals("freeboard_titcont")'>
+         WHERE f.freeboard_title LIKE concat(concat('%', #{keyword}), '%')
+         or f.freeboard_content LIKE concat(concat('%', #{keyword}), '%')
+      </if>
+      
+      <choose>
+         <when test='filter.equalsIgnoreCase("date")'>
+            ORDER BY f.freeboard_no DESC
+         </when>
+         <when test='filter.equalsIgnoreCase("hit")'>
+            ORDER BY f.freeboard_hit DESC
+         </when>
+         <when test='filter.equals("comment")'>
+            ORDER BY commentCnt DESC
+         </when>
+         <when test='filter eq "recommend".toString()'>
+            ORDER BY recommendCnt DESC
+         </when>
+      </choose>
+      ) B
+      )
+      WHERE rnum BETWEEN #{paging.startNo} and #{paging.endNo}
+   </sql>
 </mapper>
-
 
 
 

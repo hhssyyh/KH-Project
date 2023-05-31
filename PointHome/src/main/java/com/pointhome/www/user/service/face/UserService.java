@@ -118,6 +118,36 @@ public interface UserService {
 	 * @param socialParam - 소셜가입시 읽어온 회원의 정보
 	 */
 	public void addUserSocial(UserSocial socialParam);
+	
+	/**
+	 * 카카오톡 로그인 시 인가토큰을 가져오는 메소드
+	 * @param code 로그인 하는 유저의 인가코드
+	 * @return 토큰값
+	 */
+	public String getKakaoAccessToken (String code);
+	
+	/**
+	 *  카카오톡으로 로그인한 사용자의 정보를 가져오는 메소드
+	 * @param access_Token 액세스토큰 
+	 * @return 사용자 정보
+	 */
+	public User getUserInfo (String access_Token);
+	
+	public void kakaoLogout(String access_Token);
+
+	/**
+	 * 카카오 로그인시 자체 회원가입 유무 확인
+	 * @param userInfo - 카카오로부터 읽어온 사용자 정보
+	 * @return 성공 [1]: 실패 [0]
+	 */
+	public int getCntUserByEmail(User userInfo);
+
+	/**
+	 * 카카오에서 가져온 유저정보를 통해 userno을 조회
+	 * @param userInfo -카카오로부터 읽어온 사용자 정보 
+	 * @return 사용자의 userno
+	 */
+	public int getUserNo(User userInfo);
 
 	/**
 	 * 가입한 회원의 이메일을 조회

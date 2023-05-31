@@ -109,4 +109,14 @@
 
 	</insert>
 	
+	<select id="selectCntUserByEmail" parameterType="User" resultType="int">
+		select count(*) from user_tb
+		where user_Email = #{userEmail}
+	</select>
+	
+	<select id="selectUserNoByEmail" parameterType="User" resultType="int">
+		select user_no from user_tb
+		where user_email = #{userEmail}
+	</select>
+	
 </mapper>
