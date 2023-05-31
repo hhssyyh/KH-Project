@@ -101,6 +101,7 @@
 		, user_no
 		, user_img)
 		VALUES (userfile_tb_seq.nextval, #{userNo}, #{userImg})
+	</insert>
 
 	<insert id="insertUserSocial" parameterType="UserSocial">
 		INSERT INTO usersocial_tb

@@ -179,12 +179,24 @@ public class userController {
 		  
 	}
 	
-	
-	
 	@GetMapping("/user/kakaologin")
 	public void kakaoLogin() {
 		logger.debug("/user/kakaoLogin [GET]");
 		
+	}
+
+	@GetMapping("/user/searchid")
+	public void searchId() {
+		logger.debug("/user/searchid [GET]");
+	}
+
+	@PostMapping("/user/searchid")
+	public String searchIdProc(User param) {
+		logger.debug("/user/searchid [POST]");
+		
+		User user = userService.getUserEmailByNamePhone(param);
+		
+		return "/searchresult";
 	}
 	
 }

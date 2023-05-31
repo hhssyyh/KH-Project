@@ -129,7 +129,7 @@
 		<label for="userName">이름</label>
 	</div>
 	<!-- 이름 끝 -->
-<%-- 	${userInfo} --%>
+
 	<!-- 성별 시작 -->
 	<!-- 소셜 로그인일 경우  -->
 	<div class="form-floating mb-3">
