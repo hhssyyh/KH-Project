@@ -41,7 +41,7 @@
 <div id="mypageCon" class="container">
 
 	<div id="serviceDiv"
-		style="margin: 0 auto; margin-top: 200px; padding: 30px;">
+		style="margin: 0 auto; margin-top: 50px; padding: 30px;">
 		<h4>고객센터</h4>
 		<hr id="line">
 
@@ -107,9 +107,8 @@
 
 <br><br><br><br><br><br><br><br><br>
 
-</body>
-</html>
 
+<c:import url="/WEB-INF/views/layout/footer.jsp" />
 
 
 

@@ -6,9 +6,11 @@ public class Partner {
 	private int partnerNo;
 	private String partnerName;
 	private String partnerPw;
-	private String partnerNick;
 	private String partnerEmail;
 	private String partnerPhone;
+	private String partnerNick;
+	private char partnerType;
+	private String partnerShopname;
 	private String partnerBank;
 	private String partnerAccount;
 	private char partnerGender;
@@ -21,21 +23,21 @@ public class Partner {
 	private String partnerExtraaddress;
 	private Date partnerJoindate;
 	
-	public Partner() {
-		// TODO Auto-generated constructor stub
-	}
+	public Partner() {}
 
-	public Partner(int partnerNo, String partnerName, String partnerPw, String partnerNick, String partnerEmail,
-			String partnerPhone, String partnerBank, String partnerAccount, char partnerGender, int partnerBirthyear,
-			int partnerBirthmonth, int partnerBirthday, int partnerPostcode, String partnerAddress,
-			String partnerDetailaddress, String partnerExtraaddress, Date partnerJoindate) {
+	public Partner(int partnerNo, String partnerName, String partnerPw, String partnerEmail, String partnerPhone,
+			String partnerNick, char partnerType, String partnerShopname, String partnerBank, String partnerAccount,
+			char partnerGender, int partnerBirthyear, int partnerBirthmonth, int partnerBirthday, int partnerPostcode,
+			String partnerAddress, String partnerDetailaddress, String partnerExtraaddress, Date partnerJoindate) {
 		super();
 		this.partnerNo = partnerNo;
 		this.partnerName = partnerName;
 		this.partnerPw = partnerPw;
-		this.partnerNick = partnerNick;
 		this.partnerEmail = partnerEmail;
 		this.partnerPhone = partnerPhone;
+		this.partnerNick = partnerNick;
+		this.partnerType = partnerType;
+		this.partnerShopname = partnerShopname;
 		this.partnerBank = partnerBank;
 		this.partnerAccount = partnerAccount;
 		this.partnerGender = partnerGender;
@@ -52,9 +54,10 @@ public class Partner {
 	@Override
 	public String toString() {
 		return "Partner [partnerNo=" + partnerNo + ", partnerName=" + partnerName + ", partnerPw=" + partnerPw
-				+ ", partnerNick=" + partnerNick + ", partnerEmail=" + partnerEmail + ", partnerPhone=" + partnerPhone
-				+ ", partnerBank=" + partnerBank + ", partnerAccount=" + partnerAccount + ", partnerGender="
-				+ partnerGender + ", partnerBirthyear=" + partnerBirthyear + ", partnerBirthmonth=" + partnerBirthmonth
+				+ ", partnerEmail=" + partnerEmail + ", partnerPhone=" + partnerPhone + ", partnerNick=" + partnerNick
+				+ ", partnerType=" + partnerType + ", partnerShopname=" + partnerShopname + ", partnerBank="
+				+ partnerBank + ", partnerAccount=" + partnerAccount + ", partnerGender=" + partnerGender
+				+ ", partnerBirthyear=" + partnerBirthyear + ", partnerBirthmonth=" + partnerBirthmonth
 				+ ", partnerBirthday=" + partnerBirthday + ", partnerPostcode=" + partnerPostcode + ", partnerAddress="
 				+ partnerAddress + ", partnerDetailaddress=" + partnerDetailaddress + ", partnerExtraaddress="
 				+ partnerExtraaddress + ", partnerJoindate=" + partnerJoindate + "]";
@@ -84,14 +87,6 @@ public class Partner {
 		this.partnerPw = partnerPw;
 	}
 
-	public String getPartnerNick() {
-		return partnerNick;
-	}
-
-	public void setPartnerNick(String partnerNick) {
-		this.partnerNick = partnerNick;
-	}
-
 	public String getPartnerEmail() {
 		return partnerEmail;
 	}
@@ -106,6 +101,30 @@ public class Partner {
 
 	public void setPartnerPhone(String partnerPhone) {
 		this.partnerPhone = partnerPhone;
+	}
+
+	public String getPartnerNick() {
+		return partnerNick;
+	}
+
+	public void setPartnerNick(String partnerNick) {
+		this.partnerNick = partnerNick;
+	}
+
+	public char getPartnerType() {
+		return partnerType;
+	}
+
+	public void setPartnerType(char partnerType) {
+		this.partnerType = partnerType;
+	}
+
+	public String getPartnerShopname() {
+		return partnerShopname;
+	}
+
+	public void setPartnerShopname(String partnerShopname) {
+		this.partnerShopname = partnerShopname;
 	}
 
 	public String getPartnerBank() {
@@ -195,6 +214,8 @@ public class Partner {
 	public void setPartnerJoindate(Date partnerJoindate) {
 		this.partnerJoindate = partnerJoindate;
 	}
+
+	
 	
 	
 	

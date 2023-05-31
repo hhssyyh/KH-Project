@@ -1,17 +1,27 @@
 package com.pointhome.www.partner.controller;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pointhome.www.partner.dto.Partner;
 import com.pointhome.www.partner.service.face.PartnerService;
+import com.pointhome.www.util.Paging;
+
 
 @Controller
 @RequestMapping("/partner")
@@ -69,7 +79,7 @@ public class PartnerController {
 			session.setAttribute("login", true);
 			session.setAttribute("partner_no", part.getPartnerNo());
 			
-			return "redirect:/";
+			return "redirect:./main";
 		}
 		return "redirect:./login";
 		
@@ -83,6 +93,59 @@ public class PartnerController {
 		
 	}
 	
+	@GetMapping("/list")
+	public void BoardList( @RequestParam(defaultValue = "0") int curPage, Model model) {
+		logger.info("/partnerboard/list [GET]");
+
+		Paging paging = partnerService.getPaging(curPage);
+
+		List<Partner> list = partnerService.list(paging);
+
+
+		logger.info("!!!!!!!!!!!!!!!!{}", list);
+
+		model.addAttribute("list", list);
+		model.addAttribute("paging", paging);
+		
+	}
 	
+
 	
+	@RequestMapping("/typelist")
+	public void typeList(@RequestParam(defaultValue = "0") int curPage, Model model, String partnerType) {
+		
+		Map<String, Object> pagingMap = new HashMap<String, Object>();		
+		
+		pagingMap.put("partnerType", partnerType);
+		pagingMap.put("curPage", curPage);
+	
+		Paging paging  = partnerService.getTypePaging(pagingMap);
+		
+		
+		Map<String, Object> listMap = new HashMap<String, Object>();
+		
+		listMap.put("partnerType", partnerType);
+		listMap.put("paging", paging);
+		
+		List<Partner> list = partnerService.typelist(listMap);
+
+		
+		model.addAttribute("partnerType", partnerType);
+		model.addAttribute("typelist", list);
+		model.addAttribute("paging", paging);
+		
+		
+		logger.info("!!!!!!!!!!!!!!!!{}", list);
+
+		
+	}
+	
+	@GetMapping("/detail")
+	public void detailView() {
+		
+	}
+
+
+
 }
+    

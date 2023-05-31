@@ -5,8 +5,8 @@
 
 <style type="text/css">
 #container {
-	margin-top: 120px;
-	margin-left: 20%;
+	padding-top: 60px;
+	margin-left: 40%;
 }
 </style>
 <c:import url="/WEB-INF/views/layout/adminLayout/adminHeader.jsp"/>
@@ -28,7 +28,10 @@
 			<td>${user.userName }</td>
 			<td>${user.userNick }</td>
 			<td><fmt:formatDate value="${user.userJoindate}" pattern="yyyy.MM.dd"/><br /></td>
-			<td><a href="/admin/userdetail?userNo=${user.userNo }"><button>상세 조회</button></a></td>
+			<td><a href="/admin/userdetail?userNo=${user.userNo }">
+					<button class="btn btn-info btn-sm">상세 조회</button>
+				</a>
+			</td>
 		</tr>
 	</c:forEach>
 		

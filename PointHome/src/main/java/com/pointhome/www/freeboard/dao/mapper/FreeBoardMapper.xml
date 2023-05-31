@@ -3,8 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper
-   namespace="com.pointhome.www.freeboard.dao.face.FreeBoardDao">
+<mapper namespace="com.pointhome.www.freeboard.dao.face.FreeBoardDao">
 
    <select id="selectCntAll" resultType="int">
       select count(*) from (

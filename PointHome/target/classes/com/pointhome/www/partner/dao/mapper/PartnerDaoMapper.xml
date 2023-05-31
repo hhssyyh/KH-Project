@@ -15,6 +15,8 @@
 		partner_nick,
 		partner_email,
 		partner_phone,
+		partner_shopname,
+		partner_type,		
 		partner_bank,
 		partner_account,
 		partner_gender,
@@ -33,6 +35,8 @@
 		#{partnerNick},
 		#{partnerEmail},
 		#{partnerPhone},
+		#{partnerShopname},
+		#{partnerType},
 		#{partnerBank},
 		#{partnerAccount},
 		#{partnerGender},
@@ -64,5 +68,44 @@
 		where partner_email=#{partnerEmail} and partner_pw =#{partnerPw}
 	
 	</select>
+	
+	
+	<select id="selectAll" resultType="Partner" parameterType="Paging">
+		select * from (
+			select rownum rnum , B.*  from ( 
+				select * from partner_tb
+				order by partner_no desc 
+			) B 
+		)partner_tb
+		where rnum between #{startNo} and #{endNo}
+	</select>
+	
+	<select id="selectCntAll" resultType="int" >
+			select count(*) from partner_tb
+		
+	</select>
+	
+	<select id="selectCntTypeAll" resultType="int" parameterType="map">
+		<if test="partnerType == 'c'.toString() ">
+			select count(*) from partner_tb	where partner_type = 'c'
+		</if>
+		<if test="partnerType == 's'.toString()">
+			select count(*) from partner_tb where partner_type = 's'
+		</if>
+		<if test="partnerType == 't'.toString()">
+			select count(*) from partner_tb where partner_type = 't'
+		</if>
+	</select>
+	
+	<select id="selectTypeListAll" resultType="Partner" parameterType="map">
+		select * from (
+			select rownum rnum , B.*  from ( 
+				select * from partner_tb where partner_type = #{partnerType}
+				order by partner_no desc 
+			) B 
+		)partner_tb
+		where rnum between #{paging.startNo} and #{paging.endNo}
+	</select>
 
 </mapper>
+

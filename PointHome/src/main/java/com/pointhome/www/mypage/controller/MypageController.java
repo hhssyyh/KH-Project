@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.pointhome.www.user.dto.User;
 import com.pointhome.www.user.service.face.UserService;
@@ -53,6 +55,28 @@ public class MypageController {
 	
 	@GetMapping("/serviceCenter")
 	public void mypageService() {}
+
+	@PostMapping("/update")
+	public String userEdit(User user, MultipartFile file, HttpSession session, Model model) {
+		
+		int userno= (int) session.getAttribute("userno"); 
+		
+		logger.info("{}", userno);
+		logger.info("{}", file);
+		
+		user.setUserNo(userno);
+		logger.info("{}", user);
+		
+		userService.update(user, file);
+		
+		
+		
+		model.addAttribute("profile", file);
+		model.addAttribute("user", user);
+		
+		
+		return "/mypage/view";
+	}
 	
 	
 	

@@ -1,10 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<c:import url="/WEB-INF/views/layout/header.jsp" />
 
 <!-- include libraries(jQuery, bootstrap) -->
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
@@ -25,14 +24,20 @@
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang&family=Nanum+Brush+Script&display=swap" rel="stylesheet">
 
 <script type="text/javascript">
-
-
 $(function() {      
-      $("#freeboardContent").summernote({
+      
+	$("#freeboardContent").summernote({
          height: 300,
          placeholder: "본문 내용",
          focus: true
       })
+      
+      $("#btnCancle").click(function(){
+    		history.go(-1)();
+    	});
+
+	
+      
 })
 
 
@@ -42,7 +47,10 @@ $(function() {
 
 <style type="text/css">
 
-
+a {
+	color: black;
+	text-decoration: none;
+}
 
       .modal {
         position: absolute;
@@ -116,18 +124,17 @@ $(function() {
   transform: translateX(-50%) translateY(-50%);
 }
 
-
-
 *{
 font-family: 'Gowun Batang', serif;
+}
+#writeContainter {
+	margin-top: 54px;
 }
 </style>
 
 
-</head>
-<body>
 
-<div class="container">
+<div id="writeContainter" class="container">
 
 <br><br>
 
@@ -147,14 +154,14 @@ font-family: 'Gowun Batang', serif;
    <div class="modal">
       <div class="modal_body" >게시글을 등록하시겠습니까?&nbsp;&nbsp;&nbsp;    
       <button type="submit" class="btn btn-outline-primary btn-default btn-xs">확인</button>
-      <button type="submit" class="btn btn-outline-primary btn-default btn-xs">취소</button>
+      <button type="button" class="btnModalCancle btn btn-outline-primary btn-default btn-xs " >취소</button>
       </div>     
     </div>
 
    <div class="modal2">
       <div class="modal2_body" >게시글작성을 중단하시겠습니까?&nbsp;&nbsp;&nbsp;    
-      <a href="/pro/main"><button type="button" class="btn btn-outline-primary btn-default btn-xs">확인</button></a>
-      <a href="/pro/main"><button type="button" class="btn btn-outline-primary btn-default btn-xs">취소</button></a>
+      <button type="button" class="btn btn-outline-primary btn-default btn-xs" id="btnCancle">확인</button>
+      <button type="button" class="btnModalCancle2 btn btn-outline-primary btn-default btn-xs">취소</button>
       </div>
     </div>
 
@@ -165,42 +172,45 @@ font-family: 'Gowun Batang', serif;
    <hr>
 </form>
 
-
-
-
-
-
-
 </div>
 
      <script>
       const body = document.querySelector('body');
       const modal = document.querySelector('.modal');
       const btnOpenPopup = document.querySelector('.btn-open-popup');
-
+      const btnModalCancle = document.querySelector('.btnModalCancle');
       btnOpenPopup.addEventListener('click', () => {
-        modal.classList.toggle('show');
+        modal.classList.toggle('show'); 
 
         if (modal.classList.contains('show')) {
           body.style.overflow = 'hidden';
+          
         }
       });
 
       modal.addEventListener('click', (event) => {
         if (event.target === modal) {
           modal.classList.toggle('show');
+          
 
           if (!modal.classList.contains('show')) {
             body.style.overflow = 'auto';
           }
         }
       });
+
+      btnModalCancle.addEventListener('click', (event) => {
+    	  modal.classList.remove('show'); 
+      });
+      
     </script>
 
      <script>
       const body2 = document.querySelector('body');
       const modal2 = document.querySelector('.modal2');
       const btnOpenPopup2 = document.querySelector('.btn-reset-popup');
+      const btnModalCancle2 = document.querySelector('.btnModalCancle2');
+      
 
       btnOpenPopup2.addEventListener('click', () => {
         modal2.classList.toggle('show');
@@ -219,9 +229,14 @@ font-family: 'Gowun Batang', serif;
           }
         }
       });
+      
+      btnModalCancle2.addEventListener('click', (event) => {
+    	  modal2.classList.remove('show'); 
+      });
+      
+      
     </script>
     
 
 
-</body>
-</html>
+<c:import url="/WEB-INF/views/layout/footer.jsp" />
