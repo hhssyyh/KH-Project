@@ -149,5 +149,13 @@ public interface UserService {
 	 */
 	public int getUserNo(User userInfo);
 
+	/**
+	 * 가입한 회원의 이메일을 조회
+	 * 
+	 * @param param - 사용자가 입력한 Name, Phone
+	 * @return - 사용자 이메일
+	 */
+	public User getUserEmailByNamePhone(User param);
+
 
 }

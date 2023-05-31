@@ -322,6 +322,12 @@ public class UserServiceImpl implements UserService {
 
 		
 	}
+
+	@Override
+	public User getUserEmailByNamePhone(User param) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 	@Override

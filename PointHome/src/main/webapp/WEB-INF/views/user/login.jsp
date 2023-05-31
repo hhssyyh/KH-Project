@@ -8,10 +8,10 @@
 <div class="container">
 <form class="form" action="/user/login" method="post">
 <div class="form-signin m-auto">
-<div class="d-grid gap-2 col-4 mx-auto">
+<div class="d-grid gap-2 col-4 mx-auto mb-5">
 <div class="mt-5 mb-5"></div>
 
-<h1 class="text-center mt-5 mb-5">점집닷컴</h1>
+<h1 class="text-center mt-5 mb-5">PointHome</h1>
 
 <div class="form-floating mb-3">
   <input type="text" class="form-control" name="userEmail" id="userEmail" placeholder="이메일">
