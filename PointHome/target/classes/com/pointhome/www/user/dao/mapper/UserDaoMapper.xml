@@ -76,7 +76,6 @@
 	<select id="selectUserIndex" resultType="int">
 		SELECT user_TB_seq.NEXTVAL FROM dual
 	</select>
-	
 
 	<update id="updateUser" parameterType="User">
 		UPDATE user_tb 
@@ -102,7 +101,7 @@
 		, user_no
 		, user_img)
 		VALUES (userfile_tb_seq.nextval, #{userNo}, #{userImg})
-
+	</insert>
 
 	<insert id="insertUserSocial" parameterType="UserSocial">
 		INSERT INTO usersocial_tb

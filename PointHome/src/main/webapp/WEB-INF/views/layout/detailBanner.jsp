@@ -35,7 +35,7 @@
 <div id="toptab" class="fixed-top">
 	<ul class="nav justify-content-center">
 		<li class="nav-item">
-			<a class="nav-link active" aria-current="page" href="/partner/detail">상세페이지</a>
+			<a class="nav-link active" aria-current="page" href="/main/detail">상세페이지</a>
 		</li>
 
 		<li class="nav-item">
