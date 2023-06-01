@@ -1,5 +1,9 @@
 package com.pointhome.www.main.service.impl;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +25,13 @@ public class MainServiceImpl implements MainService {
 	}
 	
 	@Override
-	public void insertReserveData(Reservation reservation) {
+	public void insertReserveData(Reservation res) {
+		Date now = new Date();
+		SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
+        String str = format.format(now);
+		res.setResReserveno(str);
 		
-		mainDao.insertUserReserveData(reservation);
+		mainDao.insertUserReserveData(res);
 		
 	}
 	

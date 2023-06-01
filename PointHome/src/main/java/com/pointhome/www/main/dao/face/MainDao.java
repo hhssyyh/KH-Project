@@ -8,7 +8,7 @@ public interface MainDao {
 
 	public List<Integer> selectReserveTime(Reservation reservation);
 
-	public void insertUserReserveData(Reservation reservation);
+	public void insertUserReserveData(Reservation res);
 	
 	
 

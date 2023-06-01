@@ -15,7 +15,6 @@
 	
 	<insert id="insertUserReserveData" parameterType="Reservation">
 		INSERT INTO RESERVATION(RES_NO, PART_NO, RES_DATE ,RES_RESERVENO, USER_NO ,RES_TIME, RES_DIV)
-		VALUES (res_no_seq.nextval, #{partNo}, #{resDate}, #{res_reserveNo}, #{userNo}, #{resTime}, #{resDiv})
-		
+		VALUES (res_no_seq.nextval, #{partNo}, #{resDate}, #{resReserveno}, #{userNo}, #{resTime}, #{resDiv})
 	</insert>
 </mapper>

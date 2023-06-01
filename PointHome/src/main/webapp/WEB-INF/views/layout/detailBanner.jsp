@@ -35,7 +35,7 @@
 <div id="toptab" class="fixed-top">
 	<ul class="nav justify-content-center">
 		<li class="nav-item">
-			<a class="nav-link active" aria-current="page" href="/main/detail">상세페이지</a>
+			<a class="nav-link active" aria-current="page" href="/main/detail?partNo=${partNo }">상세페이지</a>
 		</li>
 
 		<li class="nav-item">
@@ -46,7 +46,7 @@
 		</li>
 		
 		<li class="nav-item">
-			<a class="nav-link" href="/main/reservation">예약</a>
+			<a class="nav-link" href="/main/reservation?partNo=${partNo }">예약</a>
 		</li>
 	</ul>
 </div>
@@ -58,7 +58,7 @@
 		</div>
 	</div>
 	
-	<div style="background-color: white; width:400px; height:200px;">
+	<div style="width:400px; height:200px; padding: 20px;">
 		<div style="font-size: 50px;">
 			홍길동
 		</div>
