@@ -6,8 +6,8 @@ import com.pointhome.www.main.dto.Reservation;
 
 public interface MainService {
 
-	public List<Integer> reserveTime(Reservation reservation);
+	public List<Integer> reserveTime(Reservation res);
 
-	public void insertReserveData(Reservation reservation);
+	public void insertReserveData(Reservation res);
 
 }

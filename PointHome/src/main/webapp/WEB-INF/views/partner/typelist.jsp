@@ -59,6 +59,7 @@ function pickPart(th) {
 						
 						<div class="card-body">
 							<h5 class="card-title">${board.partnerShopname}</h5>
+
 							<p class="card-text">가격 ${board.partnerPrice }</p>
 							<p class="card-text">별점(후기개수)</p>
 							<a href="./detail?partnerNo=${board.partnerNo}" class="btn btn-primary">상세페이지</a>
