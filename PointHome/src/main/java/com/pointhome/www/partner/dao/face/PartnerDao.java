@@ -3,7 +3,10 @@ package com.pointhome.www.partner.dao.face;
 import java.util.List;
 import java.util.Map;
 
+import com.pointhome.www.admin.dto.AdminNoticeFile;
 import com.pointhome.www.partner.dto.Partner;
+import com.pointhome.www.partner.dto.PartnerNotice;
+import com.pointhome.www.partner.dto.PartnerNoticeFile;
 import com.pointhome.www.util.Paging;
 
 public interface PartnerDao {
@@ -47,6 +50,34 @@ public interface PartnerDao {
 	public int selectCntTypeAll(Map<String, Object> pagingMap);
 
 	public List<Partner> selectTypeListAll(Map<String, Object> listMap);
+
+	/**
+	 * 파트너 -> 유저 공지사항 조회
+	 * @param filter
+	 * @return
+	 */
+	public List<PartnerNotice> selectAllPartnerNotice();
+	/**
+	 * 공지사항 작성폼으로부터 입력된 정보를 삽입
+	 * @param  작성한 글 정보
+	 * @return - 성공[1] 실패[0]
+	 */
+	public void insertNotice(PartnerNotice partnerNotice);
+
+	/**
+	 * 공지사항 작성폼에 파일 삽입
+	 * 
+	 * @param noticeFile
+	 */
+	public void insertFile(PartnerNoticeFile noticeFile);
+
+	/**
+	 * 제휴사 번호 조회
+	 * @param partner- 제휴사 
+	 * @return 제휴사 번호 
+	 */
+	public int selectPartnerNo(Partner partner);
+
 
 
 
