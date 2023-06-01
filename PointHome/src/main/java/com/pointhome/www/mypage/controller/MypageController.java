@@ -12,16 +12,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.pointhome.www.mypage.service.face.MypageService;
 import com.pointhome.www.user.dto.User;
 import com.pointhome.www.user.dto.UserFile;
-import com.pointhome.www.user.service.face.UserService;
 
 @Controller
 @RequestMapping("/mypage")
 public class MypageController {
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
-	@Autowired UserService userService;
+	@Autowired MypageService mypageService;
 	
 	@GetMapping("/view")
 	public void view( Model model, HttpSession session) {
@@ -30,14 +30,14 @@ public class MypageController {
 		int userno= (int) session.getAttribute("userno"); 
 		logger.debug("userno : {}", userno);
 		
-		User res= userService.selectInfo(userno);
+		User res= mypageService.selectInfo(userno);
 		
 		logger.debug("res{}",res);
 		model.addAttribute("res", res);
 		
 		
 		
-		UserFile userFile = userService.selectImg(userno);
+		UserFile userFile = mypageService.selectImg(userno);
 		logger.info("userFile : {}",userFile);
 		
 		model.addAttribute("userFile", userFile);
@@ -53,18 +53,17 @@ public class MypageController {
 		int userno= (int) session.getAttribute("userno"); 
 		logger.debug("userno : {}", userno);
 		
-		User res= userService.selectInfo(userno);
+		User res= mypageService.selectInfo(userno);
 		
 		logger.debug("res{}",res);
 		model.addAttribute("res", res);
 		
 		
 		
-		UserFile userFile = userService.selectImg(userno);
+		UserFile userFile = mypageService.selectImg(userno);
 		logger.info("userFile : {}",userFile);
 		
 		model.addAttribute("userFile", userFile);
-		
 		
 	}
 	
@@ -74,8 +73,18 @@ public class MypageController {
 	@GetMapping("/myreservedetail")
 	public void myreservedetail() {}
 	
-	@GetMapping("/mypick")
-	public void mypick() {}
+	@RequestMapping("/mypick")
+	public void mypick(int partnerNo, Model model, HttpSession session) {
+
+		int userNo = (Integer)session.getAttribute("userno");
+		mypageService.pickUpdate(userNo, partnerNo);
+		
+		int isPick = mypageService.isPick(userNo, partnerNo);
+		
+		model.addAttribute("isPick", isPick);
+		
+		
+	}
 	
 	@GetMapping("/myreview")
 	public void myreview() {}
@@ -95,7 +104,7 @@ public class MypageController {
 		user.setUserNo(userno);
 		logger.info("{}", user);
 		
-		userService.update(user, file);
+		mypageService.update(user, file);
 		
 		
 		
@@ -112,7 +121,7 @@ public class MypageController {
 		int userno= (int) session.getAttribute("userno"); 
 		logger.debug("userno : {}", userno);
 		
-		userService.delete(userno);
+		mypageService.delete(userno);
 		
 		Object object = session.getAttribute("login");
 		if(object != null ) {

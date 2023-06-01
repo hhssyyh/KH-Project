@@ -3,11 +3,8 @@ package com.pointhome.www.user.service.face;
 
 import java.util.Map;
 
-import org.springframework.web.multipart.MultipartFile;
-
 import com.google.gson.JsonObject;
 import com.pointhome.www.user.dto.User;
-import com.pointhome.www.user.dto.UserFile;
 import com.pointhome.www.user.dto.UserSocial;
 
 public interface UserService {
@@ -78,14 +75,6 @@ public interface UserService {
 	public User getUserInfoNaver(JsonObject token);
 
 	/**
-	 * MypageController에서,
-	 * userno 가져와서 유저정보조회
-	 * @param userno
-	 * @return 
-	 */
-	public User selectInfo(int userno);
-
-	/**
 	 * 사용자의 Email & Phone을
 	 * 이용한 회원가입 여부 조회
 	 * 
@@ -94,14 +83,6 @@ public interface UserService {
 	 */
 	public int getCntUserByEmailPhone(User userInfo);
 
-
-	/**
-	 * 마이페이지 사용자의 정보 수정
-	 * 
-	 * @param user - 사용자 정보
-	 * @param file - 사용자 프로필 사진 정보
-	 */
-	public void update(User user, MultipartFile file);
 
 	/**
 	 * 사용자의 Email & Phone을
@@ -163,20 +144,5 @@ public interface UserService {
 	 * @return - 사용자 이메일
 	 */
 	public User getUserEmailByNamePhone(User param);
-
-	/**
-	 * 회원 번호로 프로필 사진 정보 조회
-	 * 
-	 * @param userno - 회원 정보
-	 * @return - 프로필 사진 정보
-	 */
-	public UserFile selectImg(int userno);
-
-	/**
-	 * 회원 번호에 해당하는 회원 탈퇴
-	 * 
-	 * @param userno - 회원번호
-	 */
-	public void delete(int userno);
 
 }

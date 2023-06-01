@@ -2,8 +2,6 @@ package com.pointhome.www.user.dao.face;
 
 import com.pointhome.www.user.dto.User;
 
-import com.pointhome.www.user.dto.UserFile;
-
 import com.pointhome.www.user.dto.UserSocial;
 
 
@@ -37,14 +35,6 @@ public interface UserDao {
 	public User selectByUserEmailPw(User param);
 
 	/**
-	 * 회원 번호에 해당하는 회원 정보 조회
-	 * 
-	 * @param userno - 회원 번호
-	 * @return - 회원 정보 담은 DTO
-	 */
-	public User selectByUserId(int userno);
-
-	/**
 	 * Naver에서 받은 User정보를
 	 * 이용한 회원 조회
 	 * 
@@ -75,42 +65,6 @@ public interface UserDao {
 	 * @param socialParam - 소셜가입시 읽어온 회원의 정보
 	 */
 	public void insertUserSocial(UserSocial socialParam);
-
-	/**
-	 * 회원 정보 수정
-	 * 
-	 * @param user - 회원 정보 담은 DTO
-	 */
-	public void updateUser(User user);
-
-	/**
-	 * 회원 프로필 이미지 삭제
-	 * 
-	 * @param userFile - 회원 프로필 이미지 정보를 담은 DTO
-	 */
-	public void deleteFile(UserFile userFile);
-
-	/**
-	 * 회원 프로필 이미지 삽입
-	 * 
-	 * @param userFile - 회원 프로필 이미지 정보를 담은 DTO
-	 */
-	public void insertFile(UserFile userFile);
-	
-	/**
-	 * 회원번호에 해당하는 프로필 이미지 조회
-	 * 
-	 * @param userno - 회원 번호
-	 * @return userFile - 해당 회원 프로필 이미지 정보를 담은 DTO
-	 */
-	public UserFile selectImgByUserno(int userno);
-
-	/**
-	 * 회원 탈퇴
-	 * 
-	 * @param userno - 회원 번호
-	 */
-	public void deleteMemberByUserno(int userno);
 
 	/**
 	 * 이메일(아이디)를 이용하여 사용자 정보 조회
