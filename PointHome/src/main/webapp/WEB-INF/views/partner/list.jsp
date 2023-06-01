@@ -28,7 +28,7 @@ function pickPart(th) {
 		   url : '/mypage/mypick',  // 요청할 서버url
 		   dataType : 'html',       // 데이터 타입 (html, xml, json, text 등등)
 		   data : {  // 보낼 데이터 (Object , String, Array)
-			   partnerNo : partNo
+			   partnerNo : $(th).parents(".card").find(".partNo").val()
 		   }, 
 		   success : function(result) { // 결과 성공 콜백함수
 		    	console.log(result)
@@ -43,7 +43,7 @@ function pickPart(th) {
 
 
 <div class="container-fluid" style="margin-top: 50px; padding-left: 100px; padding-right: 100px;" >
-	<div class="row">
+	<div class="row" id="mypPick">
 		<c:forEach var="board" items="${list }">
 			<div class="col-md-3">
 				<div class="thumbnail">
@@ -52,23 +52,22 @@ function pickPart(th) {
 						<img src="../resources/dog.jpeg" class="card-img-top"
 							height="200px" style="width: 100%" alt="ex">
 						
-						<input class="partNo" type="hidden" value="${board.partnerNo}">
+						<input class="partNo" type="hidden" value="${board.PARTNER_NO}">
 						
 						
 						<div class="card-body">
-							<h5 class="card-title">${board.partnerShopname}</h5>
-							<p class="card-text">${board.partnerNo}</p>
-							<p class="card-text">가격 ${board.partnerPrice }</p>
+							<h5 class="card-title">${board.PARTNER_SHOPNAME}</h5>
+							<p class="card-text">${board.PARTNER_NO}</p>
+							<p class="card-text">가격 ${board.PARTNER_PRICE }</p>
 							<p class="card-text">별점</p>
 							<p class="card-text">후기(?)</p>
-							<a href="./detail?partnerNo=${board.partnerNo}" class="btn btn-primary">상세페이지</a>
-							<span class="pick" id="mypPick">
-								<button type="button" onclick="pickPart(this)" class="btn btn-primary">찜</button>
-								<c:if test="${isPick == 0}">
+							<a href="./detail?partnerNo=${board.PARTNER_NO}" class="btn btn-primary">상세페이지</a>
+							<span class="pick" >
+								<c:if test="${board.ISPICK eq 0}">
 									<button type="button" onclick="pickPart(this)" class="btn btn-primary"><i class="bi bi-heart"></i></button>
 								</c:if>
-								<c:if test="${isPick == 1}">
-									<button type="button" onclick="pickPart(this)" class="btn btn-primary">찜 취소</button>
+								<c:if test="${board.ISPICK eq 1}">
+									<button type="button" onclick="pickPart(this)" class="btn btn-primary"><i class="bi bi-heart-fill"></i></button>
 								</c:if>
 							</span>
 						</div>
