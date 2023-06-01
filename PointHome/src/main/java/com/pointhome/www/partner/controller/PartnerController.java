@@ -101,8 +101,9 @@ public class PartnerController {
 		logger.info("/partnerboard/list [GET]");
 
 		Paging paging = partnerService.getPaging(curPage);
-
+		
 		List<Partner> list = partnerService.list(paging);
+		
 
 
 		logger.info("!!!!!!!!!!!!!!!!{}", list);
@@ -148,12 +149,21 @@ public class PartnerController {
 		
 	}
 	@GetMapping("/partnernotice")
-	public void partnerNotice(Model model) {
+	public void partnerNotice(HttpSession session,@RequestParam(defaultValue = "0") int curPage,Model model)throws Exception
+	{
 		logger.debug("/partner/partnernotice");	
 		
-		List<PartnerNotice> noticelist = partnerService.noticeList();
+		Paging paging = partnerService.getPagingNotice(curPage);
+		 List<PartnerNotice> noticelist = partnerService.noticeList(paging);
+		 
+		 
+		  Partner partnerInfo = partnerService.partnerInfo((Integer)session.getAttribute("partnerNo"));
+		 logger.debug("!!!!!{}:",partnerInfo);
 		
 		model.addAttribute("noticelist", noticelist);
+		model.addAttribute("paging", paging);
+		model.addAttribute("partnerInfo", partnerInfo);
+
 	}
 	
 
@@ -178,6 +188,23 @@ public class PartnerController {
 		partnerService.writeNotice(partnerNotice,dataMul);
 		
 		 return "redirect:/partner/partnernotice";
+	}
+	
+	@GetMapping("/view")
+	public void noticeView(int partnerNoticeNo, Model model, HttpSession session ) {
+		logger.debug("/noticeview [Get]");
+		
+		
+		 PartnerNotice notice = partnerService.view(partnerNoticeNo);
+
+		 model.addAttribute("notice", notice);
+		 
+		 List<MultipartFile> file = partnerService.getMultiFile(partnerNoticeNo);
+		 model.addAttribute("file", file);
+		
+		 Partner viewPartner = partnerService.viewPartner(notice.getPartnerNo());
+		 model.addAttribute("viewPartner", viewPartner);
+		
 	}
 	
 

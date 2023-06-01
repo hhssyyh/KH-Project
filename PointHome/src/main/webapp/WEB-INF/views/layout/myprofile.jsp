@@ -70,14 +70,14 @@ a {
 			<div id="image_container"><img id="myImg" alt="" src="https://t1.daumcdn.net/cfile/tistory/2513B53E55DB206927"></div>
 			</c:when>
 			<c:otherwise>
-			<img id="myImg" src="/upload/${userFile.userImg }"  alt="">
+				<a href="./view"><img id="myImg" src="/upload/${userFile.userImg }"  alt=""></a>
 			</c:otherwise>
 			</c:choose>
 		</span>
 		
 		
 		<div id="nickDiv">
-			<div style="font-size: 40px;">NICKNAME</div>
+			<div style="font-size: 30px;">${res.userNick }</div>
 			${profile }
 <%-- 			<img src="/upload/${profile.userImg}"  alt=""> --%>
 			<a href="./userinfo"><button class="btn btn-outline-dark nickBtn">회원정보수정</button></a>
@@ -89,7 +89,7 @@ a {
 	<button class="btn btn-outline-dark proBtn" style="margin: 8px; margin-left: 1000px; margin-top: -400px;">1:1 채팅 문의</button>
 	<button class="btn btn-outline-dark proBtn" style="margin: 8px; margin-left: 1200px; margin-top: -447px;">알림 내역</button>
 	<a href="/mypage/mypick"><button class="btn btn-outline-dark proBtn" style="margin: 8px; margin-left: 1000px; margin-top: -400px;">찜 내역</button></a>
-	<button class="btn btn-outline-dark proBtn" style="margin: 8px; margin-left: 1200px; margin-top: -447px;">리뷰 조회</button>   
+	<a href="/mypage/myreview"><button class="btn btn-outline-dark proBtn" style="margin: 8px; margin-left: 1200px; margin-top: -447px;">리뷰 조회</button></a>   
 </div>
 
 

@@ -107,11 +107,16 @@
 		where rnum between #{paging.startNo} and #{paging.endNo}
 	</select>
 	
-	
-	<select id="selectAllPartnerNotice" resultType="PartnerNotice">
-		SELECT *
-		FROM PARTNER_NOTICE
-		ORDER BY partner_notice_no DESC
+
+	<select id="selectAllPartnerNotice" resultType="PartnerNotice" parameterType="Paging">
+		select * from (
+		SELECT rownum rnum, A.* FROM (
+			SELECT *
+			FROM partner_notice
+			ORDER BY partner_notice_no DESC 
+		) A
+	)
+		where rnum between #{startNo} and #{endNo} 
 	</select>
 	
 	
@@ -163,6 +168,33 @@
 	
 	</select>
 	
+	<select id="selectNoticeCntAll"  resultType="int">
+		select count(*) from partner_notice 
+	</select>
+	
+	<select id="selectPartnerInfo" resultType="Partner" parameterType="int">
+	
+		select *  from partner_tb
+		where partner_no = #{partnerNo}
+	
+	</select>
+	
+	<select id="viewNotice" resultType="PartnerNotice" parameterType="int">
+		select * from partner_notice
+		where partner_notice_no = #{partnerNoticeNo}
+	
+	</select>
+	
+	<select id="getMultiFiles" parameterType="int" resultType="PartnerNoticeFile">
+		select * from partner_notice_file
+		where partner_notice_no = #{partnerNoticeNo}
+	</select>
+	
+	<select id="selectByPartnerNo" resultType="Partner" parameterType="int">
+		select * from partner_tb
+		where partner_no = #{partnerNo}
+	
+	</select>
 
 </mapper>
 
