@@ -3,7 +3,9 @@ package com.pointhome.www.partner.dao.face;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.annotations.Param;
+
+import org.springframework.web.multipart.MultipartFile;
+
 
 import com.pointhome.www.admin.dto.AdminNoticeFile;
 import com.pointhome.www.partner.dto.Partner;
@@ -58,7 +60,7 @@ public interface PartnerDao {
 	 * @param filter
 	 * @return
 	 */
-	public List<PartnerNotice> selectAllPartnerNotice();
+	public List<PartnerNotice> selectAllPartnerNotice(Paging paging);
 	/**
 	 * 공지사항 작성폼으로부터 입력된 정보를 삽입
 	 * @param  작성한 글 정보
@@ -80,7 +82,46 @@ public interface PartnerDao {
 	 */
 	public int selectPartnerNo(Partner partner);
 
-	public List<Map<String, Object>> selectPartPick(@Param("paging") Paging paging, @Param("userNo") int userNo);
+
+	/**
+	 * 총 공지사항 게시글 수 조회
+	 * 
+	 * @return 총 게시글 수 
+	 */
+	public int selectNoticeCntAll();
+
+	/**
+	 *  파트너 정보 조회
+	 * @param partnerNo -파트너 번호
+	 * @return 파트너 정보 조회
+	 */
+	public Partner selectPartnerInfo(Integer partnerNo);
+
+	   /**
+	    * 게시글 번호에 해당하는 게시글의 정보 조회
+	    * 
+	    * @param noticeNo - 게시글 번호
+	    * @return 게시글 정보
+	    */
+	public PartnerNotice viewNotice(int partnerNoticeNo);
+	
+	 /**
+	    * 게시글 번호에 해당하는 파일 목록들 가져오기
+	    * 
+	    * @param partnerNoticeNo - 게시글 번호
+	    * @return 게시글 번호에 해당하는 파일 목록들
+	    */
+	public List<MultipartFile> getMultiFiles(int partnerNoticeNo);
+
+	 /**
+	    * 회원번호에 해당하는 회원 정보
+	    * 
+	    * @param partnerNo - 회원 번호
+	    * @return 회원 정보 담은 DTO
+	    */
+	public Partner selectByPartnerNo(int partnerNo);
+
+
 
 
 

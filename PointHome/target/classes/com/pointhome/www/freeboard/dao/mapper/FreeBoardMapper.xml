@@ -57,11 +57,9 @@
       where freeboard_no = #{freeboard_no}
    </update>
 
-   <select id="viewBoard" resultType="FreeBoard"
-      parameterType="int">
+   <select id="viewBoard" resultType="FreeBoard" parameterType="int">
       select * from freeboard
-      where freeboard_no =
-      #{freeboard_no}
+      where freeboard_no = #{freeboard_no}
    </select>
 
 

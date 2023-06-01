@@ -69,10 +69,11 @@ public class PartnerServiceImpl implements PartnerService {
 
 	@Override
 	public Paging getPaging(int curPage) {
+
 		int totalPage = partnerDao.selectCntAll();
-
 		logger.info("total: {}", totalPage);
-
+		
+		
 		Paging paging = new Paging(totalPage, curPage);
 
 		return paging;
@@ -117,8 +118,8 @@ public class PartnerServiceImpl implements PartnerService {
 	}
 
 	@Override
-	public List<PartnerNotice> noticeList() {
-		List<PartnerNotice> alist = partnerDao.selectAllPartnerNotice();
+	public List<PartnerNotice> noticeList(Paging paging) {
+		List<PartnerNotice> alist = partnerDao.selectAllPartnerNotice(paging);
 
 		logger.debug("{}", alist);
 		return alist;
@@ -184,9 +185,40 @@ public class PartnerServiceImpl implements PartnerService {
 	}
 
 	@Override
-	public List<Map<String, Object>> list(Paging paging, int userNo) {
 
-		return partnerDao.selectPartPick(paging, userNo);
+	public Paging getPagingNotice(int curPage) {
+		
+		 int totalPage = partnerDao.selectNoticeCntAll();
+	      
+	      Paging paging = new Paging(totalPage, curPage); 
+	      
+		return paging;
+	}
+	
+
+	@Override
+	public Partner partnerInfo(Integer partnerNo) {
+		
+		return partnerDao.selectPartnerInfo(partnerNo);
+	}
+
+	@Override
+	public PartnerNotice view(int partnerNoticeNo) {
+		
+		
+		return partnerDao.viewNotice(partnerNoticeNo);
+	}
+
+	@Override
+	public List<MultipartFile> getMultiFile(int partnerNoticeNo) {
+		
+		return partnerDao.getMultiFiles(partnerNoticeNo);
+	}
+
+	@Override
+	public Partner viewPartner(int partnerNo) {
+		return partnerDao.selectByPartnerNo(partnerNo);
+
 	}
 
 }
