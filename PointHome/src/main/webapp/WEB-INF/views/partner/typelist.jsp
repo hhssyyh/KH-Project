@@ -36,7 +36,7 @@
 							<p class="card-text">가격</p>
 							<p class="card-text">별점</p>
 							<p class="card-text">후기(?)</p>
-							<a href="./detail?partnerNo=${board.partnerNo}" class="btn btn-primary">상세페이지</a>
+							<a href="/main/detail?partNo=${board.partnerNo}" class="btn btn-primary">상세페이지</a>
 						</div>
 					</div>
 				</div>

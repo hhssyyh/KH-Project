@@ -3,23 +3,85 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     
     
-<c:import url="/WEB-INF/views/layout/header.jsp"/>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>점집닷컴</title>
+
+<!-- 부트스트랩 -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+
+<!-- jQuery -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+
+</head>
+<body>
+
+
+
+
+
 <c:import url="/WEB-INF/views/layout/detailBanner.jsp"/>
 
-
+<!-- fullCalendar -->
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+<script src="https://js.tosspayments.com/v1/payment-widget"></script>
+
+<script type="text/javascript">
+var resDate = $("input[name=resDate]").val()
+var resTime = $("input[name=resTime]").val()
+var resDiv = $("input[name=resDiv]").val()
+</script>
+
 <script>
-	document.addEventListener('DOMContentLoaded', function() {
+    const clientKey = "test_ck_D5GePWvyJnrK0W0k6q8gLzN97Eoq"
+    const customerKey = "T75rfr5b8Ha6Wdt-tH6QG" // 내 상점의 고객을 식별하는 고유한 키
+    const button = document.getElementById("payment-button")
+
+    // ------  결제위젯 초기화 ------ 
+    // 비회원 결제에는 customerKey 대신 ANONYMOUS를 사용하세요.
+    const paymentWidget = PaymentWidget(clientKey, customerKey) // 회원 결제
+    // const paymentWidget = PaymentWidget(clientKey, PaymentWidget.ANONYMOUS) // 비회원 결제
+
+    // ------  결제위젯 렌더링 ------ 
+    // 결제위젯이 렌더링될 DOM 요소를 지정하는 CSS 선택자 및 결제 금액을 넣어주세요. 
+    // https://docs.tosspayments.com/reference/widget-sdk#renderpaymentmethods선택자-결제-금액-옵션
+    paymentWidget.renderPaymentMethods("#payment-method", { value: 1})
+
+    // ------  이용약관 렌더링 ------
+    // 이용약관이 렌더링될 DOM 요소를 지정하는 CSS 선택자를 넣어주세요.
+    // https://docs.tosspayments.com/reference/widget-sdk#renderagreement선택자
+    paymentWidget.renderAgreement('#agreement')
+
+    // ------ '결제하기' 버튼 누르면 결제창 띄우기 ------
+    // 더 많은 결제 정보 파라미터는 결제위젯 SDK에서 확인하세요.
+    // https://docs.tosspayments.com/reference/widget-sdk#requestpayment결제-정보
+    button.addEventListener("click", function () {
+      paymentWidget.requestPayment({
+        orderId: "DNtNqLT3iqlNZsa2Itie2",            // 주문 ID(직접 만들어주세요)
+        orderName: "토스 티셔츠 외 2건",                 // 주문명
+        successUrl: "http://localhost:8888/main/reserveComplete",  // 결제에 성공하면 이동하는 페이지(직접 만들어주세요)
+        failUrl: "https://my-store.com/fail",        // 결제에 실패하면 이동하는 페이지(직접 만들어주세요)
+        customerEmail: "customer123@gmail.com",
+        customerName: "김토스"
+        
+        
+      })
+    })
+  </script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
     	var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
         	locale: 'kr',
-        	  
         	dayCellContent : function( cal ) {
         		return ('0'+cal.date.getDate()).slice(-2)
         	}
-        		
         	,
-        	
         	dateClick: function(info) {
         		$.ajax({
 					   type : 'get',           // 타입 (get, post, put 등등)
@@ -37,7 +99,6 @@
 					        console.log(error)
 					   }
 				})
-        		
         	},
             // Tool Bar 목록 document : https://fullcalendar.io/docs/toolbar
             
@@ -46,57 +107,8 @@
 
             navLinks: false, // can click day/week names to navigate views
             editable: false,
-            // Create new event
-//             select: function (arg) {
-//                 Swal.fire({
-//                     html: "<div class='mb-7'>Create new event?</div><div class='fw-bold mb-5'>Event Name:</div><input type='text' class='form-control' name='event_name' />",
-//                     icon: "info",
-//                     showCancelButton: true,
-//                     buttonsStyling: false,
-//                     confirmButtonText: "Yes, create it!",
-//                     cancelButtonText: "No, return",
-//                     customClass: {
-//                         confirmButton: "btn btn-primary",
-//                         cancelButton: "btn btn-active-light"
-//                     }
-//                 }).then(function (result) {
-//                     if (result.value) {
-//                         var title = document.querySelector("input[name=;event_name']").value;
-//                         if (title) {
-//                             calendar.addEvent({
-//                                 title: title,
-//                                 start: arg.start,
-//                                 end: arg.end,
-//                                 allDay: arg.allDay
-//                             })
-//                         }
-//                         calendar.unselect()
-//                     } else if (result.dismiss === "cancel") {
-//                         Swal.fire({
-//                             text: "Event creation was declined!.",
-//                             icon: "error",
-//                             buttonsStyling: false,
-//                             confirmButtonText: "Ok, got it!",
-//                             customClass: {
-//                                 confirmButton: "btn btn-primary",
-//                             }
-//                         });
-//                     }
-//                 });
-//             },
-
-            
-            
-            // 이벤트 객체 필드 document : https://fullcalendar.io/docs/event-object
-//             events: [
-//                 {
-//                 title: 'All Day Event',
-//                 start: '2023-05-30'
-//                 }
-//             ]
         });
 
-        
         calendar.render();
     });
 
