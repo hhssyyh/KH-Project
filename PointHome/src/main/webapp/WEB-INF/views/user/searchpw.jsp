@@ -30,10 +30,10 @@
 	</div>
 </div>
 
-<div class="nav justify-content-center col">
-	<div class="nav-item"><a class="nav-link" href="./searchid">&nbsp;&nbsp;&nbsp;아이디 찾기</a></div>	
-	<div class="nav-item">|</div>	
-	<div class="nav-item"><a class="nav-link" href="#">비밀번호 찾기</a></div>
+<div class="nav justify-content-center col mt-3">
+	<div class="nav-item"><a class="nav-link active" href="#">&nbsp;&nbsp;&nbsp;아이디 찾기</a></div>	
+	<div class="vr"></div>	
+	<div class="nav-item"><a class="nav-link" href="./searchpw">비밀번호 찾기</a></div>
 </div>
 
 </div>

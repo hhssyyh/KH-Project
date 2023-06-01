@@ -37,12 +37,11 @@
 <button class="btn btn-primary btn-lg">로그인</button>
 <a href="./join" class="btn btn-outline-secondary btn-lg" type="button">회원가입</a>
 
-<div class="nav justify-content-center col">
+<div class="nav justify-content-center col mt-3">
 	<div class="nav-item"><a class="nav-link" href="./searchid">아이디 찾기</a></div>	
 	<div class="nav-item">|</div>	
 	<div class="nav-item"><a class="nav-link" href="./searchpw">비밀번호 찾기</a></div>
 </div>
-
 <div class="container">
 <div class="mt-3 text-center mb-5">
   <a href="./naverlogin"><img height="50" src="/resources/login/user/img/btnG_logo_round.png"/></a>

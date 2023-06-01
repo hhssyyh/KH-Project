@@ -10,6 +10,7 @@ import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.security.SecureRandom;
@@ -81,7 +82,7 @@ public class UserServiceImpl implements UserService {
 
 		Map<String, Object> map = new HashMap<>();
 		
-		String callbackURL = "http://localhost:8888/user/callback";
+		String callbackURL = "http://localhost:8888/user/navercallback";
 	    String clientId = "cUmMzSZPUu5v9OklWSqJ";//애플리케이션 클라이언트 아이디값";
 	    
 	    String redirectURI = null;
@@ -263,7 +264,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public int getUserNoByEmailPhone(User userInfo) {
+	public User getUserNoByEmailPhone(User userInfo) {
 		
 		return userDao.selectUserNoByEmailPhone(userInfo);
 	}
@@ -497,6 +498,72 @@ public class UserServiceImpl implements UserService {
 		
 		return userDao.selectUserNoByEmail(userInfo);
 	}
-	
+
+	@Override
+	public String requestToServer(String logoutURL, String headerStr) throws IOException {
+
+		URL url = null;
+
+		try {
+			url = new URL(logoutURL);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+
+		HttpURLConnection con = (HttpURLConnection)url.openConnection();
+
+		try {
+			con.setRequestMethod("GET");
+		} catch (ProtocolException e) {
+			e.printStackTrace();
+		}
+
+		logger.debug("headerStr: {}", headerStr);
+		if(headerStr != null && !headerStr.equals("") ) {
+			con.setRequestProperty("Authorization", headerStr);
+		}
+
+		int responseCode = con.getResponseCode();
+		logger.debug("responseCode : {}", responseCode);
+
+		BufferedReader br = null;
+
+		if(responseCode == 200) { // 정상 호출
+			br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+		} else {  // 에러 발생
+			br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+		}
+
+		String inputLine = "";
+		StringBuffer res = new StringBuffer();
+		while ((inputLine = br.readLine()) != null) {
+			res.append(inputLine);
+		}
+		br.close();
+		if(responseCode==200) {
+			String new_res=res.toString().replaceAll("&#39;", "");
+			return new_res; 
+		} else {
+			return null;
+		}
+
+	}
+
+	@Override
+	public String createNaverLogoutURL(String accessToken) {
+
+		String clientId = "cUmMzSZPUu5v9OklWSqJ";
+		String clientSecret = "7us20334CP";
+
+		String logoutURL = "";
+		logoutURL += "https://nid.naver.com/oauth2.0/token";
+		logoutURL += "?grant_type=delete";
+		logoutURL += "&client_id=" + clientId;
+		logoutURL += "&client_secret=" + clientSecret;
+		logoutURL += "&access_token=" + accessToken;
+		logoutURL += "&service_provider=NAVER";
+
+		return logoutURL;
+	}
 	
 }

@@ -1,6 +1,7 @@
 package com.pointhome.www.user.service.face;
 
 
+import java.io.IOException;
 import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -103,7 +104,7 @@ public interface UserService {
 	 * @param userInfo
 	 * @return
 	 */
-	public int getUserNoByEmailPhone(User userInfo);
+	public User getUserNoByEmailPhone(User userInfo);
 
 	/**
 	 * 회원가입시 추가될 다음 회원의 인덱스
@@ -156,6 +157,26 @@ public interface UserService {
 	 * @return - 사용자 이메일
 	 */
 	public User getUserEmailByNamePhone(User param);
+
+	/**
+	 * 로그아웃시, 네이버의 엑세스토큰을
+	 * 삭제할 LogoutURL
+	 * 
+	 * @param string - 엑세스 토큰
+	 * @return - 로그아웃 URL (String)
+	 */
+	public String createNaverLogoutURL(String string);
+
+	/**
+	 * 
+	 * 
+	 * @param logoutURL
+	 * @param headerStr
+	 * @return
+	 * @throws IOException
+	 */
+	public String requestToServer(String logoutURL, String headerStr) throws IOException;
+
 
 
 }
