@@ -18,6 +18,7 @@
 	<select id="selectAllUser" resultType="User">
 		SELECT *
 		FROM USER_TB
+		order by user_no
 	</select>
 
 	<select id="selectAllAdminNotice" resultType="AdminNotice">
