@@ -1,18 +1,17 @@
 package com.pointhome.www.main.controller;
 
-import java.util.Date;
-
-import javax.servlet.http.HttpSession;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.pointhome.www.main.dto.Reservation;
 import com.pointhome.www.main.service.face.MainService;
-import com.pointhome.www.partner.service.face.PartnerService;
 
 @Controller
 public class mainController {
@@ -28,8 +27,9 @@ public class mainController {
 	}
 	
 	@GetMapping("/main/detail")
-	public void detailGet( ) {
+	public void detailGet(int partNo, Model model) {
 //		mainService.getPartnerView()
+		
 		
 	}
 	
@@ -46,24 +46,37 @@ public class mainController {
 	@GetMapping("/main/reservation")
 	public void reservation() {
 		logger.debug("/main/reservation [GET]");
-		
+
 	}
+	
+	
 	
 	
 	
 	
 	
 	@GetMapping("/main/reserveDateAjax")
-	public void reserveDateAjaxGet(Reservation reservation, HttpSession session) {
+	public void reserveDateAjaxGet(Reservation reservation, Model model) {	
 		
-//		reservation.setUserNo((Integer)session.getAttribute("userno"));
-		logger.info("!!!!!!!!!!!!{}", reservation);
+		List<Integer> reserveList = mainService.reserveTime(reservation);
 		
-//		mainService.getReserveTime
+		logger.debug("!!!!!!!!!!!!!!!!!!!!!!!!!!{}", reservation);
+		
+//		mainService.insertReserveData(reservation);
+		
+		model.addAttribute("reserveList", reserveList);
+		model.addAttribute("resDate", reservation.getResDate());
 		
 	}
 	
-	
+	@PostMapping("/main/reserveDateAjax")
+	public String reserveDateAjaxPost(Reservation res) {
+		logger.debug("/main/reservation [Post]");
+		
+		logger.debug("!!!!!!!!!{}", res);
+		
+		return "./∞·¡¶";
+	}
 	
 }
 

@@ -5,8 +5,17 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   
-<mapper namespace="com.pointhome.www.partner.dao.face.mainDao">
+<mapper namespace="com.pointhome.www.main.dao.face.MainDao">
 
-	<select id=""></select>
-
+	<select id="selectReserveTime" resultType="list" parameterType="Reservation">
+		SELECT res_time FROM reservation
+		WHERE res_date = #{resDate}
+		ORDER BY res_time
+	</select>
+	
+	<insert id="insertUserReserveData" parameterType="Reservation">
+		INSERT INTO RESERVATION(RES_NO, PART_NO, RES_DATE ,RES_RESERVENO, USER_NO ,RES_TIME, RES_DIV)
+		VALUES (res_no_seq.nextval, #{partNo}, #{resDate}, #{res_reserveNo}, #{userNo}, #{resTime}, #{resDiv})
+		
+	</insert>
 </mapper>

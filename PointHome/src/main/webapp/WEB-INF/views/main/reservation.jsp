@@ -12,6 +12,13 @@
 	document.addEventListener('DOMContentLoaded', function() {
     	var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
+        	locale: 'kr',
+        	  
+        	dayCellContent : function( cal ) {
+        		return ('0'+cal.date.getDate()).slice(-2)
+        	}
+        		
+        	,
         	
         	dateClick: function(info) {
         		$.ajax({
@@ -20,11 +27,11 @@
 					   dataType : 'html',       // 데이터 타입 (html, xml, json, text 등등)
 					   data : {  // 보낼 데이터 (Object , String, Array)
 						   resDate : info.dateStr,
-						   partNo : 103 //일단 103으로 한거고 바꿀거
+						   partNo : ${param.partNo}
 					   }, 
 					   success : function(result) { // 결과 성공 콜백함수
 					    	console.log(result)
-					        $("#recommend").html(result)
+					        $("#reserveTime").html(result)
 					   },
 					   error : function(request, status, error) { // 결과 에러 콜백함수
 					        console.log(error)
@@ -89,6 +96,7 @@
 //             ]
         });
 
+        
         calendar.render();
     });
 
@@ -101,13 +109,24 @@
   	align-items: center;
 	
 	}
+	
+	.fc-day-sun a {
+  color: red;
+  text-decoration: none;
+}
+
+/* 토요일 날짜 파란색 */
+.fc-day-sat a {
+  color: blue;
+  text-decoration: none;
+}
 </style>
 	
 <div id="calendarDiv">
-<div id='calendar' style="width: 600px; height: 600px; margin: 100px;"></div>
+<div id='calendar' style="width: 600px; height: 600px; margin: 100px; margin-right: 30px;"></div>
 
 
-<div id="reserveTime" style="width: 500px; height: 500px; border: 1px solid;"></div>
+<div id="reserveTime" style="width: 500px; height: 500px; padding: 65px;"></div>
 </div>
 
 <c:import url="/WEB-INF/views/layout/footer.jsp"/>

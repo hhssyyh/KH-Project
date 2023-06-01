@@ -44,7 +44,7 @@
 
 	<div class="col-4">
 		<ul class="nav justify-content-end">
-			<li class="nav-item px-2">© 2023 KH.Academy Team pagr404</li>
+			<li class="nav-item px-2">© 2023 KH.Academy Team page404</li>
 		</ul>
 	</div>
 		

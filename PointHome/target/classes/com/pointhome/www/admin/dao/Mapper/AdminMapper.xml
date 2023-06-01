@@ -21,6 +21,7 @@
 		order by user_no
 	</select>
 
+
 	<select id="selectAllAdminNotice" resultType="AdminNotice">
 		SELECT *
 		FROM ADMIN_NOTICE

@@ -319,8 +319,24 @@ public class UserServiceImpl implements UserService {
 		userDao.deleteFile(userFile);
 		userDao.insertFile(userFile);
 		
+	}
 
+	@Override
+	public UserFile selectImg(int userno) {
+		return userDao.selectImgByUserno(userno);
+	}
+
+	@Override
+	public void delete(int userno) {
 		
+		userDao.deleteMemberByUserno(userno);
+	}
+
+	
+	@Override
+	public User getUserEmailByNamePhone(User param) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	
