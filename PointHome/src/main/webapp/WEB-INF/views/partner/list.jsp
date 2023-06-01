@@ -17,6 +17,30 @@
 }
 </style>
 
+<script type="text/javascript">
+function pickPart(th) {
+	
+	var partNo = $(th).parents(".card").find(".partNo").val()
+	console.log($(th).parents(".card").find(".partNo").val())
+	
+	$.ajax({
+		   type : 'get',           // 타입 (get, post, put 등등)
+		   url : '/main/pick',  // 요청할 서버url
+		   dataType : 'html',       // 데이터 타입 (html, xml, json, text 등등)
+		   data : {  // 보낼 데이터 (Object , String, Array)
+			   partnerNo : partNo
+		   }, 
+		   success : function(result) { // 결과 성공 콜백함수
+		    	console.log(result)
+		        $("#recommend").json(result)
+		   },
+		   error : function(request, status, error) { // 결과 에러 콜백함수
+		        console.log(error)
+		   }
+	})
+}
+</script>
+
 <div class="container-fluid" style="margin-top: 50px; padding-left: 100px; padding-right: 100px;" >
 	<div class="row">
 		<c:forEach var="board" items="${list }">
@@ -27,13 +51,23 @@
 						<img src="../resources/dog.jpeg" class="card-img-top"
 							height="200px" style="width: 100%" alt="ex">
 						
+												<input class="partNo" type="hidden" value="${board.partnerNo}">
+						
 						<div class="card-body">
 							<h5 class="card-title">${board.partnerShopname}</h5>
 							<p class="card-text">${board.partnerNo}</p>
-							<p class="card-text">가격</p>
+							<p class="card-text">가격 ${board.partnerPrice }</p>
 							<p class="card-text">별점</p>
 							<p class="card-text">후기(?)</p>
 							<a href="./detail?partnerNo=${board.partnerNo}" class="btn btn-primary">상세페이지</a>
+							<span class="pick">
+<%-- 								<c:if test="${pick이 안 되어있는 경우 }"> --%>
+									<button type="button" onclick="pickPart(this)" class="btn btn-primary">찜</button>
+<%-- 								</c:if> --%>
+<%-- 								<c:if test="${pick이 되어있는 경우 }"> --%>
+<!-- 									<button type="button" onclick="pickPart(this)" class="btn btn-primary">찜 취소</button> -->
+<%-- 								</c:if> --%>
+							</span>
 						</div>
 					</div>
 				</div>
