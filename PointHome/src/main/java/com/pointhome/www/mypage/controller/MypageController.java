@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.pointhome.www.user.dto.User;
+import com.pointhome.www.user.dto.UserFile;
 import com.pointhome.www.user.service.face.UserService;
 
 @Controller
@@ -23,9 +24,27 @@ public class MypageController {
 	@Autowired UserService userService;
 	
 	@GetMapping("/view")
-	public void view() {
+	public void view( Model model, HttpSession session) {
+		logger.debug("/mypage/userinfo [GET]");
+		
+		int userno= (int) session.getAttribute("userno"); 
+		logger.debug("userno : {}", userno);
+		
+		User res= userService.selectInfo(userno);
+		
+		logger.debug("res{}",res);
+		model.addAttribute("res", res);
+		
+		
+		
+		UserFile userFile = userService.selectImg(userno);
+		logger.info("userFile : {}",userFile);
+		
+		model.addAttribute("userFile", userFile);
 		
 	}
+		
+	
 	
 	@GetMapping("/userinfo")
 	public void mypageInfo( Model model, HttpSession session) {
@@ -38,6 +57,15 @@ public class MypageController {
 		
 		logger.debug("res{}",res);
 		model.addAttribute("res", res);
+		
+		
+		
+		UserFile userFile = userService.selectImg(userno);
+		logger.info("userFile : {}",userFile);
+		
+		model.addAttribute("userFile", userFile);
+		
+		
 	}
 	
 	@GetMapping("/myreserve")
@@ -75,8 +103,27 @@ public class MypageController {
 		model.addAttribute("user", user);
 		
 		
-		return "/mypage/view";
+		return "redirect:./view";
 	}
+	
+	@RequestMapping("/removeUser")
+	public String userRemove(HttpSession session) {
+		
+		int userno= (int) session.getAttribute("userno"); 
+		logger.debug("userno : {}", userno);
+		
+		userService.delete(userno);
+		
+		Object object = session.getAttribute("login");
+		if(object != null ) {
+			session.removeAttribute("login");
+			session.invalidate();
+		}
+
+		
+		return "redirect:/";
+	}
+	
 	
 	
 	

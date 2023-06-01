@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.JsonObject;
 import com.pointhome.www.user.dto.User;
+import com.pointhome.www.user.dto.UserFile;
 import com.pointhome.www.user.dto.UserSocial;
 
 public interface UserService {
@@ -94,6 +95,12 @@ public interface UserService {
 	public int getCntUserByEmailPhone(User userInfo);
 
 
+	/**
+	 * 마이페이지 사용자의 정보 수정
+	 * 
+	 * @param user - 사용자 정보
+	 * @param file - 사용자 프로필 사진 정보
+	 */
 	public void update(User user, MultipartFile file);
 
 	/**
@@ -157,5 +164,19 @@ public interface UserService {
 	 */
 	public User getUserEmailByNamePhone(User param);
 
+	/**
+	 * 회원 번호로 프로필 사진 정보 조회
+	 * 
+	 * @param userno - 회원 정보
+	 * @return - 프로필 사진 정보
+	 */
+	public UserFile selectImg(int userno);
+
+	/**
+	 * 회원 번호에 해당하는 회원 탈퇴
+	 * 
+	 * @param userno - 회원번호
+	 */
+	public void delete(int userno);
 
 }
