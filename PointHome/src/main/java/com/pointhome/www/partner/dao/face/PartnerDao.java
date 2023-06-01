@@ -3,6 +3,8 @@ package com.pointhome.www.partner.dao.face;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.pointhome.www.admin.dto.AdminNoticeFile;
 import com.pointhome.www.partner.dto.Partner;
 import com.pointhome.www.partner.dto.PartnerNotice;
@@ -77,6 +79,9 @@ public interface PartnerDao {
 	 * @return 제휴사 번호 
 	 */
 	public int selectPartnerNo(Partner partner);
+
+	public List<Map<String, Object>> selectPartPick(@Param("paging") Paging paging, @Param("userNo") int userNo);
+
 
 
 

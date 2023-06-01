@@ -65,6 +65,9 @@ public interface PartnerService {
 	 */
 	public int getPartnerNoByEmail(Partner partner);
 
+
+	public List<Map<String, Object>> list(Paging paging, int userNo);
+
 	
 
 
