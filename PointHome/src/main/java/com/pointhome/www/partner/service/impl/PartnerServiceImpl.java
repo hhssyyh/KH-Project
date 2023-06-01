@@ -185,6 +185,7 @@ public class PartnerServiceImpl implements PartnerService {
 	}
 
 	@Override
+
 	public Paging getPagingNotice(int curPage) {
 		
 		 int totalPage = partnerDao.selectNoticeCntAll();
@@ -217,6 +218,7 @@ public class PartnerServiceImpl implements PartnerService {
 	@Override
 	public Partner viewPartner(int partnerNo) {
 		return partnerDao.selectByPartnerNo(partnerNo);
+
 	}
 
 }

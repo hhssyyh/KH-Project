@@ -1,6 +1,11 @@
 package com.pointhome.www.main.controller;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +35,7 @@ public class mainController {
 	public void detailGet(int partNo, Model model) {
 //		mainService.getPartnerView()
 		
-		
+		model.addAttribute("partNo", partNo);
 	}
 	
 	@GetMapping("/main/review")
@@ -60,9 +65,7 @@ public class mainController {
 		
 		List<Integer> reserveList = mainService.reserveTime(reservation);
 		
-		logger.debug("!!!!!!!!!!!!!!!!!!!!!!!!!!{}", reservation);
-		
-//		mainService.insertReserveData(reservation);
+//		logger.debug("!!!!!!!!!!!!!!!!!!!!!!!!!!{}", reservation);
 		
 		model.addAttribute("reserveList", reserveList);
 		model.addAttribute("resDate", reservation.getResDate());
@@ -78,5 +81,23 @@ public class mainController {
 		return "./∞·¡¶";
 	}
 	
+	@GetMapping("/main/reserveComplete")
+	public String reserveComplete(int partNo, Reservation res, HttpSession session) {
+		res.setUserNo((Integer)session.getAttribute("userno"));
+		mainService.insertReserveData(res);
+		
+		
+		return "redirect:/main/detail?partNo=" + partNo;
+	}
+	
 }
+
+
+
+
+
+
+
+
+
 

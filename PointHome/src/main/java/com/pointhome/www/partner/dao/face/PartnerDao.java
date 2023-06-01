@@ -3,7 +3,9 @@ package com.pointhome.www.partner.dao.face;
 import java.util.List;
 import java.util.Map;
 
+
 import org.springframework.web.multipart.MultipartFile;
+
 
 import com.pointhome.www.admin.dto.AdminNoticeFile;
 import com.pointhome.www.partner.dto.Partner;
@@ -80,6 +82,7 @@ public interface PartnerDao {
 	 */
 	public int selectPartnerNo(Partner partner);
 
+
 	/**
 	 * 총 공지사항 게시글 수 조회
 	 * 
@@ -117,6 +120,7 @@ public interface PartnerDao {
 	    * @return 회원 정보 담은 DTO
 	    */
 	public Partner selectByPartnerNo(int partnerNo);
+
 
 
 

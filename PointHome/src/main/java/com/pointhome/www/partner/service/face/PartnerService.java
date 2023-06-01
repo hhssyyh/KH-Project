@@ -71,6 +71,7 @@ public interface PartnerService {
 	 */
 	public int getPartnerNoByEmail(Partner partner);
 
+
 	/**
 	 * 게시글 목록을 위한 페이징 객체 생성
 	 * 
@@ -109,9 +110,6 @@ public interface PartnerService {
 	    * @return 회원 정보
 	    */
 	public Partner viewPartner(int partnerNo);
-
-
-	
 
 
 

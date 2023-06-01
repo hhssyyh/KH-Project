@@ -97,19 +97,23 @@ public class PartnerController {
 	}
 	
 	@GetMapping("/list")
-	public void BoardList( @RequestParam(defaultValue = "0") int curPage, Model model) {
+	public void BoardList( @RequestParam(defaultValue = "0") int curPage, 
+			Model model,
+			HttpSession session
+			) {
 		logger.info("/partnerboard/list [GET]");
 
 		Paging paging = partnerService.getPaging(curPage);
 		
 		List<Partner> list = partnerService.list(paging);
-		
-
 
 		logger.info("!!!!!!!!!!!!!!!!{}", list);
 
 		model.addAttribute("list", list);
 		model.addAttribute("paging", paging);
+		
+		
+		
 		
 	}
 	
