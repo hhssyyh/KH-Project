@@ -13,7 +13,7 @@ import com.pointhome.www.util.Paging;
 
 public interface FreeBoardService {
 
-	public Paging getPaging(int curPage);
+	public Paging getPaging(int curPage, String filter, String searchType, String keyword);
 
 	public List<FreeBoard> list(Paging paging);
 
@@ -52,6 +52,8 @@ public interface FreeBoardService {
 	public void update(FreeBoard board, List<MultipartFile> dataMul);
 
 	public List<Map<String, Object>> selectBoardByFilter(Paging paging, String filter);
+
+	public List<Map<String, Object>> selectAllSearch(Paging paging, String filter, String searchType, String keyword);
 
 }
 

@@ -20,6 +20,7 @@
 		FROM USER_TB
 	</select>
 
+
 	<select id="selectAllAdminNotice" resultType="AdminNotice">
 		SELECT *
 		FROM ADMIN_NOTICE
