@@ -127,7 +127,7 @@ a{
 		  <div class="carousel-inner">
 		    
 		    <div class="carousel-item active" >
-		      <img src="../resources/carosel.jpeg" class="d-block w-70" height="400px" style="margin:0 auto;" alt="...">
+		      <img src="../resources/panda.jpg" class="d-block w-70" height="400px" style="margin:0 auto;" alt="...">
 		    </div>
 		    
 		    <div class="carousel-item">
@@ -189,7 +189,7 @@ a{
 		
 		<!-- img -->
 		<div class="card" style="width: 300px;">
-		  <img src="" class="card-img-top" alt="ex">
+		  <img src="../resources/panda.jpg" class="card-img-top" alt="ex">
 		<!-- img end  -->
 		  <div class="card-body">
 		    <h5 class="card-title">title</h5>

@@ -74,6 +74,9 @@ td {
 	      </button>
 	    </h2>
 	    <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
+			<div class="accordion-body"><a href="./partnernotice">공지사항</a></div>				   		
+	    </div>
+	    <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
 			<div class="accordion-body"><a href="./usermanage">회원관리</a></div>				   		
 	    </div>
 	  </div>
