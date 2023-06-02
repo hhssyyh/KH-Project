@@ -168,7 +168,10 @@ public class AdminController {
 		model.addAttribute("cmtList", cmtList);
 	}
 	
-	
+	@GetMapping("prc/prc")
+	public void prcGet() {
+		
+	}
 	
 	
 	
