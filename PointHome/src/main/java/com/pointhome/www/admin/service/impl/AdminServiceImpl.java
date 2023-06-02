@@ -22,6 +22,7 @@ import com.pointhome.www.admin.service.face.AdminService;
 import com.pointhome.www.freeboard.dto.FreeBoard;
 import com.pointhome.www.freeboard.dto.FreeBoardComment;
 import com.pointhome.www.user.dto.User;
+import com.pointhome.www.util.Paging;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -61,9 +62,9 @@ public class AdminServiceImpl implements AdminService {
 	}
 	
 	@Override
-	public List<AdminNotice> noticeList(char filter) {
+	public List<AdminNotice> noticeList(char filter, Paging paging) {
 		
-		List<AdminNotice> alist = adminDao.selectAllAdminNotice(filter);
+		List<AdminNotice> alist = adminDao.selectAllAdminNotice(filter, paging);
 		
 		logger.debug("{}", alist);
 		return alist;
@@ -146,6 +147,41 @@ public class AdminServiceImpl implements AdminService {
 			
 		}
 		
+	}
+
+	@Override
+	public Paging getPagingNotice(int curPage) {
+		
+		int totalPage = adminDao.selectNoticeCntAll();
+	      
+	      Paging paging = new Paging(totalPage, curPage); 
+	      
+		return paging;
+	}
+
+	@Override
+	public List<Map<String, Object>> selectAllSearch(Paging paging, char filter) {
+		
+		return adminDao.selectAllSearch(paging,filter);
+	}
+
+	@Override
+	public AdminNotice view(int noticeNo) {
+		
+		return adminDao.viewNotice(noticeNo);
+	}
+
+	@Override
+	public List<MultipartFile> getMultiFile(int noticeNo) {
+		
+		
+		return adminDao.getMultiFiles(noticeNo);
+	}
+
+	@Override
+	public Admin viewAdmin(int adminNo) {
+		
+		return adminDao.selectAllAdminNo(adminNo);
 	}
 
 	
