@@ -3,7 +3,7 @@ package com.pointhome.www.partner.dao.face;
 import java.util.List;
 import java.util.Map;
 
-
+import org.apache.ibatis.annotations.Param;
 import org.springframework.web.multipart.MultipartFile;
 
 
@@ -120,6 +120,8 @@ public interface PartnerDao {
 	    * @return 회원 정보 담은 DTO
 	    */
 	public Partner selectByPartnerNo(int partnerNo);
+
+	public List<Map<String, Object>> selectPartPick(@Param("paging") Paging paging, @Param("userNo") int userNo);
 
 
 
