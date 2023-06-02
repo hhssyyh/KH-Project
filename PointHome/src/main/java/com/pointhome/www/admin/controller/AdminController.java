@@ -22,6 +22,7 @@ import com.pointhome.www.admin.service.face.AdminService;
 import com.pointhome.www.freeboard.dto.FreeBoard;
 import com.pointhome.www.freeboard.dto.FreeBoardComment;
 import com.pointhome.www.user.dto.User;
+import com.pointhome.www.util.Paging;
 
 @Controller
 @RequestMapping("/admin")
@@ -104,14 +105,34 @@ public class AdminController {
 	
 	
 	@GetMapping("/noticelist")
-	public void adminnotice(Model model, @RequestParam(defaultValue = "a") char filter) {
+	public void adminnotice(@RequestParam(defaultValue = "0") int curPage,Model model, @RequestParam(defaultValue = "a") char filter,HttpSession session) throws Exception{
 		logger.debug("/admin/noticelist");	
 		
-		List<AdminNotice> noticelist = adminService.noticeList(filter);
+		Paging paging = adminService.getPagingNotice(curPage);
+		
+		List<Map<String,Object>> noticelist = adminService.selectAllSearch(paging,filter);
+		
+//		logger.debug("noticelist{}:",noticelist);
 		
 		model.addAttribute("noticelist", noticelist);
+		model.addAttribute("paging",paging);
 		model.addAttribute("filter", filter);
 	}
+	
+	 @GetMapping("/view")
+	   public void view(int noticeNo,Model model, HttpSession session) {
+	      logger.info("/notice/view [GET]");
+
+	      AdminNotice view = adminService.view(noticeNo);
+	      model.addAttribute("view", view);
+	      
+	      List<MultipartFile> file = adminService.getMultiFile(noticeNo);
+	      model.addAttribute("file", file);
+
+	      Admin viewAdmin = adminService.viewAdmin(view.getAdminNo());
+	      model.addAttribute("viewAdmin", viewAdmin);
+
+	   }
 	
 
 	

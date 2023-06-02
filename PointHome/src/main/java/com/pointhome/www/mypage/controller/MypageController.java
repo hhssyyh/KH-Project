@@ -91,11 +91,11 @@ public class MypageController {
 		
 		
 		Paging paging = partnerService.getPaging(curPage);
-		List<Map<String, Object>> list = partnerService.list(paging, userNo);
-		
-		
-		logger.info("##### v{}", list);
-		model.addAttribute("list", list);
+//		List<Map<String, Object>> list = partnerService.list(paging, userNo);
+//		
+//		
+//		logger.info("##### v{}", list);
+//		model.addAttribute("list", list);
 		
 		
 	}

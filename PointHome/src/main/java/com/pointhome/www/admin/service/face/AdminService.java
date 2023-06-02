@@ -10,6 +10,7 @@ import com.pointhome.www.admin.dto.AdminNotice;
 import com.pointhome.www.freeboard.dto.FreeBoard;
 import com.pointhome.www.freeboard.dto.FreeBoardComment;
 import com.pointhome.www.user.dto.User;
+import com.pointhome.www.util.Paging;
 
 public interface AdminService {
 	/**
@@ -44,7 +45,7 @@ public interface AdminService {
 	 * @param filterchar 
 	 * @return 모든 공지 게시글
 	 */
-	public List<AdminNotice> noticeList(char filter);
+	public List<AdminNotice> noticeList(char filter, Paging paging);
 	/**
 	 * 선택한 유저의 게시글을 조회한다.
 	 * @param userno - 유저
@@ -72,6 +73,45 @@ public interface AdminService {
 	 * @return  삽입된 게시글 [1]: 존재 | [0]: 없음
 	 */
 	public void writeNotice(AdminNotice adminnotice, List<MultipartFile> dataMul);
+	/**
+	 * 게시글 목록을 위한 페이징 객체 생성
+	 * 
+	 * @param curPage- 현재페이지
+	 * @return - 계산이 완료된 Paging 객체
+	 */
+	public Paging getPagingNotice(int curPage);
+	
+	/**
+	 * 페이징 적용 , 필터 적용한 목록 조회
+	 * 
+	 * @param paging - 페이징 객체
+	 * @param filter - 필터
+	 * @return 페이징과 필터를 적용한 리스트 정보 
+	 */
+	public List<Map<String, Object>> selectAllSearch(Paging paging, char filter);
+	
+
+    /**
+    * 게시글 상세보기 
+    * @param noticeNo - 상세 조회할 게시글 번호 객체
+    * @return 조회된 상세 게시글 객체
+    */
+	public AdminNotice view(int noticeNo);
+	/**
+	    * 게시글 번호를 이용한 업로드된 파일 정보 조회 
+	    * 
+	    * @param noticeNo - 조회할 게시글 번호
+	    * @return 다중 첨부파일의 정보
+	    */
+	public List<MultipartFile> getMultiFile(int noticeNo);
+	
+		/**
+	    * 뷰에 보낼 운영자 정보 조회
+	    * 
+	    * @param adminNo - 세션에 저장된 회원 번호
+	    * @return 회원 정보
+	    */
+	public Admin viewAdmin(int adminNo);
 
 	
 	

@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<c:import url="../layout/header.jsp" />
+<c:import url="../layout/adminLayout/adminHeader.jsp" />
 
 <style type="text/css">
 div.content {
@@ -85,17 +85,16 @@ div.fr {
 
 
 
-
 <div class="container" style="margin-top: 180px; margin-bottom: 200px;">
 
 <h1 style="text-align: center">게시글 상세보기</h1>
 <hr>
 <!-- title JSTL로 가지고 오기 -->
-<h3>${notice.partnerNoticeTitle }</h3>
-<i class="bi bi-person-circle fs-1" style="height:200px"></i> ${viewPartner.partnerNick } <br> 
+<h3>${view.noticeTitle }</h3>
+<i class="bi bi-person-circle fs-1" style="height:200px"></i> ${viewAdmin.adminId } <br>
 
 <!-- 날짜 -->
-<fmt:formatDate value="${notice.partnerNoticeDate }" pattern="yy/MM/dd hh:mm"/>
+<fmt:formatDate value="${view.noticeDate }" pattern="yy/MM/dd hh:mm"/>
 
 
 
@@ -103,19 +102,19 @@ div.fr {
 
 <div id="content" >
 <!-- 본문 내용 가져오기 -->
-${notice.partnerNoticeContent }
+${view.noticeContent }
 
 <c:forEach var="bfile" items="${file}"><br>
 
 <c:choose>
-<c:when test="${fn:contains(fn:toLowerCase(bfile.partnerNoticeFileOrigin), 'gif') }">
-<img src="/upload/${bfile.partnerNoticeFileStored}"  alt="">
+<c:when test="${fn:contains(fn:toLowerCase(bfile.admin_file_origin), 'gif') }">
+<img src="/upload/${bfile.admin_file_stored}"  alt="">
 </c:when>
-<c:when test="${fn:contains(fn:toLowerCase(bfile.partnerNoticeFileOrigin), 'png') }">
-<img src="/upload/${bfile.partnerNoticeFileStored}"  alt="">
+<c:when test="${fn:contains(fn:toLowerCase(bfile.admin_file_origin), 'png') }">
+<img src="/upload/${bfile.admin_file_stored}"  alt="">
 </c:when>
-<c:when test="${fn:contains(fn:toLowerCase(bfile.partnerNoticeFileOrigin), 'jpg') }">
-<img src="/upload/${bfile.partnerNoticeFileStored}"  alt="">
+<c:when test="${fn:contains(fn:toLowerCase(bfile.admin_file_origin), 'jpg') }">
+<img src="/upload/${bfile.admin_file_stored}"  alt="">
 </c:when>
 
 
@@ -123,20 +122,7 @@ ${notice.partnerNoticeContent }
 
 </c:forEach>
 
-<!-- 첨부파일 다운로드 -->
 
-<%-- <div style="font-size:12px;"  >
-
-<c:choose>
-<c:when test="${!empty file}">
-<hr>
-첨부파일
-<c:forEach var="bfile" items="${file}">
-<a href="./download?fileNo=${bfile.partnerNoticeFileNo}">${bfile.partnerNoticeFileOrigin }</a>
-</c:forEach>
-</c:when>
-</c:choose>
-</div> --%>
 
 </div>
 
@@ -144,30 +130,33 @@ ${notice.partnerNoticeContent }
 
 <hr>
 
-
 <!-- 게시글 수정, 삭제 구현 아직 안함 -->
-<div class="modal2">
+
+
+ <div class="modal2">
 <div class="modal2_body" >게시글을 삭제하시겠습니까?
 
 <a href="./delete?freeboardNo=${board.freeboardNo}"><button type="button" class="btn btn-outline-primary btn-default btn-xs">확인</button></a>
-<a href="/freeboard/list"><button type="button" class="btn btn-outline-primary btn-default btn-xs">취소</button></a>
+<button type="button" class="btnModalCancle2 btn btn-outline-primary btn-default btn-xs">취소</button>
 </div>
-</div>
+</div> 
 
 <div class="text-end">
 
-	<a href="./partnernotice"><button class="btn btn-secondary">목록</button></a>
+	<a href="./noticelist"><button class="btn btn-secondary">목록</button></a>
 
 <c:if test="${userno eq board.userNo}">
 <a href="./update?freeboardNo=${board.freeboardNo}"><button type="button" class="btn btn-secondary" >수정</button></a>
 <button type="button" class="btn-reset-popup btn btn-secondary" >삭제</button>
-</c:if>
+</c:if> 
 </div>
 
 
 
+
 <!-- i태그 이미지 >> 사용자 프로필 가져오기 로 코맨트 for each 출력-->
-</div><!-- div.container -->
+</div>
+<!-- div.container -->
 
 
 <c:import url="/WEB-INF/views/layout/footer.jsp" />
