@@ -60,15 +60,28 @@ var resDiv = $("input[name=resDiv]").val()
 
 <!-- fullCanlendar JS Code -->
 <script>
+
 document.addEventListener('DOMContentLoaded', function() {
     	var calendarEl = document.getElementById('calendar');
+    	var today = new Date().toISOString().split("T")[0];
         var calendar = new FullCalendar.Calendar(calendarEl, {
         	locale: 'kr',
         	dayCellContent : function( cal ) {
+        		
         		return ('0'+cal.date.getDate()).slice(-2)
-        	}
-        	,
+// 				if ( ('0'+cal.date.getDate()) > 15) {
+// 					return 'X'					
+// 				}
+//         		return ('0'+cal.date.getDate()).slice(-2)
+
+        	},
         	dateClick: function(info) {
+        		console.log(info.dateStr)
+        		console.log(info.date)
+        		console.log(new Date())
+        		
+        		var date = new Date();
+       		
         		$.ajax({
 					   type : 'get',           // 타입 (get, post, put 등등)
 					   url : './reserveDateAjax',  // 요청할 서버url
@@ -78,21 +91,27 @@ document.addEventListener('DOMContentLoaded', function() {
 						   partNo : ${param.partNo}
 					   }, 
 					   success : function(result) { // 결과 성공 콜백함수
-					    	console.log(result)
 					        $("#reserveTime").html(result)
 					   },
-					   error : function(request, status, error) { // 결과 에러 콜백함수
+					   error : function(request, status, error) { 
 					        console.log(error)
 					   }
 				})
         	},
+        	
+            validRange: {
+            	start: today
+            
+            },
             
             selectable: true,
             selectMirror: true,
 
             navLinks: false, // can click day/week names to navigate views
             editable: false,
+ 
         });
+
 
         calendar.render();
     });
