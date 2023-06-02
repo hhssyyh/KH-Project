@@ -40,6 +40,18 @@ $(".resRadio").click(function() {
 <body>
 
 
+<%-- <c:forEach var="reserve" items="${reserveList }"> --%>
+<%-- 	<c:choose> --%>
+<%-- 		<c:when test="${reserve.resTime eq 1 }"> --%>
+			
+<!-- 			<button></button> -->
+			
+<%-- 		</c:when> --%>
+	
+<%-- 	</c:choose> --%>
+<%-- </c:forEach> --%>
+
+
 	<input type="text" name="resDate" value="${resDate }" style="display: none;">
 
    <label for="1" class="btn btn-secondary resRadio">10:00</label>
@@ -87,7 +99,12 @@ $(".resRadio").click(function() {
    
       
       
-         <script>
+<script>
+var resDate = $("input[name=resDate]").val()
+var resTime = $("input[name=resTime]").val()
+var resDiv = $("input[name=resDiv]").val()
+
+
     const clientKey = "test_ck_D5GePWvyJnrK0W0k6q8gLzN97Eoq"
     const customerKey = "T75rfr5b8Ha6Wdt-tH6QG" // 내 상점의 고객을 식별하는 고유한 키
     const button = document.getElementById("payment-button")
@@ -113,8 +130,8 @@ $(".resRadio").click(function() {
     button.addEventListener("click", function () {
       paymentWidget.requestPayment({
         orderId: "DNtNqLT3iqlNZsa2Itie2",            // 주문 ID(직접 만들어주세요)
-        orderName: "토스 티셔츠 외 2건",                 // 주문명
-        successUrl: "http://localhost:8888/main/reserveComplete",  // 결제에 성공하면 이동하는 페이지(직접 만들어주세요)
+        orderName: "주문명ex",                 // 주문명
+        successUrl: "http://localhost:8888/main/reserveComplete?partNo=" + ${param.partNo} + "&resDate=" + resDate + "&resTime=" + resTime + "&resDiv=" + resDiv,  // 결제에 성공하면 이동하는 페이지(직접 만들어주세요)
         failUrl: "http://localhost:8888/main/reserveFail",        // 결제에 실패하면 이동하는 페이지(직접 만들어주세요)
         customerEmail: "test123@gmail.com",
         customerName: "김토스"
@@ -132,15 +149,8 @@ $(".resRadio").click(function() {
     </div>
   </div>
 </div>
-   
-   
 
 
-
-  상용아 안
-
-  
-    
 
 </body>
 </html>

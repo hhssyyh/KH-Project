@@ -9,8 +9,7 @@
 
 	<select id="selectReserveTime" resultType="list" parameterType="Reservation">
 		SELECT res_time FROM reservation
-		WHERE res_date = #{resDate}
-		ORDER BY res_time
+		WHERE res_date = #{resDate} AND part_no = #{partNo}
 	</select>
 	
 	<insert id="insertUserReserveData" parameterType="Reservation">

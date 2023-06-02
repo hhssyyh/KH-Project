@@ -104,16 +104,23 @@ public class userController {
 		String socialType = (String)session.getAttribute("socialType");
 		logger.debug("socialType : {}", socialType);
 		
-		if( socialType.equals("K")) {
-			logger.debug("소셜로그아웃 socialType : {}", socialType);
-
-			return "redirect:/user/kakaologout";
+		if (socialType == null) {
 			
-		} else if (socialType.equals("N")) {
-			logger.debug("소셜로그아웃 socialType : {}", socialType);
+		} else {
 			
-			return "redirect:/user/naverlogout";
+			if( socialType.equals("K")) {
+				logger.debug("소셜로그아웃 socialType : {}", socialType);
+				
+				return "redirect:/user/kakaologout";
+				
+			} else if (socialType.equals("N")) {
+				logger.debug("소셜로그아웃 socialType : {}", socialType);
+				
+				return "redirect:/user/naverlogout";
+			}
+			
 		}
+		
 			
 		session.invalidate();
 		

@@ -72,14 +72,6 @@ public class mainController {
 		
 	}
 	
-	@PostMapping("/main/reserveDateAjax")
-	public String reserveDateAjaxPost(Reservation res) {
-		logger.debug("/main/reservation [Post]");
-		
-		logger.debug("!!!!!!!!!{}", res);
-		
-		return "./∞·¡¶";
-	}
 	
 	@GetMapping("/main/reserveComplete")
 	public String reserveComplete(int partNo, Reservation res, HttpSession session) {
