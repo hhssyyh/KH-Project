@@ -89,6 +89,7 @@ public class MypageController {
 		
 		mypageService.pickUpdate(userNo, partnerNo);
 		
+		
 		Paging paging = partnerService.getPaging(curPage);
 		List<Map<String, Object>> list = partnerService.list(paging, userNo);
 		

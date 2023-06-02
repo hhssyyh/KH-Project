@@ -8,6 +8,7 @@ import java.util.UUID;
 
 import javax.servlet.ServletContext;
 
+import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -219,6 +220,12 @@ public class PartnerServiceImpl implements PartnerService {
 	public Partner viewPartner(int partnerNo) {
 		return partnerDao.selectByPartnerNo(partnerNo);
 
+	}
+
+	@Override
+	public List<Map<String, Object>> list(Paging paging, int userNo) {
+		return partnerDao.selectPartPick(paging, userNo );
+			
 	}
 
 }

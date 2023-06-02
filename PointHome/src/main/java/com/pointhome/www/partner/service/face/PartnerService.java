@@ -111,6 +111,8 @@ public interface PartnerService {
 	    */
 	public Partner viewPartner(int partnerNo);
 
+		public List<Map<String, Object>> list(Paging paging, int userNo);
+
 
 
 	
