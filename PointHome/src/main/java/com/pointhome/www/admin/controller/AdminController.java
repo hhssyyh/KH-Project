@@ -172,10 +172,4 @@ public class AdminController {
 	
 	
 	
-	
-	@GetMapping("/prc/prc")
-	public void prcGet() {
-		
-	}
-	
 }

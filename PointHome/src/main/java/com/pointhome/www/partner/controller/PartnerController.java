@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -15,10 +14,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.pointhome.www.partner.dto.Partner;
+import com.pointhome.www.partner.dto.PartnerNotice;
 import com.pointhome.www.partner.service.face.PartnerService;
 import com.pointhome.www.util.Paging;
 
@@ -69,6 +69,9 @@ public class PartnerController {
 		Boolean login= partnerService.isLogin(partner);
 		logger.debug("login???{}",login);
 				
+		int partnerNo = partnerService.getPartnerNoByEmail(partner);
+		logger.debug("partnerNo : {}",partnerNo);
+		
 		if(login) {
 			Partner part = new Partner();
 			part = partnerService.getPartner(partner);
@@ -77,7 +80,7 @@ public class PartnerController {
 			logger.debug("partner_no{}:",part.getPartnerNo());
 			
 			session.setAttribute("login", true);
-			session.setAttribute("partner_no", part.getPartnerNo());
+			session.setAttribute("partnerNo", partnerNo);
 			
 			return "redirect:./main";
 		}
@@ -94,18 +97,27 @@ public class PartnerController {
 	}
 	
 	@GetMapping("/list")
-	public void BoardList( @RequestParam(defaultValue = "0") int curPage, Model model) {
+	public void BoardList( @RequestParam(defaultValue = "0") int curPage, 
+			Model model,
+			HttpSession session
+			) {
 		logger.info("/partnerboard/list [GET]");
 
 		Paging paging = partnerService.getPaging(curPage);
 
-		List<Partner> list = partnerService.list(paging);
-
+		int userNo = (Integer)session.getAttribute("userno");
+		
+//		List<Partner> list = partnerService.list(paging);
+//		int isPick = mypageService.isPick(userNo, partnerNo);
+		List<Map<String, Object>> list = partnerService.list(paging, userNo); 
 
 		logger.info("!!!!!!!!!!!!!!!!{}", list);
 
 		model.addAttribute("list", list);
 		model.addAttribute("paging", paging);
+		
+		
+		
 		
 	}
 	
@@ -144,7 +156,42 @@ public class PartnerController {
 	public void detailView() {
 		
 	}
+	@GetMapping("/partnernotice")
+	public void partnerNotice(Model model) {
+		logger.debug("/partner/partnernotice");	
+		
+		List<PartnerNotice> noticelist = partnerService.noticeList();
+		
+		model.addAttribute("noticelist", noticelist);
+	}
+	
 
+	
+	@GetMapping("/writenotice") 
+	public void writeNotice() {
+		logger.debug("/partner/writernotice [Get]");
+		
+		
+	}
+	
+	@PostMapping("/writenotice")
+	public String writeNoticePost(HttpSession session, List<MultipartFile> dataMul, PartnerNotice partnerNotice) {
+		logger.debug("/partner/writenotice [Post]");
+		
+		partnerNotice.setPartnerNo((Integer)session.getAttribute("partnerNo"));
+		
+		logger.info("partnerNo : {}", session.getAttribute("partnerNo"));
+		logger.debug("dataMul : {}",dataMul);
+		logger.debug("partnerNotice : {}",partnerNotice);
+				
+		partnerService.writeNotice(partnerNotice,dataMul);
+		
+		 return "redirect:/partner/partnernotice";
+	}
+	
+
+	
+	
 
 
 }

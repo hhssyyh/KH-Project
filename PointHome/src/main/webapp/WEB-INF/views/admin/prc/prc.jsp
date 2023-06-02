@@ -3,76 +3,51 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
-<style type="text/css">
-#sidebarContainer {
-	width:15%;
-	position: fixed;
-}
-
-</style>
-
+  <meta charset="utf-8" />
+  <!-- 결제위젯 SDK 추가 -->
+  <script src="https://js.tosspayments.com/v1/payment-widget"></script>
 </head>
 <body>
-<div id="sidebarContainer">
-	<div class="accordion accordion-flush" id="accordionFlushExample">
-	 <!-- #1 -->
-	  <div class="accordion-item">
-	    <h2 class="accordion-header" id="flush-headingOne">
-	      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-	        회원
-	      </button>
-	    </h2>
-	    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-	      <div class="accordion-body"><a href="./usermanage">회원관리</a></div>
-	    </div>
-	  </div>
-	  <!-- #2 -->
-	  <div class="accordion-item">
-	    <h2 class="accordion-header" id="flush-headingTwo">
-	      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-	        결제관리
-	      </button>
-	    </h2>
-	    <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
-			<div class="accordion-body"><a href="./usermanage">회원관리</a></div>				   		
-	    </div>
-	  </div>
-	  
-	  <!-- #3 -->
-	  	  <div class="accordion-item">
-	    <h2 class="accordion-header" id="flush-headingThree">
-	      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-	        공지관리
-	      </button>
-	    </h2>
-	    <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
-			<div class="accordion-body"><a href="./usermanage">회원관리</a></div>				   		
-	    </div>
-	  </div>
-	  
-	  <!-- #4 -->
-	  	  <div class="accordion-item">
-	    <h2 class="accordion-header" id="flush-headingFour">
-	      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
-	        공지관리
-	      </button>
-	    </h2>
-	    <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
-			<div class="accordion-body"><a href="./usermanage">회원관리</a></div>				   		
-	    </div>
-	  </div>
-	  
-	  
+  <!-- 결제위젯, 이용약관 영역 -->
+  <div id="payment-method"></div>
+  <div id="agreement"></div>
+  <!-- 결제하기 버튼 -->
+  <button id="payment-button">결제하기</button>
+  <script>
+    const clientKey = "test_ck_D5GePWvyJnrK0W0k6q8gLzN97Eoq"
+    const customerKey = "T75rfr5b8Ha6Wdt-tH6QG" // 내 상점의 고객을 식별하는 고유한 키
+    const button = document.getElementById("payment-button")
 
-	</div>
-</div>
+    // ------  결제위젯 초기화 ------ 
+    // 비회원 결제에는 customerKey 대신 ANONYMOUS를 사용하세요.
+    const paymentWidget = PaymentWidget(clientKey, customerKey) // 회원 결제
+    // const paymentWidget = PaymentWidget(clientKey, PaymentWidget.ANONYMOUS) // 비회원 결제
 
+    // ------  결제위젯 렌더링 ------ 
+    // 결제위젯이 렌더링될 DOM 요소를 지정하는 CSS 선택자 및 결제 금액을 넣어주세요. 
+    // https://docs.tosspayments.com/reference/widget-sdk#renderpaymentmethods선택자-결제-금액-옵션
+    paymentWidget.renderPaymentMethods("#payment-method", { value: 1})
 
+    // ------  이용약관 렌더링 ------
+    // 이용약관이 렌더링될 DOM 요소를 지정하는 CSS 선택자를 넣어주세요.
+    // https://docs.tosspayments.com/reference/widget-sdk#renderagreement선택자
+    paymentWidget.renderAgreement('#agreement')
 
+    // ------ '결제하기' 버튼 누르면 결제창 띄우기 ------
+    // 더 많은 결제 정보 파라미터는 결제위젯 SDK에서 확인하세요.
+    // https://docs.tosspayments.com/reference/widget-sdk#requestpayment결제-정보
+    button.addEventListener("click", function () {
+      paymentWidget.requestPayment({
+        orderId: "DNtNqLT3iqlNZsa2Itie2",            // 주문 ID(직접 만들어주세요)
+        orderName: "토스 티셔츠 외 2건",                 // 주문명
+        successUrl: "http://localhost:8888/main/reserveComplete",  // 결제에 성공하면 이동하는 페이지(직접 만들어주세요)
+        failUrl: "https://my-store.com/fail",        // 결제에 실패하면 이동하는 페이지(직접 만들어주세요)
+        customerEmail: "customer123@gmail.com",
+        customerName: "김토스"
+        
+        
+      })
+    })
+  </script>
 </body>
 </html>

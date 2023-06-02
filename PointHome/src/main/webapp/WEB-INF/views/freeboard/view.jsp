@@ -90,25 +90,6 @@ $(function() {
 	$(".commInput").hide()
 	$(".commBtnInput").hide()
 	
-	$("#recommend").on('click', "#recommendBtn", function(){
-		console.log("click")
-		$.ajax({
-			   type : 'get',           // 타입 (get, post, put 등등)
-			   url : './recommend',  // 요청할 서버url
-			   dataType : 'html',       // 데이터 타입 (html, xml, json, text 등등)
-			   data : {  // 보낼 데이터 (Object , String, Array)
-				   freeboardNo : ${board.freeboardNo }
-			   }, 
-			   success : function(result) { // 결과 성공 콜백함수
-			    	console.log(result)
-			        $("#recommend").html(result)
-			   },
-			   error : function(request, status, error) { // 결과 에러 콜백함수
-			        console.log(error)
-			   }
-		})
-	})
-	
 })
 
 function updateComment(th){
@@ -268,7 +249,7 @@ ${board.freeboardContent }
 <div class="modal2_body" >게시글을 삭제하시겠습니까?
 
 <a href="./delete?freeboardNo=${board.freeboardNo}"><button type="button" class="btn btn-outline-primary btn-default btn-xs">확인</button></a>
-<a href="/freeboard/list"><button type="button" class="btn btn-outline-primary btn-default btn-xs">취소</button></a>
+<button type="button" class="btnModalCancle2 btn btn-outline-primary btn-default btn-xs">취소</button>
 </div>
 </div>
 
@@ -339,5 +320,36 @@ ${userno} <input type="text" name="commContent" size="80" id="cmt">
 </div>
 </div><!-- div.container -->
 
+<script>
+      const body2 = document.querySelector('body');
+      const modal2 = document.querySelector('.modal2');
+      const btnOpenPopup2 = document.querySelector('.btn-reset-popup');
+      const btnModalCancle2 = document.querySelector('.btnModalCancle2');
+      
+
+      btnOpenPopup2.addEventListener('click', () => {
+        modal2.classList.toggle('show');
+
+        if (modal2.classList.contains('show')) {
+          body2.style.overflow = 'hidden';
+        }
+      });
+
+      modal2.addEventListener('click', (event) => {
+        if (event.target === modal2) {
+          modal2.classList.toggle('show');
+
+          if (!modal2.classList.contains('show')) {
+            body2.style.overflow = 'auto';
+          }
+        }
+      });
+      
+      btnModalCancle2.addEventListener('click', (event) => {
+    	  modal2.classList.remove('show'); 
+      });
+      
+      
+    </script>
 
 <c:import url="/WEB-INF/views/layout/footer.jsp" />

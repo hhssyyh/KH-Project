@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="utf-8">
 <title>Insert title here</title>
 
 <style type="text/css">
@@ -24,6 +24,7 @@
 
 </style>
 
+
 <script type="text/javascript">
 $(".resRadio").click(function() {
 	$(".resRadio").removeClass("btnSelected")
@@ -32,88 +33,14 @@ $(".resRadio").click(function() {
 	$(this).addClass("btnSelected")
 	
 }) 
+
 </script>
 
-<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
-
-<script type="text/javascript">
-const IMP = window.IMP;
-IMP.init("imp25445063");
-
-
-console.log(window.IMP);
-
-	
-function requestPay() {
-   
-   IMP.request_pay({
-
-      pay_method:   "card"      //°áÁ¦ ¼ö´Ü (ÇÊ¼ö)
-      , merchant_uid: "a001"   //°íÀ¯ ÁÖ¹® ¹øÈ£ (ÇÊ¼ö)
-      , amount: 100         //±İ¾× (ÇÊ¼ö)
-      , buyer_tel: ""      //ÁÖ¹®ÀÚ ÀüÈ­¹øÈ£ (ÇÊ¼ö)
-   
-      , pg: "html5_inicis"   //°áÁ¦ Áö¿ø PG ¼±ÅÃ
-      , name: "ÁÖ¹® »óÇ° ÀÌ¸§"
-      , buyer_name: "ÁÖ¹®ÀÚ ÀÌ¸§"
-   
-   }, function( rsp ) {
-      
-      console.log( rsp )
-      
-      //¼­¹ö·Î ÀÀ´äµÈ µ¥ÀÌÅÍ¸¦ submitÇÏµµ·Ï ÇÑ´Ù
-      //¼­¹ö¿¡¼­´Â DB¿¡ µ¥ÀÌÅÍ¸¦ ÀúÀåÇÑ´Ù(INSERT)
-      
-      $("<form>").attr({
-         action: '/url'
-         , method: 'post'
-      })
-      .append(
-         $("<input>")
-         .attr({
-            type: 'text'
-            , name: 'merchant_id'
-            , value: rsp.merchant_id
-         })
-      )
-      .appendTo( $(document.body) )
-      .submit()
-      
-   })
-   
-}
-
-	
-</script>
 </head>
 <body>
 
 
-<!-- <a href="./reserve?resTime=1"><button class="btn btn-secondary">10:00</button></a> -->
-<!-- <button class="btn btn-secondary">10:30</button> -->
-<!-- <button class="btn btn-secondary">11:00</button> -->
-<!-- <button class="btn btn-secondary">11:30</button> -->
-<!-- <button class="btn btn-secondary">13:00</button> -->
-<!-- <button class="btn btn-secondary">13:30</button> -->
-<!-- <button class="btn btn-secondary">14:00</button> -->
-<!-- <button class="btn btn-secondary">14:30</button> -->
-<!-- <button class="btn btn-secondary">15:00</button> -->
-<!-- <button class="btn btn-secondary">15:30</button> -->
-<!-- <button class="btn btn-secondary">16:00</button> -->
-<!-- <button class="btn btn-secondary">16:30</button> -->
-<!-- <button class="btn btn-secondary">17:00</button> -->
-<!-- <button class="btn btn-secondary">17:30</button> -->
-<!-- <button class="btn btn-secondary">18:00</button> -->
-<!-- <button class="btn btn-secondary">18:30</button> -->
-<!-- <button class="btn btn-secondary">19:00</button> -->
-<!-- <button class="btn btn-secondary">19:30</button> -->
-
-
-
-<!-- <form action="./reserveDateAjax" method="post"> -->
 	<input type="text" name="resDate" value="${resDate }" style="display: none;">
-	<input type="text" name="partNo" value="${param.partNo }" style="display: none;">
-
 
    <label for="1" class="btn btn-secondary resRadio">10:00</label>
    <input type="radio" name="resTime" value="1" id="1" style="display: none;" checked="checked">
@@ -133,21 +60,18 @@ function requestPay() {
    <label for="6" class="btn btn-secondary resRadio">13:30</label>
    <input type="radio" name="resTime" value="6" id="6" style="display: none;">
    
-   <br><br><br>
+   <br><br>
    
-   <input type="radio" name="resDiv" value="visit">¹æ¹®
-   <input type="radio" name="resDiv" value="video">È­»óÀüÈ­
-   <input type="radio" name="resDiv" value="chat">Ã¤ÆÃ 
+   <input type="radio" name="resDiv" id="visit" value="visit"><label for="visit">ë°©ë¬¸</label>
+   <input type="radio" name="resDiv" id="video" value="video"><label for="video">í™”ìƒì „í™”</label>
+   <input type="radio" name="resDiv" id="chat" value="chat"><label for="chat">ì±„íŒ…</label>
 	
 	<br>
 	
-   <button style="float: right;" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">¿¹¾àÇÏ±â</button>
-<!-- </form> -->
+   <button style="float: right;" onclick="requestPay()" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">ì˜ˆì•½í•˜ê¸°</button>
 
-<button onclick="requestPay()">°áÁ¦</button>
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade modal-xl" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -155,7 +79,9 @@ function requestPay() {
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        ...
+      
+      
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -165,7 +91,14 @@ function requestPay() {
   </div>
 </div>
 
-
+  		  <!-- ê²°ì œìœ„ì ¯, ì´ìš©ì•½ê´€ ì˜ì—­ -->
+		  <div id="payment-method"></div>
+		  <div id="agreement"></div>
+		  <!-- ê²°ì œí•˜ê¸° ë²„íŠ¼ -->
+		  <button id="payment-button">ê²°ì œí•˜ê¸°</button>
+		  
+  		
+  
 
 </body>
 </html>
