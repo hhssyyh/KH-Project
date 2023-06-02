@@ -50,7 +50,7 @@ public interface UserDao {
 	 * @param userInfo - 소셜로그인한 회원의 정보
 	 * @return - 회원가입 되어있는 사용자의 userNo
 	 */
-	public int selectUserNoByEmailPhone(User userInfo);
+	public User selectUserNoByEmailPhone(User userInfo);
 	
 	/**
 	 * 회원가입시 추가될 다음 회원의 인덱스

@@ -1,6 +1,7 @@
 package com.pointhome.www.user.service.face;
 
 
+import java.io.IOException;
 import java.util.Map;
 
 import com.google.gson.JsonObject;
@@ -91,7 +92,7 @@ public interface UserService {
 	 * @param userInfo
 	 * @return
 	 */
-	public int getUserNoByEmailPhone(User userInfo);
+	public User getUserNoByEmailPhone(User userInfo);
 
 	/**
 	 * 회원가입시 추가될 다음 회원의 인덱스
@@ -144,5 +145,9 @@ public interface UserService {
 	 * @return - 사용자 이메일
 	 */
 	public User getUserEmailByNamePhone(User param);
+
+	String createNaverLogoutURL(String accessToken);
+
+	public String requestToServer(String logoutURL, String headerStr) throws IOException ;
 
 }

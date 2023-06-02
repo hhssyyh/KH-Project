@@ -61,7 +61,7 @@
 			AND user_phone = #{userPhone} 
 	</select>
 
-	<select id="selectUserNoByEmailPhone" resultType="int" parameterType="User">
+	<select id="selectUserNoByEmailPhone" resultType="User" parameterType="User">
 		SELECT * FROM user_tb
 		WHERE 1=1
 			AND user_email = #{userEmail} 

@@ -1,6 +1,7 @@
 package com.pointhome.www.user.controller;
 
 
+import java.io.IOException;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
@@ -32,7 +33,7 @@ public class userController {
 	@Autowired UserService userService;
 	
 	@GetMapping("/user/join")
-	public void join(Model model) {
+	public void join() {
 		logger.debug("/user/join [GET]");
 
 	}
@@ -56,14 +57,15 @@ public class userController {
 			userService.addUserSocial(socialParam);
 			session.setAttribute("login", true); 
 			session.setAttribute("userno", socialParam.getUserNo()); 
-			
+			session.setMaxInactiveInterval(30*60); // 세션 유지시간 30분
+
 			return "redirect:/";
 		}
 		
 		return "redirect:/user/login";
 
 	}
-
+	
 	@GetMapping("/user/login")
 	public void login(HttpSession session) {
 		logger.debug("/user/login [GET]");
@@ -86,6 +88,7 @@ public class userController {
 			logger.debug("{}", user.getUserNo());
 			session.setAttribute("login", true);
 			session.setAttribute("userno", user.getUserNo());
+			session.setAttribute("usernick", user.getUserNick());
 			
 			return "redirect:/";
 		}
@@ -98,6 +101,20 @@ public class userController {
 	public String logout(HttpSession session) {
 		logger.debug("/user/logout [GET]");
 		
+		String socialType = (String)session.getAttribute("socialType");
+		logger.debug("socialType : {}", socialType);
+		
+		if( socialType.equals("K")) {
+			logger.debug("소셜로그아웃 socialType : {}", socialType);
+
+			return "redirect:/user/kakaologout";
+			
+		} else if (socialType.equals("N")) {
+			logger.debug("소셜로그아웃 socialType : {}", socialType);
+			
+			return "redirect:/user/naverlogout";
+		}
+			
 		session.invalidate();
 		
 		return "redirect:/";
@@ -113,10 +130,11 @@ public class userController {
 	}
 
 	@PostMapping("/user/searchid")
-	public String searchIdProc(User param) {
+	public String searchIdProc(User param, Model model) {
 		logger.debug("/user/searchid [POST]");
 		
 		User user = userService.getUserEmailByNamePhone(param);
+		model.addAttribute("user", user);
 		
 		return "/searchresult";
 	}
@@ -139,7 +157,7 @@ public class userController {
 		logger.debug("/user/naverlogin [GET]");
 		
 		Map<String, Object> map = userService.getStateApiUrl();
-				
+		
 	    String apiURL = (String) map.get("apiURL");
 	    String state = (String) map.get("state");
 	    logger.debug("apiURL : {}",apiURL);
@@ -150,17 +168,20 @@ public class userController {
 	    return new ModelAndView("redirect:" + apiURL);
 	}
 	
-	@GetMapping("/user/callback")
+	@GetMapping("/user/navercallback")
 	public String naverCallback(HttpServletRequest request, HttpSession session, Model model) {
 		logger.debug("/user/callback [GET]");
-
+		
+		session.removeAttribute("state");
+		
 		String code = request.getParameter("code");
 		String state = (String)session.getAttribute("state");
 
-//		session.invalidate();
-
 		String apiURL = userService.getApiURL(code, state);
 		JsonObject Token = userService.getTokenNaver(apiURL);
+		String accessToken = Token.get("access_token").getAsString();
+		logger.info("엑세스토큰 Str : {}", accessToken);
+
 		User userInfo = userService.getUserInfoNaver(Token);				
 		logger.info("Naver에서 읽어온 User정보 : {}", userInfo);
 		
@@ -177,13 +198,33 @@ public class userController {
 		} else {
 			
 			logger.debug("회원 가입내역 존재");
-			int userno = userService.getUserNoByEmailPhone(userInfo);
+			User user = userService.getUserNoByEmailPhone(userInfo);
 			session.setAttribute("login", true); 
-			session.setAttribute("userno", userno); 
+			session.setAttribute("userno", user.getUserNo()); 
+			session.setAttribute("usernick", user.getUserNick()); 
+			session.setAttribute("socialType", "N"); 
+			session.setAttribute("accessToken", accessToken); 
+
+			session.setMaxInactiveInterval(30*60);
 			
 			return "redirect:/";
 		}
 		
+	}
+
+	@GetMapping("/user/naverlogout")
+	public String naverLogout(HttpSession session) throws IOException {
+	
+		logger.info("액세스 토큰 : {}", session.getAttribute("accessToken"));
+		String accessToken = ((String) session.getAttribute("accessToken"));
+		String logoutURL = userService.createNaverLogoutURL(accessToken);
+		logger.info("logoutURL : {}", logoutURL);
+		
+		String ServerResult = userService.requestToServer(logoutURL, null);
+		logger.info("ServerResult : {}", ServerResult);
+		session.invalidate();
+		
+		return "redirect:/";
 		
 	}
 	
@@ -219,12 +260,13 @@ public class userController {
 
 		
 		if(res>0) {
-			logger.debug("회원정보 존재");
+			logger.debug("회원정보 존재"); 
 			
 			 int userno= userService.getUserNo(userInfo);
 			
 			session.setAttribute("login", true);
 			session.setAttribute("userno", userno);
+			session.setAttribute("socialType", "K");
 			
 			return "redirect:/";
 		} else {
@@ -232,8 +274,6 @@ public class userController {
 			
 			model.addAttribute("userInfo",userInfo);
 			model.addAttribute("socialType",'K'); //카카오로 회원가입시 K
-			
-			
 			
 			return "/user/join";
 		}
