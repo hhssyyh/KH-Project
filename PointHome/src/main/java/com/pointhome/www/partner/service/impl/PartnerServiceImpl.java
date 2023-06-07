@@ -12,7 +12,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -69,52 +68,6 @@ public class PartnerServiceImpl implements PartnerService {
 		return param;
 	}
 	
-	@Override
-	public Partner getPartnerInfo(Integer partnerNo) {
-		
-		return partnerDao.selectPartnerByPartnerNo(partnerNo);
-	}
-	
-	
-	@Override
-	public Paging getPaging(int curPage, int partNo) {
-		int totalPage = partnerDao.selectCntReservation(partNo);
-		Paging paging = new Paging(totalPage, curPage);
-		
-		return paging;
-	}
-	
-	@Override
-	public List<Map<String, Object>> getReserveList(Paging paging, int partNo) {
-		
-		return partnerDao.selectReserveList(paging, partNo);
-	}
-	
-	
-	
-
-	@Override
-	public Paging getPaging(int curPage) {
-
-		int totalPage = partnerDao.selectCntAll();
-		logger.info("total: {}", totalPage);
-		
-		
-		Paging paging = new Paging(totalPage, curPage);
-
-		return paging;
-	}
-
-	@Override
-	public List<Partner> list(Paging paging) {
-
-		List<Partner> list = partnerDao.selectAll(paging);
-
-		logger.info("service!!!!!!!!!!!!!!!!{}", list);
-
-		return list;
-	}
-
 	@Override
 	public Paging getTypePaging(Map<String, Object> pagingMap) {
 
@@ -328,12 +281,6 @@ public class PartnerServiceImpl implements PartnerService {
 		}
 
 	@Override
-
-	public void partnerShopUpdate(Partner partner) {
-		
-		
-	}
-
 	public List<Map<String, Object>> getPartTypePick(int curPage, Paging paging, int userNo, String partnerType) {
 		return partnerDao.selectPartnerPick(curPage, paging, userNo, partnerType);
 	}
@@ -385,5 +332,4 @@ public class PartnerServiceImpl implements PartnerService {
 		return partnerDao.getPartnerImg(partNo);
 	}
 	
-
 }
