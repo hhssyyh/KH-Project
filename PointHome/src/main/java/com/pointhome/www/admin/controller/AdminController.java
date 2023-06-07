@@ -3,6 +3,7 @@ package com.pointhome.www.admin.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -18,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.pointhome.www.admin.dto.Admin;
 import com.pointhome.www.admin.dto.AdminNotice;
+import com.pointhome.www.admin.dto.AdminNoticeFile;
 import com.pointhome.www.admin.service.face.AdminService;
 import com.pointhome.www.freeboard.dto.FreeBoard;
 import com.pointhome.www.freeboard.dto.FreeBoardComment;
@@ -44,19 +46,26 @@ public class AdminController {
 	
 	@PostMapping("/login") 
 	public String loginPost(Admin admin, HttpSession session) {
-		
 		logger.info("{}", admin);
-	
-		boolean adminChk = adminService.adminLogin(admin);
-		logger.debug("{}", adminChk);
 		
-		int adminNo = adminService.getAdmin(admin);
-		logger.debug("adminNo : {}", adminNo);
+		boolean adminLogin = adminService.adminLogin(admin);
+		logger.debug("{}", adminLogin);
 		
-		if(adminChk) {
-			session.setAttribute("adminSession", true);
-			session.setAttribute("adminNo", adminNo);
-			return "redirect:/admin/main";  
+		
+		if(adminLogin) {
+			Admin ad = new Admin();
+			ad = adminService.getAdmin(admin);
+			
+			logger.debug("login{}:",adminLogin);
+			
+			session.setAttribute("adminLogin", true);
+//			session.setAttribute("adminSession", true);
+			session.setAttribute("adminNo", ad.getAdminNo());
+			session.setAttribute("adminId", ad.getAdminId());
+			session.setAttribute("type", "a");
+			
+			return "redirect:/admin/main";
+			
 			
 		}
 		return "redirect:/admin/login";
@@ -72,7 +81,7 @@ public class AdminController {
 //	회원 관리
 	@GetMapping("/usermanage")
 	public void usermanage(Model model) {
-		logger.debug("/admin/usermanage");
+		//logger.debug("/admin/usermanage");
 		
 		List<User> userList = adminService.userList();
 		
@@ -94,30 +103,62 @@ public class AdminController {
 	
 	@GetMapping("/userdetail")
 	public void userdetail(int userNo, Model model) {
-		logger.debug("{}",userNo);
+		logger.debug("userNo!!!!!!!!!!!!{}",userNo);
 		
 		Map<String, Object> detailList = adminService.userdetail(userNo);
+		 
+//		int userno = (int) detailList.get("userno");
 		
 		model.addAttribute("detailList", detailList);
 		
 	}
 	
+	@RequestMapping("/removeuser")
+	public String userremove(int userno,HttpSession session) {
+		
+//	선택된 userno을 가져와서 삭제해야하는데 500번 오류가 뜬다 
+		adminService.delete(userno);
+		
+		Object object = session.getAttribute("login");
+	    if (object != null) {
+	        session.removeAttribute("login");
+	        session.invalidate();
+	    }
+
+		return "redirect:/usermanage";
+		}
+	
+//		int userno= (int) session.getAttribute("userno"); 
+//		logger.debug("userno : {}", userno);
+//		
+//		
+//		Object object = session.getAttribute("login");
+//		if(object != null ) {
+//			session.removeAttribute("login");
+//			session.invalidate();
+//		}
+		
+	
+	
 	
 	
 	@GetMapping("/noticelist")
-	public void adminnotice(@RequestParam(defaultValue = "0") int curPage,Model model, @RequestParam(defaultValue = "a") char filter,HttpSession session) throws Exception{
+	public void adminnotice(@RequestParam(defaultValue = "0") int curPage,Model model, @RequestParam(defaultValue = "a") String filter,HttpSession session,@RequestParam(defaultValue = "a") String type) throws Exception{
 		logger.debug("/admin/noticelist");	
 		
-		Paging paging = adminService.getPagingNotice(curPage);
+		Paging paging = adminService.getPagingNotice(curPage,filter,type);
 		
-		List<Map<String,Object>> noticelist = adminService.selectAllSearch(paging,filter);
-		
-//		logger.debug("noticelist{}:",noticelist);
+		List<Map<String,Object>> noticelist = adminService.selectAllSearch(paging,filter,type);
 		
 		model.addAttribute("noticelist", noticelist);
 		model.addAttribute("paging",paging);
 		model.addAttribute("filter", filter);
 	}
+
+	
+
+
+
 	
 	 @GetMapping("/view")
 	   public void view(int noticeNo,Model model, HttpSession session) {
@@ -134,7 +175,7 @@ public class AdminController {
 
 	   }
 	
-
+	
 	
 	@GetMapping("/writenotice") 
 	public void writeNotice() {
@@ -159,8 +200,6 @@ public class AdminController {
 	}
 	
 	
-
-
 	
 //	about AJAX ctr
 	
@@ -188,12 +227,48 @@ public class AdminController {
 		
 		model.addAttribute("cmtList", cmtList);
 	}
+
+	@RequestMapping("/delete")
+	public String delete(AdminNotice adminNotice) {
+	     
+		  adminService.delete(adminNotice);
+	      
+	      return "redirect:./noticelist";
+	   }
 	
-	@GetMapping("prc/prc")
-	public void prcGet() {
-		
-	}
-	
-	
+	 @GetMapping("/update")
+	   public void update(int noticeNo, Model model) {
+	      AdminNotice notice = adminService.selectNotice(noticeNo);
+	      logger.info("update notice: {}", notice);
+	      
+	      model.addAttribute("notice", notice);
+	      
+	      
+	      List<AdminNoticeFile> noticeFile = adminService.selectNoticeFile(noticeNo);
+	      logger.info("update noticeFile: {}", noticeFile);
+	      
+	   }
+	   
+	   @PostMapping("/update")
+	   public String updateRes(AdminNotice notice, List<MultipartFile> dataMul) {
+	      
+	      logger.info("확인: {}", notice);
+	      adminService.update(notice, dataMul);
+	      logger.debug("!!!!!!{}", dataMul);
+	      logger.info("!!!!!!!!확인: {}", notice.getNoticeNo());
+	      
+	      return "redirect:./view?noticeNo=" + notice.getNoticeNo();
+	   }  
+	   
+	   
+	   @RequestMapping("/download")
+	   public String download(int adminFileNo, Model model) {
+	      
+	      AdminNoticeFile adminNoticeFile = adminService.getFile(adminFileNo);
+	      logger.info("ㄴ:{}",adminNoticeFile);
+	      model.addAttribute("downFile", adminNoticeFile);
+	      
+	      return "down";
+	   }
 	
 }

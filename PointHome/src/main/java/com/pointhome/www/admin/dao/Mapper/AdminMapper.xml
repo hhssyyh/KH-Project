@@ -8,59 +8,72 @@
 
 	<select id="selectAdminIdPw" parameterType="Admin"
 		resultType="int">
-		SELECT count(*)
-		FROM ADMIN_TB
+		SELECT count(*) FROM ADMIN_TB
 		WHERE 1=1
-			AND admin_id = #{adminId} 
-			AND admin_pw = #{adminPw}
+		AND admin_id = #{adminId}
+		AND admin_pw = #{adminPw}
 	</select>
 
 	<select id="selectAllUser" resultType="User">
 		SELECT *
 		FROM USER_TB
-		order by user_no
+		order
+		by user_no
+	</select>
+
+	<select id="selectByAdminEmailPw" parameterType="Admin"
+		resultType="Admin">
+		select * from admin_tb
+		where admin_id = #{adminId}
+		and admin_pw = #{adminPw}
+
 	</select>
 
 
-<!-- 	<select id="selectAllAdminNotice" resultType="Map" parameterType="Map">
-		 
-		select * from  (
-		 select rownum rnum, A.* from (
-		 SELECT *
-		FROM ADMIN_NOTICE
-		<if test="filter != 'a'">
-		WHERE div = #{filter}
-		</if>
-		ORDER BY notice_no DESC
-		) A
-	) where rnum between #{startNo} and #{endNo} 
-	</select> -->
+
+ 	<select id="selectAllSearch" resultType="Map" parameterType="Map">
+      select * from (
+         select rownum rnum, A.* from (
+         SELECT *
+         FROM ADMIN_NOTICE
+         <if test='type != "a"'>
+            <where>
+               <if test='type == "p"'>
+                  AND div = 'p'
+               </if>
+               <if test='type == "u"'>
+                  AND div = 'u'
+               </if>
+            </where>
+         </if>
+         <if test='type == "a"'>
+            <where>
+               <if test='filter == "p"'>
+                  AND div = 'p'
+               </if>
+               <if test='filter == "u"'>
+                  AND div = 'u'
+               </if>
+            </where>
+         </if>
+         ORDER BY notice_no DESC
+         ) A
+      ) where rnum between #{paging.startNo} and #{paging.endNo}
+   </select>
 	
-	<select id="selectAllSearch" resultType="Map" parameterType="Map">
-		 
-		select * from  (
-		 select rownum rnum, A.* from (
-		 SELECT *
-		FROM ADMIN_NOTICE
-		<if test="filter != 'a'">
-		WHERE div = #{filter}
-		</if>
-		ORDER BY notice_no DESC
-		) A
-	) where rnum between #{paging.startNo} and #{paging.endNo} 
-	</select>
-	
-	
+
 
 	<select id="selectUserInfo" parameterType="int" resultType="map">
 		select u.*, (select count(*)
 		from freeboard f
-		where f.user_no = #{userNo}) as FREEBOARD
+		where f.user_no =
+		#{userNo}) as FREEBOARD
 		,(select count(*)
 		from freeboard_comment fc
 		where fc.user_no = #{userNo}) as FREEBOARDCOMMENT
 		FROM user_tb u
-		WHERE u.user_no = #{userNo}
+		WHERE
+		u.user_no = #{userNo}
 	</select>
 
 	<select id="selectUserPost" parameterType="int"
@@ -81,20 +94,14 @@
 		comm_no desc
 	</select>
 
-	<select id="selectAdminNo" parameterType="Admin" resultType="int">
-		select admin_no
-		from admin_tb
-		where 1=1
-			AND admin_id = #{adminId}
-			AND admin_pw = #{adminPw}
-	</select>
 
 	<insert id="insertNotice" parameterType="AdminNotice">
 
-		<selectKey order="BEFORE" resultType="int" keyProperty="noticeNo">
+		<selectKey order="BEFORE" resultType="int"
+			keyProperty="noticeNo">
 			SELECT notice_no_seq.nextval FROM dual
 		</selectKey>
-		
+
 		insert into Admin_notice(
 		notice_no,
 		notice_title,
@@ -113,38 +120,114 @@
 	</insert>
 
 	<insert id="insertFile" parameterType="AdminNoticeFile">
-		insert into admin_notice_file
+		insert into
+		admin_notice_file
 		(
 		admin_fileno,
 		admin_file_origin,
 		admin_file_stored,
 		notice_no)
-		
+
 		values(
 		admin_fileno_seq.nextval,
-		#{admin_file_origin},
-		#{admin_file_stored},
-		#{notice_no})
+		#{adminFileOrigin},
+		#{adminFileStored},
+		#{noticeNo})
 
 	</insert>
 
-	<select id="selectNoticeCntAll"  resultType="int">
-		select count(*) from admin_notice 
+	<select id="selectNoticeCntAll" resultType="int">
+		  select count(*) from (
+         select rownum rnum, A.* from (
+         SELECT *
+         FROM ADMIN_NOTICE
+         <if test='type != "a"'>
+            <where>
+               <if test='type == "p"'>
+                  AND div = 'p'
+               </if>
+               <if test='type == "u"'>
+                  AND div = 'u'
+               </if>
+            </where>
+         </if>
+         <if test='type == "a"'>
+            <where>
+               <if test='filter == "p"'>
+                  AND div = 'p'
+               </if>
+               <if test='filter == "u"'>
+                  AND div = 'u'
+               </if>
+            </where>
+         </if>
+         ORDER BY notice_no DESC
+         ) A
+      )
+		
 	</select>
-	
-	<select id="viewNotice" resultType="AdminNotice" parameterType="int">
+
+	<select id="viewNotice" resultType="AdminNotice"
+		parameterType="int">
 		select * from admin_notice
-		where notice_no = #{notice_no}
+		where notice_no = #{noticeNo}
+	</select>
+
+	<select id="getMultiFiles" parameterType="int"
+		resultType="AdminNoticeFile">
+		select * from admin_notice_file
+		where notice_no = #{noticeNo}
+	</select>
+
+	<select id="selectAllAdminNo" resultType="Admin"
+		parameterType="int">
+		SELECT * FROM admin_tb
+		WHERE admin_no = #{adminNo}
+	</select>
+
+	<delete id="deleteFile" parameterType="int">
+		delete admin_notice_file
+		where notice_no = #{noticeNo}
+	</delete>
+
+	<delete id="deleteNotice" parameterType="AdminNotice">
+		delete admin_notice
+		where
+		notice_no = #{noticeNo}
+	</delete>
+
+	<select id="selectNoticebyNoticeNo" resultType="AdminNotice"
+		parameterType="int">
+		select * from admin_notice
+		where notice_no = #{noticeNo}
+
+	</select>
+
+	<select id="selectNoticeFilebyNoticeNo"
+		resultType="AdminNoticeFile" parameterType="int">
+		select * from admin_notice_file
+		where notice_no =
+		#{noticeNo}
+	</select>
+
+	<update id="update" parameterType="AdminNotice">
+		update admin_notice set
+		notice_title = #{noticeTitle},
+		notice_content = #{noticeContent}
+		where notice_no = #{noticeNo}
+	</update>
+
+	<select id="selectFile" parameterType="int"
+		resultType="AdminNoticeFile">
+		select * from admin_notice_file
+		where admin_fileno =
+		#{adminFileNo}
 	</select>
 	
-	<select id="getMultiFiles" parameterType="int" resultType="AdminNoticeFile">
-      select * from admin_notice_file
-      where notice_no = #{noticeNo}
-   	</select>
-   	
-   	<select id="selectAllAdminNo" resultType="Admin" parameterType="int">
-      SELECT * FROM admin_tb
-      WHERE admin_no = #{adminNo}
-   </select>
+	<delete id="deleteUserByUserNo" parameterType="int">
+		delete from user_tb
+		where user_no = #{userNo}
+	</delete>
+
 
 </mapper>

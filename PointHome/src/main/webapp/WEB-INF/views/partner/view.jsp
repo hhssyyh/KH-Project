@@ -125,7 +125,7 @@ ${notice.partnerNoticeContent }
 
 <!-- 첨부파일 다운로드 -->
 
-<%-- <div style="font-size:12px;"  >
+ <div style="font-size:12px;"  >
 
 <c:choose>
 <c:when test="${!empty file}">
@@ -136,7 +136,7 @@ ${notice.partnerNoticeContent }
 </c:forEach>
 </c:when>
 </c:choose>
-</div> --%>
+</div>
 
 </div>
 
@@ -145,12 +145,11 @@ ${notice.partnerNoticeContent }
 <hr>
 
 
-<!-- 게시글 수정, 삭제 구현 아직 안함 -->
 <div class="modal2">
 <div class="modal2_body" >게시글을 삭제하시겠습니까?
 
-<a href="./delete?freeboardNo=${board.freeboardNo}"><button type="button" class="btn btn-outline-primary btn-default btn-xs">확인</button></a>
-<a href="/freeboard/list"><button type="button" class="btn btn-outline-primary btn-default btn-xs">취소</button></a>
+<a href="./delete?partnerNoticeNo=${notice.partnerNoticeNo}"><button type="button" class="btn btn-outline-primary btn-default btn-xs">확인</button></a>
+<a href="/partner/partnernotice"><button type="button" class="btn btn-outline-primary btn-default btn-xs">취소</button></a>
 </div>
 </div>
 
@@ -158,8 +157,8 @@ ${notice.partnerNoticeContent }
 
 	<a href="./partnernotice"><button class="btn btn-secondary">목록</button></a>
 
-<c:if test="${userno eq board.userNo}">
-<a href="./update?freeboardNo=${board.freeboardNo}"><button type="button" class="btn btn-secondary" >수정</button></a>
+<c:if test="${partnerNo eq notice.partnerNo}">
+<a href="./update?partnerNoticeNo=${notice.partnerNoticeNo}"><button type="button" class="btn btn-secondary" >수정</button></a>
 <button type="button" class="btn-reset-popup btn btn-secondary" >삭제</button>
 </c:if>
 </div>
@@ -168,6 +167,38 @@ ${notice.partnerNoticeContent }
 
 <!-- i태그 이미지 >> 사용자 프로필 가져오기 로 코맨트 for each 출력-->
 </div><!-- div.container -->
+
+<script>
+      const body2 = document.querySelector('body');
+      const modal2 = document.querySelector('.modal2');
+      const btnOpenPopup2 = document.querySelector('.btn-reset-popup');
+      const btnModalCancle2 = document.querySelector('.btnModalCancle2');
+      
+
+      btnOpenPopup2.addEventListener('click', () => {
+        modal2.classList.toggle('show');
+
+        if (modal2.classList.contains('show')) {
+          body2.style.overflow = 'hidden';
+        }
+      });
+
+      modal2.addEventListener('click', (event) => {
+        if (event.target === modal2) {
+          modal2.classList.toggle('show');
+
+          if (!modal2.classList.contains('show')) {
+            body2.style.overflow = 'auto';
+          }
+        }
+      });
+      
+      btnModalCancle2.addEventListener('click', (event) => {
+    	  modal2.classList.remove('show'); 
+      });
+      
+      
+    </script>
 
 
 <c:import url="/WEB-INF/views/layout/footer.jsp" />

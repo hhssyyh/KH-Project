@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-<c:import url="/WEB-INF/views/layout/partnerLayout/header.jsp" />
-
-
-
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
 <style type="text/css">
 #sidebarContainer {
 	margin-top:54px;
@@ -15,18 +15,11 @@
 	position: fixed;
 }
 
-#container{
-	margin-left:16%;
-	padding-top: 60px;
-}
-
-td {
-	margin-right:30px;
-
-}
 
 
 </style>
+
+<body>
 
 
 <div id="sidebarContainer">
@@ -86,31 +79,5 @@ td {
 	</div>
 </div>
 
-<div id="container">
-
-	<h1>대시보드</h1>
-	<div style="border: 1px solid; ">
-	<h3>오늘 할 일</h3>
-	
-		<table>
-			<tr>
-				<th>신규예약</th>
-				<td>1</td>
-				
-				<th>문의</th>
-				<td>1</td>
-				
-				<th>???</th>
-				<td>1</td>
-			</tr>
-		</table>
-	</div>
-	
-	
-
-	
-</div>
-
-
-
-<c:import url="../layout/footer.jsp" />
+</body>
+</html>

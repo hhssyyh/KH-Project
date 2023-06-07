@@ -1,9 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
-<script type="text/javascript" src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script type="text/javascript"
+	src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
+
+
+
+
 <script type="text/javascript">
 $( () => {
 	var userno = $("#userno").val();
@@ -60,96 +65,113 @@ $( () => {
          
       })
    })
-   
-   
+ 
+  
 	   
 	}) /* start func end */
 </script>
 
-<c:import url="/WEB-INF/views/layout/adminLayout/adminHeader.jsp"/>
+<c:import url="/WEB-INF/views/layout/adminLayout/adminHeader.jsp" />
 
-<c:import url="/WEB-INF/views/layout/adminLayout/sidebar.jsp"/>
+<c:import url="/WEB-INF/views/layout/adminLayout/sidebar.jsp" />
 
-<style type="text/css">
 
-</style>
-<div style="margin-left:16%;">
 
-<div style="padding-top:10px;">
-	<h1>회원 정보</h1>
-	<table class="table">
-		<tr>
-			<th>유저이름</th>
-			<td>${detailList.USER_NAME}</td>	
-			<th>닉네임</th>
-			<td>${detailList.USER_NICK}</td>
-		</tr>
+
+<div style="margin-left: 16%;">
+
+	<div style="padding-top: 10px;">
+		<h1>회원 정보</h1>
+		<table class="table">
+			<tr>
+				<th>유저이름</th>
+				<td>${detailList.USER_NAME}</td>
+				<th>닉네임</th>
+				<td>${detailList.USER_NICK}</td>
+			</tr>
+
+			<tr>
+				<th>이메일</th>
+				<td>${detailList.USER_EMAIL}</td>
+				<th>성별</th>
+				<td>${detailList.USER_GENDER}</td>
+			</tr>
+
+			<tr>
+				<th>생일</th>
+				<td>${detailList.USER_BIRTHYEAR}/${detailList.USER_BIRTHMONTH}
+					/ ${detailList.USER_BIRTHDAY}</td>
+				<th>연락처</th>
+				<td>${detailList.USER_PHONE}</td>
+			</tr>
+
+			<tr>
+				<th>게시글 수</th>
+
+				<td>${detailList.FREEBOARD}
+					<button id="boardChk" type="button" class="btn btn-primary"
+						data-bs-toggle="modal" data-bs-target="#exampleModal">
+						게시글 확인</button>
+
+				</td>
+
+				<th>댓글 개수</th>
+				<td>${detailList.FREEBOARDCOMMENT}
+					<button id="cmtChk" type="button" class="btn btn-primary"
+						data-bs-toggle="modal" data-bs-target="#exampleModal">댓글
+						확인</button>
+				</td>
+			</tr>
+
+		</table>
+
+
+		<!-- Modal -->
+		<div class="modal fade modal-xl" id="exampleModal" tabindex="-1"
+			aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<!-- jQuery로 제목 변경 -->
+						<h1 class="modal-title fs-5" id="exampleModalLabel"></h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal"
+							aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<input type="text" id="userno" name="userno"
+							value="${detailList.USER_NO }" style="display: none;">
+						<!-- Ajax 결과 출력 div -->
+						<div id="result"></div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-bs-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary">Save
+							changes</button>
+					</div>
+				</div>
+			</div>
+		</div>
 		
-		<tr>
-			<th>이메일</th>
-			<td>${detailList.USER_EMAIL}</td>
-			<th>성별</th>
-			<td>${detailList.USER_GENDER}</td>	
-		</tr>
-		
-		<tr>
-			<th>생일</th>
-			<td>${detailList.USER_BIRTHYEAR} / ${detailList.USER_BIRTHMONTH} / ${detailList.USER_BIRTHDAY}</td>
-			<th>연락처</th>
-			<td>${detailList.USER_PHONE}</td>
-		</tr>
+    
+	
+    	<a href="./usermanage"><button type="button" class="btn btn-outline-dark proBtn">목록</button></a>
+    	<a href="./removeuser"><button type="button" class="btn-open-popup btn btn-outline-dark proBtn">회원탈퇴</button></a>
 
-		<tr>
-		<th>게시글 수</th>
-		
-		<td>${detailList.FREEBOARD} 	
- 			<button id="boardChk" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-	 			게시글 확인
-			</button> 
+	
+		<br>
+		<h1>예약 정보</h1>
+</div>
 
-		</td>
-			
-		<th>댓글 개수</th>
-		<td>
-			${detailList.FREEBOARDCOMMENT}
-			<button id="cmtChk" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
- 				댓글 확인
-			</button>	
-		</td>		
-		</tr>
-		
-	</table>
+
+
 	
 
-	<!-- Modal -->
-<div class="modal fade modal-xl" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-     	<!-- jQuery로 제목 변경 -->
-        <h1 class="modal-title fs-5" id="exampleModalLabel"></h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-      	<input type="text" id="userno" name="userno" value="${detailList.USER_NO }" style="display: none;">
-       	<!-- Ajax 결과 출력 div -->
-       	<div id="result"></div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
-	
-	<br>
-	<h1>예약 정보</h1>
-</div>
-	<a href="./usermanage"><button>목록</button></a>
-	<button>회원탈퇴</button>
-	
-</div>
+
+
+
+
+
 
 
 

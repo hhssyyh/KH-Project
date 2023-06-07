@@ -2,11 +2,13 @@ package com.pointhome.www.admin.service.face;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.web.multipart.MultipartFile;
 
 import com.pointhome.www.admin.dto.Admin;
 import com.pointhome.www.admin.dto.AdminNotice;
+import com.pointhome.www.admin.dto.AdminNoticeFile;
 import com.pointhome.www.freeboard.dto.FreeBoard;
 import com.pointhome.www.freeboard.dto.FreeBoardComment;
 import com.pointhome.www.user.dto.User;
@@ -60,11 +62,11 @@ public interface AdminService {
 	public List<FreeBoardComment> userCmt(int userno);
 	
 	/**
-	 * adminNo 조회
-	 * @param admin - 사용자 번호
-	 * @return 사용자 번호 조회
+	 * 로그인시, DB에서 운영사의 정보 조회
+	 * @param admin - 운영사 입력받은 Email, Password
+	 * @return 운영사 조회
 	 */
-	public int getAdmin(Admin admin);
+	public Admin getAdmin(Admin admin);
 	
 	/**
 	 * 제휴사 또는 사용자에게 보여질 공지사항을 삽입한다
@@ -75,20 +77,22 @@ public interface AdminService {
 	public void writeNotice(AdminNotice adminnotice, List<MultipartFile> dataMul);
 	/**
 	 * 게시글 목록을 위한 페이징 객체 생성
-	 * 
+ 	*@param type -  로그인 된 사용자 타입
+	 * @param filter 
 	 * @param curPage- 현재페이지
 	 * @return - 계산이 완료된 Paging 객체
 	 */
-	public Paging getPagingNotice(int curPage);
+	public Paging getPagingNotice(int curPage, String filter, String type);
 	
 	/**
 	 * 페이징 적용 , 필터 적용한 목록 조회
 	 * 
 	 * @param paging - 페이징 객체
 	 * @param filter - 필터
+	 * * @param type -  로그인 된 사용자 타입
 	 * @return 페이징과 필터를 적용한 리스트 정보 
 	 */
-	public List<Map<String, Object>> selectAllSearch(Paging paging, char filter);
+	public List<Map<String, Object>> selectAllSearch(Paging paging, String filter, String type);
 	
 
     /**
@@ -112,6 +116,51 @@ public interface AdminService {
 	    * @return 회원 정보
 	    */
 	public Admin viewAdmin(int adminNo);
+
+	   /**
+	    * 게시판 글 삭제
+	    * 
+	    * @param adminNotice- 삭제할 게시판의 객체
+	    */
+	
+	public void delete(AdminNotice adminNotice);
+	/**
+	    * 게시글 번호를 통한 게시글 정보 조회
+	    * 
+	    * @param noticeNo - 게시글 번호
+	    * @return 게시글 번호에 해당하는 정보 DTO
+	    */
+	public AdminNotice selectNotice(int noticeNo);
+	/**
+	    * 게시글 번호를 통한 게시글 파일의 정보 조회
+	    * 
+	    * @param noticeNo - 조회할 해당 게시글의 번호
+	    * @return 게시글 파일들 정보의 목록
+	    */
+	public List<AdminNoticeFile> selectNoticeFile(int noticeNo);
+
+	/**
+    * 게시글 정보와 파일 수정하기
+    * 
+    * @param notice - 게시글 DTO
+    * @param dataMul - 게시글 파일 리스트 DTO
+    */
+	public void update(AdminNotice notice, List<MultipartFile> dataMul);
+	/**
+	    * 파일 번호를 이용한 업로드 파일 정보 조회
+	    * 
+	    * @param fileNo - 조회할 파일의 번호
+	    * @return 첨부 파일의 정보
+	    */
+	public AdminNoticeFile getFile(int adminFileNo);
+
+	/**
+	 * 회원 번호에 해당하는 회원 탈퇴
+	 * 
+	 * @param userno - 회원번호
+	 */
+	public void delete(int userno);
+	
 
 	
 	

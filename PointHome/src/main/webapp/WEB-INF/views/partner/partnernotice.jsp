@@ -4,7 +4,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+
+<%-- 사용자 헤더 (읽기전용)--%>
+<c:if test="${not empty login and login}">
+	<c:import url="/WEB-INF/views/layout/header.jsp" />
+
+</c:if>
+
+<%-- 제휴사헤더 --%>
+<c:if test="${not empty partnerLogin and partnerLogin}">
 <c:import url="/WEB-INF/views/layout/partnerLayout/header.jsp"/>
+</c:if>
 
 <style type="text/css">
 #container {
@@ -74,20 +84,13 @@ window.onload=function(){
       </table>
 
 
-      <c:if test="${not empty login and login}">
+      <c:if test="${not empty partnerLogin and partnerLogin}">
          <!-- 작성 버튼 -->
          <div class="float-end mb-3">
             <a href="/partner/writenotice"><button id="btnWrite" class="btn btn-info">공지사항 작성</button></a>
          </div>
          <div class="clearfix"></div>
       </c:if>
-
-      <c:if test="${empty login and !login}">
-         <br>
-         <br>
-      </c:if>
-
-   </div>
    <!-- div.container -->
 
 
