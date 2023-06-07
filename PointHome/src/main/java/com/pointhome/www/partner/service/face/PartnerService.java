@@ -146,11 +146,15 @@ public interface PartnerService {
 	    */
 		public void update(PartnerNotice partnerNotice, List<MultipartFile> dataMul);
 
+
+		public void partnerShopUpdate(Partner partner);
+
 		public List<Map<String, Object>> getPartTypePick(int curPage, Paging paging, int userNo, String partnerType);
 
 		public PartnerFile getPartnerFile(int partNo);
 
 		public void imgUpdate(Partner partner, MultipartFile file);
+
 
 
 

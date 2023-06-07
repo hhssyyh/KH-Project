@@ -281,6 +281,12 @@ public class PartnerServiceImpl implements PartnerService {
 		}
 
 	@Override
+
+	public void partnerShopUpdate(Partner partner) {
+		
+		
+	}
+
 	public List<Map<String, Object>> getPartTypePick(int curPage, Paging paging, int userNo, String partnerType) {
 		return partnerDao.selectPartnerPick(curPage, paging, userNo, partnerType);
 	}
@@ -332,4 +338,5 @@ public class PartnerServiceImpl implements PartnerService {
 		return partnerDao.getPartnerImg(partNo);
 	}
 	
+
 }

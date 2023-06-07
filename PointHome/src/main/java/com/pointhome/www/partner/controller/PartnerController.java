@@ -104,7 +104,16 @@ public class PartnerController {
 		model.addAttribute("partnerInfo", partnerInfo);
 	}
 	
-	
+	@PostMapping("/shopsetting")
+	public String shopsettingPost(HttpSession session, Partner partner) {
+		
+		partner.setPartnerNo((int)session.getAttribute("partnerNo"));
+		logger.debug("{}", partner);
+		
+		partnerService.partnerShopUpdate(partner);
+		
+		return "redirect:./shopsetting";
+	}
 	
 	@GetMapping("/pages/404-error")
 	public void error() {
@@ -119,6 +128,24 @@ public class PartnerController {
 			String partnerType,
 			HttpSession session
 			) {
+
+		logger.info("/partnerboard/list [GET]");
+
+		Paging paging = partnerService.getPaging(curPage);
+		
+		List<Partner> list = partnerService.list(paging);
+
+		logger.info("!!!!!!!!!!!!!!!!{}", list);
+
+		model.addAttribute("list", list);
+		model.addAttribute("paging", paging);
+		
+	}
+		
+	@RequestMapping("/typelist")
+	public void typeList(@RequestParam(defaultValue = "0") int curPage, Model model, String partnerType) {
+
+
 		
 		Map<String, Object> pagingMap = new HashMap<String, Object>();		
 		
@@ -293,6 +320,7 @@ public class PartnerController {
 			return "redirect:./main";
 		}
 		
+	   
 	   
 
 }
