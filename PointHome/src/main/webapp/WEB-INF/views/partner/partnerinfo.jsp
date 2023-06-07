@@ -86,7 +86,7 @@
 			<div id="image_container"><img id="profileImg2" alt="" src="https://t1.daumcdn.net/cfile/tistory/2513B53E55DB206927"></div>
 			</c:when>
 			<c:otherwise>
-			<img id="profileImg2" src="/upload/${partnerFile.partnerImg }"  alt="왜지">
+			<img id="profileImg2" src="/upload/${partnerFile.partnerImg }">
 			</c:otherwise>
 			</c:choose>
 

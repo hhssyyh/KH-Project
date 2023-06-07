@@ -97,13 +97,6 @@ public class PartnerController {
 		
 	}
 	
-	@GetMapping("/logout")
-	public String logout(HttpSession session) {
-		session.invalidate();
-		
-		return "redirect:./main";
-	}
-	
 	@GetMapping("/shopsetting")
 	public void shopsettingGet(HttpSession session, Model model) {
 		Partner partnerInfo = partnerService.getPartnerInfo((Integer)session.getAttribute("partnerNo"));
@@ -111,27 +104,7 @@ public class PartnerController {
 		model.addAttribute("partnerInfo", partnerInfo);
 	}
 	
-	@GetMapping("/reservemanage")
-	public void reservemanageGet(HttpSession session, Model model, @RequestParam(defaultValue = "0") int curPage) {
-		logger.debug("!!!!!!!!!!{}", curPage);
-		logger.debug("!!!!!!!!!!!{}", (int)session.getAttribute("partnerNo"));
-		Paging paging = partnerService.getPaging(curPage, (int)session.getAttribute("partnerNo"));
-		List<Map<String, Object>> reserveList = partnerService.getReserveList(paging, (int)session.getAttribute("partnerNo"));
-		
-		model.addAttribute("reserveList", reserveList);
-	}
-
-	@PostMapping("/shopsetting")
-	public String shopsettingPost(HttpSession session, Partner partner) {
-		
-		partner.setPartnerNo((int)session.getAttribute("partnerNo"));
-		logger.debug("{}", partner);
-		
-		partnerService.partnerShopUpdate(partner);
-		
-		return "redirect:./shopsetting";
-	}
-
+	
 	
 	@GetMapping("/pages/404-error")
 	public void error() {
@@ -146,24 +119,6 @@ public class PartnerController {
 			String partnerType,
 			HttpSession session
 			) {
-
-		logger.info("/partnerboard/list [GET]");
-
-		Paging paging = partnerService.getPaging(curPage);
-		
-		List<Partner> list = partnerService.list(paging);
-
-		logger.info("!!!!!!!!!!!!!!!!{}", list);
-
-		model.addAttribute("list", list);
-		model.addAttribute("paging", paging);
-		
-	}
-		
-	@RequestMapping("/typelist")
-	public void typeList(@RequestParam(defaultValue = "0") int curPage, Model model, String partnerType) {
-
-
 		
 		Map<String, Object> pagingMap = new HashMap<String, Object>();		
 		
@@ -306,6 +261,7 @@ public class PartnerController {
 			
 			Partner res = partnerService.getPartnerInfo(partNo);
 			
+			logger.info("!!!!!{}", partNo);
 			logger.info("!!!!!{}", res);
 			
 			model.addAttribute("res", res);
@@ -338,7 +294,6 @@ public class PartnerController {
 			return "redirect:./main";
 		}
 		
-	   
 	   
 
 }

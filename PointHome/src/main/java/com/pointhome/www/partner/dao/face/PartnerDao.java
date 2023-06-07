@@ -179,21 +179,4 @@ public interface PartnerDao {
 
 	
 
-	/**
-	 * 제휴사 페이지에서 보여줄 예약 리스트 가져오기
-	 * @param paging 
-	 * 
-	 * @param partNo
-	 * @return
-	 */
-	public List<Map<String, Object>> selectReserveList(@Param("paging") Paging paging, @Param("partNo") Integer partNo);
-
-	/**
-	 * partNo으로 reserve 갯수 select
-	 * 
-	 * @param partNo
-	 * @return
-	 */
-	public int selectCntReservation(int partNo);
-
 }
