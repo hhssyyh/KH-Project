@@ -111,7 +111,15 @@ public interface PartnerService {
 	    */
 	public Partner viewPartner(int partnerNo);
 
-		public List<Map<String, Object>> list(Paging paging, int userNo);
+	public List<Map<String, Object>> list(Paging paging, int userNo);
+
+	/**
+	 * partnerNo으로 수정할 데이터들 가져오기
+	 * 
+	 * @param attribute
+	 * @return
+	 */
+	public Partner getPartnerInfo(Integer partnerNo);
 
 
 

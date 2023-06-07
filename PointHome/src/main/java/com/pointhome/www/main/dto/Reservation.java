@@ -1,7 +1,5 @@
 package com.pointhome.www.main.dto;
 
-import java.util.Date;
-
 public class Reservation {
 
 	private int resNo;
@@ -11,11 +9,12 @@ public class Reservation {
 	private int userNo;
 	private int resTime;
 	private String resDiv;
+	private int resPrice;
 	
 	public Reservation() {}
 
 	public Reservation(int resNo, int partNo, String resDate, String resReserveno, int userNo, int resTime,
-			String resDiv) {
+			String resDiv, int resPrice) {
 		super();
 		this.resNo = resNo;
 		this.partNo = partNo;
@@ -24,12 +23,14 @@ public class Reservation {
 		this.userNo = userNo;
 		this.resTime = resTime;
 		this.resDiv = resDiv;
+		this.resPrice = resPrice;
 	}
 
 	@Override
 	public String toString() {
 		return "Reservation [resNo=" + resNo + ", partNo=" + partNo + ", resDate=" + resDate + ", resReserveno="
-				+ resReserveno + ", userNo=" + userNo + ", resTime=" + resTime + ", resDiv=" + resDiv + "]";
+				+ resReserveno + ", userNo=" + userNo + ", resTime=" + resTime + ", resDiv=" + resDiv + ", resPrice="
+				+ resPrice + "]";
 	}
 
 	public int getResNo() {
@@ -88,7 +89,16 @@ public class Reservation {
 		this.resDiv = resDiv;
 	}
 
+	public int getResPrice() {
+		return resPrice;
+	}
+
+	public void setResPrice(int resPrice) {
+		this.resPrice = resPrice;
+	}
+
 	
+
 	
 	
 }

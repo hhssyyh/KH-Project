@@ -123,6 +123,14 @@ public interface PartnerDao {
 
 	public List<Map<String, Object>> selectPartPick(@Param("paging") Paging paging, @Param("userNo") int userNo);
 
+	/**
+	 * 수정할 partner 정보들을 partnerNo으로 select
+	 * 
+	 * @param partnerNo
+	 * @return
+	 */
+	public Partner selectPartnerByPartnerNo(Integer partnerNo);
+
 
 
 

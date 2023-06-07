@@ -21,7 +21,7 @@
 <div class="col-6">
 
    <div class="h1 mt-3 mb-5">
-      <a class="navbar-brand h1 text-center col-5" href="./">PointHone</a>
+      <a class="navbar-brand h1 text-center col-5" href="./">PointHome</a>
    </div>
 
 	<form action="/partner/join" method="post">

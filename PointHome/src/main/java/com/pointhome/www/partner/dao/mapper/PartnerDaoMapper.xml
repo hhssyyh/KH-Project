@@ -69,6 +69,21 @@
 	
 	</select>
 	
+	<select id="selectPartnerByPartnerNo" parameterType="Integer" resultType="Partner">
+		SELECT 
+			PARTNER_EMAIL,
+			PARTNER_PHONE,
+			PARTNER_BANK,
+			PARTNER_ACCOUNT,
+			PARTNER_PRICE,
+			PARTNER_LATITUDE,
+			PARTNER_LONGITUDE
+		FROM partner_tb
+		WHERE partner_no = #{partnerNo}
+	</select>
+	
+	
+	
 	
 	<select id="selectAll" resultType="Partner" parameterType="Paging">
 		select * from (
@@ -207,6 +222,42 @@
 		)partner_tb
 		where rnum between #{paging.startNo} and #{paging.endNo}
 	</select>	
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<select id="">
+		select * from (
+			 select rownum rnum, A.* from (
+				 SELECT *
+				 FROM ADMIN_NOTICE
+				 WHERE 1=1
+				 <if test='filter != "a"'>
+				    <where>
+				       <if test='filter == "p"'>
+				          AND div = 'p'
+				       </if>
+				       <if test='filter == "u"'>
+				          AND div = 'u'
+				       </if>
+				    </where>
+				 </if>
+				 ORDER BY notice_no DESC
+			 ) A
+		) where rnum between #{paging.startNo} and #{paging.endNo}
+		
+	</select>
+
+
 
 
 </mapper>

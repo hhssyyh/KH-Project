@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.pointhome.www.main.dto.Reservation;
 import com.pointhome.www.main.service.face.MainService;
+import com.pointhome.www.partner.dto.Partner;
 
 @Controller
 public class mainController {
@@ -33,9 +34,14 @@ public class mainController {
 	
 	@GetMapping("/main/detail")
 	public void detailGet(int partNo, Model model) {
-//		mainService.getPartnerView()
+		Partner partner = mainService.getPartnerView(partNo);
+		logger.debug("+++++++++++++++{}", partner);
+		
+		//위도,경도
+		
 		
 		model.addAttribute("partNo", partNo);
+		model.addAttribute("partner", partner);
 	}
 	
 	@GetMapping("/main/review")
@@ -49,19 +55,18 @@ public class mainController {
 	}
 	
 	@GetMapping("/main/reservation")
-	public void reservation() {
+	public void reservation(Model model, int partNo) {
 		logger.debug("/main/reservation [GET]");
+		Partner partner = mainService.getPartnerView(partNo);
 
+		model.addAttribute("partner", partner);
+		model.addAttribute("partNo", partNo);
+		
 	}
 	
 	
-	
-	
-	
-	
-	
 	@GetMapping("/main/reserveDateAjax")
-	public void reserveDateAjaxGet(Reservation reservation, Model model) {	
+	public void reserveDateAjaxGet(Reservation reservation,int partnerPrice, Model model) {	
 		
 		List<Integer> reserveList = mainService.reserveTime(reservation);
 		
@@ -69,6 +74,7 @@ public class mainController {
 		
 		model.addAttribute("reserveList", reserveList);
 		model.addAttribute("resDate", reservation.getResDate());
+		model.addAttribute("partnerPrice", partnerPrice);
 		
 	}
 	
@@ -77,7 +83,6 @@ public class mainController {
 	public String reserveComplete(int partNo, Reservation res, HttpSession session) {
 		res.setUserNo((Integer)session.getAttribute("userno"));
 		mainService.insertReserveData(res);
-		
 		
 		return "redirect:/main/detail?partNo=" + partNo;
 	}

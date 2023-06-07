@@ -2,8 +2,8 @@
     pageEncoding="UTF-8"%>
     
 <style>
-#container {
-	margin-top: 154px;
+body {
+	background-color: #f2efe1;
 }
 
 #toptab {
@@ -11,13 +11,15 @@
 }
 
 #container{
-	background-color: grey;
-	width:100%; 
+	margin: 0 auto;
+	margin-top: 154px;
+ 	background-color: #5758BB; 
+	width:80%; 
 	height:350px;
 	display: flex;
   	justify-content: center;
   	align-items: center;
-  	
+  	color: #f2c305;
 }
 
 #container div {
@@ -60,10 +62,10 @@
 	
 	<div style="width:400px; height:200px; padding: 20px;">
 		<div style="font-size: 50px;">
-			홍길동
+			${partner.partnerShopname }(${partner.partnerNick })  
 		</div>
 		
-		<p>email@naver.com</p>
-		<p>010-0000-0000</p>
+		<p>${partner.partnerEmail }</p>
+		<p>${partner.partnerPhone }</p>
 	</div>
 </div>

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.pointhome.www.main.dao.face.MainDao;
 import com.pointhome.www.main.dto.Reservation;
 import com.pointhome.www.main.service.face.MainService;
+import com.pointhome.www.partner.dto.Partner;
 
 @Service
 public class MainServiceImpl implements MainService {
@@ -33,6 +34,12 @@ public class MainServiceImpl implements MainService {
 		
 		mainDao.insertUserReserveData(res);
 		
+	}
+	
+	@Override
+	public Partner getPartnerView(int partNo) {
+		
+		return mainDao.selectPartnerView(partNo);
 	}
 	
 	
