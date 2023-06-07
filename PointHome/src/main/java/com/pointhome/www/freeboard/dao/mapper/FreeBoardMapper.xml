@@ -188,8 +188,7 @@
    <update id="update" parameterType="FreeBoard">
       update freeboard set
       freeboard_title = #{freeboardTitle},
-      freeboard_content =
-      #{freeboardContent}
+      freeboard_content = #{freeboardContent}
       where freeboard_no = #{freeboardNo}
    </update>
    

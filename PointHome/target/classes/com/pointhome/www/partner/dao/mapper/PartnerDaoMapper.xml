@@ -208,6 +208,35 @@
 		where rnum between #{paging.startNo} and #{paging.endNo}
 	</select>	
 
+	 <delete id="deleteFile" parameterType="int">
+      delete partner_notice_file
+      where partner_notice_no = #{partnerNoticeNo}
+   </delete>
+
+   <delete id="deleteNotice" parameterType="PartnerNotice">
+      delete partner_notice
+      where
+      partner_notice_no = #{partnerNoticeNo}
+   </delete>
+   
+     <select id="selectNoticebyNoticeNo" resultType="PartnerNotice" parameterType="int">
+   	select * from partner_notice
+   	where  partner_notice_no = #{partnerNoticeNo}
+   	
+   </select>
+   
+         <select id="selectNoticeFilebyNoticeNo" resultType="PartnerNoticeFile"
+      parameterType="int">
+      select * from partner_notice_file
+      where partner_notice_no = #{partnerNoticeNo}
+   </select>
+   
+    <update id="update" parameterType="PartnerNotice">
+      update partner_notice set
+      partner_notice_title = #{partnerNoticeTitle},
+      partner_notice_content = #{partnerNoticeContent}
+      where partner_notice_no = #{partnerNoticeNo}
+   </update>
 
 </mapper>
 

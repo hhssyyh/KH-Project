@@ -89,6 +89,7 @@ public class userController {
 			session.setAttribute("login", true);
 			session.setAttribute("userno", user.getUserNo());
 			session.setAttribute("usernick", user.getUserNick());
+			session.setAttribute("type", "u");
 			
 			return "redirect:/";
 		}
@@ -310,4 +311,29 @@ public class userController {
 
 	    return "redirect:/";
 	}
+	
+	
+	
+	@GetMapping("/user/adminnoticelist")
+	public String adminnoticelist(User Param, HttpSession session, Model model) {
+		
+		String type = (String) session.getAttribute("type");
+
+	        model.addAttribute("type", type); 
+	    
+
+	    return "redirect:/admin/noticelist";
+	}
+	
+	@GetMapping("/user/partnernoticelist")
+	public String partnernoticelist(User Param, HttpSession session, Model model) {
+		
+		String type = (String) session.getAttribute("type");
+		
+		model.addAttribute("type", type); 
+		
+		
+		return "redirect:/partner/partnernotice";
+	}
+	
 }

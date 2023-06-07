@@ -8,13 +8,14 @@ public class AdminNotice {
 	private String noticeContent;
 	private Date noticeDate;
 	private int adminNo;
-	private char div;
+	private String div;
 	
 	public AdminNotice() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public AdminNotice(int noticeNo, String noticeTitle, String noticeContent, Date noticeDate, int adminNo, char div) {
+	public AdminNotice(int noticeNo, String noticeTitle, String noticeContent, Date noticeDate, int adminNo,
+			String div) {
 		super();
 		this.noticeNo = noticeNo;
 		this.noticeTitle = noticeTitle;
@@ -70,12 +71,15 @@ public class AdminNotice {
 		this.adminNo = adminNo;
 	}
 
-	public char getDiv() {
+	public String getDiv() {
 		return div;
 	}
 
-	public void setDiv(char div) {
+	public void setDiv(String div) {
 		this.div = div;
 	}
+	
+	
+	
 	
 }

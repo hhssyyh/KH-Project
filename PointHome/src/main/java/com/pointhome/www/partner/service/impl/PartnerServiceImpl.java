@@ -8,14 +8,13 @@ import java.util.UUID;
 
 import javax.servlet.ServletContext;
 
-import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.pointhome.www.admin.dto.AdminNoticeFile;
 import com.pointhome.www.partner.dao.face.PartnerDao;
 import com.pointhome.www.partner.dto.Partner;
 import com.pointhome.www.partner.dto.PartnerNotice;
@@ -228,4 +227,81 @@ public class PartnerServiceImpl implements PartnerService {
 			
 	}
 
+	@Override
+	public void delete(PartnerNotice partnerNotice) {
+		
+		partnerDao.deleteFile(partnerNotice);
+		partnerDao.deleteNotice(partnerNotice);
+	}
+
+	@Override
+	public PartnerNotice selectNotice(int partnerNoticeNo) {
+		
+		return partnerDao.selectNoticebyNoticeNo(partnerNoticeNo);
+	}
+
+	 @Override
+	   public List<PartnerNoticeFile> selectNoticeFile(int partnerNoticeNo) {
+
+	      
+	      return partnerDao.selectNoticeFilebyNoticeNo(partnerNoticeNo);
+	   }
+	 
+	 @Override
+		public void update(PartnerNotice partnerNotice, List<MultipartFile> dataMul) {
+
+		 partnerDao.deleteFile(partnerNotice);
+		 partnerDao.update(partnerNotice);
+			
+			for(MultipartFile m : dataMul ) {
+		         if(m.getSize() <= 0 ) {
+		            
+		            logger.info("0보다 작음, 처리 중단");
+		            
+		            continue;
+		         }
+		         
+		      
+		         String storedPath = context.getRealPath("upload");
+		         logger.info("storedPath : {}", storedPath);
+		         
+		         File storedFolder = new File(storedPath);
+		         
+		         storedFolder.mkdir();
+		         File dest = null;
+		         String originName = null;
+		         String storedName = null;
+		         
+		         do {
+		            logger.debug("!!!!!!!!!++++++++++++++++");
+		            originName = m.getOriginalFilename();
+		            storedName = originName + UUID.randomUUID().toString().split("-")[4];
+		            
+		            logger.info("storedName : {}", storedName);
+		         
+		            dest = new File(storedFolder, storedName);
+		         
+		         } while(dest.exists());
+		         
+		            try {
+		               m.transferTo(dest);
+		            } catch (IllegalStateException e) {
+		               e.printStackTrace();
+		            } catch (IOException e) {
+		               e.printStackTrace();
+		            }
+		         
+		         PartnerNoticeFile partnerNoticeFile = new PartnerNoticeFile();
+		         
+		         partnerNoticeFile.setPartnerNoticeNo(partnerNotice.getPartnerNoticeNo());
+		         partnerNoticeFile.setPartnerNoticeFileOrigin(originName);
+		         partnerNoticeFile.setPartnerNoticeFileStored(storedName);
+		         
+		         logger.info("filetest :{} ", partnerNoticeFile);
+		         
+		         logger.info("++++++++++++++++++++++++삭제");
+		         partnerDao.insertFile(partnerNoticeFile);
+			}
+
+		}
 }

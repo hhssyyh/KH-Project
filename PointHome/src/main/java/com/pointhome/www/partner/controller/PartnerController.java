@@ -3,6 +3,7 @@ package com.pointhome.www.partner.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 
@@ -19,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.pointhome.www.partner.dto.Partner;
 import com.pointhome.www.partner.dto.PartnerNotice;
+import com.pointhome.www.partner.dto.PartnerNoticeFile;
 import com.pointhome.www.partner.service.face.PartnerService;
 import com.pointhome.www.util.Paging;
 
@@ -66,21 +68,23 @@ public class PartnerController {
 	public String loginProc(Partner partner, HttpSession session) {
 		logger.debug("/partner/login [POST]");
 		
-		Boolean login= partnerService.isLogin(partner);
-		logger.debug("login???{}",login);
+		Boolean partnerLogin= partnerService.isLogin(partner);
+		logger.debug("login???{}",partnerLogin);
 				
-		int partnerNo = partnerService.getPartnerNoByEmail(partner);
-		logger.debug("partnerNo : {}",partnerNo);
+//		int partnerNo = partnerService.getPartnerNoByEmail(partner);
+//		logger.debug("partnerNo : {}",partnerNo);
 		
-		if(login) {
+		if(partnerLogin) {
 			Partner part = new Partner();
 			part = partnerService.getPartner(partner);
 			
-			logger.debug("login{}:",login);
+			logger.debug("login{}:",partnerLogin);
 			logger.debug("partner_no{}:",part.getPartnerNo());
 			
-			session.setAttribute("login", true);
-			session.setAttribute("partnerNo", partnerNo);
+			session.setAttribute("partnerLogin", true);
+			session.setAttribute("partnerNo", part.getPartnerNo());
+			session.setAttribute("partnerNick", part.getPartnerNick());
+			session.setAttribute("type", "p");
 			
 			return "redirect:./main";
 		}
@@ -211,10 +215,53 @@ public class PartnerController {
 		
 	}
 	
-
+	@RequestMapping("/delete")
+	public String delete(PartnerNotice partnerNotice) {
+	     
+		  partnerService.delete(partnerNotice);
+	      
+	      return "redirect:./partnernotice";
+	   }
+	
+	 @GetMapping("/update")
+	   public void update(int partnerNoticeNo, Model model) {
+		 PartnerNotice notice = partnerService.selectNotice(partnerNoticeNo);
+	      logger.info("update notice: {}", notice);
+	      
+	      model.addAttribute("notice", notice);
+	      
+	      
+	      List<PartnerNoticeFile> noticeFile = partnerService.selectNoticeFile(partnerNoticeNo);
+	      logger.info("update noticeFile: {}", noticeFile);
+	      
+	   }
+	   
+	   @PostMapping("/update")
+	   public String updateRes(PartnerNotice partnerNotice, List<MultipartFile> dataMul) {
+	
+		   
+	      logger.info("확인: {}", partnerNotice);
+	      partnerService.update(partnerNotice, dataMul);
+	      logger.debug("!!!!!!{}", dataMul);
+	      logger.info("!!!!!!!!확인: {}", partnerNotice.getPartnerNo());
+	      
+	      return "redirect:./view?partnerNoticeNo=" + partnerNotice.getPartnerNoticeNo();
 	
 	
+	   }
+	   
+	   @GetMapping("/adminnoticelist")
+		public String adminnoticelist(Partner Param,HttpSession session, Model model) {
+			
+		   String type = (String) session.getAttribute("type");
 
+	        model.addAttribute("type", type);
+			
+	        return "redirect:/admin/noticelist";
+		}
+		
+	   
+	   
 
 }
     
