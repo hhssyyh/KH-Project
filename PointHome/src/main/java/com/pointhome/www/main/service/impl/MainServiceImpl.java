@@ -43,6 +43,12 @@ public class MainServiceImpl implements MainService {
 		
 		return mainDao.selectPartnerView(partNo);
 	}
+
+	@Override
+	public String getUserName(int userNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	@Override
 	public Paging getPaging(int curPage, int partNo) {

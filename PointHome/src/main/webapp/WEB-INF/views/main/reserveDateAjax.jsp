@@ -106,26 +106,7 @@ $(".resRadio").click(function() {
 	<br>
 	
 	
-	<script type="text/javascript">
-	var resDate = $("input[name=resDate]").val()
-	var resTime = $("input[name=resTime]").val()
-	var resDiv = $("input[name=resDiv]").val()
-	
-    var clientKey = 'test_ck_D5GePWvyJnrK0W0k6q8gLzN97Eoq' // 테스트용 클라이언트 키
-    var price = ${partnerPrice}
-        // 2. 결제창 SDK 초기화
-    var tossPayments = TossPayments(clientKey)
-	$("#payBtn").click(function() {
-		tossPayments.requestPayment('카드', {
-			amount: price,
-			orderId: 'Dl8baxDJc-HODLm8KBv14',
-			orderName: '토스 티셔츠 외 2건',
-			customerName: '박토스',
-			successUrl: "http://localhost:8888/main/reserveComplete?partNo=" + ${param.partNo} + "&resDate=" + resDate + "&resTime=" + resTime + "&resDiv=" + resDiv + "&resPrice=" + price,
-			failUrl: 'http://localhost:8080/reserveFail',
-		})
-	})
-	</script>
+
 	
 	
 	<c:if test="${empty login }">
@@ -134,6 +115,29 @@ $(".resRadio").click(function() {
 	<c:if test="${login }">
 	   <button style="float: right;" id="payBtn" class="btn btn-secondary">예약하기</button>
 	</c:if>
+	
+	
+		<script type="text/javascript">
+	var resDate = $("input[name=resDate]").val()
+	var resTime = $("input[name=resTime]").val()
+	var resDiv = $("input[name=resDiv]").val()
+	
+    var clientKey = 'test_ck_k6bJXmgo28eXg4nE7L6rLAnGKWx4' // 테스트용 클라이언트 키
+    var price = ${partnerPrice}
+        
+	// 2. 결제창 SDK 초기화
+    var tossPayments = TossPayments(clientKey)
+	$("#payBtn").click(function() {
+		tossPayments.requestPayment('카드', {
+			amount: price,
+			orderId: 'Dl8baxDJc-HOD443455',
+			orderName: '토스 티셔츠 외 2건', 
+			customerName: '박토스', 
+			successUrl: "http://localhost:8888/main/reserveComplete?partNo=" + ${param.partNo} + "&resDate=" + resDate + "&resTime=" + resTime + "&resDiv=" + resDiv + "&resPrice=" + price,
+			failUrl: 'http://localhost:8080/reserveFail',
+		})
+	})
+	</script>
    
 </body>
 </html>

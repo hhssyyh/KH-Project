@@ -12,7 +12,6 @@ body {
 }
 
 #userInfo {
-	height: 400px;
 	width: 1000px;
 	background-color: white;
 }
@@ -54,6 +53,23 @@ body {
 <div id="userInfo" class="container" style="padding: 30px; border-radius: 30px; border: 1px solid;">
 	 <h4><i class="bi bi-box2-heart-fill"></i> 찜목록</h4>
 	<hr id="line">
+	
+	<c:forEach var="list" items="${pickList}">
+		<c:choose>
+		<c:when test="${list.PARTNER_IMG eq null}">
+		<span><a href="/main/detail?partNo=${list.PART_NO}"><img id="profileImg2" alt="" src="https://t1.daumcdn.net/cfile/tistory/2513B53E55DB206927"></a></span>
+		</c:when>
+		<c:otherwise>
+		<span><a href="/main/detail?partNo=${list.PART_NO}"><img id="profileImg2" alt="" src="/upload/${list.PARTNER_IMG }"></a></span>
+		</c:otherwise>
+		</c:choose>
+		<div class= "oneLine">
+			<h5 style="margin: 20px; margin-left: 103px; margin-top: -52px;">${list.PARTNER_SHOPNAME }</h5>
+		</div>
+		<h6 style="margin: 20px; margin-left: 103px; margin-top: -14px; "margin-bottom: 50px; ">${list.PARTNER_NAME}</h6>
+	<hr style="margin-bottom: 10px; ">
+	</c:forEach>
+	
 	
 	<div id="profile2">
 		<span><img id="profileImg2" alt="" src="https://t1.daumcdn.net/cfile/tistory/2513B53E55DB206927"></span> 

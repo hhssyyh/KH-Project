@@ -77,7 +77,7 @@ a {
 		
 		
 		<div id="nickDiv">
-			<div style="font-size: 30px;">${res.userNick }</div>
+<%-- 			<div style="font-size: 30px;">${res.userNick }</div> --%>
 			${profile }
 <%-- 			<img src="/upload/${profile.userImg}"  alt=""> --%>
 			<a href="./userinfo"><button class="btn btn-outline-dark nickBtn">회원정보수정</button></a>
@@ -86,11 +86,12 @@ a {
 
 </div>
 <div class="btnRow">
-	<button class="btn btn-outline-dark proBtn" style="margin: 8px; margin-left: 1000px; margin-top: -400px;">1:1 채팅 문의</button>
-	<button class="btn btn-outline-dark proBtn" style="margin: 8px; margin-left: 1200px; margin-top: -447px;">알림 내역</button>
-	<a href="/mypage/mypick"><button class="btn btn-outline-dark proBtn" style="margin: 8px; margin-left: 1000px; margin-top: -400px;">찜 내역</button></a>
+	<a href="/mypage/myboardList"><button class="btn btn-outline-dark proBtn" style="margin: 8px; margin-left: 1000px; margin-top: -400px;">내가 쓴 글</button></a>
+	<a href="/mypage/alertList"><button class="btn btn-outline-dark proBtn" style="margin: 8px; margin-left: 1200px; margin-top: -447px;">알림 내역</button></a>
+	<a href="/mypage/mypickList"><button class="btn btn-outline-dark proBtn" style="margin: 8px; margin-left: 1000px; margin-top: -400px;">찜 내역</button></a>
 	<a href="/mypage/myreview"><button class="btn btn-outline-dark proBtn" style="margin: 8px; margin-left: 1200px; margin-top: -447px;">리뷰 조회</button></a>   
 </div>
+
 
 
 

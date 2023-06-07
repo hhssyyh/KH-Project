@@ -2,6 +2,8 @@ package com.pointhome.www.mypage.service.impl;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
@@ -12,9 +14,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.pointhome.www.freeboard.dto.FreeBoard;
 import com.pointhome.www.mypage.dao.face.MypageDao;
+import com.pointhome.www.mypage.dto.AlertRecomm;
 import com.pointhome.www.mypage.dto.MyPick;
 import com.pointhome.www.mypage.service.face.MypageService;
+import com.pointhome.www.partner.dto.Partner;
 import com.pointhome.www.user.dto.User;
 import com.pointhome.www.user.dto.UserFile;
 
@@ -88,14 +93,18 @@ public class MypageServiceImpl implements MypageService {
 
 	@Override
 	public int isPick(int partnerNo, int userNo) {
-		MyPick myPick = new MyPick(partnerNo, userNo);
+		
+		int pickNo = 0;
+		MyPick myPick = new MyPick(pickNo, partnerNo, userNo);
 		
 		return mypageDao.selectByPickUserNo(myPick);
 	}
 	
 	@Override
 	public void pickUpdate(int userNo, int partnerNo) {
-		MyPick myPick = new MyPick(userNo, partnerNo);
+		
+		int pickNo = 0;
+		MyPick myPick = new MyPick(pickNo, userNo, partnerNo);
 
 		int isPick = mypageDao.selectByPickUserNo(myPick);
 		
@@ -104,14 +113,39 @@ public class MypageServiceImpl implements MypageService {
 		} else if ( isPick == 1 ) {
 			mypageDao.deletePick(myPick);
 		}
-			
-		
-		
-
 		
 	}
 
+	@Override
+	public List<FreeBoard> selectboard(int userNo) {
+		return mypageDao.selectBoardByUserNo(userNo);
+	}
 
+	@Override
+	public List<Map<String, Object>> selectPickList(int userNo) {
+		return mypageDao.getPickList(userNo);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectAlList(int userNo) {
+		return mypageDao.selectAlarmList(userNo);
+	}
+
+	@Override
+	public List<Map<String, Object>>  selectREList(int userNo) {
+		return mypageDao.selectReList(userNo);
+	}
+	
+	@Override
+	public int getAlertCnt(int userNo) {
+		return mypageDao.selectAlertCnt(userNo);
+	}
+
+	@Override
+	public void deleteAlert(int userNo) {
+		mypageDao.deleteAlertByUserno(userNo);
+		mypageDao.deleteAlertReByUserno(userNo);
+	}
 	
 
 }

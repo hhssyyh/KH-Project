@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.pointhome.www.mypage.service.face.MypageService;
 import com.pointhome.www.partner.dto.Partner;
+import com.pointhome.www.partner.dto.PartnerFile;
 import com.pointhome.www.partner.dto.PartnerNotice;
 import com.pointhome.www.partner.dto.PartnerNoticeFile;
 import com.pointhome.www.partner.service.face.PartnerService;
@@ -32,6 +34,7 @@ public class PartnerController {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired PartnerService partnerService;
+	@Autowired MypageService mypageService;
 	
 	@GetMapping("/main")
 	public void main(HttpSession session) {
@@ -117,8 +120,18 @@ public class PartnerController {
 		
 		model.addAttribute("reserveList", reserveList);
 	}
-	
-	
+
+	@PostMapping("/shopsetting")
+	public String shopsettingPost(HttpSession session, Partner partner) {
+		
+		partner.setPartnerNo((int)session.getAttribute("partnerNo"));
+		logger.debug("{}", partner);
+		
+		partnerService.partnerShopUpdate(partner);
+		
+		return "redirect:./shopsetting";
+	}
+
 	
 	@GetMapping("/pages/404-error")
 	public void error() {
@@ -127,11 +140,13 @@ public class PartnerController {
 		
 	}
 	
-	@GetMapping("/list")
-	public void BoardList( @RequestParam(defaultValue = "0") int curPage, 
-			Model model,
+	@RequestMapping("/list")
+	public void typeList(@RequestParam(defaultValue = "0") int curPage, 
+			Model model, 
+			String partnerType,
 			HttpSession session
 			) {
+
 		logger.info("/partnerboard/list [GET]");
 
 		Paging paging = partnerService.getPaging(curPage);
@@ -143,41 +158,38 @@ public class PartnerController {
 		model.addAttribute("list", list);
 		model.addAttribute("paging", paging);
 		
-		
-		
-		
 	}
-	
-
-	
+		
 	@RequestMapping("/typelist")
 	public void typeList(@RequestParam(defaultValue = "0") int curPage, Model model, String partnerType) {
+
+
 		
 		Map<String, Object> pagingMap = new HashMap<String, Object>();		
+		
+		logger.info("{}",partnerType);
 		
 		pagingMap.put("partnerType", partnerType);
 		pagingMap.put("curPage", curPage);
 	
+		int userNo = (Integer)session.getAttribute("userno");
+		
 		Paging paging  = partnerService.getTypePaging(pagingMap);
 		
-		
-		Map<String, Object> listMap = new HashMap<String, Object>();
-		
-		listMap.put("partnerType", partnerType);
-		listMap.put("paging", paging);
-		
-		List<Partner> list = partnerService.typelist(listMap);
+		List<Map<String, Object >> list = partnerService.getPartTypePick(curPage, paging, userNo,partnerType);
 
+		int alertCnt = mypageService.getAlertCnt(userNo);
 		
 		model.addAttribute("partnerType", partnerType);
-		model.addAttribute("typelist", list);
+		model.addAttribute("list", list);
 		model.addAttribute("paging", paging);
+		model.addAttribute( "alertCnt" , alertCnt);
 		
 		
 		logger.info("!!!!!!!!!!!!!!!!{}", list);
 
-		
 	}
+	
 	
 	@GetMapping("/detail")
 	public void detailView() {
@@ -285,6 +297,45 @@ public class PartnerController {
 	        model.addAttribute("type", type);
 			
 	        return "redirect:/admin/noticelist";
+		}
+		
+		@GetMapping("/partnerinfo")
+		public void partnerInfo(HttpSession session, Model model) {
+			
+			int partNo = (Integer)session.getAttribute("partnerNo");
+			
+			Partner res = partnerService.getPartnerInfo(partNo);
+			
+			logger.info("!!!!!{}", res);
+			
+			model.addAttribute("res", res);
+			
+			PartnerFile parnterFile = partnerService.getPartnerFile(partNo);
+			model.addAttribute("partnerFile" ,parnterFile);
+			
+			
+		}
+		
+		@PostMapping("/imgUpdate")
+		public String partnerEdit(Partner partner,  MultipartFile file, HttpSession session, Model model) {
+			
+			int partNo= (int) session.getAttribute("partnerNo"); 
+			
+			logger.info("{}", partNo);
+			logger.info("{}", file);
+			
+			partner.setPartnerNo(partNo);
+			logger.info("{}", partner);
+			
+			partnerService.imgUpdate(partner, file);
+			
+			
+			
+			model.addAttribute("partProfile", file);
+			model.addAttribute("parnter",  partner);
+			
+			
+			return "redirect:./main";
 		}
 		
 	   

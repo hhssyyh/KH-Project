@@ -25,6 +25,12 @@ public interface MainService {
 	 * @return
 	 */
 	public Partner getPartnerView(int partNo);
+	/**
+	 * 유저 이름 조회
+	 * @param userNo - 로그인한 유저의 session 값
+	 * @return 유저의 이름
+	 */
+	public String getUserName(int userNo);
 
 	/**
 	 * 리뷰리스트 페이징
