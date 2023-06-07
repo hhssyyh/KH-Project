@@ -101,7 +101,16 @@ public class PartnerController {
 		model.addAttribute("partnerInfo", partnerInfo);
 	}
 	
-	
+	@PostMapping("/shopsetting")
+	public String shopsettingPost(HttpSession session, Partner partner) {
+		
+		partner.setPartnerNo((int)session.getAttribute("partnerNo"));
+		logger.debug("{}", partner);
+		
+		partnerService.partnerShopUpdate(partner);
+		
+		return "redirect:./shopsetting";
+	}
 	
 	@GetMapping("/pages/404-error")
 	public void error() {
@@ -130,9 +139,7 @@ public class PartnerController {
 		
 		
 	}
-	
-
-	
+		
 	@RequestMapping("/typelist")
 	public void typeList(@RequestParam(defaultValue = "0") int curPage, Model model, String partnerType) {
 		
@@ -270,6 +277,7 @@ public class PartnerController {
 	        return "redirect:/admin/noticelist";
 		}
 		
+	   
 	   
 	   
 

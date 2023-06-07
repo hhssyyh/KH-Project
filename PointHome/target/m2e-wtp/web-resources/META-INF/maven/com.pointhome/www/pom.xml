@@ -185,6 +185,15 @@
 			<artifactId>gson</artifactId>
 			<version>2.10.1</version>
 		</dependency>
+		
+		<!-- json-simple -->
+		<dependency>
+		    <groupId>com.googlecode.json-simple</groupId>
+		    <artifactId>json-simple</artifactId>
+		    <version>1.1.1</version>
+		</dependency>
+
+		
 
 		<!-- spring-websocket 5.3.27 -->
 		<dependency>

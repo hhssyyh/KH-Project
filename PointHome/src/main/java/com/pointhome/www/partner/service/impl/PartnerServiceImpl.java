@@ -314,4 +314,10 @@ public class PartnerServiceImpl implements PartnerService {
 			}
 
 		}
+
+	@Override
+	public void partnerShopUpdate(Partner partner) {
+		
+		
+	}
 }

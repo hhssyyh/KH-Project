@@ -156,6 +156,8 @@ public interface PartnerService {
 	    */
 		public void update(PartnerNotice partnerNotice, List<MultipartFile> dataMul);
 
+		public void partnerShopUpdate(Partner partner);
+
 
 
 	
