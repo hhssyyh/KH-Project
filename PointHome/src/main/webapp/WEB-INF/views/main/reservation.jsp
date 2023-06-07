@@ -2,12 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     
-    
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>점집닷컴</title>
+
 
 <!-- toss -->
 <script src="https://js.tosspayments.com/v1/payment-widget"></script>
@@ -44,12 +39,9 @@
 .fc-day a {
   text-decoration: none;
 </style>
-</head>
 
 
-
-<body>
-
+<c:import url="/WEB-INF/views/layout/header.jsp" />
 <c:import url="/WEB-INF/views/layout/detailBanner.jsp"/>
 
 <script type="text/javascript">
@@ -88,7 +80,8 @@ document.addEventListener('DOMContentLoaded', function() {
 					   dataType : 'html',       // 데이터 타입 (html, xml, json, text 등등)
 					   data : {  // 보낼 데이터 (Object , String, Array)
 						   resDate : info.dateStr,
-						   partNo : ${param.partNo}
+						   partNo : ${param.partNo},
+					   	   partnerPrice : ${partner.partnerPrice}
 					   }, 
 					   success : function(result) { // 결과 성공 콜백함수
 					        $("#reserveTime").html(result)
@@ -119,10 +112,9 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <div id="calendarDiv">
-<div id='calendar' style="width: 600px; height: 600px; margin: 100px; margin-right: 30px;"></div>
-
-
-<div id="reserveTime" style="width: 500px; height: 500px; padding: 65px;"></div>
+	<div id='calendar' style="width: 600px; height: 600px; margin: 100px; margin-right: 30px;"></div>
+	
+	<div id="reserveTime" style="width: 500px; height: 500px; padding: 20px; padding-top: 60px;"></div>
 </div>
 
 

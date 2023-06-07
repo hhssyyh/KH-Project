@@ -34,8 +34,10 @@ public class PartnerController {
 	@Autowired PartnerService partnerService;
 	
 	@GetMapping("/main")
-	public void main() {
+	public void main(HttpSession session) {
 		
+//		partnerService.getPartnerInfo((Integer)session.getAttribute("partnerNo"));
+			
 		logger.debug("/partner/main[GET]");
 	}
 	
@@ -90,8 +92,16 @@ public class PartnerController {
 		}
 		return "redirect:./login";
 		
-		
 	}
+	
+	@GetMapping("/shopsetting")
+	public void shopsettingGet(HttpSession session, Model model) {
+		Partner partnerInfo = partnerService.getPartnerInfo((Integer)session.getAttribute("partnerNo"));
+		
+		model.addAttribute("partnerInfo", partnerInfo);
+	}
+	
+	
 	
 	@GetMapping("/pages/404-error")
 	public void error() {

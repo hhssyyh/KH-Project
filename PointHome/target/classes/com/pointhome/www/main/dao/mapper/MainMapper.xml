@@ -13,7 +13,25 @@
 	</select>
 	
 	<insert id="insertUserReserveData" parameterType="Reservation">
-		INSERT INTO RESERVATION(RES_NO, PART_NO, RES_DATE ,RES_RESERVENO, USER_NO ,RES_TIME, RES_DIV)
-		VALUES (res_no_seq.nextval, #{partNo}, #{resDate}, #{resReserveno}, #{userNo}, #{resTime}, #{resDiv})
+		INSERT INTO RESERVATION(RES_NO, PART_NO, RES_DATE ,RES_RESERVENO, USER_NO ,RES_TIME, RES_DIV, RES_PRICE)
+		VALUES (res_no_seq.nextval, #{partNo}, #{resDate}, #{resReserveno}, #{userNo}, #{resTime}, #{resDiv}, #{resPrice})
 	</insert>
+	
+	<select id="selectPartnerView" parameterType="int" resultType="Partner">
+		SELECT 
+			partner_nick,
+			partner_email,
+			partner_phone,
+			partner_shopname,
+			partner_type,
+			partner_price
+		FROM partner_tb
+		WHERE partner_no = #{partNo}
+	</select>
 </mapper>
+
+
+
+
+
+

@@ -127,6 +127,13 @@ public interface PartnerDao {
 	public List<Map<String, Object>> selectPartPick(@Param("paging") Paging paging, @Param("userNo") int userNo);
 
 	/**
+	 * 수정할 partner 정보들을 partnerNo으로 select
+	 * 
+	 * @param partnerNo
+	 * @return
+	 */
+	public Partner selectPartnerByPartnerNo(Integer partnerNo);
+
 	 * 파일 삭제
 	 * 
 	 * @param adminNotice - 삭제할 파일의 게시글 번호를 담은 DTO 객체

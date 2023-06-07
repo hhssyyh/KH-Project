@@ -3,7 +3,7 @@
 
 <c:import url="./layout/header.jsp"></c:import>
 
-<div style="padding-bottom: 105px; padding-top:105px; margin-left:16%;">
+<div style="padding-bottom: 105px; padding-top:105px;">
 
 <!-- carosel -->	
 	<div>

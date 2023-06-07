@@ -24,7 +24,7 @@ a {
 </head>
 <body>
 
-<nav class="navbar bg-light fixed-top" style="background-color: #ccc;">
+<nav class="navbar fixed-top" style="background-color: #5758BB;">
 <div class="container-fluid">
   
 <a class="ms-3" href="/">
@@ -58,8 +58,8 @@ a {
     <div>
 		<form class="d-flex" role="search" style="width: 400px; margin: 0 auto;">
 			<input class="form-control me-2" type="search" placeholder="검색">
-			<a href="#" style="color: black;">
-			<i class="bi bi-search" style="font-size: 25px; margin-left: 10px;"></i>
+			<a href="#" style="color: white;">
+				<i class="bi bi-search" style="font-size: 25px; margin-left: 10px;"></i>
 			</a>
 		</form>
     </div>
@@ -67,8 +67,7 @@ a {
     
     <!-- span이 원래 버튼, i로 바꿈 -->
 <!--     <span class="bi bi-list text-dark" style="font-size: 20px;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar"></span> -->
-    <i class="bi bi-list text-dark me-3" style="font-size: 30px;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar"></i>
-    
+    <i class="bi bi-list text-light me-3" style="font-size: 30px;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar"></i>
     
     <!-- 마이페이지, 찜, 예약결제, Real 상담, 자유게시판, 리뷰 -->
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">

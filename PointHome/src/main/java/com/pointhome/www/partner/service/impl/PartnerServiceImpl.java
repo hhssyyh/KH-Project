@@ -66,6 +66,16 @@ public class PartnerServiceImpl implements PartnerService {
 
 		return param;
 	}
+	
+	@Override
+	public Partner getPartnerInfo(Integer partnerNo) {
+		
+		return partnerDao.selectPartnerByPartnerNo(partnerNo);
+	}
+	
+	
+	
+	
 
 	@Override
 	public Paging getPaging(int curPage) {
