@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -14,10 +15,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pointhome.www.main.dto.Reservation;
+import com.pointhome.www.main.dto.Review;
 import com.pointhome.www.main.service.face.MainService;
 import com.pointhome.www.partner.dto.Partner;
+import com.pointhome.www.util.Paging;
 
 @Controller
 public class mainController {
@@ -45,8 +49,17 @@ public class mainController {
 	}
 	
 	@GetMapping("/main/review")
-	public void reviewGet() {
+	public void reviewGet(int partNo, @RequestParam(defaultValue = "0") int curPage, Model model) {
+		Partner partner = mainService.getPartnerView(partNo);
 		
+		Paging paging = mainService.getPaging(curPage, partNo);
+		List<Map<String, Object>> reviewList  = mainService.getReviewList(paging, partNo);
+		
+		logger.debug("+!+!+!+!+!!+{}", reviewList);
+		
+		model.addAttribute("partNo", partNo);
+		model.addAttribute("partner", partner);
+		model.addAttribute("reviewList", reviewList);
 	}
 	
 	@GetMapping("/main/notice")

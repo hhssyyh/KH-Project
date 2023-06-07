@@ -134,6 +134,7 @@ public interface PartnerDao {
 	 */
 	public Partner selectPartnerByPartnerNo(Integer partnerNo);
 
+	/**
 	 * 파일 삭제
 	 * 
 	 * @param adminNotice - 삭제할 파일의 게시글 번호를 담은 DTO 객체
@@ -169,5 +170,22 @@ public interface PartnerDao {
 	    * @param notice - 게시글 정보 담은 DTO
 	    */
 	public void update(PartnerNotice partnerNotice);
+
+	/**
+	 * 제휴사 페이지에서 보여줄 예약 리스트 가져오기
+	 * @param paging 
+	 * 
+	 * @param partNo
+	 * @return
+	 */
+	public List<Map<String, Object>> selectReserveList(@Param("paging") Paging paging, @Param("partNo") Integer partNo);
+
+	/**
+	 * partNo으로 reserve 갯수 select
+	 * 
+	 * @param partNo
+	 * @return
+	 */
+	public int selectCntReservation(int partNo);
 
 }

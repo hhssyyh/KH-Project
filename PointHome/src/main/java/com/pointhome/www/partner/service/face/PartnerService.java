@@ -156,6 +156,24 @@ public interface PartnerService {
 	    */
 		public void update(PartnerNotice partnerNotice, List<MultipartFile> dataMul);
 
+		/**
+		 * 제휴사 페이지에서 보여줄 예약 리스트 가져오기
+		 * @param paging 
+		 * 
+		 * @param attribute
+		 * @return
+		 */
+		public List<Map<String, Object>> getReserveList(Paging paging, int partNo);
+
+		/**
+		 * 제휴사 페이지 예약 리스트 페이징객체 만들기
+		 * 
+		 * @param curPage
+		 * @param partNo
+		 * @return
+		 */
+		public Paging getPaging(int curPage, int partNo);
+
 
 
 	
