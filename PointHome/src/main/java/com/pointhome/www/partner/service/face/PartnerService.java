@@ -3,11 +3,13 @@ package com.pointhome.www.partner.service.face;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.pointhome.www.admin.dto.AdminNotice;
 import com.pointhome.www.partner.dto.Partner;
 import com.pointhome.www.partner.dto.PartnerNotice;
+import com.pointhome.www.partner.dto.PartnerNoticeFile;
 import com.pointhome.www.util.Paging;
 
 public interface PartnerService {
@@ -120,6 +122,39 @@ public interface PartnerService {
 	 * @return
 	 */
 	public Partner getPartnerInfo(Integer partnerNo);
+
+		  /**
+		    * 게시판 글 삭제
+		    * 
+		    * @param partnerNotice- 삭제할 게시판의 객체
+		    */
+		
+		public void delete(PartnerNotice partnerNotice);
+
+		/**
+		    * 게시글 번호를 통한 게시글 정보 조회
+		    * 
+		    * @param noticeNo - 게시글 번호
+		    * @return 게시글 번호에 해당하는 정보 DTO
+		    */
+		public PartnerNotice selectNotice(int partnerNoticeNo);
+		/**
+		    * 게시글 번호에 해당하는 게시글 파일 목록 조회
+		    * 
+		    * @param noticeNo - 게시글 번호
+		    * @return - 게시글 번호에 해당하는 게시글 파일 목록
+		    */
+
+		public List<PartnerNoticeFile> selectNoticeFile(int partnerNoticeNo);
+
+
+		/**
+	    * 게시글 정보와 파일 수정하기
+	    * 
+	    * @param notice - 게시글 DTO
+	    * @param dataMul - 게시글 파일 리스트 DTO
+	    */
+		public void update(PartnerNotice partnerNotice, List<MultipartFile> dataMul);
 
 
 

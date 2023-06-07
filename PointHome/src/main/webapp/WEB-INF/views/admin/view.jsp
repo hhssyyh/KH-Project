@@ -3,7 +3,21 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<c:import url="../layout/adminLayout/adminHeader.jsp" />
+
+
+<%-- 사용자 헤더 (읽기전용)--%>
+<c:if test="${not empty login and login}">
+	<c:import url="/WEB-INF/views/layout/header.jsp" />
+
+</c:if>
+
+<%-- 운영사헤더 --%>
+<c:if test="${not empty adminLogin and adminLogin}">
+	<c:import url="/WEB-INF/views/layout/adminLayout/adminHeader.jsp"/>
+	<c:import url="/WEB-INF/views/layout/adminLayout/sidebar.jsp"/>
+</c:if>
+
+
 
 <style type="text/css">
 div.content {
@@ -87,7 +101,7 @@ div.fr {
 
 <div class="container" style="margin-top: 180px; margin-bottom: 200px;">
 
-<h1 style="text-align: center">게시글 상세보기</h1>
+<h1 style="text-align: center">공지사항</h1>
 <hr>
 <!-- title JSTL로 가지고 오기 -->
 <h3>${view.noticeTitle }</h3>
@@ -107,36 +121,46 @@ ${view.noticeContent }
 <c:forEach var="bfile" items="${file}"><br>
 
 <c:choose>
-<c:when test="${fn:contains(fn:toLowerCase(bfile.admin_file_origin), 'gif') }">
-<img src="/upload/${bfile.admin_file_stored}"  alt="">
+<c:when test="${fn:contains(fn:toLowerCase(bfile.adminFileOrigin), 'gif') }">
+<img src="/upload/${bfile.adminFileStored}"  alt="">
 </c:when>
-<c:when test="${fn:contains(fn:toLowerCase(bfile.admin_file_origin), 'png') }">
-<img src="/upload/${bfile.admin_file_stored}"  alt="">
+<c:when test="${fn:contains(fn:toLowerCase(bfile.adminFileOrigin), 'png') }">
+<img src="/upload/${bfile.adminFileStored}"  alt="">
 </c:when>
-<c:when test="${fn:contains(fn:toLowerCase(bfile.admin_file_origin), 'jpg') }">
-<img src="/upload/${bfile.admin_file_stored}"  alt="">
+<c:when test="${fn:contains(fn:toLowerCase(bfile.adminFileOrigin), 'jpg') }">
+<img src="/upload/${bfile.adminFileStored}"  alt="">
 </c:when>
 
 
 </c:choose>
 
 </c:forEach>
+</div>
 
+<div style="font-size:12px;"  >
 
+<c:choose>
+<c:when test="${!empty file}">
+<hr>
+첨부파일
+<c:forEach var="bfile" items="${file}">
+<a href="./download?fileNo=${bfile.adminFileNo}">${bfile.adminFileOrigin }</a>
+</c:forEach>
+</c:when>
+</c:choose>
+</div>
 
 </div>
 
 
-
 <hr>
 
-<!-- 게시글 수정, 삭제 구현 아직 안함 -->
 
 
  <div class="modal2">
 <div class="modal2_body" >게시글을 삭제하시겠습니까?
 
-<a href="./delete?freeboardNo=${board.freeboardNo}"><button type="button" class="btn btn-outline-primary btn-default btn-xs">확인</button></a>
+<a href="./delete?noticeNo=${view.noticeNo}"><button type="button" class="btn btn-outline-primary btn-default btn-xs">확인</button></a>
 <button type="button" class="btnModalCancle2 btn btn-outline-primary btn-default btn-xs">취소</button>
 </div>
 </div> 
@@ -145,8 +169,8 @@ ${view.noticeContent }
 
 	<a href="./noticelist"><button class="btn btn-secondary">목록</button></a>
 
-<c:if test="${userno eq board.userNo}">
-<a href="./update?freeboardNo=${board.freeboardNo}"><button type="button" class="btn btn-secondary" >수정</button></a>
+<c:if test="${adminNo eq view.adminNo}">
+<a href="./update?noticeNo=${view.noticeNo}"><button type="button" class="btn btn-secondary" >수정</button></a>
 <button type="button" class="btn-reset-popup btn btn-secondary" >삭제</button>
 </c:if> 
 </div>
@@ -157,6 +181,38 @@ ${view.noticeContent }
 <!-- i태그 이미지 >> 사용자 프로필 가져오기 로 코맨트 for each 출력-->
 </div>
 <!-- div.container -->
+
+<script>
+      const body2 = document.querySelector('body');
+      const modal2 = document.querySelector('.modal2');
+      const btnOpenPopup2 = document.querySelector('.btn-reset-popup');
+      const btnModalCancle2 = document.querySelector('.btnModalCancle2');
+      
+
+      btnOpenPopup2.addEventListener('click', () => {
+        modal2.classList.toggle('show');
+
+        if (modal2.classList.contains('show')) {
+          body2.style.overflow = 'hidden';
+        }
+      });
+
+      modal2.addEventListener('click', (event) => {
+        if (event.target === modal2) {
+          modal2.classList.toggle('show');
+
+          if (!modal2.classList.contains('show')) {
+            body2.style.overflow = 'auto';
+          }
+        }
+      });
+      
+      btnModalCancle2.addEventListener('click', (event) => {
+    	  modal2.classList.remove('show'); 
+      });
+      
+      
+    </script>
 
 
 <c:import url="/WEB-INF/views/layout/footer.jsp" />

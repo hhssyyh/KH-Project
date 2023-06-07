@@ -45,4 +45,4 @@ td {
 
 
 
-
+<c:import url="../layout/footer.jsp" />
