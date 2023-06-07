@@ -128,7 +128,7 @@ public class FreeBoardServiceImpl implements FreeBoardService {
    public void insert(FreeBoardComment comment) {
       
       freeBoardDao.insertBoardComment(comment);
-
+      freeBoardDao.insettAlarm(comment);
    }
    
    
@@ -156,6 +156,7 @@ public class FreeBoardServiceImpl implements FreeBoardService {
          
       } else if( isRecommend == 0 ) {
          freeBoardDao.insertRecommend(recommend);
+         freeBoardDao.insertAlertRecom(recommend);
 
       }
    }

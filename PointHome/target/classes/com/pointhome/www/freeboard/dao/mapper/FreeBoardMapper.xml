@@ -90,6 +90,9 @@
       INSERT INTO freeboard_comment (comm_no, freeboard_no, comm_content, user_no)
       VALUES (freeboard_comment_no_seq.nextval, #{freeboardNo},
       #{commContent}, #{userNo})
+    <selectKey resultType="int" keyProperty="commNo" order="AFTER">
+         SELECT * FROM  (SELECT comm_no FROM freeboard_comment ORDER BY comm_no DESC) WHERE ROWNUM = 1
+    </selectKey>   
    </insert>
 
    <select id="getMultiFiles" parameterType="int"
@@ -279,6 +282,26 @@
       )
       WHERE rnum BETWEEN #{paging.startNo} and #{paging.endNo}
    </sql>
+   
+      
+   <insert id="insettAlarm" parameterType="FreeBoardComment">
+	  <selectKey order="BEFORE" resultType="int"
+         keyProperty="userNo">
+         SELECT user_no FROM freeboard WHERE freeboard_no= #{freeboardNo}
+      </selectKey>
+   	insert into user_alert (alert_no,freeboard_no, comm_no, is_read, user_no)
+   	values (user_alert_no_seq.nextval, #{freeboardNo}, #{commNo}, 'N', #{userNo})
+   </insert>
+   
+   <insert id="insertAlertRecom" parameterType="FreeBoardRecommend">
+   	<selectKey order="BEFORE" resultType="int"
+         keyProperty="userNo">
+         SELECT user_no FROM freeboard WHERE freeboard_no= #{boardNo}
+     </selectKey>
+   	insert into user_alert_recommend (alert_recomm_no,freeboard_no, is_read, user_no)
+   	values (user_alert_recomm_no_seq.nextval, #{boardNo}, 'N', #{userNo})
+   </insert>
+   
 </mapper>
 
 

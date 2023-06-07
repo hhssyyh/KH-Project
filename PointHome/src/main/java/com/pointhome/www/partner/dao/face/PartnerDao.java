@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.pointhome.www.partner.dto.Partner;
+import com.pointhome.www.partner.dto.PartnerFile;
 import com.pointhome.www.partner.dto.PartnerNotice;
 import com.pointhome.www.partner.dto.PartnerNoticeFile;
 import com.pointhome.www.util.Paging;
@@ -46,13 +47,8 @@ public interface PartnerDao {
 	 */
 	public Partner selectByPartnerEmailPw(Partner partner);
 
-	public int selectCntAll();
-
-	public List<Partner> selectAll(Paging paging);
-
 	public int selectCntTypeAll(Map<String, Object> pagingMap);
 
-	public List<Partner> selectTypeListAll(Map<String, Object> listMap);
 
 	/**
 	 * 파트너 -> 유저 공지사항 조회
@@ -124,8 +120,6 @@ public interface PartnerDao {
 	 */
 	public Partner selectByPartnerNo(int partnerNo);
 
-	public List<Map<String, Object>> selectPartPick(@Param("paging") Paging paging, @Param("userNo") int userNo);
-
 	/**
 	 * 수정할 partner 정보들을 partnerNo으로 select
 	 * 
@@ -170,5 +164,19 @@ public interface PartnerDao {
 	    * @param notice - 게시글 정보 담은 DTO
 	    */
 	public void update(PartnerNotice partnerNotice);
+	
+	public List<Map<String, Object>> selectPartnerPick(@Param("curPage") int curPage, @Param("paging") Paging paging, @Param("userNo") int userNo, @Param("partnerType") String partnerType);
+
+	public Partner getPartInfo(int partNo);
+
+	public void updatePartner(Partner partner);
+
+	public void deletePartFile(PartnerFile partnerFile);
+
+	public void insertPartFile(PartnerFile partnerFile);
+
+	public PartnerFile getPartnerImg(int partNo);
+
+	
 
 }

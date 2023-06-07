@@ -70,7 +70,6 @@ public class FreeBoardController {
 
       int cntRecommend = freeBoardService.getCntRecommend(freeboardNo);
       
-      
       model.addAttribute("board", board);
       model.addAttribute("boardCommentList", boardCommentList);
       model.addAttribute("commentCnt", boardCommentList.size());
@@ -88,6 +87,7 @@ public class FreeBoardController {
       }
 
       User viewUser = freeBoardService.viewUser(board.getUserNo());
+      
       model.addAttribute("viewUser", viewUser);
 
    }
@@ -125,6 +125,9 @@ public class FreeBoardController {
       }
       
       freeBoardService.insert(comment);
+      
+      logger.info("afdsadfsaaaaaaaa{}",comment);
+      
 
       model.addAttribute("freeboardNo", comment.getFreeboardNo());
       return "redirect:./view";

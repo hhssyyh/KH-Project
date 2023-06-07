@@ -1,6 +1,7 @@
 package com.pointhome.www.mypage.controller;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -11,13 +12,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.pointhome.www.freeboard.dto.FreeBoard;
+import com.pointhome.www.mypage.dto.Alert;
+import com.pointhome.www.mypage.dto.AlertRecomm;
 import com.pointhome.www.mypage.service.face.MypageService;
 import com.pointhome.www.partner.dto.Partner;
+import com.pointhome.www.partner.dto.PartnerFile;
 import com.pointhome.www.partner.service.face.PartnerService;
 import com.pointhome.www.user.dto.User;
 import com.pointhome.www.user.dto.UserFile;
@@ -43,7 +50,8 @@ public class MypageController {
 		logger.debug("res{}",res);
 		model.addAttribute("res", res);
 		
-		
+		int alertCnt = mypageService.getAlertCnt(userno);
+		model.addAttribute( "alertCnt" , alertCnt);
 		
 		UserFile userFile = mypageService.selectImg(userno);
 		logger.info("userFile : {}",userFile);
@@ -82,21 +90,29 @@ public class MypageController {
 	public void myreservedetail() {}
 	
 	@RequestMapping("/mypick")
-	public void mypick(int partnerNo, @RequestParam(defaultValue = "0") int curPage,  Model model, HttpSession session) {
+	public ModelAndView mypick(int partNo, 
+			@RequestParam(defaultValue = "0") int curPage,  
+			Model model, 
+			HttpSession session,
+			ModelAndView mav
+			) {
 
-		
+
 		int userNo = (Integer)session.getAttribute("userno");
+	
+		mypageService.pickUpdate(userNo, partNo);
 		
-		mypageService.pickUpdate(userNo, partnerNo);
+		int isPick = mypageService.isPick(userNo, partNo);
+	
+		if( isPick == 1 ) {
+			mav.addObject("isPick", true);
+		} else {
+			mav.addObject("isPick", false);
+		}
 		
+		mav.setViewName("jsonView");		
 		
-		Paging paging = partnerService.getPaging(curPage);
-//		List<Map<String, Object>> list = partnerService.list(paging, userNo);
-//		
-//		
-//		logger.info("##### v{}", list);
-//		model.addAttribute("list", list);
-		
+		return mav;
 		
 	}
 	
@@ -147,6 +163,67 @@ public class MypageController {
 		return "redirect:/";
 	}
 	
+	@GetMapping("/mypickList")
+	public void mypickList(HttpSession session, Model model) {
+		
+		int userNo = (Integer)session.getAttribute("userno");
+		
+		
+		List<Map<String, Object >> list = mypageService.selectPickList(userNo);
+		
+		logger.info("!!!!!!!!!!!!!!!!{}", list);
+		
+		model.addAttribute( "pickList" , list);
+		
+		
+	}
+	
+	@GetMapping("/myboardList")
+	public void myboardList(HttpSession session, Model model ) {
+		
+		int userNo = (Integer)session.getAttribute("userno");
+		
+		List<FreeBoard> boardList = mypageService.selectboard(userNo);
+		
+		logger.info("{}", boardList);
+		
+		
+		model.addAttribute( "boardList" , boardList);
+		
+		
+	}
+	
+	@GetMapping("/alertList")
+	public void myAlarm(HttpSession session, Model model) {
+		
+		int userNo = (Integer)session.getAttribute("userno");
+			
+		List<Map<String, Object>> alertlist = mypageService.selectAlList(userNo);
+		
+		List<Map<String, Object>> recommlist = mypageService.selectREList(userNo);
+		
+		int alertCnt = mypageService.getAlertCnt(userNo);
+		
+		logger.info("{}", alertlist);
+		logger.info("왜!!!!!!!!!!{}", recommlist);
+
+		model.addAttribute( "alarmList" , alertlist);
+		model.addAttribute( "recommList" , recommlist);
+		model.addAttribute( "alertCnt" , alertCnt);
+		
+	}
+	
+	@RequestMapping("deleteAlert")
+	public ModelAndView deleteAlertCnt(HttpSession session, Model model, ModelAndView mav) {
+
+		int userNo = (Integer)session.getAttribute("userno");
+		mypageService.deleteAlert(userNo);
+		
+		mav.setViewName("jsonView");
+		
+		return mav;
+	
+	}
 	
 	
 	
