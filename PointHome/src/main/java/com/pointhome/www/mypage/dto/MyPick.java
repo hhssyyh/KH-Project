@@ -2,20 +2,30 @@ package com.pointhome.www.mypage.dto;
 
 public class MyPick {
 	
+	private int pickNo;
 	private int userNo;
 	private int partNo;
 
 	public MyPick() {}
 
-	public MyPick(int userNo, int partNo) {
+	public MyPick(int pickNo, int userNo, int partNo) {
 		super();
+		this.pickNo = pickNo;
 		this.userNo = userNo;
 		this.partNo = partNo;
 	}
 
 	@Override
 	public String toString() {
-		return "MyPick [userNo=" + userNo + ", partNo=" + partNo + "]";
+		return "MyPick [pickNo=" + pickNo + ", userNo=" + userNo + ", partNo=" + partNo + "]";
+	}
+
+	public int getPickNo() {
+		return pickNo;
+	}
+
+	public void setPickNo(int pickNo) {
+		this.pickNo = pickNo;
 	}
 
 	public int getUserNo() {
@@ -34,6 +44,7 @@ public class MyPick {
 		this.partNo = partNo;
 	}
 
+	
 	
 	
 

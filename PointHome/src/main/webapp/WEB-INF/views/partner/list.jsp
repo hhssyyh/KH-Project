@@ -26,13 +26,20 @@ function pickPart(th) {
 	$.ajax({
 		   type : 'get',           // 타입 (get, post, put 등등)
 		   url : '/mypage/mypick',  // 요청할 서버url
-		   dataType : 'html',       // 데이터 타입 (html, xml, json, text 등등)
+		   dataType : 'json',       // 데이터 타입 (html, xml, json, text 등등)
 		   data : {  // 보낼 데이터 (Object , String, Array)
-			   partnerNo : $(th).parents(".card").find(".partNo").val()
+			   partNo : $(th).parents(".card").find(".partNo").val()
 		   }, 
 		   success : function(result) { // 결과 성공 콜백함수
 		    	console.log(result)
-		        $("#mypPick").html(result)
+		        if( result.isPick ) { //찜 했음
+					$(th).find("i").toggleClass("bi-heart")
+					$(th).find("i").addClass("bi-heart-fill")
+				} else { //찜 취소
+					$(th).find("i").toggleClass("bi-heart-fill")
+					$(th).find("i").addClass("bi-heart")
+				}
+		   
 		   },
 		   error : function(request, status, error) { // 결과 에러 콜백함수
 		        console.log(error)
@@ -61,7 +68,7 @@ function pickPart(th) {
 							<p class="card-text">가격 ${board.PARTNER_PRICE }</p>
 							<p class="card-text">별점</p>
 							<p class="card-text">후기(?)</p>
-							<a href="./detail?partnerNo=${board.PARTNER_NO}" class="btn btn-primary">상세페이지</a>
+							<a href="/main/detail?partNo=${board.PARTNER_NO}" class="btn btn-primary">상세페이지</a>
 							<span class="pick" >
 								<c:if test="${board.ISPICK eq 0}">
 									<button type="button" onclick="pickPart(this)" class="btn btn-primary"><i class="bi bi-heart"></i></button>

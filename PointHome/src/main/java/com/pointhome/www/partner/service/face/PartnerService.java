@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.pointhome.www.admin.dto.AdminNotice;
 import com.pointhome.www.partner.dto.Partner;
+import com.pointhome.www.partner.dto.PartnerFile;
 import com.pointhome.www.partner.dto.PartnerNotice;
 import com.pointhome.www.partner.dto.PartnerNoticeFile;
 import com.pointhome.www.util.Paging;
@@ -37,19 +38,8 @@ public interface PartnerService {
 	 */
 	public Partner getPartner(Partner partner);
 
-	/**
-	 * 게시글 목록을 위한 페이징 객체 생성
-	 * 
-	 * @param curPage- 현재페이지
-	 * @return - 계산이 완료된 Paging 객체
-	 */
-	public Paging getPaging(int curPage);
-
-	public List<Partner> list(Paging paging);
-
 	public Paging getTypePaging(Map<String, Object> pagingMap);
 
-	public List<Partner> typelist(Map<String, Object> listMap);
 
 	/**
 	 * 공지글 전체 조회
@@ -113,7 +103,7 @@ public interface PartnerService {
 	    */
 	public Partner viewPartner(int partnerNo);
 
-	public List<Map<String, Object>> list(Paging paging, int userNo);
+//	public List<Map<String, Object>> list(Paging paging, int userNo);
 
 	/**
 	 * partnerNo으로 수정할 데이터들 가져오기
@@ -155,6 +145,12 @@ public interface PartnerService {
 	    * @param dataMul - 게시글 파일 리스트 DTO
 	    */
 		public void update(PartnerNotice partnerNotice, List<MultipartFile> dataMul);
+
+		public List<Map<String, Object>> getPartTypePick(int curPage, Paging paging, int userNo, String partnerType);
+
+		public PartnerFile getPartnerFile(int partNo);
+
+		public void imgUpdate(Partner partner, MultipartFile file);
 
 
 

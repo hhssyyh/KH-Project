@@ -1,7 +1,13 @@
 package com.pointhome.www.mypage.service.face;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.web.multipart.MultipartFile;
 
+import com.pointhome.www.freeboard.dto.FreeBoard;
+import com.pointhome.www.mypage.dto.AlertRecomm;
+import com.pointhome.www.partner.dto.Partner;
 import com.pointhome.www.user.dto.User;
 import com.pointhome.www.user.dto.UserFile;
 
@@ -43,6 +49,7 @@ public interface MypageService {
 	 * 
 	 * @param partnerNo - 제휴사 번호
 	 * @param userNo - 회원 번호
+	 * @return 
 	 */
 	public void pickUpdate(int userNo, int partnerNo);
 
@@ -55,6 +62,18 @@ public interface MypageService {
 	 * 
 	 */
 	public int isPick(int userNo, int partnerNo);
+
+	public List<FreeBoard> selectboard(int userNo);
+
+	public List<Map<String, Object>> selectPickList(int userNo);
+
+	public List<Map<String, Object>> selectAlList(int userNo);
+
+	public List<Map<String, Object>> selectREList(int userNo);
+
+	public int getAlertCnt(int userNo);
+
+	public void deleteAlert(int userNo);
 
 	
 
