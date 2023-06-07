@@ -134,6 +134,7 @@ public interface PartnerDao {
 	 */
 	public Partner selectPartnerByPartnerNo(Integer partnerNo);
 
+	/**
 	 * 파일 삭제
 	 * 
 	 * @param adminNotice - 삭제할 파일의 게시글 번호를 담은 DTO 객체
