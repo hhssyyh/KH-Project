@@ -19,7 +19,63 @@ a {
 	color: black;
 	text-decoration: none;
 }
+
+.alarmCount {
+    position: absolute;
+/*     top: -16px; */
+    margin-left: 50px;
+    right: -20px;
+    z-index: 10;
+    min-width: 0px;
+    padding: 0 5px;
+    box-sizing: border-box;
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,.28);
+    border: 1px solid rgba(0,0,0,.04);
+    border-radius: 10px;
+    background-color: #f04433;
+    -ms-transform: translateX(50%);
+    transform: translateX(50%);
+    font-size: 1.1rem;
+    line-height: 18px;
+    font-weight: bold;
+    text-align: center;
+    color: #fff;
+    transform: translate( -50%, -50% );
+}
+
+#alertCk{
+	position: relative;
+}
 </style>
+
+<script type="text/javascript">
+$(function()  {
+$("#alertCnt").on('click', "#alertCk", function() {
+	console.log("click")
+	console.log(${userno})
+	
+	$.ajax({
+		type: 'get',
+		url : '/mypage/deleteAlert',
+		dataType : 'json',
+		data: {
+			userNo: ${userno}
+		},
+		   success : function(result) { // 결과 성공 콜백함수
+			console.log(result)
+		   },
+		   error : function(request, status, error) { // 결과 에러 콜백함수
+		        console.log(error)
+		   }
+	})
+	
+})
+	
+	
+})
+
+
+</script>
 
 </head>
 <body>
@@ -48,11 +104,11 @@ a {
 </a>
     
     
-    <div style="text-align: justify;">
+  <div style="text-align: justify;">
 	    <a class="btn btn-light" href="/partner/list">전체</a>
-	    <a class="btn btn-light" href="/partner/typelist?partnerType=t">타로</a>
-	    <a class="btn btn-light" href="/partner/typelist?partnerType=c">철학</a>
-	    <a class="btn btn-light" href="/partner/typelist?partnerType=s">신점</a>
+	    <a class="btn btn-light" href="/partner/list?partnerType=t">타로</a>
+	    <a class="btn btn-light" href="/partner/list?partnerType=c">철학</a>
+	    <a class="btn btn-light" href="/partner/list?partnerType=s">신점</a>
     </div>
     
     <div>
@@ -63,6 +119,21 @@ a {
 			</a>
 		</form>
     </div>
+    
+    <span id="alertCnt">
+    <c:if test="${not empty sessionScope.login }">
+	<c:choose>
+	<c:when test="${alertCnt eq 0}">
+    <a href="/mypage/alertList" id="alertCk"><img src="../resources/bell.svg" style="width: 20px; height: 20px;">	
+	</c:when>
+	<c:otherwise>
+    <a href="/mypage/alertList" id="alertCk"><img src="../resources/bell.svg" style="width: 20px; height: 20px;">
+    <span class="alarmCount">${alertCnt} </span></a>
+	</c:otherwise>
+	</c:choose>
+    
+    </c:if>
+    </span>
     
     
     <!-- span이 원래 버튼, i로 바꿈 -->
