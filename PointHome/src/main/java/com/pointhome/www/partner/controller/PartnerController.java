@@ -160,35 +160,35 @@ public class PartnerController {
 		
 	}
 		
-	@RequestMapping("/typelist")
-	public void typeList(@RequestParam(defaultValue = "0") int curPage, Model model, String partnerType) {
-
-
-		
-		Map<String, Object> pagingMap = new HashMap<String, Object>();		
-		
-		logger.info("{}",partnerType);
-		
-		pagingMap.put("partnerType", partnerType);
-		pagingMap.put("curPage", curPage);
-	
-		int userNo = (Integer)session.getAttribute("userno");
-		
-		Paging paging  = partnerService.getTypePaging(pagingMap);
-		
-		List<Map<String, Object >> list = partnerService.getPartTypePick(curPage, paging, userNo,partnerType);
-
-		int alertCnt = mypageService.getAlertCnt(userNo);
-		
-		model.addAttribute("partnerType", partnerType);
-		model.addAttribute("list", list);
-		model.addAttribute("paging", paging);
-		model.addAttribute( "alertCnt" , alertCnt);
-		
-		
-		logger.info("!!!!!!!!!!!!!!!!{}", list);
-
-	}
+//	@RequestMapping("/typelist")
+//	public void typeList(@RequestParam(defaultValue = "0") int curPage, Model model, String partnerType) {
+//
+//
+//		
+//		Map<String, Object> pagingMap = new HashMap<String, Object>();		
+//		
+//		logger.info("{}",partnerType);
+//		
+//		pagingMap.put("partnerType", partnerType);
+//		pagingMap.put("curPage", curPage);
+//	
+//		int userNo = (Integer)session.getAttribute("userno");
+//		
+//		Paging paging  = partnerService.getTypePaging(pagingMap);
+//		
+//		List<Map<String, Object >> list = partnerService.getPartTypePick(curPage, paging, userNo,partnerType);
+//
+//		int alertCnt = mypageService.getAlertCnt(userNo);
+//		
+//		model.addAttribute("partnerType", partnerType);
+//		model.addAttribute("list", list);
+//		model.addAttribute("paging", paging);
+//		model.addAttribute( "alertCnt" , alertCnt);
+//		
+//		
+//		logger.info("!!!!!!!!!!!!!!!!{}", list);
+//
+//	}
 	
 	
 	@GetMapping("/detail")

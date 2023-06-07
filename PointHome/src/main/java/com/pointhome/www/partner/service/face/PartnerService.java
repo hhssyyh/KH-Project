@@ -164,6 +164,13 @@ public interface PartnerService {
 		 */
 		public Paging getPaging(int curPage, int partNo);
 
+		/**
+		 * 유저 페이지에 보여줄 것 페이징 객체 만들기
+		 * 
+		 * @param curPage
+		 * @return
+		 */
+		public Paging getPaging(int curPage);
 
 		public void partnerShopUpdate(Partner partner);
 
@@ -172,6 +179,7 @@ public interface PartnerService {
 		public PartnerFile getPartnerFile(int partNo);
 
 		public void imgUpdate(Partner partner, MultipartFile file);
+
 
 
 
