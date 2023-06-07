@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import com.pointhome.www.main.dao.face.MainDao;
 import com.pointhome.www.main.dto.Reservation;
 import com.pointhome.www.main.service.face.MainService;
 import com.pointhome.www.partner.dto.Partner;
+import com.pointhome.www.util.Paging;
 
 @Service
 public class MainServiceImpl implements MainService {
@@ -48,5 +50,18 @@ public class MainServiceImpl implements MainService {
 		return null;
 	}
 	
+	@Override
+	public Paging getPaging(int curPage, int partNo) {
+		int totalPage = mainDao.selectCntReview(partNo);
+		Paging paging = new Paging(totalPage, curPage);
+		
+		return paging;
+	}
+	
+	@Override
+	public List<Map<String, Object>> getReviewList(Paging paging, int partNo) {
+		
+		return mainDao.selectReviewListByPartNo(paging, partNo);
+	}
 	
 }

@@ -51,4 +51,6 @@
 
 <!-- partnerInfo로 정보 select 했고 화면에 보여주면서 수정할 jsp 만들면 됨 -->
 
+</body>
+</html>
 

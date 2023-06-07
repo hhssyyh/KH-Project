@@ -97,6 +97,13 @@ public class PartnerController {
 		
 	}
 	
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		
+		return "redirect:./main";
+	}
+	
 	@GetMapping("/shopsetting")
 	public void shopsettingGet(HttpSession session, Model model) {
 		Partner partnerInfo = partnerService.getPartnerInfo((Integer)session.getAttribute("partnerNo"));
@@ -104,6 +111,16 @@ public class PartnerController {
 		model.addAttribute("partnerInfo", partnerInfo);
 	}
 	
+	@GetMapping("/reservemanage")
+	public void reservemanageGet(HttpSession session, Model model, @RequestParam(defaultValue = "0") int curPage) {
+		logger.debug("!!!!!!!!!!{}", curPage);
+		logger.debug("!!!!!!!!!!!{}", (int)session.getAttribute("partnerNo"));
+		Paging paging = partnerService.getPaging(curPage, (int)session.getAttribute("partnerNo"));
+		List<Map<String, Object>> reserveList = partnerService.getReserveList(paging, (int)session.getAttribute("partnerNo"));
+		
+		model.addAttribute("reserveList", reserveList);
+	}
+
 	@PostMapping("/shopsetting")
 	public String shopsettingPost(HttpSession session, Partner partner) {
 		
@@ -114,6 +131,7 @@ public class PartnerController {
 		
 		return "redirect:./shopsetting";
 	}
+
 	
 	@GetMapping("/pages/404-error")
 	public void error() {

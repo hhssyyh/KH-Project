@@ -61,6 +61,10 @@ body {
 	position: fixed;
 
 }
+
+.nav-link {
+	color: #5758BB;
+}
 </style>
     
 
@@ -71,10 +75,10 @@ body {
 		</li>
 
 		<li class="nav-item">
-			<a class="nav-link" href="/main/review">리뷰</a>
+			<a class="nav-link" href="/main/review?partNo=${partNo }">리뷰</a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" href="/main/partnernotice">공지사항</a>
+			<a class="nav-link" href="/main/partnernotice?partNo=${partNo }">공지사항</a>
 		</li>
 		
 		<li class="nav-item">
