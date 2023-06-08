@@ -68,6 +68,7 @@ nav {
 }
 </style>
 
+<c:if test="${login }">
 <script type="text/javascript">
 $(function()  {
 $("#alertCnt").on('click', "#alertCk", function() {
@@ -96,6 +97,7 @@ $("#alertCnt").on('click', "#alertCk", function() {
 
 
 </script>
+</c:if>
 </head>
 <body>
 
@@ -127,9 +129,9 @@ $("#alertCnt").on('click', "#alertCk", function() {
 <!-- 카테고리 영역 -->
 <div>
 	<a class="category mx-5" href="/partner/list">전체</a>
-	<a class="category mx-5" href="/partner/typelist?partnerType=t">타로</a>
-	<a class="category mx-5" href="/partner/typelist?partnerType=c">철학</a>
-	<a class="category mx-5" href="/partner/typelist?partnerType=s">신점</a>
+	<a class="category mx-5" href="/partner/list?partnerType=t">타로</a>
+	<a class="category mx-5" href="/partner/list?partnerType=c">철학</a>
+	<a class="category mx-5" href="/partner/list?partnerType=s">신점</a>
 </div>
 <!-- 카테고리 영역 -->
 
@@ -278,7 +280,6 @@ $("#alertCnt").on('click', "#alertCk", function() {
 </div>
 </div>
 
-</div>
 </nav>
 
 </body>
