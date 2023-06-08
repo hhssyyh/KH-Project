@@ -14,10 +14,30 @@
 
 <!-- jQuery -->
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+
+<!-- Font모음 css -->
+<link href="/resources/common/css/font.css" rel="stylesheet">
+
 <style type="text/css">
 a {
 	color: black;
 	text-decoration: none;
+}
+
+nav {
+	background-color: white;
+}
+.category{
+	font-family : 'SBAggroM';
+	font-size: 1.8em;
+	color: balck;
+}
+.nav_ment{
+	font-family : 'NotoSansKR-Bold';
+	font-size: 1.5em;
+}
+.offcanvas-body>ul>li>a{
+	font-family : 'SBAggroM';
 }
 
 .alarmCount {
@@ -76,13 +96,13 @@ $("#alertCnt").on('click', "#alertCk", function() {
 
 
 </script>
-
 </head>
 <body>
 
-<nav class="navbar fixed-top" style="background-color: #5758BB;">
+<nav class="navbar fixed-top">
 <div class="container-fluid">
-  
+
+<!-- 로고 영역 -->
 <a class="ms-3" href="/">
     <div style="width:40px; heitght:40px; display: inline-block;">
 	<svg xmlns="http://www.w3.org/2000/svg" version="1.1"xlink="http://www.w3.org/1999/xlink"xmlns:svgjs="http://svgjs.com/svgjs" width="100%" height="100%"viewBox="12.401999473571777 6.422000408172607 75.19662475585938 87.156005859375">
@@ -102,7 +122,23 @@ $("#alertCnt").on('click', "#alertCk", function() {
 	</svg>
 	</div>
 </a>
-    
+<!-- 로고 영역 끝 -->
+  
+<!-- 카테고리 영역 -->
+<div>
+	<a class="category mx-5" href="/partner/list">전체</a>
+	<a class="category mx-5" href="/partner/typelist?partnerType=t">타로</a>
+	<a class="category mx-5" href="/partner/typelist?partnerType=c">철학</a>
+	<a class="category mx-5" href="/partner/typelist?partnerType=s">신점</a>
+</div>
+<!-- 카테고리 영역 -->
+
+<!-- 검색 영역 -->    
+<div>
+	<form class="d-flex" role="search" style="width: 400px; margin: 0 auto;">
+		<input class="form-control me-2" type="search" placeholder="검색">
+		<a href="#" style="color: black;">
+			<i class="bi bi-search" style="font-size: 25px; margin-left: 10px;"></i>
     
   <div style="text-align: justify;">
 	    <a class="btn btn-light" href="/partner/list">전체</a>
@@ -176,54 +212,129 @@ $("#alertCnt").on('click', "#alertCk", function() {
 		<span>
 			로그아웃
 		</span>
-		</a>
-		</c:if>
 
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-      </div>
-      <div class="offcanvas-body">
-        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-        
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
-          </li>
-          
-          <li class="nav-item">
-            <a class="nav-link active" href="#">Link</a>
-          </li>
-          
-          <li class="nav-item">
-            <a class="nav-link active" href="#">Link</a>
-          </li>
-          
-          <li class="nav-item">
-            <a class="nav-link active" href="#">Link</a>
-          </li>
-          
-          <!-- dropdown 부분 -->
-<!--           <li class="nav-item dropdown"> -->
-<!--             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> -->
-<!--               Dropdown -->
-<!--             </a> -->
-<!--             <ul class="dropdown-menu"> -->
-<!--               <li><a class="dropdown-item" href="#">Action</a></li> -->
-<!--               <li><a class="dropdown-item" href="#">Another action</a></li> -->
-<!--               <li> -->
-<!--                 <hr class="dropdown-divider"> -->
-<!--               </li> -->
-<!--               <li><a class="dropdown-item" href="#">Something else here</a></li> -->
-<!--             </ul> -->
-<!--           </li> -->
-        </ul>
-        
-        <!-- 검색 -->
-<!--         <form class="d-flex mt-3" role="search"> -->
-<!--           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> -->
-<!--           <button class="btn btn-outline-success" type="submit">Search</button> -->
-<!--         </form> -->
-      </div>
-    </div>
-  </div>
+		</a>
+	</form>
+</div>
+<!-- 검색 영역 끝 -->    
+
+<!-- 사이드바 햄버거 버튼 -->    
+<i class="bi bi-list text-black me-3" style="font-size: 30px;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar"></i>
+<!-- 사이드바 햄버거 버튼 끝 -->    
+    
+<!-- 마이페이지, 찜, 예약결제, Real 상담, 자유게시판, 리뷰 -->
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+<div class="offcanvas-header bg-dark">
+
+<!-- 로그인하지 않았을때 -->
+<c:if test="${sessionScope.login eq false || sessionScope.login == null }">
+
+<a class="text-white" href="/user/login">
+	<i class="bi bi-person-circle fs-1"></i>
+</a>
+
+<a href="/user/login">
+	<span class="nav_ment nav_link justify-content-start text-white">
+		로그인이 필요합니다.
+	</span>
+</a>
+
+</c:if>
+<!-- 로그인하지 않았을때 끝 -->
+
+<!-- 로그인했을때 -->
+<c:if test="${sessionScope.login eq true}">
+<a class="nav_link text-white" href="/mypage/view">
+	<i class="bi bi-person-circle fs-1"></i>
+</a>
+<a href="/mypage/view">
+	<span class="nav_ment nav_link ustify-content-start fs-5 text-white">
+		${ sessionScope.usernick } 님 환영합니다
+	</span>
+</a>
+</c:if>
+<!-- 로그인했을때 끝 -->
+
+<!-- 닫기 버튼 -->
+<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+<!-- 닫기 버튼 끝 -->
+
+</div>
+
+<div class="offcanvas-body">
+<ul class="navbar-nav flex-grow-1 pe-3 fs-3 mx-3">
+  
+	<li class="nav-item">
+		<i class="bi bi-house-door-fill"></i>
+		<a class="nav-link d-inline" aria-current="page" href="#">홈</a>
+	</li>
+  
+	<li class="nav-item">
+		<i class="bi bi-play-btn-fill" style="color:red;"></i>
+		<a class="nav-link d-inline" href="#">리얼상담 영상</a>
+	</li>
+
+	<!-- 로그인시에만 출력 -->
+	<c:if test="${login}">
+	<li class="nav-item">
+		<i class="bi bi-bag-check-fill"></i>
+		<a class="nav-link d-inline" href="#">나의 찜</a>
+	</li>
+
+	<li class="nav-item">
+		<i class="bi bi-calendar3"></i>
+		<a class="nav-link d-inline" href="#">나의 예약내역</a>
+	</li>
+	</c:if>
+	<!-- 로그인시에만 출력 -->
+  
+	<li class="nav-item"><hr></li>
+</ul>
+	  
+<ul class="navbar-nav flex-grow-1 pe-3 fs-3 mx-3">
+	
+	<li class="nav-item">
+		<i class="bi bi-chat-left-dots-fill" style="color:dark;"></i>
+		<a class="nav-link d-inline" href="#">리뷰 모음</a>
+	</li>
+
+	<li class="nav-item">
+		<i class="bi bi-journal-text"></i>
+		<a class="nav-link d-inline" href="/freeboard/list">자유게시판</a>
+	</li>
+
+	<li class="nav-item">
+		<i class="bi bi-info-circle-fill"></i>
+		<a class="nav-link d-inline" href="#">공지사항</a>
+	</li>
+
+	<li class="nav-item">
+		<i class="bi bi-telephone-fill"></i>
+		<a class="nav-link d-inline" href="#">고객센터</a>
+	</li>
+	
+	<li class="nav-item">
+		<i class="bi bi-pen"></i>
+		<a class="nav-link d-inline" href="#">제휴신청</a>
+	</li>
+  
+	<li class="nav-item"><hr></li>
+</ul>
+
+</div>
+
+<div class="nav_footer mb-3">
+	<c:if test="${sessionScope.login eq true}">
+		<hr>
+		<div class="nav_ment d-grid gap-2 col-10 mx-auto">
+			<a class="btn btn-dark fs-4" href="/user/logout">로그아웃</a>
+		</div>
+	</c:if>
+</div>
+
+</div>
+
+</div>
 </nav>
 
 

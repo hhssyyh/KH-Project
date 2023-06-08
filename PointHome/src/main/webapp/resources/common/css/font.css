@@ -1,0 +1,42 @@
+@charset "UTF-8";
+
+@font-face {
+	font-family : 'BlackHanSans-Regular';
+	src : url('/resources/font/BlackHanSans-Regular.ttf')
+}
+@font-face {
+	font-family : 'NotoSansKR-Black';
+	src : url('/resources/font/NotoSansKR-Black.otf')
+}
+@font-face {
+	font-family : 'NotoSansKR-Bold';
+	src : url('/resources/font/NotoSansKR-Bold.otf')
+}
+@font-face {
+	font-family : 'NotoSansKR-Light';
+	src : url('/resources/font/NotoSansKR-Light.otf')
+}
+@font-face {
+	font-family : 'NotoSansKR-Medium';
+	src : url('/resources/font/NotoSansKR-Medium.otf')
+}
+@font-face {
+	font-family : 'NotoSansKR-Regular';
+	src : url('/resources/font/NotoSansKR-Regular.otf')
+}
+@font-face {
+	font-family : 'NotoSansKR-Thin';
+	src : url('/resources/font/NotoSansKR-Thin.otf')
+}
+@font-face {
+    font-family: 'SBAggroB';
+	src : url('/resources/font/SBAggroB.ttf')
+}
+@font-face {
+    font-family: 'SBAggroL';
+	src : url('/resources/font/SBAggroL.ttf')
+}
+@font-face {
+    font-family: 'SBAggroM';
+	src : url('/resources/font/SBAggroM.ttf')
+}
