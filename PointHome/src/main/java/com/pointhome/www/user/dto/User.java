@@ -25,7 +25,7 @@ public class User {
 	public User(int userNo, String userName, String userPw, String userNick, String userEmail, char userGender,
 			int userBirthYear, int userBirthMonth, int userBirthDay, String userPhone, int userPostCode,
 			String userAddress, String userDetailAddress, String userExtraAddress, Date userJoindate) {
-		super();
+	 	super();
 		this.userNo = userNo;
 		this.userName = userName;
 		this.userPw = userPw;

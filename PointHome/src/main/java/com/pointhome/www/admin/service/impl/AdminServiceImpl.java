@@ -23,7 +23,10 @@ import com.pointhome.www.admin.service.face.AdminService;
 import com.pointhome.www.freeboard.dto.FreeBoard;
 import com.pointhome.www.freeboard.dto.FreeBoardComment;
 import com.pointhome.www.freeboard.dto.FreeBoardFile;
+import com.pointhome.www.partner.dto.Partner;
+import com.pointhome.www.partner.dto.PartnerFile;
 import com.pointhome.www.user.dto.User;
+import com.pointhome.www.user.dto.UserFile;
 import com.pointhome.www.util.Paging;
 
 @Service
@@ -46,15 +49,13 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public List<User> userList() {
-		List<User> list = adminDao.selectAllUser();
+	public List<User> userList(Paging paging, String filter, String searchType,
+	         String keyword) {
+		List<User> list = adminDao.selectAllUser(paging, filter, searchType, keyword);
 		return list;
 	}
 
-	@Override
-	public void admindeleteUser(User userno) {
-		adminDao.deleteUserinfo(userno);
-	}
+	
 
 	@Override
 	public Map<String, Object> userdetail(int userNo) {
@@ -271,10 +272,134 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public void delete(int userno) {
+	public void deleteUser(int userno) {
 
 		adminDao.deleteUserByUserNo(userno);
 	}
 
+
+	@Override
+	public void userupdate(User user, MultipartFile file) {
+		
+		adminDao.updateUser(user);
+
+		if( file.getSize() <= 0 ) {
+			return;
+		}
+		
+		String storedPath = context.getRealPath("upload");
+		File storedFolder = new File(storedPath);
+		if( !storedFolder.exists() ) {
+			storedFolder.mkdir();
+		}
+		
+		
+		
+		String originName = file.getOriginalFilename();
+		String storedName = originName + UUID.randomUUID().toString().split("-")[4];
+		
+		File dest = new File(storedFolder, storedName);
+
+		logger.info("dsaffffffff{}",storedPath);
+		
+		try {
+			file.transferTo(dest);
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		UserFile userFile = new UserFile();
+		userFile.setUserNo(user.getUserNo());
+		userFile.setUserImg(storedName);
+		
+		logger.info("{}", userFile);
+		
+		adminDao.deleteUserFile(userFile);
+		adminDao.insertUserFile(userFile);
+		
+	}
+
+	@Override
+	public UserFile selectImg(int userNo) {
+
+		return adminDao.selectImgByUserno(userNo);
+	}
+
+	@Override
+	public List<Partner> partnerList() {
+		return adminDao.selectAllPartner();
+	}
+
+	@Override
+	public Partner partnerdetail(int partnerNo) {
+		
+		Partner list =adminDao.selectPartnerInfo(partnerNo);
+		return list;
+	}
+
+	@Override
+	public void deletePartner(int partnerNo) {
+
+		adminDao.deletePartnerByPartnerNo(partnerNo);
+	}
+
+	@Override
+	public PartnerFile selectPartnerImg(int partnerNo) {
+
+		return adminDao.selectImgByPartnerno(partnerNo);
 	
+	}
+	
+	@Override
+	public void partnerupdate(Partner partner, MultipartFile file) {
+		
+		adminDao.updatePartner(partner);
+
+		if( file.getSize() <= 0 ) {
+			return;
+		}
+		
+		String storedPath = context.getRealPath("upload");
+		File storedFolder = new File(storedPath);
+		if( !storedFolder.exists() ) {
+			storedFolder.mkdir();
+		}
+		
+		
+		
+		String originName = file.getOriginalFilename();
+		String storedName = originName + UUID.randomUUID().toString().split("-")[4];
+		
+		File dest = new File(storedFolder, storedName);
+
+		logger.info("dsaffffffff{}",storedPath);
+		
+		try {
+			file.transferTo(dest);
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		PartnerFile partnerFile = new PartnerFile();
+		partnerFile.setPartnerNo(partner.getPartnerNo());
+		partnerFile.setPartnerImg(storedName);
+		
+		logger.info("{}", partnerFile);
+		
+		adminDao.deletePartnerFile(partnerFile);
+		adminDao.insertPartnerFile(partnerFile);
+	}
+
+	@Override
+	public Paging getPagingUserManage(int curPage, String filter, String searchType, String keyword) {
+		int totalPage = adminDao.selectCntAll(filter, searchType, keyword);
+	      
+	      Paging paging = new Paging(totalPage, curPage);
+	      
+	      return paging;
+	}
 }

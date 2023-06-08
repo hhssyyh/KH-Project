@@ -35,7 +35,9 @@
 	    </h2>
 	    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
 	      <div class="accordion-body"><a href="./shopsetting">상점수정</a></div>
+	       <div class="accordion-body"><a href="./videomanage">영상관리</a></div> <!-- 추가 -->
 	    </div>
+	    
 	  </div>
 	  <!-- #2 -->
 	  <div class="accordion-item">

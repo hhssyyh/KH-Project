@@ -73,69 +73,20 @@
  		WHERE pf.partner_no(+) = B.partner_no
 	</select>
 
-<!-- 	<select id="selectAlarmList" resultType="Map" parameterType="int"> -->
-<!-- 		SELECT C.comm_content  -->
-<!--         ,B.* -->
-<!--         ,A.* -->
-<!--         FROM freeboard_comment C, freeboard B, user_alert A -->
-<!--         WHERE B.user_no = #{userNo} -->
-<!--         AND A.user_no = #{userNo} -->
-<!--     	AND B.freeboard_no = A.freeboard_no -->
-<!--         AND C.comm_no = A.comm_no order by alert_no desc -->
-<!-- 	</select> -->
+	<select id="selectAlarmList" resultType="Map" parameterType="int">
+	select * from user_alert where user_no = #{userNo} order by alert_no desc
+	</select>
 	
-<!-- 	<select id="selectReList" resultType="Map" parameterType="int"> -->
-<!-- 		SELECT B.freeboard_title -->
-<!--         ,R.* -->
-<!--         FROM  -->
-<!--         user_alert_recommend R, freeboard B -->
-<!--         where R.user_no = #{userNo} -->
-<!--         AND B.freeboard_no = R.freeboard_no order by alert_recomm_no desc -->
-<!-- 	</select> -->
-	
-<!-- 	<select id="selectAlertCnt" parameterType="int" resultType="int"> -->
-<!--         select sum (T.cnt) from -->
-<!--        ( select count(*) AS cnt from user_alert where user_no = #{userNo} and is_read ='N' -->
-<!--         union all -->
-<!--         select count(*) AS cnt from user_alert_recommend where user_no = #{userNo} and is_read ='N') T -->
-<!-- 	</select> -->
+	<select id="selectAlertCnt" parameterType="int" resultType="int">
+       select count(*) from user_alert where user_no = #{userNo} and is_read ='N'
+	</select>
 	
 <!-- 	<update id="deleteAlertByUserno" parameterType="int"> -->
 <!-- 		 UPDATE user_alert set is_read = 'Y' where user_no = #{userNo} -->
 <!-- 	</update> -->
-	
-<!-- 	<update id="deleteAlertReByUserno" parameterType="int"> -->
-<!-- 		 UPDATE user_alert_recommend set is_read = 'Y' where user_no = #{userNo} -->
-<!-- 	</update> -->
 
-
-		<!-- 알람 새로한 부분 -->
-		<select id="selectAlarmList" resultType="Map" parameterType="int">
-	   select * from user_alert where user_no = #{userNo} order by alert_no desc
-	   <if test="user_no == 0">
-	   select * from partner_notice P,
-	   (select * from partner_pick where user_no = 111) U
-	   where U.part_no = P.partner_no
-	   </if>
-	   </select>
-	   
-	
-	   
-	   <select id="selectAlertCnt" parameterType="int" resultType="int">
-	<!--         select sum (T.cnt) from -->
-	<!--        (  -->
-	       select count(*) from user_alert where user_no = #{userNo} and is_read ='N'
-	<!--         union all -->
-	<!--         select count(*) AS cnt from user_alert_recommend where user_no = #{userNo} and is_read ='N') T -->
-	   </select>
-	   
-	   <update id="deleteAlertByUserno" parameterType="int">
-	       UPDATE user_alert set is_read = 'Y' where user_no = #{userNo}
-	   </update>
-	   
-	<!--    <update id="deleteAlertReByUserno" parameterType="int"> -->
-	<!--        UPDATE user_alert_recommend set is_read = 'Y' where user_no = #{userNo} -->
-	<!--    </update> -->
-
+	<select id="selectReserveList" parameterType="int" resultType="Reservation">
+		SELECT * FROM reservation WHERE user_no = #{userNo}
+	</select>
 	
 </mapper>

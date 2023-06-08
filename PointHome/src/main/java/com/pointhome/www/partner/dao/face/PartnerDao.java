@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.pointhome.www.main.dto.Reservation;
+import com.pointhome.www.mypage.dto.MyPick;
+
 import com.pointhome.www.partner.dto.Partner;
 import com.pointhome.www.partner.dto.PartnerFile;
 import com.pointhome.www.partner.dto.PartnerNotice;
@@ -197,6 +199,10 @@ public interface PartnerDao {
 	public void insertPartFile(PartnerFile partnerFile);
 
 	public PartnerFile getPartnerImg(int partNo);
+	
+	public List<MyPick> selectPickList(PartnerNotice partnerNotice);
+	
+	public void insertNoticeAlert(@Param("partnerNotice") PartnerNotice partnerNotice, @Param("pickUser") MyPick mp);
 
 	/**
 	 * 파트너 페이지에서 예약 update

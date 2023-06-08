@@ -5,6 +5,42 @@
 <c:import url="../layout/header.jsp"/>
 <link href="/resources/join/user/css/join.css" rel="stylesheet">
 
+<script type="text/javascript">
+$( () => {
+	//이메일주소 가져오기
+	$("#Email").blur(function(){
+	   email();   
+	});
+	
+	$("#userEmailSelect").change(function(){
+	   email();
+	});
+
+})
+
+function email() {
+	let email = $("#Email").val().trim();
+	let address =  $("#userEmailSelect").val();
+	
+	if (address == '직접입력') {
+		address = '';	
+	}
+	
+	if(address != '' && email.includes('@')) {
+		var res = email.indexOf("@")
+		console.log("res : " + res)
+		
+		const new_email = email.substring(0, res);
+		console.log("new_email : " + new_email)
+		
+		$("#userEmail").val(new_email + address);
+		$("#Email").val(new_email);
+		
+	}else{
+		$("#userEmail").val(email + address);
+	}
+};
+</script>
 <!-- 전체 배경화면 색 설정 -->
 <div class="bg-light">
 <!-- 전체 배경화면 색 설정 끝 -->
@@ -21,7 +57,7 @@
 
 	<!-- 로고 -->
 	<div class="h1 mt-5 mb-5">
-		<a class="navbar-brand h1 text-center col-5" href="/">PointHome</a>
+		<a class="navbar-brand h1 text-center col-5" href="/">운기칠삼</a>
 	</div>
 	<!-- 로고 시작 끝 -->
 
@@ -41,15 +77,15 @@
 	<div class="row g-2 mb-3">
 		<div class="col-5">
 			<div class="form-floating">
-				<input type="email" class="form-control" name="userEmail" id="userEmail" placeholder="이메일" value="${userInfo.userEmail}" readonly="readonly">
-				<label for="userEmail">이메일</label>
+				<input type="text" class="form-control" name="Email" id="Email" placeholder="이메일" value="${userInfo.userEmail}" readonly="readonly">
+				<label for="Email">이메일</label>
 			</div>
 		</div>
 		
 		<div class="col-4">
 			<div class="form-floating">
 				<select class="form-select" name="userEmailSelect" id="userEmailSelect">
-					<option selected>직접입력</option>
+					<option value="" selected>직접입력</option>
 					<option value="@gmail.com">@gmail.com</option>
 					<option value="@naver.com">@naver.com</option>
 					<option value="@hanmail.net">@hanmail.net</option>
@@ -57,11 +93,15 @@
 				<label for="userEmailSelect">선택</label>
 			</div>
 		</div>
+
+		<input type="email" class="form-control" name="userEmail" id="userEmail" placeholder="이메일" value="${userInfo.userEmail}" readonly="readonly">
+		
 		<div class="col-3">
 			<div class="form-floating">
 				<button type="button" class="btn btn-primary btn-lg">중복 확인</button>
 			</div>
 		</div>
+		
 	</div>
 	</c:if>
 	<!-- 소셜 로그인일 경우 -->
@@ -71,11 +111,11 @@
 	<div class="row g-2 mb-3">
 		<div class="col-5">
 			<div class="form-floating">
-				<input type="email" class="form-control" name="userEmail" id="userEmail" placeholder="이메일">
-				<label for="userEmail">이메일</label>
+				<input type="email" class="form-control" name="Email" id="Email" placeholder="이메일">
+				<label for="Email">이메일</label>
 			</div>
 		</div>
-		
+	
 		<div class="col-4">
 			<div class="form-floating">
 				<select class="form-select" name="userEmailSelect" id="userEmailSelect">
@@ -87,6 +127,9 @@
 				<label for="userEmailSelect">선택</label>
 			</div>
 		</div>
+		
+		<input type="text" class="form-control" name="userEmail" id="userEmail" placeholder="이메일">
+	
 		<div class="col-3">
 			<div class="form-floating">
 				<button type="button" class="btn btn-primary btn-lg">중복 확인</button>

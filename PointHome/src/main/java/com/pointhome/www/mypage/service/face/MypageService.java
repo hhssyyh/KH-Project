@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.pointhome.www.freeboard.dto.FreeBoard;
+import com.pointhome.www.main.dto.Reservation;
 import com.pointhome.www.mypage.dto.AlertRecomm;
 import com.pointhome.www.partner.dto.Partner;
 import com.pointhome.www.user.dto.User;
@@ -69,11 +70,14 @@ public interface MypageService {
 
 	public List<Map<String, Object>> selectAlList(int userNo);
 
-	public List<Map<String, Object>> selectREList(int userNo);
+//	public List<Map<String, Object>> selectREList(int userNo);
 
 	public int getAlertCnt(int userNo);
 
 	public void deleteAlert(int userNo);
+
+	public List<Reservation> selectReserve(int userNo);
+
 
 	
 
