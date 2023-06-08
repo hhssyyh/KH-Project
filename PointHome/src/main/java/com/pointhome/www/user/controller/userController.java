@@ -73,9 +73,10 @@ public class userController {
 	}
 
 	@PostMapping("/user/login")
-	public String loginProc(User Param, HttpSession session) {
+	public String loginProc(User Param, HttpSession session, String keepLogin) {
 		logger.debug("/user/login [POST]");
-		logger.debug("{}", Param);
+		logger.debug("Param :{}", Param);
+		logger.debug("keepLogin : {}", keepLogin);
 		
 		Boolean login = userService.isLogin(Param);
 		
@@ -90,6 +91,7 @@ public class userController {
 			session.setAttribute("userno", user.getUserNo());
 			session.setAttribute("usernick", user.getUserNick());
 			session.setAttribute("type", "u");
+			session.setAttribute("keepLogin", keepLogin);
 			
 			return "redirect:/";
 		}
@@ -106,6 +108,8 @@ public class userController {
 		logger.debug("socialType : {}", socialType);
 		
 		if (socialType == null) {
+			logger.debug("일반로그아웃");
+			session.invalidate();
 			
 		} else {
 			
@@ -123,7 +127,6 @@ public class userController {
 		}
 		
 			
-		session.invalidate();
 		
 		return "redirect:/";
 	}

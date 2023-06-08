@@ -66,7 +66,7 @@ body {
 <div class="row">
 
 <div class="form-check form-switch col">
-	<input class="form-check-input mb-3" type="checkbox" role="switch" id="keepLogin" checked>
+	<input class="form-check-input mb-3" type="checkbox" role="switch" name="keepLogin" id="keepLogin" value="Y" checked>
 	<label class="form-check-label" for="keepLogin">로그인 상태 유지</label>
 </div>
 
