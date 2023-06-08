@@ -3,9 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-
 <mapper namespace="com.pointhome.www.partner.dao.face.PartnerDao">
-
 
 	<insert id="insertPartner" parameterType="Partner">
 		insert into Partner_tb	(
@@ -63,11 +61,19 @@
 	</select> 
 
 	<select id="selectByPartnerEmailPw" resultType="Partner" parameterType="Partner">
-	
 		select partner_no from partner_tb
 		where partner_email=#{partnerEmail} and partner_pw =#{partnerPw}
-	
 	</select>
+	
+	<update id="updateReservation">
+		UPDATE reservation
+		SET res_date = #{resDate},
+			res_time = #{resTime},
+			res_div = #{resDiv}
+		WHERE res_no = #{resNo}
+	</update>
+	
+	
 	
 	<select id="selectPartnerByPartnerNo" parameterType="int" resultType="Partner">
 		SELECT 
@@ -80,6 +86,26 @@
 			PARTNER_LONGITUDE
 		FROM partner_tb
 		WHERE partner_no = #{partNo}
+	</select>
+	
+	<select id="selectCntReservation" parameterType="int" resultType="int">
+		SELECT count(*) FROM reservation
+		WHERE part_no = #{partNo}
+	</select>
+
+	<select id="selectReserveList" parameterType="map" resultType="map">
+		SELECT * FROM (
+		    SELECT rownum rnum, R.* 
+		    FROM (
+		        SELECT re.* ,user_name, user_email
+		        FROM user_tb u, reservation re 
+		        WHERE re.part_no = #{partNo}
+		        	AND u.user_no = re.user_no 
+		        ORDER BY res_no DESC
+		    ) R
+		    ORDER BY rnum
+		)
+		WHERE rnum BETWEEN #{paging.startNo} AND #{paging.endNo}
 	</select>
 	
 	

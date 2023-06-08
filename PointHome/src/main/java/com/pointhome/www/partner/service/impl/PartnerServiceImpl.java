@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.pointhome.www.main.dto.Reservation;
 import com.pointhome.www.mypage.dto.MyPick;
 import com.pointhome.www.partner.dao.face.PartnerDao;
 import com.pointhome.www.partner.dto.Partner;
@@ -58,6 +59,14 @@ public class PartnerServiceImpl implements PartnerService {
 			return false;
 		}
 	}
+	
+	
+	@Override
+	public void updateReservation(Reservation reservation) {
+		partnerDao.updateReservation(reservation);
+	}
+	
+	
 
 	@Override
 	public Partner getPartner(Partner partner) {
@@ -341,4 +350,22 @@ public class PartnerServiceImpl implements PartnerService {
 		return partnerDao.getPartnerImg(partNo);
 	}
 	
+	@Override
+	public Paging getPaging(int curPage, int partNo) {
+		int totalPage = partnerDao.selectCntReservation(partNo);
+		Paging paging = new Paging(totalPage, curPage);
+
+		return paging;
+	}
+
+	@Override
+	public List<Map<String, Object>> getReserveList(Paging paging, int partNo) {
+
+		return partnerDao.selectReserveList(paging, partNo);
+	}
+	
+	@Override
+	public void partnerShopUpdate(Partner partner) {
+		
+	}
 }
