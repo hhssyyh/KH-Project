@@ -1,6 +1,15 @@
 package com.pointhome.www.mypage.dao.face;
 
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Param;
+
+import com.pointhome.www.freeboard.dto.FreeBoard;
+import com.pointhome.www.main.dto.Reservation;
+import com.pointhome.www.mypage.dto.AlertRecomm;
 import com.pointhome.www.mypage.dto.MyPick;
+import com.pointhome.www.partner.dto.Partner;
 import com.pointhome.www.user.dto.User;
 import com.pointhome.www.user.dto.UserFile;
 
@@ -71,5 +80,25 @@ public interface MypageDao {
 	 * @param myPick - 회원 번호와 제휴사 번호를 담은 DTO
 	 */
 	public void deletePick(MyPick myPick);
+
+	public List<FreeBoard> selectBoardByUserNo(int userNo);
+
+	public List<Map<String, Object>> getPickList(int userNo);
+
+	public List<Map<String, Object>> selectAlarmList(int userNo);
+
+//	public List<Map<String, Object>> selectReList(int userNo);
+
+	public int selectAlertCnt(int userNo);
+
+	public void deleteAlertByUserno(int userNo);
+
+	public void deleteAlertReByUserno(int userNo);
+
+	public List<Reservation> selectReserveList(int userNo);
+
+	
+
+	
 
 }

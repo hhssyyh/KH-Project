@@ -23,6 +23,7 @@ a {
 	color: black;
 	text-decoration: none;
 }
+
 nav {
 	background-color: white;
 }
@@ -38,7 +39,63 @@ nav {
 .offcanvas-body>ul>li>a{
 	font-family : 'SBAggroM';
 }
+
+.alarmCount {
+    position: absolute;
+/*     top: -16px; */
+    margin-left: 50px;
+    right: -20px;
+    z-index: 10;
+    min-width: 0px;
+    padding: 0 5px;
+    box-sizing: border-box;
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,.28);
+    border: 1px solid rgba(0,0,0,.04);
+    border-radius: 10px;
+    background-color: #f04433;
+    -ms-transform: translateX(50%);
+    transform: translateX(50%);
+    font-size: 1.1rem;
+    line-height: 18px;
+    font-weight: bold;
+    text-align: center;
+    color: #fff;
+    transform: translate( -50%, -50% );
+}
+
+#alertCk{
+	position: relative;
+}
 </style>
+
+<script type="text/javascript">
+$(function()  {
+$("#alertCnt").on('click', "#alertCk", function() {
+	console.log("click")
+	console.log(${userno})
+	
+	$.ajax({
+		type: 'get',
+		url : '/mypage/deleteAlert',
+		dataType : 'json',
+		data: {
+			userNo: ${userno}
+		},
+		   success : function(result) { // 결과 성공 콜백함수
+			console.log(result)
+		   },
+		   error : function(request, status, error) { // 결과 에러 콜백함수
+		        console.log(error)
+		   }
+	})
+	
+})
+	
+	
+})
+
+
+</script>
 </head>
 <body>
 
@@ -66,7 +123,7 @@ nav {
 	</div>
 </a>
 <!-- 로고 영역 끝 -->
-    
+  
 <!-- 카테고리 영역 -->
 <div>
 	<a class="category mx-5" href="/partner/list">전체</a>
@@ -82,6 +139,80 @@ nav {
 		<input class="form-control me-2" type="search" placeholder="검색">
 		<a href="#" style="color: black;">
 			<i class="bi bi-search" style="font-size: 25px; margin-left: 10px;"></i>
+    
+  <div style="text-align: justify;">
+	    <a class="btn btn-light" href="/partner/list">전체</a>
+	    <a class="btn btn-light" href="/partner/list?partnerType=t">타로</a>
+	    <a class="btn btn-light" href="/partner/list?partnerType=c">철학</a>
+	    <a class="btn btn-light" href="/partner/list?partnerType=s">신점</a>
+    </div>
+    
+    <div>
+		<form class="d-flex" role="search" style="width: 400px; margin: 0 auto;">
+			<input class="form-control me-2" type="search" placeholder="검색">
+			<a href="#" style="color: white;">
+				<i class="bi bi-search" style="font-size: 25px; margin-left: 10px;"></i>
+			</a>
+		</form>
+    </div>
+    
+    <span id="alertCnt">
+    <c:if test="${not empty sessionScope.login }">
+	<c:choose>
+		<c:when test="${alertCnt eq 0}">
+		    <a href="/mypage/alertList" id="alertCk"><img src="../resources/bell.svg" style="width: 20px; height: 20px;"></a>	
+		</c:when>
+		<c:otherwise>
+		    <a href="/mypage/alertList" id="alertCk">
+			    <img src="../resources/bell.svg" style="width: 20px; height: 20px;">
+			    <span class="alarmCount">${alertCnt} </span>
+		    </a>
+		</c:otherwise>
+	</c:choose>
+    
+    </c:if>
+    </span>
+    
+    
+    <!-- span이 원래 버튼, i로 바꿈 -->
+<!--     <span class="bi bi-list text-dark" style="font-size: 20px;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar"></span> -->
+    <i class="bi bi-list text-light me-3" style="font-size: 30px;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar"></i>
+    
+    <!-- 마이페이지, 찜, 예약결제, Real 상담, 자유게시판, 리뷰 -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+      <div class="offcanvas-header">
+
+		<c:if test="${sessionScope.login eq false || sessionScope.login == null }">
+		<a href="/user/login">
+		<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+		  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+		  <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+		</svg>
+		</a>
+		<a href="/user/login">
+		<span class="justify-content-start">
+			로그인이 필요합니다.
+		</span>
+		</a>
+		</c:if>
+
+		<c:if test="${sessionScope.login eq true}">
+		<a href="/mypage/view">
+		<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+		  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+		  <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+		</svg>
+		</a>
+		<a href="/mypage/view">
+		<span>
+			${ sessionScope.usernick } 님 환영합니다
+		</span>
+		</a>
+		<a href="/user/logout">
+		<span>
+			로그아웃
+		</span>
+
 		</a>
 	</form>
 </div>

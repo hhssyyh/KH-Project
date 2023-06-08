@@ -90,6 +90,9 @@
       INSERT INTO freeboard_comment (comm_no, freeboard_no, comm_content, user_no)
       VALUES (freeboard_comment_no_seq.nextval, #{freeboardNo},
       #{commContent}, #{userNo})
+    <selectKey resultType="int" keyProperty="commNo" order="AFTER">
+         SELECT * FROM  (SELECT comm_no FROM freeboard_comment ORDER BY comm_no DESC) WHERE ROWNUM = 1
+    </selectKey>   
    </insert>
 
    <select id="getMultiFiles" parameterType="int"
@@ -279,6 +282,47 @@
       )
       WHERE rnum BETWEEN #{paging.startNo} and #{paging.endNo}
    </sql>
+   
+      
+   <select id="selectTitleByFreeboardNo" parameterType="FreeBoardComment" resultType="String">
+   	SELECT freeboard_title FROM freeboard WHERE freeboard_no = #{freeboardNo}
+   </select>
+      
+   <insert id="insettAlarm" parameterType="Map">
+	  <selectKey order="BEFORE" resultType="int"
+         keyProperty="userNo">
+         SELECT user_no FROM freeboard WHERE freeboard_no= #{comment.freeboardNo}
+      </selectKey>
+   	insert into user_alert (alert_no, user_no, is_read, content, num, type)
+   	values 
+   	(user_alert_no_seq.nextval, 
+   	#{userNo}, 
+   	'N', 
+   	'자유게시판 게시글 [${freeboardTitle}]에 댓글[${comment.commContent}] 가 달렸습니다', 
+   	#{comment.freeboardNo}, 
+   	'C'  )
+   </insert>
+   
+   <select id="selectTitleByFreeboardReNo" parameterType="FreeBoardRecommend" resultType="String">
+   		SELECT freeboard_title FROM freeboard WHERE freeboard_no = #{boardNo}
+   </select>
+   
+   <insert id="insertAlertRecom" parameterType="Map">
+	  <selectKey order="BEFORE" resultType="int"
+         keyProperty="userNo">
+         SELECT user_no FROM freeboard WHERE freeboard_no= #{recommend.boardNo}
+      </selectKey>
+   	insert into user_alert (alert_no, user_no, is_read, content, num, type)
+   	values 
+   	(user_alert_no_seq.nextval, 
+   	#{userNo}, 
+   	'N', 
+   	'자유게시판 게시글 [${freeboardTitle}]이 추천되었습니다', 
+   	#{recommend.boardNo}, 
+   	'R'  )
+   </insert>
+   
+   
 </mapper>
 
 

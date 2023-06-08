@@ -19,6 +19,7 @@
 	<h4>예약관리</h4>
 	<hr id="line">
 	
+	
 <table class="table">
   <thead>
     <tr>
@@ -29,6 +30,15 @@
       <th scope="col">예약현황</th>
     </tr>
   </thead>
+  
+  <c:forEach var="list" items="reservelist">
+      <th scope="row">1</th>
+      <td>해성동자</td>
+      <td>list.resDate</td>
+      <td>1234-1234</td>
+      <td>예약완료</td>
+  
+  </c:forEach>
   <tbody class="table-group-divider">
     <tr>
       <th scope="row">1</th>
