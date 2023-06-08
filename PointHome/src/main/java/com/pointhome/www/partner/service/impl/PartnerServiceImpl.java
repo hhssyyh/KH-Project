@@ -364,8 +364,4 @@ public class PartnerServiceImpl implements PartnerService {
 		return partnerDao.selectReserveList(paging, partNo);
 	}
 	
-	@Override
-	public void partnerShopUpdate(Partner partner) {
-		
-	}
 }
