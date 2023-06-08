@@ -25,13 +25,7 @@ public interface MainService {
 	 * @return
 	 */
 	public Partner getPartnerView(int partNo);
-	/**
-	 * 유저 이름 조회
-	 * @param userNo - 로그인한 유저의 session 값
-	 * @return 유저의 이름
-	 */
-	public String getUserName(int userNo);
-
+	
 	/**
 	 * 리뷰리스트 페이징
 	 * 
@@ -40,7 +34,7 @@ public interface MainService {
 	 * @return
 	 */
 	public Paging getPaging(int curPage, int partNo);
-	
+
 	/**
 	 * 해당 제휴사의 리뷰 리스트 가져오기
 	 * @param paging 
@@ -49,6 +43,5 @@ public interface MainService {
 	 * @return 리뷰 정보와 유저 닉네임
 	 */
 	public List<Map<String, Object>> getReviewList(Paging paging, int partNo);
-
 
 }

@@ -37,12 +37,12 @@ body {
 }
 
 #toptab {
-	margin-top: 100px;
+	margin-top: 120px;
 }
 
 #container{
 	margin: 0 auto;
-	margin-top: 154px;
+	margin-top: 20px;
  	background-color: #5758BB; 
 	width:80%; 
 	height:350px;
@@ -64,11 +64,12 @@ body {
 
 .nav-link {
 	color: #5758BB;
+	font-weight: bold;
 }
 </style>
     
 
-<div id="toptab" class="fixed-top">
+<div id="toptab">
 	<ul class="nav justify-content-center">
 		<li class="nav-item">
 			<a class="nav-link active" aria-current="page" href="/main/detail?partNo=${partNo }">상세페이지</a>

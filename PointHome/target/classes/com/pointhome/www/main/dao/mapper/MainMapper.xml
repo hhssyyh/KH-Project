@@ -7,7 +7,7 @@
   
 <mapper namespace="com.pointhome.www.main.dao.face.MainDao">
 
-	<select id="selectReserveTime" resultType="list" parameterType="Reservation">
+	<select id="selectReserveTime" resultType="String" parameterType="Reservation">
 		SELECT res_time FROM reservation
 		WHERE res_date = #{resDate} AND part_no = #{partNo}
 	</select>
@@ -24,9 +24,7 @@
 			partner_phone,
 			partner_shopname,
 			partner_type,
-			partner_price,
-			partner_address,
-			partner_detailaddress
+			partner_price
 		FROM partner_tb
 		WHERE partner_no = #{partNo}
 	</select>
@@ -35,7 +33,7 @@
 		SELECT count(*) FROM review
 		WHERE part_no = #{partNo}
 	</select>
-	
+
 	<select id="selectReviewListByPartNo" parameterType="map" resultType="map">
 		SELECT * FROM (
 			SELECT rownum rnum, R.* FROM (
@@ -47,6 +45,7 @@
 		)
 		WHERE rnum BETWEEN #{paging.startNo} and #{paging.endNo}
 	</select>
+	
 </mapper>
 
 

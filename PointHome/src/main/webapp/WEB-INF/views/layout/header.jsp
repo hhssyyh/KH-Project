@@ -123,13 +123,15 @@ $("#alertCnt").on('click', "#alertCk", function() {
     <span id="alertCnt">
     <c:if test="${not empty sessionScope.login }">
 	<c:choose>
-	<c:when test="${alertCnt eq 0}">
-    <a href="/mypage/alertList" id="alertCk"><img src="../resources/bell.svg" style="width: 20px; height: 20px;">	
-	</c:when>
-	<c:otherwise>
-    <a href="/mypage/alertList" id="alertCk"><img src="../resources/bell.svg" style="width: 20px; height: 20px;">
-    <span class="alarmCount">${alertCnt} </span></a>
-	</c:otherwise>
+		<c:when test="${alertCnt eq 0}">
+		    <a href="/mypage/alertList" id="alertCk"><img src="../resources/bell.svg" style="width: 20px; height: 20px;"></a>	
+		</c:when>
+		<c:otherwise>
+		    <a href="/mypage/alertList" id="alertCk">
+			    <img src="../resources/bell.svg" style="width: 20px; height: 20px;">
+			    <span class="alarmCount">${alertCnt} </span>
+		    </a>
+		</c:otherwise>
 	</c:choose>
     
     </c:if>

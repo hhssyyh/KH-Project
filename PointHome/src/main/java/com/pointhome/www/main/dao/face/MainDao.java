@@ -22,7 +22,7 @@ public interface MainDao {
 	 * @return
 	 */
 	public Partner selectPartnerView(int partNo);
-
+	
 	/**
 	 * partNo에 해당하는 리뷰 개수 가져오기
 	 * 
@@ -30,7 +30,7 @@ public interface MainDao {
 	 * @return
 	 */
 	public int selectCntReview(int partNo);
-	
+
 	/**
 	 * partNo으로 리뷰와 유저 닉네임의 리스트 뽑기
 	 * @param paging 
@@ -40,7 +40,5 @@ public interface MainDao {
 	 */
 	public List<Map<String, Object>> selectReviewListByPartNo(@Param("paging") Paging paging, @Param("partNo") int partNo);
 
-	
-	
 
 }

@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.pointhome.www.main.dto.Reservation;
 import com.pointhome.www.partner.dto.Partner;
 import com.pointhome.www.partner.dto.PartnerFile;
 import com.pointhome.www.partner.dto.PartnerNotice;
@@ -49,6 +50,26 @@ public interface PartnerDao {
 
 	public int selectCntTypeAll(Map<String, Object> pagingMap);
 
+	
+	
+	/**
+	 * 제휴사 페이지에서 보여줄 예약 리스트 가져오기
+	 * @param paging 
+	 * 
+	 * @param partNo
+	 * @return
+	 */
+	public List<Map<String, Object>> selectReserveList(@Param("paging") Paging paging, @Param("partNo") Integer partNo);
+
+	/**
+	 * partNo으로 reserve 갯수 select
+	 * 
+	 * @param partNo
+	 * @return
+	 */
+	public int selectCntReservation(int partNo);
+	
+	
 
 	/**
 	 * 파트너 -> 유저 공지사항 조회
@@ -177,23 +198,13 @@ public interface PartnerDao {
 
 	public PartnerFile getPartnerImg(int partNo);
 
+	/**
+	 * 파트너 페이지에서 예약 update
+	 * 
+	 * @param reservation
+	 */
+	public void updateReservation(Reservation reservation);
+
 	
-
-	/**
-	 * 제휴사 페이지에서 보여줄 예약 리스트 가져오기
-	 * @param paging 
-	 * 
-	 * @param partNo
-	 * @return
-	 */
-	public List<Map<String, Object>> selectReserveList(@Param("paging") Paging paging, @Param("partNo") Integer partNo);
-
-	/**
-	 * partNo으로 reserve 갯수 select
-	 * 
-	 * @param partNo
-	 * @return
-	 */
-	public int selectCntReservation(int partNo);
 
 }

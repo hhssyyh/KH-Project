@@ -10,11 +10,9 @@
 .container {
 	margin: 100px auto;
 }
-
 td {
 	padding: 5px 10px;
 }
-
 table {
 	font-size: 20px;
 	margin: 0 auto;
@@ -43,11 +41,10 @@ table {
 </c:forEach>
 
 </table>
-      
+
 </div>
 
 
 
 
 <c:import url="/WEB-INF/views/layout/footer.jsp"/>
-

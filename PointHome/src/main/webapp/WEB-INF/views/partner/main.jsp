@@ -19,6 +19,7 @@ td {
 
 
 <div id="container">
+
 	<c:if test="${empty partnerLogin }">
 		<div style="margin: 50px 100px;">
 			<h2>로그인이 필요합니다</h2>
@@ -31,15 +32,15 @@ td {
 			<h1>대시보드</h1>
 			<div style="border: 1px solid; ">
 				<h3>오늘 할 일</h3>
-			
+
 				<table>
 					<tr>
 						<th>신규예약</th>
 						<td>1</td>
-						
+
 						<th>문의</th>
 						<td>1</td>
-						
+
 						<th>???</th>
 						<td>1</td>
 					</tr>
@@ -48,6 +49,8 @@ td {
 		</div>
 	</c:if>
 	
+	
+
 	
 </div>
 

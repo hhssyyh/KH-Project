@@ -51,7 +51,7 @@ var resDiv = $("input[name=resDiv]").val()
 </script>
 
 <!-- fullCanlendar JS Code -->
-<script>
+<script type="text/javascript">
 
 document.addEventListener('DOMContentLoaded', function() {
     	var calendarEl = document.getElementById('calendar');
@@ -59,19 +59,16 @@ document.addEventListener('DOMContentLoaded', function() {
         var calendar = new FullCalendar.Calendar(calendarEl, {
         	locale: 'kr',
         	dayCellContent : function( cal ) {
-        		
         		return ('0'+cal.date.getDate()).slice(-2)
 // 				if ( ('0'+cal.date.getDate()) > 15) {
 // 					return 'X'					
 // 				}
 //         		return ('0'+cal.date.getDate()).slice(-2)
-
         	},
         	dateClick: function(info) {
         		console.log(info.dateStr)
         		console.log(info.date)
         		console.log(new Date())
-        		
         		var date = new Date();
        		
         		$.ajax({
@@ -94,7 +91,6 @@ document.addEventListener('DOMContentLoaded', function() {
         	
             validRange: {
             	start: today
-            
             },
             
             selectable: true,
@@ -102,10 +98,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             navLinks: false, // can click day/week names to navigate views
             editable: false,
- 
         });
-
-
         calendar.render();
     });
 
