@@ -284,23 +284,44 @@
    </sql>
    
       
-   <insert id="insettAlarm" parameterType="FreeBoardComment">
+   <select id="selectTitleByFreeboardNo" parameterType="FreeBoardComment" resultType="String">
+   	SELECT freeboard_title FROM freeboard WHERE freeboard_no = #{freeboardNo}
+   </select>
+      
+   <insert id="insettAlarm" parameterType="Map">
 	  <selectKey order="BEFORE" resultType="int"
          keyProperty="userNo">
-         SELECT user_no FROM freeboard WHERE freeboard_no= #{freeboardNo}
+         SELECT user_no FROM freeboard WHERE freeboard_no= #{comment.freeboardNo}
       </selectKey>
-   	insert into user_alert (alert_no,freeboard_no, comm_no, is_read, user_no)
-   	values (user_alert_no_seq.nextval, #{freeboardNo}, #{commNo}, 'N', #{userNo})
+   	insert into user_alert (alert_no, user_no, is_read, content, num, type)
+   	values 
+   	(user_alert_no_seq.nextval, 
+   	#{userNo}, 
+   	'N', 
+   	'자유게시판 게시글 [${freeboardTitle}]에 댓글[${comment.commContent}] 가 달렸습니다', 
+   	#{comment.freeboardNo}, 
+   	'C'  )
    </insert>
    
-   <insert id="insertAlertRecom" parameterType="FreeBoardRecommend">
-   	<selectKey order="BEFORE" resultType="int"
+   <select id="selectTitleByFreeboardReNo" parameterType="FreeBoardRecommend" resultType="String">
+   		SELECT freeboard_title FROM freeboard WHERE freeboard_no = #{boardNo}
+   </select>
+   
+   <insert id="insertAlertRecom" parameterType="Map">
+	  <selectKey order="BEFORE" resultType="int"
          keyProperty="userNo">
-         SELECT user_no FROM freeboard WHERE freeboard_no= #{boardNo}
-     </selectKey>
-   	insert into user_alert_recommend (alert_recomm_no,freeboard_no, is_read, user_no)
-   	values (user_alert_recomm_no_seq.nextval, #{boardNo}, 'N', #{userNo})
+         SELECT user_no FROM freeboard WHERE freeboard_no= #{recommend.boardNo}
+      </selectKey>
+   	insert into user_alert (alert_no, user_no, is_read, content, num, type)
+   	values 
+   	(user_alert_no_seq.nextval, 
+   	#{userNo}, 
+   	'N', 
+   	'자유게시판 게시글 [${freeboardTitle}]이 추천되었습니다', 
+   	#{recommend.boardNo}, 
+   	'R'  )
    </insert>
+   
    
 </mapper>
 

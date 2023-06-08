@@ -307,6 +307,27 @@
 		SELECT * FROM partnerfile_tb WHERE partner_no = #{partnerNo}
 	</select>
 	
+	<select id="selectPickList" parameterType="PartnerNotice" resultType="MyPick">
+		select * from partner_pick where part_no = #{partnerNo}
+	</select>
+	
+	<insert id="insertNoticeAlert" parameterType="map">
+	insert into user_alert (
+		alert_no, 
+		user_no, 
+		is_read, 
+		content, 
+		num, 
+		type
+		)
+   	values 
+   	(user_alert_no_seq.nextval, 
+   	#{pickUser.userNo}, 
+   	'N', 
+   	'찜한 제휴사의 공지가 작성되었습니다. 확인해주세요!', 
+   	#{partnerNotice.partnerNoticeNo}, 
+   	'N'  )
+	</insert>
 
 
 

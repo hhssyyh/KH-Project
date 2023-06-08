@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 
 import com.pointhome.www.freeboard.dto.FreeBoard;
+import com.pointhome.www.main.dto.Reservation;
 import com.pointhome.www.mypage.dto.AlertRecomm;
 import com.pointhome.www.mypage.dto.MyPick;
 import com.pointhome.www.partner.dto.Partner;
@@ -86,13 +87,17 @@ public interface MypageDao {
 
 	public List<Map<String, Object>> selectAlarmList(int userNo);
 
-	public List<Map<String, Object>> selectReList(int userNo);
+//	public List<Map<String, Object>> selectReList(int userNo);
 
 	public int selectAlertCnt(int userNo);
 
 	public void deleteAlertByUserno(int userNo);
 
 	public void deleteAlertReByUserno(int userNo);
+
+	public List<Reservation> selectReserveList(int userNo);
+
+	
 
 	
 

@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.pointhome.www.freeboard.dto.FreeBoard;
+import com.pointhome.www.main.dto.Reservation;
 import com.pointhome.www.mypage.dto.Alert;
 import com.pointhome.www.mypage.dto.AlertRecomm;
 import com.pointhome.www.mypage.service.face.MypageService;
@@ -84,7 +85,17 @@ public class MypageController {
 	}
 	
 	@GetMapping("/myreserve")
-	public void myreserve() {}
+	public void myreserve(HttpSession session, Model model) {
+		
+		int userNo = (Integer)session.getAttribute("userno");
+		
+		List <Reservation> reservelist = mypageService.selectReserve(userNo);
+		
+		logger.info("{}",reservelist);
+		
+		model.addAttribute("reservelist", reservelist);
+		
+	}
 	
 	@GetMapping("/myreservedetail")
 	public void myreservedetail() {}
@@ -200,15 +211,15 @@ public class MypageController {
 			
 		List<Map<String, Object>> alertlist = mypageService.selectAlList(userNo);
 		
-		List<Map<String, Object>> recommlist = mypageService.selectREList(userNo);
+//		List<Map<String, Object>> recommlist = mypageService.selectREList(userNo);
 		
 		int alertCnt = mypageService.getAlertCnt(userNo);
 		
 		logger.info("{}", alertlist);
-		logger.info("왜!!!!!!!!!!{}", recommlist);
+//		logger.info("왜!!!!!!!!!!{}", recommlist);
 
 		model.addAttribute( "alarmList" , alertlist);
-		model.addAttribute( "recommList" , recommlist);
+//		model.addAttribute( "recommList" , recommlist);
 		model.addAttribute( "alertCnt" , alertCnt);
 		
 	}

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.pointhome.www.freeboard.dto.FreeBoard;
+import com.pointhome.www.main.dto.Reservation;
 import com.pointhome.www.mypage.dao.face.MypageDao;
 import com.pointhome.www.mypage.dto.AlertRecomm;
 import com.pointhome.www.mypage.dto.MyPick;
@@ -131,10 +132,10 @@ public class MypageServiceImpl implements MypageService {
 		return mypageDao.selectAlarmList(userNo);
 	}
 
-	@Override
-	public List<Map<String, Object>>  selectREList(int userNo) {
-		return mypageDao.selectReList(userNo);
-	}
+//	@Override
+//	public List<Map<String, Object>>  selectREList(int userNo) {
+//		return mypageDao.selectReList(userNo);
+//	}
 	
 	@Override
 	public int getAlertCnt(int userNo) {
@@ -145,6 +146,11 @@ public class MypageServiceImpl implements MypageService {
 	public void deleteAlert(int userNo) {
 		mypageDao.deleteAlertByUserno(userNo);
 		mypageDao.deleteAlertReByUserno(userNo);
+	}
+
+	@Override
+	public List<Reservation> selectReserve(int userNo) {
+		return mypageDao.selectReserveList(userNo);
 	}
 	
 
