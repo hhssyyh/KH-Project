@@ -122,6 +122,10 @@ $RECYCLE.BIN/
 pom.properties
 MANIFEST.MF
 
+# font
+*.ttf
+*.otf
+
 # JDT-specific
 .classpath
 

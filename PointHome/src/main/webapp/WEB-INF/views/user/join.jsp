@@ -21,7 +21,7 @@
 
 	<!-- 로고 -->
 	<div class="h1 mt-5 mb-5">
-		<a class="navbar-brand h1 text-center col-5" href="/">PointHome</a>
+		<a class="navbar-brand h1 text-center col-5" href="/">운기칠삼</a>
 	</div>
 	<!-- 로고 시작 끝 -->
 
@@ -62,6 +62,22 @@
 				<button type="button" class="btn btn-primary btn-lg">중복 확인</button>
 			</div>
 		</div>
+		
+		<script type="text/javascript">
+		$(document).ready(function() {
+			  // Add an event listener to the select element
+			  $('#userEmailSelect').change(function() {
+			    // Get the selected option value
+			    const selectedOption = $(this).val();
+			    
+			    // Set the input value with the selected option value
+			    $('#userEmail').val(selectedOption);
+			    
+			    // Set the output value with the selected option value
+			    $('#outputEmail').val(selectedOption);
+			  });
+			});
+		</script>
 	</div>
 	</c:if>
 	<!-- 소셜 로그인일 경우 -->
