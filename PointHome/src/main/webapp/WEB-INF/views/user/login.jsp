@@ -17,11 +17,12 @@
 <link href="/resources/common/css/font.css" rel="stylesheet">
 
 <style type="text/css">
-
 body {
-	font-family: SBAggroL;
+	font-family: SBAggroM;
 }
-
+.selectLogin{
+	font-size: 20px;
+}
 </style>
 
 </head>
@@ -45,10 +46,10 @@ body {
 
 <ul class="nav nav-tabs nav-justified">
 	<li class="nav-item">
-		<a class="nav-link active" aria-current="page" href="./login">사용자</a>
+		<a class="selectLogin nav-link active text-primary" aria-current="page" href="./login">사용자</a>
 	</li>
 	<li class="nav-item">
-		<a class="nav-link" href="/partner/login">제휴사</a>
+		<a class="selectLogin nav-link text-secondary" href="/partner/login">제휴사</a>
 	</li>
 </ul>
 

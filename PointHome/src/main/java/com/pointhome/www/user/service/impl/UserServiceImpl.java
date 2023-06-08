@@ -59,7 +59,6 @@ public class UserServiceImpl implements UserService {
 
 		User user = new User();
 		user = userDao.selectByUserEmailPw(param);
-		logger.debug("{}", user);
 
 		return user;
 	}
@@ -420,8 +419,6 @@ public class UserServiceImpl implements UserService {
 	            result += line;
 	        }
 	        
-	        logger.debug(result);
-	        
 	    } catch (IOException e) {
 	        
 	    	e.printStackTrace();
@@ -436,7 +433,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public int getUserNo(User userInfo) {
+	public User getUserNo(User userInfo) {
 		
 		return userDao.selectUserNoByEmail(userInfo);
 	}

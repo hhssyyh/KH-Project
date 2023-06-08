@@ -78,7 +78,7 @@ public interface UserDao {
 	 * @param userInfo -카카오로부터 읽어온 사용자 정보 
 	 * @return 사용자의 userno
 	 */
-	public int selectUserNoByEmail(User userInfo);
+	public User selectUserNoByEmail(User userInfo);
 
 
 }
