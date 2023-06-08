@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.pointhome.www.admin.dto.AdminNotice;
+import com.pointhome.www.main.dto.Reservation;
 import com.pointhome.www.partner.dto.Partner;
 import com.pointhome.www.partner.dto.PartnerFile;
 import com.pointhome.www.partner.dto.PartnerNotice;
@@ -154,7 +155,29 @@ public interface PartnerService {
 
 
 
-	
+		/**
+		 * 제휴사 페이지에서 보여줄 예약 리스트 가져오기
+		 * @param paging 
+		 * 
+		 * @param attribute
+		 * @return
+		 */
+		public List<Map<String, Object>> getReserveList(Paging paging, int partNo);
 
+		/**
+		 * 제휴사 페이지 예약 리스트 페이징객체 만들기
+		 * 
+		 * @param curPage
+		 * @param partNo
+		 * @return
+		 */
+		public Paging getPaging(int curPage, int partNo);
+
+		/**
+		 * 파트너 페이지에서 예약 수정
+		 * 
+		 * @param reservation
+		 */
+		public void updateReservation(Reservation reservation);
 
 }
