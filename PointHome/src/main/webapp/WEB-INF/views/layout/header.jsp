@@ -23,9 +23,8 @@ a {
 	color: black;
 	text-decoration: none;
 }
-
 nav {
-	background-color: white;
+	background-color: none;
 }
 .category{
 	font-family : 'SBAggroM';
@@ -33,13 +32,18 @@ nav {
 	color: balck;
 }
 .nav_ment{
-	font-family : 'NotoSansKR-Bold';
-	font-size: 1.5em;
+	font-family : 'Noto_Sans_KR700';
+	font-size: 24px;
+}
+.offcanvas-body>ul>li{
+	font-family : 'SBAggroM';
+	font-size: 24px;
+	margin-top : 5px;
+	margin-bottom : 5px;
 }
 .offcanvas-body>ul>li>a{
-	font-family : 'SBAggroM';
+	margin-left : 20px;
 }
-
 .alarmCount {
     position: absolute;
 /*     top: -16px; */
@@ -62,7 +66,6 @@ nav {
     color: #fff;
     transform: translate( -50%, -50% );
 }
-
 #alertCk{
 	position: relative;
 }
@@ -135,16 +138,6 @@ $("#alertCnt").on('click', "#alertCk", function() {
 </div>
 <!-- 카테고리 영역 -->
 
-<!-- 검색 영역 -->    
-<div>
-	<form class="d-flex" role="search" style="width: 400px; margin: 0 auto;">
-		<input class="form-control me-2" type="search" placeholder="검색">
-		<a href="#" style="color: white;">
-			<i class="bi bi-sea	ch" style="font-size: 25px; margin-left: 10px;"></i>
-		</a>
-	</form>
-</div>
-
 <!-- 알림 영역 -->    
 <span id="alertCnt">
 <c:if test="${not empty sessionScope.login }">
@@ -170,7 +163,7 @@ $("#alertCnt").on('click', "#alertCk", function() {
 <!-- 마이페이지, 찜, 예약결제, Real 상담, 자유게시판, 리뷰 -->
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
 	
-	<div class="offcanvas-header bg-dark">
+	<div class="offcanvas-header bg-dark mb-2">
 	
 	<!-- 로그인하지 않았을때 -->
 	<c:if test="${sessionScope.login eq false || sessionScope.login == null }">
@@ -208,7 +201,7 @@ $("#alertCnt").on('click', "#alertCk", function() {
 	</div>
 
 <div class="offcanvas-body">
-	<ul class="navbar-nav flex-grow-1 pe-3 fs-3 mx-3">
+	<ul class="navbar-nav flex-grow-1 pe-3 mx-3">
 	  
 		<li class="nav-item">
 			<i class="bi bi-house-door-fill"></i>
@@ -237,7 +230,7 @@ $("#alertCnt").on('click', "#alertCk", function() {
 		<li class="nav-item"><hr></li>
 	</ul>
 		  
-	<ul class="navbar-nav flex-grow-1 pe-3 fs-3 mx-3">
+	<ul class="navbar-nav flex-grow-1 pe-3 mx-3">
 		
 		<li class="nav-item">
 			<i class="bi bi-chat-left-dots-fill" style="color:dark;"></i>
