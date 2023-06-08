@@ -3,10 +3,10 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
+  
 <mapper namespace="com.pointhome.www.admin.dao.face.AdminDao">
 
-	<select id="selectAdminIdPw" parameterType="Admin"
+<select id="selectAdminIdPw" parameterType="Admin"
 		resultType="int">
 		SELECT count(*) FROM ADMIN_TB
 		WHERE 1=1
@@ -15,10 +15,42 @@
 	</select>
 
 	<select id="selectAllUser" resultType="User">
-		SELECT *
-		FROM USER_TB
-		order
-		by user_no
+		  select * from (
+		  select rownum rnum, A.* from(
+		  select *
+		  from user_tb
+		  
+         <if test='searchType == "user_no"'>
+            WHERE user_no LIKE concat(concat('%', #{keyword}), '%')
+         </if>
+   
+         <if test='searchType.equals("user_email")'>
+            WHERE user_email LIKE concat(concat('%', #{keyword}), '%')
+         </if>
+   
+         <if test='searchType.equals("user_nick")'>
+            WHERE user_nick LIKE concat(concat('%', #{keyword}), '%')
+         </if>
+         
+         <choose>
+            <when test='filter.equalsIgnoreCase("joindateasc")'>
+               ORDER BY user_joindate asc
+            </when>
+            <when test='filter.equalsIgnoreCase("joindatedesc")'>
+               ORDER BY user_joindate  DESC
+            </when>
+            
+            <when test='filter.equalsIgnoreCase("usernoasc")'>
+               ORDER BY user_no asc
+            </when>
+            <when test='filter.equalsIgnoreCase("usernodesc")'>
+               ORDER BY user_no DESC
+            </when>
+         </choose>
+      ) A
+      )
+      WHERE rnum BETWEEN #{paging.startNo} and #{paging.endNo}
+		
 	</select>
 
 	<select id="selectByAdminEmailPw" parameterType="Admin"
@@ -229,5 +261,140 @@
 		where user_no = #{userNo}
 	</delete>
 
+	<update id="updateUser" parameterType="User" >
+		update user_tb
+		set 
+		user_name = #{userName},
+		user_email = #{userEmail},
+		user_nick = #{userNick},
+		user_pw = #{userPw},
+		user_birthyear = #{userBirthYear},
+		user_birthmonth = #{userBirthMonth},
+		user_birthday = #{userBirthDay},
+	 	user_phone = #{userPhone},
+	 	user_postcode = #{userPostCode},
+	 	user_address = #{userAddress},
+		user_detailaddress = #{userDetailAddress},
+		user_extraaddress = #{userExtraAddress}
+		
+		WHERE
+		user_no = #{userNo}
+	
+		
+	</update>
+
+	<delete id="deleteUserFile" parameterType="UserFile">
+		DELETE userfile_tb
+		WHERE user_no = #{userNo}
+	</delete>
+	
+	<insert id="insertUserFile" parameterType="UserFile">
+		INSERT INTO userfile_tb
+		(userfile_no
+		, user_no
+		, user_img)
+		VALUES (userfile_tb_seq.nextval, #{userNo}, #{userImg})
+	</insert>
+	
+	<select id="selectImgByUserno" parameterType="int" resultType="UserFile">
+		SELECT * FROM userfile_tb
+		WHERE user_no = #{userNo}
+	</select>
+	
+	<select id="selectAllPartner" resultType="Partner"> 
+		select * from partner_tb
+		order by partner_no
+	</select>
+	
+	<select id="selectPartnerInfo" resultType="Partner" parameterType="int">
+		select * from partner_tb
+		where partner_no=#{partnerNo}
+		
+	</select>
+	
+	<delete id="deletePartnerByPartnerNo" parameterType="int">
+		delete from partner_tb
+		where partner_no = #{partnerNo}
+	</delete>
+	<select id="selectImgByPartnerno" parameterType="int" resultType="PartnerFile">
+		SELECT * FROM partnerfile_tb
+		WHERE partner_no = #{partnerNo}
+	</select>
+	
+	<update id="updatePartner" parameterType="Partner" >
+		update partner_tb
+		set 
+		partner_name = #{partnerName},
+		partner_email = #{partnerEmail},
+		partner_nick = #{partnerNick},
+		partner_pw = #{partnerPw},
+		partner_birthyear = #{partnerBirthyear},
+		partner_birthmonth = #{partnerBirthmonth},
+		partner_birthday = #{partnerBirthday},
+	 	partner_phone = #{partnerPhone},
+	 	partner_postcode = #{partnerPostcode},
+	 	partner_address = #{partnerAddress},
+		partner_detailaddress = #{partnerDetailaddress},
+		partner_extraaddress = #{partnerExtraaddress}
+		
+		WHERE
+		partner_no = #{partnerNo}
+	
+		
+	</update>
+
+	<delete id="deletePartnerFile" parameterType="PartnerFile">
+		DELETE partnerfile_tb
+		WHERE partner_no = #{partnerNo}
+	</delete>
+	
+	<insert id="insertPartnerFile" parameterType="PartnerFile">
+		INSERT INTO partnerfile_tb
+		(partnerfile_no
+		, partner_no
+		, partner_img)
+		VALUES (partnerfile_tb_seq.nextval, #{partnerNo}, #{partnerImg})
+	</insert>
+
+	 <select id="selectCntAll" resultType="int">
+      select count(*) from ( select * from (
+		  select rownum rnum, A.* from(
+		  select *
+		  from user_tb
+
+         
+         <if test='searchType == "user_no"'>
+            WHERE user_no LIKE concat(concat('%', #{keyword}), '%')
+         </if>
+   
+         <if test='searchType.equals("user_email")'>
+            WHERE user_email LIKE concat(concat('%', #{keyword}), '%')
+         </if>
+   
+         <if test='searchType.equals("user_nick")'>
+            WHERE user_nick LIKE concat(concat('%', #{keyword}), '%')
+         </if>
+         
+         <choose>
+            <when test='filter.equalsIgnoreCase("joindateasc")'>
+               ORDER BY user_joindate asc
+            </when>
+            <when test='filter.equalsIgnoreCase("joindatedesc")'>
+               ORDER BY user_joindate  DESC
+            </when>
+            
+            <when test='filter.equalsIgnoreCase("usernoasc")'>
+               ORDER BY user_no asc
+            </when>
+            <when test='filter.equalsIgnoreCase("usernodesc")'>
+               ORDER BY user_no DESC
+            </when>
+
+         </choose>
+      
+      ) A
+      )
+    )
+   </select>
 
 </mapper>

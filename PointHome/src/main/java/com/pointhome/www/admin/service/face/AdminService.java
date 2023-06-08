@@ -11,7 +11,10 @@ import com.pointhome.www.admin.dto.AdminNotice;
 import com.pointhome.www.admin.dto.AdminNoticeFile;
 import com.pointhome.www.freeboard.dto.FreeBoard;
 import com.pointhome.www.freeboard.dto.FreeBoardComment;
+import com.pointhome.www.partner.dto.Partner;
+import com.pointhome.www.partner.dto.PartnerFile;
 import com.pointhome.www.user.dto.User;
+import com.pointhome.www.user.dto.UserFile;
 import com.pointhome.www.util.Paging;
 
 public interface AdminService {
@@ -23,17 +26,16 @@ public interface AdminService {
 	 */
 	public boolean adminLogin(Admin admin);
 	/**
-	 * 전체 회원 조회
+	 * 페이징 적용 , 필터와 검색 타입과 키워드 적용한 목록 조회
 	 * 
-	 * @return 모든 회원을 조회한다.
+	 * @param paging - 페이징 객체
+	 * @param filter - 필터
+	 * @param searchType - 검색 타입
+	 * @param keyword - 키워드
+	 * @return 페이징과 필터와 검색 타입과 키워드를 적용한 리스트 정보 
 	 */
-	public List<User> userList();
-	/**
-	 * 선택한 유저의 회원을 삭제한다.
-	 * 
-	 * @param userno - 선택한 회원의 userno
-	 */
-	public void admindeleteUser(User userno);
+	public List<User> userList(Paging paging, String filter, String searchType, String keyword);
+
 	
 	/**
 	 * 선택한 유저의 상세 조회 
@@ -159,7 +161,67 @@ public interface AdminService {
 	 * 
 	 * @param userno - 회원번호
 	 */
-	public void delete(int userno);
+	public void deleteUser(int userno);
+	/**
+	 * 선택한 유저의 정보 수정 
+	 * @param file - 사용자 프로필 사진 정보
+	 * @param user - 선택한 유저
+	 * @return 
+	 */
+	public void userupdate(User user, MultipartFile file);
+	/**
+	 * 회원 번호로 프로필 사진 정보 조회
+	 * 
+	 * @param userno - 회원 정보
+	 * @return - 프로필 사진 정보
+	 */
+	public UserFile selectImg(int userNo);
+	/**
+	 * 전체 제휴사 조회
+	 * 
+	 * @return 모든 제휴사를 조회한다.
+	 */
+	public List<Partner> partnerList();
+	/**
+	 * 선택한 유저의 상세 조회 
+	 * @param partnerNo - 선택한 유저
+	 * @return 
+	 */
+	public Partner partnerdetail(int partnerNo);
+	
+	/**
+	 * 회원 번호에 해당하는 회원 탈퇴
+	 * 
+	 * @param partnerNo - 회원번호
+	 */
+	public void deletePartner(int partnerNo);
+	
+	/**
+	 * 회원 번호로 프로필 사진 정보 조회
+	 * 
+	 * @param partnerNo - 회원 정보
+	 * @return - 프로필 사진 정보
+	 */
+	public PartnerFile selectPartnerImg(int partnerNo);
+	
+	/**
+	 * 선택한 유저의 정보 수정 
+	 * @param file - 사용자 프로필 사진 정보
+	 * @param partner - 선택한 유저
+	 * @return 
+	 */
+	public void partnerupdate(Partner partner, MultipartFile file);
+	
+	/**
+	 * 게시글 목록을 위한 페이징 객체 생성
+	 * 
+	 * @param curPage- 현재페이지
+	 * @param filter - 필터
+	 * @param searchType - 검색 타입
+	 * @param keyword - 키워드
+	 * @return - 계산이 완료된 Paging 객체
+	 */
+	public Paging getPagingUserManage(int curPage, String filter, String searchType, String keyword);
 	
 
 	

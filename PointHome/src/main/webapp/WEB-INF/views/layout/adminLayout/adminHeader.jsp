@@ -14,8 +14,16 @@
 	<nav class="navbar bg-light fixed-top">
 	  <div class="container-fluid">
 	    <a class="navbar-brand" href="/admin/main">
-			adminPage
+			ADMIN PAGE
 	    </a>
+	    
+	    
+	    <c:if test="${sessionScope.adminLogin eq false || sessionScope.adminLogin == null }">
+	    <span>로그인이 필요합니다.</span>
+	    </c:if>
+	    <c:if test="${sessionScope.login eq true}">
+	    <span style="margin-left:1000px;"> 운영자 ${sessionScope.adminId } 님 접속 </span>
+	    </c:if>
 	    
 	    <div style="text-align: justify;">
 	    <a href="/admin/logout">로그아웃</a>

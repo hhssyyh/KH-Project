@@ -3,7 +3,6 @@ package com.pointhome.www.admin.controller;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -23,7 +22,10 @@ import com.pointhome.www.admin.dto.AdminNoticeFile;
 import com.pointhome.www.admin.service.face.AdminService;
 import com.pointhome.www.freeboard.dto.FreeBoard;
 import com.pointhome.www.freeboard.dto.FreeBoardComment;
+import com.pointhome.www.partner.dto.Partner;
+import com.pointhome.www.partner.dto.PartnerFile;
 import com.pointhome.www.user.dto.User;
+import com.pointhome.www.user.dto.UserFile;
 import com.pointhome.www.util.Paging;
 
 @Controller
@@ -78,27 +80,35 @@ public class AdminController {
 		session.invalidate();
 		return "redirect:/admin/login" ;	
 	}
-//	회원 관리
+	
+	
+	
+	
+	
+//	사용자 회원 관리
 	@GetMapping("/usermanage")
-	public void usermanage(Model model) {
-		//logger.debug("/admin/usermanage");
+	public void usermanage(@RequestParam(defaultValue = "0") int curPage,
+	         @RequestParam(defaultValue = "date")  String filter, Model model, 
+	         @RequestParam(value = "searchType",required = false, defaultValue = "title") String searchType,
+	         @RequestParam(value = "keyword",required = false, defaultValue = "") String keyword
+	         )throws Exception{
 		
-		List<User> userList = adminService.userList();
 		
+		Paging paging = adminService.getPagingUserManage(curPage, filter, searchType, keyword);
+		
+		List<User> userList = adminService.userList(paging, filter, searchType, keyword);
+		
+//		logger.info("!!!!!!!!!!!!!!!!{}", userList);
 		model.addAttribute("userList", userList);
+
+	      model.addAttribute("list", userList);
+	      model.addAttribute("paging", paging);
+	      model.addAttribute("filter", filter);
+	      model.addAttribute("searchType", searchType);
+	      model.addAttribute("keyword", keyword);
 		
 	}
 	
-	// 나중에 모든 DB 어떻게 삭제할건지 정해야함 / 추후 개발
-	@GetMapping("/userdelete")
-	public String userdeleteGet(User userno) {
-		
-		logger.debug("{}", userno);
-		
-		adminService.admindeleteUser(userno);
-		
-		return "redirect:/admin/usermanage";
-	}
 	
 	
 	@GetMapping("/userdetail")
@@ -107,41 +117,104 @@ public class AdminController {
 		
 		Map<String, Object> detailList = adminService.userdetail(userNo);
 		 
-//		int userno = (int) detailList.get("userno");
-		
 		model.addAttribute("detailList", detailList);
 		
 	}
 	
 	@RequestMapping("/removeuser")
-	public String userremove(int userno,HttpSession session) {
+	public String userremove(int userNo) {
 		
-//	선택된 userno을 가져와서 삭제해야하는데 500번 오류가 뜬다 
-		adminService.delete(userno);
+		adminService.deleteUser(userNo);
 		
-		Object object = session.getAttribute("login");
-	    if (object != null) {
-	        session.removeAttribute("login");
-	        session.invalidate();
-	    }
+		return "redirect:/admin/usermanage";
+	}
+	
+	@GetMapping("/userupdate")
+	public void userupdate(int userNo, Model model) {
+		
+		Map<String, Object> detailList = adminService.userdetail(userNo);
 
-		return "redirect:/usermanage";
-		}
-	
-//		int userno= (int) session.getAttribute("userno"); 
-//		logger.debug("userno : {}", userno);
-//		
-//		
-//		Object object = session.getAttribute("login");
-//		if(object != null ) {
-//			session.removeAttribute("login");
-//			session.invalidate();
-//		}
+		UserFile userFile = adminService.selectImg(userNo);
 		
+		model.addAttribute("userFile", userFile);
+		model.addAttribute("detailList", detailList);
+		
+	}
+	
+	@PostMapping("/userupdate")
+	public String userupdatepost(User user ,MultipartFile file,Model model) {
+		
+		adminService.userupdate(user,file);
+		
+		model.addAttribute("profile", file);
+		
+		return "redirect:/admin/userdetail?userNo="+user.getUserNo();
+	}
 	
 	
 	
 	
+	
+	
+	
+	
+	// 제휴사 관리
+	@GetMapping("/partnermanage")
+	public void partnerrmanage(Model model) {
+		
+		List<Partner> partnerList = adminService.partnerList();
+		
+		model.addAttribute("partnerList", partnerList);
+		
+	}
+	@GetMapping("/partnerdetail")
+	public void partnerdetail(int partnerNo, Model model) {
+		logger.debug("partnerNo!!!!!!!!!!!!{}",partnerNo);
+		
+		Partner detailList = adminService.partnerdetail(partnerNo);
+		 
+		model.addAttribute("detailList", detailList);
+		
+	}
+	
+	@RequestMapping("/removepartner")
+	public String partnerremove(int partnerNo) {
+		
+		adminService.deletePartner(partnerNo);
+		
+		return "redirect:/admin/partnermanage";
+	}
+	
+	@GetMapping("/partnerupdate")
+	public void partnerupdate(int partnerNo, Model model) {
+		
+		Partner detailList = adminService.partnerdetail(partnerNo);
+
+		PartnerFile partnerFile = adminService.selectPartnerImg(partnerNo);
+		
+		logger.debug("file11 {}",partnerFile);
+		
+		model.addAttribute("partnerFile", partnerFile);
+		model.addAttribute("detailList", detailList);
+		
+	}
+	
+	@PostMapping("/partnerupdate")
+	public String partnerupdatepost(Partner partner ,MultipartFile file,Model model) {
+		
+		adminService.partnerupdate(partner,file);
+		
+		logger.debug("file222 {}",file);
+		
+		model.addAttribute("profile", file);
+		
+		return "redirect:/admin/partnerdetail?partnerNo="+partner.getPartnerNo();
+	}
+	
+	
+	
+	
+	//공지사항 
 	@GetMapping("/noticelist")
 	public void adminnotice(@RequestParam(defaultValue = "0") int curPage,Model model, @RequestParam(defaultValue = "a") String filter,HttpSession session,@RequestParam(defaultValue = "a") String type) throws Exception{
 		logger.debug("/admin/noticelist");	
@@ -154,10 +227,6 @@ public class AdminController {
 		model.addAttribute("paging",paging);
 		model.addAttribute("filter", filter);
 	}
-
-	
-
-
 
 	
 	 @GetMapping("/view")
@@ -198,6 +267,9 @@ public class AdminController {
 		
 		 return "redirect:/admin/noticelist";
 	}
+	
+	
+	
 	
 	
 	
@@ -272,3 +344,4 @@ public class AdminController {
 	   }
 	
 }
+
