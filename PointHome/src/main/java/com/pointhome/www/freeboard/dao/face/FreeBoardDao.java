@@ -210,9 +210,14 @@ public interface FreeBoardDao {
     */
    public List<Map<String, Object>> selectAllSearch(@Param("paging") Paging paging, @Param("filter") String filter, @Param("searchType")  String searchType, @Param("keyword")  String keyword);
 
-   public void insettAlarm(FreeBoardComment comment);
 
-   public void insertAlertRecom(FreeBoardRecommend recommend);
+   public String selectTitleByFreeboardNo(FreeBoardComment comment);
+
+   public void insettAlarm(@Param("comment") FreeBoardComment comment, @Param("freeboardTitle") String freeboardTitle);
+
+   public String selectTitleByFreeboardReNo(FreeBoardRecommend recommend);
+
+   public void insertAlertRecom(@Param("recommend") FreeBoardRecommend recommend, @Param("freeboardTitle") String freeboardTitle);
 
 
 }

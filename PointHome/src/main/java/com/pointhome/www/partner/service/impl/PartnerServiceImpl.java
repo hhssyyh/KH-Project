@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.pointhome.www.mypage.dto.MyPick;
 import com.pointhome.www.partner.dao.face.PartnerDao;
 import com.pointhome.www.partner.dto.Partner;
 import com.pointhome.www.partner.dto.PartnerFile;
@@ -88,7 +89,7 @@ public class PartnerServiceImpl implements PartnerService {
 	@Override
 	public Partner getPartnerInfo(Integer partnerNo) {
 		
-		return partnerDao.selectPartnerByPartnerNo(partnerNo);
+		return partnerDao.getPartInfo(partnerNo);
 	}
 
 
@@ -103,7 +104,15 @@ public class PartnerServiceImpl implements PartnerService {
 	@Override
 	public void writeNotice(PartnerNotice partnerNotice, List<MultipartFile> dataMul) {
 		partnerDao.insertNotice(partnerNotice);
-		logger.info("partnerno: {}", partnerNotice.getPartnerNo());
+		
+		List<MyPick> pickUser = partnerDao.selectPickList(partnerNotice);
+		logger.info("{}", pickUser);
+		if (pickUser != null) {
+			for( MyPick mp: pickUser) {
+				partnerDao.insertNoticeAlert(partnerNotice, mp );
+			}
+			logger.info("partnerno: {}", partnerNotice.getPartnerNo());
+		}
 		
 		for(MultipartFile m : dataMul ) {
 			if(m.getSize() <= 0 ) {

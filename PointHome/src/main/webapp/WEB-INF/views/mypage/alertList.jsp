@@ -73,22 +73,25 @@ body {
 	
 	
 	
-	<c:forEach var="list" items="${alarmList}">			
-			<a href="/freeboard/view?freeboardNo=${list.FREEBOARD_NO}"><h5 style="margin: 20px; margin-left: 103px; margin-bottom: 60px;">
-			"게시글 [  ${list.FREEBOARD_TITLE }  ] 에 댓글 [ ${list.COMM_CONTENT} ] 이 달렸습니다."</h5></a>
+	<c:forEach var="list" items="${alarmList}">		
+		<c:choose>
+			<c:when test="${list.TYPE eq 'N'}">
+			<a href="/partner/view?partnerNoticeNo=${list.NUM}"><h5 style="margin: 20px; margin-left: 103px; margin-bottom: 60px;">
+			${list.CONTENT} 
+			</a>
 			<h6 style="margin: 20px; margin-left: 103px; margin-top: -52px;"><fmt:formatDate value="${list.ALERT_DATE }" pattern="yy/MM/dd hh:mm" /></h6>
 			<hr>
-	</c:forEach>
-	
-	
-	<c:forEach var="list" items="${recommList}">
-	
-	
-			<a href="/freeboard/view?freeboardNo=${list.FREEBOARD_NO}"><h5 style="margin: 20px; margin-left: 103px; margin-bottom: 60px;">
-			"게시글 [  ${list.FREEBOARD_TITLE }  ] 가 추천되었습니다."</h5></a>
+			</c:when>
+			
+			<c:otherwise>
+			<a href="/freeboard/view?freeboardNo=${list.NUM}"><h5 style="margin: 20px; margin-left: 103px; margin-bottom: 60px;">
+			${list.CONTENT} 
+			</a>
 			<h6 style="margin: 20px; margin-left: 103px; margin-top: -52px;"><fmt:formatDate value="${list.ALERT_DATE }" pattern="yy/MM/dd hh:mm" /></h6>
-			<hr>	
-	</c:forEach>	
+			<hr>
+			</c:otherwise>
+		</c:choose>
+	</c:forEach>
 	
 	
 <%-- 	<c:forEach var="list" items="${recommList}"> --%>
