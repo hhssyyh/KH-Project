@@ -128,7 +128,8 @@ public class FreeBoardServiceImpl implements FreeBoardService {
    public void insert(FreeBoardComment comment) {
       
       freeBoardDao.insertBoardComment(comment);
-
+      String freeboardTitle = freeBoardDao.selectTitleByFreeboardNo(comment);
+      freeBoardDao.insettAlarm(comment, freeboardTitle);
    }
    
    
@@ -156,6 +157,8 @@ public class FreeBoardServiceImpl implements FreeBoardService {
          
       } else if( isRecommend == 0 ) {
          freeBoardDao.insertRecommend(recommend);
+         String freeboardTitle = freeBoardDao.selectTitleByFreeboardReNo(recommend);
+         freeBoardDao.insertAlertRecom(recommend, freeboardTitle);
 
       }
    }

@@ -15,8 +15,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.pointhome.www.mypage.dto.MyPick;
 import com.pointhome.www.partner.dao.face.PartnerDao;
 import com.pointhome.www.partner.dto.Partner;
+import com.pointhome.www.partner.dto.PartnerFile;
 import com.pointhome.www.partner.dto.PartnerNotice;
 import com.pointhome.www.partner.dto.PartnerNoticeFile;
 import com.pointhome.www.partner.service.face.PartnerService;
@@ -68,38 +70,6 @@ public class PartnerServiceImpl implements PartnerService {
 	}
 	
 	@Override
-	public Partner getPartnerInfo(Integer partnerNo) {
-		
-		return partnerDao.selectPartnerByPartnerNo(partnerNo);
-	}
-	
-	
-	
-	
-
-	@Override
-	public Paging getPaging(int curPage) {
-
-		int totalPage = partnerDao.selectCntAll();
-		logger.info("total: {}", totalPage);
-		
-		
-		Paging paging = new Paging(totalPage, curPage);
-
-		return paging;
-	}
-
-	@Override
-	public List<Partner> list(Paging paging) {
-
-		List<Partner> list = partnerDao.selectAll(paging);
-
-		logger.info("service!!!!!!!!!!!!!!!!{}", list);
-
-		return list;
-	}
-
-	@Override
 	public Paging getTypePaging(Map<String, Object> pagingMap) {
 
 		logger.info("맵 !!!!!!!!!!!!!!!!{}", pagingMap.get("partnerType"));
@@ -114,18 +84,14 @@ public class PartnerServiceImpl implements PartnerService {
 		return paging;
 	}
 
+	
+	
 	@Override
-	public List<Partner> typelist(Map<String, Object> listMap) {
-
-		logger.info("리스트 !!!!!!!!!!!!!!!!{}", listMap.get("partnerType"));
-		logger.info("리스트 !!!!!!!!!!!!!!!!{}", listMap.get("paging"));
-
-		List<Partner> list = partnerDao.selectTypeListAll(listMap);
-
-		logger.info("service!!!!!!!!!!!!!!!!{}", list);
-
-		return list;
+	public Partner getPartnerInfo(Integer partnerNo) {
+		
+		return partnerDao.getPartInfo(partnerNo);
 	}
+
 
 	@Override
 	public List<PartnerNotice> noticeList(Paging paging) {
@@ -138,7 +104,15 @@ public class PartnerServiceImpl implements PartnerService {
 	@Override
 	public void writeNotice(PartnerNotice partnerNotice, List<MultipartFile> dataMul) {
 		partnerDao.insertNotice(partnerNotice);
-		logger.info("partnerno: {}", partnerNotice.getPartnerNo());
+		
+		List<MyPick> pickUser = partnerDao.selectPickList(partnerNotice);
+		logger.info("{}", pickUser);
+		if (pickUser != null) {
+			for( MyPick mp: pickUser) {
+				partnerDao.insertNoticeAlert(partnerNotice, mp );
+			}
+			logger.info("partnerno: {}", partnerNotice.getPartnerNo());
+		}
 		
 		for(MultipartFile m : dataMul ) {
 			if(m.getSize() <= 0 ) {
@@ -231,11 +205,11 @@ public class PartnerServiceImpl implements PartnerService {
 
 	}
 
-	@Override
-	public List<Map<String, Object>> list(Paging paging, int userNo) {
-		return partnerDao.selectPartPick(paging, userNo );
-			
-	}
+//	@Override
+//	public List<Map<String, Object>> list(Paging paging, int userNo) {
+//		return partnerDao.selectPartPick(paging, userNo );
+//			
+//	}
 
 	@Override
 	public void delete(PartnerNotice partnerNotice) {
@@ -314,4 +288,57 @@ public class PartnerServiceImpl implements PartnerService {
 			}
 
 		}
+
+	@Override
+	public List<Map<String, Object>> getPartTypePick(int curPage, Paging paging, int userNo, String partnerType) {
+		return partnerDao.selectPartnerPick(curPage, paging, userNo, partnerType);
+	}
+
+
+	@Override
+	public void imgUpdate(Partner partner, MultipartFile file) {
+		
+		partnerDao.updatePartner(partner);
+		
+		if( file.getSize() <= 0 ) {
+			return;
+		}
+		
+		String storedPath = context.getRealPath("upload");
+		File storedFolder = new File(storedPath);
+		if( !storedFolder.exists() ) {
+			storedFolder.mkdir();
+		}
+		
+		String originName = file.getOriginalFilename();
+		String storedName = originName + UUID.randomUUID().toString().split("-")[4];
+		
+		File dest = new File(storedFolder, storedName);
+
+		logger.info("dsaffffffff{}",storedPath);
+		
+		try {
+			file.transferTo(dest);
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		PartnerFile partnerFile = new PartnerFile();
+		partnerFile.setPartnerNo(partner.getPartnerNo());
+		partnerFile.setPartnerImg(storedName);
+		
+		logger.info("{}", partnerFile);
+		
+		partnerDao.deletePartFile(partnerFile);
+		partnerDao.insertPartFile(partnerFile);
+		
+	}
+	
+	@Override
+	public PartnerFile getPartnerFile(int partNo) {
+		return partnerDao.getPartnerImg(partNo);
+	}
+	
 }

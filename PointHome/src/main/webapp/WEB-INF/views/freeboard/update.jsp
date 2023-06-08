@@ -120,7 +120,6 @@ $(function() {
          focus: true
       })
 
-      $(".note-editable").html('${board.freeboardContent}')
 })
 
 
@@ -137,7 +136,7 @@ $(function() {
 <input type="hidden" name="freeboardNo" value="${board.freeboardNo}">
 <!-- title JSTL로 가지고 오기 -->
 <div id="freeboardTitle">
-	<h3>  <input type="text" id="freeboardTitle" name="freeboardTitle" placeholder= "${board.freeboardTitle }" style="border: none;" required ></h3>
+	<h3>  <input type="text" id="freeboardTitle" name="freeboardTitle" value="${board.freeboardTitle }" style="border: none;" required ></h3>
 </div>
 <i class="bi bi-person-circle fs-1" style="height:200px"></i> writer_nick <br>
 <!-- 날짜 -->
@@ -162,7 +161,7 @@ $(function() {
 
 <hr>
 <%-- ${board.freeboardContent } --%>
-<textarea style="display: none" id="freeboardContent" name="freeboardContent" ></textarea>
+<textarea style="display: none" id="freeboardContent" name="freeboardContent" >${board.freeboardContent}</textarea>
 
 <input type="file" name="dataMul" multiple="multiple">
 

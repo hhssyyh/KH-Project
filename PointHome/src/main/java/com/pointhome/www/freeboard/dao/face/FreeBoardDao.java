@@ -209,4 +209,15 @@ public interface FreeBoardDao {
     * @return -페이징과 필터, 검색 타입, 키워드가 적용된 게시글 목록
     */
    public List<Map<String, Object>> selectAllSearch(@Param("paging") Paging paging, @Param("filter") String filter, @Param("searchType")  String searchType, @Param("keyword")  String keyword);
+
+
+   public String selectTitleByFreeboardNo(FreeBoardComment comment);
+
+   public void insettAlarm(@Param("comment") FreeBoardComment comment, @Param("freeboardTitle") String freeboardTitle);
+
+   public String selectTitleByFreeboardReNo(FreeBoardRecommend recommend);
+
+   public void insertAlertRecom(@Param("recommend") FreeBoardRecommend recommend, @Param("freeboardTitle") String freeboardTitle);
+
+
 }
