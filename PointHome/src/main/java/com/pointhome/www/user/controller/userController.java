@@ -85,14 +85,15 @@ public class userController {
 			User user = new User();
 			user = userService.getUser(Param);
 			
-			logger.debug("{}", login);
-			logger.debug("{}", user.getUserNo());
+			logger.debug("로그인 상태 : {}", login);
+			logger.debug("로그인시 접속자 정보 : {}", user);
 			session.setAttribute("login", true);
 			session.setAttribute("userno", user.getUserNo());
 			session.setAttribute("usernick", user.getUserNick());
 			session.setAttribute("type", "u");
 			session.setAttribute("keepLogin", keepLogin);
-			
+			session.setMaxInactiveInterval(30*60); // 세션 유지시간 30분
+
 			return "redirect:/";
 		}
 
@@ -252,7 +253,6 @@ public class userController {
 	    return new ModelAndView("redirect:" + apiURL);	
     }
 	
-	
 	@RequestMapping(value = "/user/kakaocallback")
 	public String getKakaoAuthUrl(Model model, HttpSession session, @RequestParam("code") String code)
 			throws Exception {
@@ -273,10 +273,11 @@ public class userController {
 		if(res>0) {
 			logger.debug("회원정보 존재"); 
 			
-			 int userno= userService.getUserNo(userInfo);
-			
+			User user= userService.getUserNo(userInfo);
 			session.setAttribute("login", true);
-			session.setAttribute("userno", userno);
+			session.setAttribute("userno", user.getUserNo());
+			session.setAttribute("usernick", user.getUserNick());
+			session.setAttribute("access_Token", access_Token);
 			session.setAttribute("socialType", "K");
 			
 			return "redirect:/";
@@ -293,24 +294,16 @@ public class userController {
 
 	@RequestMapping(value = "/user/kakaologout")
 	public String kakaoLogout(HttpServletRequest request, HttpServletResponse response) {
-	    String access_Token = (String) request.getSession().getAttribute("access_Token");
+		logger.debug("/user/kakaologout");
+
+		String access_Token = (String) request.getSession().getAttribute("access_Token");
+		
 	    if (access_Token != null) {
 	        userService.kakaoLogout(access_Token);
 	    }
 
 	    // 세션 초기화
 	    request.getSession().invalidate();
-
-	    // 쿠키 삭제
-	    Cookie[] cookies = request.getCookies();
-	    if (cookies != null) {
-	        for (Cookie cookie : cookies) {
-	            cookie.setValue("");
-	            cookie.setPath("/");
-	            cookie.setMaxAge(0);
-	            response.addCookie(cookie);
-	        }
-	    }
 
 	    return "redirect:/";
 	}

@@ -5,7 +5,7 @@
 	width: 100%;
 	height: 280px;
 	padding: 50px 80px;
-	font-family : NotoSansKR-Black700;
+	font-family : Noto_Sans_KR500;
 }
 
 .footA {
@@ -28,7 +28,8 @@
 		<a href="#" class="footA pe-2">이용약관</a> 
 		<a href="#" class="footA pe-2 ps-2">개인정보 취급 방침</a>
 		<a href="#" class="footA pe-2 ps-2">제휴 등록 신청</a>
-		<a href="#" class="footA pe-2">고객센터</a>
+		<a href="#" class="footA pe-2 ps-2">고객센터</a>
+		<a href="/admin/login" class="footA pe-2">관리자 로그인</a>
 	</div>
 
 		<div class="col">
