@@ -12,7 +12,10 @@ import com.pointhome.www.admin.dto.AdminNotice;
 import com.pointhome.www.admin.dto.AdminNoticeFile;
 import com.pointhome.www.freeboard.dto.FreeBoard;
 import com.pointhome.www.freeboard.dto.FreeBoardComment;
+import com.pointhome.www.partner.dto.Partner;
+import com.pointhome.www.partner.dto.PartnerFile;
 import com.pointhome.www.user.dto.User;
+import com.pointhome.www.user.dto.UserFile;
 import com.pointhome.www.util.Paging;
 
 public interface AdminDao {
@@ -23,16 +26,17 @@ public interface AdminDao {
 	 */
 	public int selectAdminIdPw(Admin admin);
 	
-	/**
-	 *  모든 회원 정보를 조회한다.
-	 * @return 모든 회원 정보
-	 */
-	public List<User> selectAllUser();
-	/**
-	 *  회원 탈퇴
-	 * @param userno - 삭제할 유저의 userno
-	 */
-	public void deleteUserinfo(User userno);
+	  /**
+	    * 페이징과 필터, 검색 타입, 키워드가 적용된 게시글 목록 조회
+	    * 
+	    * @param paging - 페이징
+	    * @param filter - 필터
+	    * @param searchType - 검색 타입
+	    * @param keyword - 키워드 
+	    * @return -페이징과 필터, 검색 타입, 키워드가 적용된 게시글 목록
+	    */
+	public List<User> selectAllUser(@Param("paging") Paging paging, @Param("filter") String filter, @Param("searchType")  String searchType, @Param("keyword")  String keyword);
+
 	/**
 	 * DB에서 모든 공지 게시글 조회
 	 * @return 모든 공지글 조회 
@@ -181,6 +185,95 @@ public interface AdminDao {
 	 * @param userno - 회원 번호
 	 */
 	public void deleteUserByUserNo(int userno);
+
+
+	/**
+	 *  해당 유저의 모든 정보 수정
+	 * @param user - 선택한 유저
+	 */
+	public void updateUser(User user);
+
+	/**
+	 * 회원 프로필 이미지 삭제
+	 * 
+	 * @param userFile - 회원 프로필 이미지 정보를 담은 DTO
+	 */
+	public void deleteUserFile(UserFile userFile);
+
+	/**
+	 * 회원 프로필 이미지 삽입
+	 * 
+	 * @param userFile - 회원 프로필 이미지 정보를 담은 DTO
+	 */
+	public void insertUserFile(UserFile userFile);
+
+	/**
+	 * 회원번호에 해당하는 프로필 이미지 조회
+	 * 
+	 * @param userno - 회원 번호
+	 * @return userFile - 해당 회원 프로필 이미지 정보를 담은 DTO
+	 */
+	public UserFile selectImgByUserno(int userNo);
+
+	/**
+	 *  모든 제휴사 정보를 조회한다.
+	 * @return 모든 제휴사 정보
+	 */
+	public List<Partner> selectAllPartner();
+
+	/**
+	 *  해당 유저의 모든 정보 조회
+	 * @param partnerNo - 선택한 유저
+	 * @return list 으로 반환
+	 */
+	public Partner selectPartnerInfo(int partnerNo);
+
+	/**
+	 * 회원 탈퇴
+	 * 
+	 * @param partnerNo - 회원 번호
+	 */
+	public void deletePartnerByPartnerNo(int partnerNo);
+
+	/**
+	 * 회원번호에 해당하는 프로필 이미지 조회
+	 * 
+	 * @param partnerNo - 회원 번호
+	 * @return PartnerFile - 해당 회원 프로필 이미지 정보를 담은 DTO
+	 */
+	public PartnerFile selectImgByPartnerno(int partnerNo);
+
+	/**
+	 * 회원 프로필 이미지 삭제
+	 * 
+	 * @param partnerFile - 회원 프로필 이미지 정보를 담은 DTO
+	 */
+	public void deletePartnerFile(PartnerFile partnerFile);
+
+	/**
+	 * 회원 프로필 이미지 삽입
+	 * 
+	 * @param partnerFile - 회원 프로필 이미지 정보를 담은 DTO
+	 */
+	public void insertPartnerFile(PartnerFile partnerFile);
+
+	/**
+	 *  해당 유저의 모든 정보 수정
+	 * @param partner - 선택한 유저
+	 */
+	public void updatePartner(Partner partner);
+
+	/**
+	 * 총 게시글 수 조회
+	 * 
+	 * @param filter - 필터
+	 * @param searchType - 검색 타입
+	 * @param keyword - 키워드
+	 * @return 필터, 검색타입, 키워드를 적용한 총 게시글 수 
+	 */
+	public int selectCntAll(@Param("filter") String filter, @Param("searchType") String searchType, @Param("keyword") String keyword);
+	
+
 	
 	
 

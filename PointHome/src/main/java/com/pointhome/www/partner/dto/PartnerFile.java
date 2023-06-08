@@ -3,21 +3,21 @@ package com.pointhome.www.partner.dto;
 public class PartnerFile {
 
 	private int partnerfileNo;
-	private int partnerNo;
 	private String partnerImg;
+	private int partnerNo;
 	
 	public PartnerFile() {}
 
-	public PartnerFile(int partnerfileNo, int partnerNo, String partnerImg) {
+	public PartnerFile(int partnerfileNo, String partnerImg, int partnerNo) {
 		super();
 		this.partnerfileNo = partnerfileNo;
-		this.partnerNo = partnerNo;
 		this.partnerImg = partnerImg;
+		this.partnerNo = partnerNo;
 	}
 
 	@Override
 	public String toString() {
-		return "PartnerFile [partnerfileNo=" + partnerfileNo + ", partnerNo=" + partnerNo + ", partnerImg=" + partnerImg
+		return "PartnerFile [partnerfileNo=" + partnerfileNo + ", partnerImg=" + partnerImg + ", partnerNo=" + partnerNo
 				+ "]";
 	}
 
@@ -43,9 +43,6 @@ public class PartnerFile {
 
 	public void setPartnerImg(String partnerImg) {
 		this.partnerImg = partnerImg;
-	}
-
-
-	
+	}	
 	
 }

@@ -156,8 +156,8 @@ $( () => {
     
 	
     	<a href="./usermanage"><button type="button" class="btn btn-outline-dark proBtn">목록</button></a>
-    	<a href="./removeuser"><button type="button" class="btn-open-popup btn btn-outline-dark proBtn">회원탈퇴</button></a>
-
+    	<a href="./removeuser?userNo=${param.userNo }"><button type="button" class="btn-open-popup btn btn-outline-dark proBtn">회원탈퇴</button></a>
+		<a href="./userupdate?userNo=${param.userNo }"><button type="button" class="btn btn-outline-dark proBtn">회원수정</button></a>
 	
 		<br>
 		<h1>예약 정보</h1>
