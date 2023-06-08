@@ -137,192 +137,135 @@ $("#alertCnt").on('click', "#alertCk", function() {
 <div>
 	<form class="d-flex" role="search" style="width: 400px; margin: 0 auto;">
 		<input class="form-control me-2" type="search" placeholder="검색">
-		<a href="#" style="color: black;">
-			<i class="bi bi-search" style="font-size: 25px; margin-left: 10px;"></i>
-    
-  <div style="text-align: justify;">
-	    <a class="btn btn-light" href="/partner/list">전체</a>
-	    <a class="btn btn-light" href="/partner/list?partnerType=t">타로</a>
-	    <a class="btn btn-light" href="/partner/list?partnerType=c">철학</a>
-	    <a class="btn btn-light" href="/partner/list?partnerType=s">신점</a>
-    </div>
-    
-    <div>
-		<form class="d-flex" role="search" style="width: 400px; margin: 0 auto;">
-			<input class="form-control me-2" type="search" placeholder="검색">
-			<a href="#" style="color: white;">
-				<i class="bi bi-search" style="font-size: 25px; margin-left: 10px;"></i>
-			</a>
-		</form>
-    </div>
-    
-    <span id="alertCnt">
-    <c:if test="${not empty sessionScope.login }">
-	<c:choose>
-		<c:when test="${alertCnt eq 0}">
-		    <a href="/mypage/alertList" id="alertCk"><img src="../resources/bell.svg" style="width: 20px; height: 20px;"></a>	
-		</c:when>
-		<c:otherwise>
-		    <a href="/mypage/alertList" id="alertCk">
-			    <img src="../resources/bell.svg" style="width: 20px; height: 20px;">
-			    <span class="alarmCount">${alertCnt} </span>
-		    </a>
-		</c:otherwise>
-	</c:choose>
-    
-    </c:if>
-    </span>
-    
-    
-    <!-- span이 원래 버튼, i로 바꿈 -->
-<!--     <span class="bi bi-list text-dark" style="font-size: 20px;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar"></span> -->
-    <i class="bi bi-list text-light me-3" style="font-size: 30px;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar"></i>
-    
-    <!-- 마이페이지, 찜, 예약결제, Real 상담, 자유게시판, 리뷰 -->
-    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-      <div class="offcanvas-header">
-
-		<c:if test="${sessionScope.login eq false || sessionScope.login == null }">
-		<a href="/user/login">
-		<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-		  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-		  <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-		</svg>
-		</a>
-		<a href="/user/login">
-		<span class="justify-content-start">
-			로그인이 필요합니다.
-		</span>
-		</a>
-		</c:if>
-
-		<c:if test="${sessionScope.login eq true}">
-		<a href="/mypage/view">
-		<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-		  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-		  <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-		</svg>
-		</a>
-		<a href="/mypage/view">
-		<span>
-			${ sessionScope.usernick } 님 환영합니다
-		</span>
-		</a>
-		<a href="/user/logout">
-		<span>
-			로그아웃
-		</span>
-
+		<a href="#" style="color: white;">
+			<i class="bi bi-sea	ch" style="font-size: 25px; margin-left: 10px;"></i>
 		</a>
 	</form>
 </div>
-<!-- 검색 영역 끝 -->    
 
+<!-- 알림 영역 -->    
+<span id="alertCnt">
+<c:if test="${not empty sessionScope.login }">
+<c:choose>
+<c:when test="${alertCnt eq 0}">
+<a href="/mypage/alertList" id="alertCk"><img src="../resources/bell.svg" style="width: 20px; height: 20px;"></a>	
+</c:when>
+<c:otherwise>
+<a href="/mypage/alertList" id="alertCk">
+ <img src="../resources/bell.svg" style="width: 20px; height: 20px;">
+<span class="alarmCount">${alertCnt} </span>
+</a>
+</c:otherwise>
+</c:choose>
+</c:if>
+</span>
+<!-- 알림 영역 끝 -->    
+    
 <!-- 사이드바 햄버거 버튼 -->    
 <i class="bi bi-list text-black me-3" style="font-size: 30px;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar"></i>
 <!-- 사이드바 햄버거 버튼 끝 -->    
     
 <!-- 마이페이지, 찜, 예약결제, Real 상담, 자유게시판, 리뷰 -->
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-<div class="offcanvas-header bg-dark">
-
-<!-- 로그인하지 않았을때 -->
-<c:if test="${sessionScope.login eq false || sessionScope.login == null }">
-
-<a class="text-white" href="/user/login">
-	<i class="bi bi-person-circle fs-1"></i>
-</a>
-
-<a href="/user/login">
-	<span class="nav_ment nav_link justify-content-start text-white">
-		로그인이 필요합니다.
-	</span>
-</a>
-
-</c:if>
-<!-- 로그인하지 않았을때 끝 -->
-
-<!-- 로그인했을때 -->
-<c:if test="${sessionScope.login eq true}">
-<a class="nav_link text-white" href="/mypage/view">
-	<i class="bi bi-person-circle fs-1"></i>
-</a>
-<a href="/mypage/view">
-	<span class="nav_ment nav_link ustify-content-start fs-5 text-white">
-		${ sessionScope.usernick } 님 환영합니다
-	</span>
-</a>
-</c:if>
-<!-- 로그인했을때 끝 -->
-
-<!-- 닫기 버튼 -->
-<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-<!-- 닫기 버튼 끝 -->
-
-</div>
+	
+	<div class="offcanvas-header bg-dark">
+	
+	<!-- 로그인하지 않았을때 -->
+	<c:if test="${sessionScope.login eq false || sessionScope.login == null }">
+	
+	<a class="text-white" href="/user/login">
+		<i class="bi bi-person-circle fs-1"></i>
+	</a>
+	
+	<a href="/user/login">
+		<span class="nav_ment nav_link justify-content-start text-white">
+			로그인이 필요합니다.
+		</span>
+	</a>
+	
+	</c:if>
+	<!-- 로그인하지 않았을때 끝 -->
+	
+	<!-- 로그인했을때 -->
+	<c:if test="${sessionScope.login eq true}">
+	<a class="nav_link text-white" href="/mypage/view">
+		<i class="bi bi-person-circle fs-1"></i>
+	</a>
+	<a href="/mypage/view">
+		<span class="nav_ment nav_link ustify-content-start fs-5 text-white">
+			${ sessionScope.usernick } 님 환영합니다
+		</span>
+	</a>
+	</c:if>
+	<!-- 로그인했을때 끝 -->
+	
+	<!-- 닫기 버튼 -->
+	<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+	<!-- 닫기 버튼 끝 -->
+	
+	</div>
 
 <div class="offcanvas-body">
-<ul class="navbar-nav flex-grow-1 pe-3 fs-3 mx-3">
-  
-	<li class="nav-item">
-		<i class="bi bi-house-door-fill"></i>
-		<a class="nav-link d-inline" aria-current="page" href="#">홈</a>
-	</li>
-  
-	<li class="nav-item">
-		<i class="bi bi-play-btn-fill" style="color:red;"></i>
-		<a class="nav-link d-inline" href="#">리얼상담 영상</a>
-	</li>
-
-	<!-- 로그인시에만 출력 -->
-	<c:if test="${login}">
-	<li class="nav-item">
-		<i class="bi bi-bag-check-fill"></i>
-		<a class="nav-link d-inline" href="#">나의 찜</a>
-	</li>
-
-	<li class="nav-item">
-		<i class="bi bi-calendar3"></i>
-		<a class="nav-link d-inline" href="#">나의 예약내역</a>
-	</li>
-	</c:if>
-	<!-- 로그인시에만 출력 -->
-  
-	<li class="nav-item"><hr></li>
-</ul>
+	<ul class="navbar-nav flex-grow-1 pe-3 fs-3 mx-3">
 	  
-<ul class="navbar-nav flex-grow-1 pe-3 fs-3 mx-3">
+		<li class="nav-item">
+			<i class="bi bi-house-door-fill"></i>
+			<a class="nav-link d-inline" aria-current="page" href="#">홈</a>
+		</li>
+	  
+		<li class="nav-item">
+			<i class="bi bi-play-btn-fill" style="color:red;"></i>
+			<a class="nav-link d-inline" href="#">리얼상담 영상</a>
+		</li>
 	
-	<li class="nav-item">
-		<i class="bi bi-chat-left-dots-fill" style="color:dark;"></i>
-		<a class="nav-link d-inline" href="#">리뷰 모음</a>
-	</li>
-
-	<li class="nav-item">
-		<i class="bi bi-journal-text"></i>
-		<a class="nav-link d-inline" href="/freeboard/list">자유게시판</a>
-	</li>
-
-	<li class="nav-item">
-		<i class="bi bi-info-circle-fill"></i>
-		<a class="nav-link d-inline" href="#">공지사항</a>
-	</li>
-
-	<li class="nav-item">
-		<i class="bi bi-telephone-fill"></i>
-		<a class="nav-link d-inline" href="#">고객센터</a>
-	</li>
+		<!-- 로그인시에만 출력 -->
+		<c:if test="${login}">
+		<li class="nav-item">
+			<i class="bi bi-bag-check-fill"></i>
+			<a class="nav-link d-inline" href="#">나의 찜</a>
+		</li>
 	
-	<li class="nav-item">
-		<i class="bi bi-pen"></i>
-		<a class="nav-link d-inline" href="#">제휴신청</a>
-	</li>
-  
-	<li class="nav-item"><hr></li>
-</ul>
-
+		<li class="nav-item">
+			<i class="bi bi-calendar3"></i>
+			<a class="nav-link d-inline" href="#">나의 예약내역</a>
+		</li>
+		</c:if>
+		<!-- 로그인시에만 출력 -->
+	  
+		<li class="nav-item"><hr></li>
+	</ul>
+		  
+	<ul class="navbar-nav flex-grow-1 pe-3 fs-3 mx-3">
+		
+		<li class="nav-item">
+			<i class="bi bi-chat-left-dots-fill" style="color:dark;"></i>
+			<a class="nav-link d-inline" href="#">리뷰 모음</a>
+		</li>
+	
+		<li class="nav-item">
+			<i class="bi bi-journal-text"></i>
+			<a class="nav-link d-inline" href="/freeboard/list">자유게시판</a>
+		</li>
+	
+		<li class="nav-item">
+			<i class="bi bi-info-circle-fill"></i>
+			<a class="nav-link d-inline" href="#">공지사항</a>
+		</li>
+	
+		<li class="nav-item">
+			<i class="bi bi-telephone-fill"></i>
+			<a class="nav-link d-inline" href="#">고객센터</a>
+		</li>
+		
+		<li class="nav-item">
+			<i class="bi bi-pen"></i>
+			<a class="nav-link d-inline" href="#">제휴신청</a>
+		</li>
+	  
+		<li class="nav-item"><hr></li>
+	</ul>
 </div>
-
+	
 <div class="nav_footer mb-3">
 	<c:if test="${sessionScope.login eq true}">
 		<hr>
@@ -333,9 +276,10 @@ $("#alertCnt").on('click', "#alertCk", function() {
 </div>
 
 </div>
+</div>
 
 </div>
 </nav>
 
-
-
+</body>
+</html>

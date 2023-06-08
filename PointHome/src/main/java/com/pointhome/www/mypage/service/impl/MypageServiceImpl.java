@@ -17,10 +17,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.pointhome.www.freeboard.dto.FreeBoard;
 import com.pointhome.www.main.dto.Reservation;
 import com.pointhome.www.mypage.dao.face.MypageDao;
-import com.pointhome.www.mypage.dto.AlertRecomm;
 import com.pointhome.www.mypage.dto.MyPick;
 import com.pointhome.www.mypage.service.face.MypageService;
-import com.pointhome.www.partner.dto.Partner;
 import com.pointhome.www.user.dto.User;
 import com.pointhome.www.user.dto.UserFile;
 
@@ -145,7 +143,6 @@ public class MypageServiceImpl implements MypageService {
 	@Override
 	public void deleteAlert(int userNo) {
 		mypageDao.deleteAlertByUserno(userNo);
-		mypageDao.deleteAlertReByUserno(userNo);
 	}
 
 	@Override

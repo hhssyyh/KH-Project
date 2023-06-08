@@ -93,8 +93,6 @@ public interface MypageDao {
 
 	public void deleteAlertByUserno(int userNo);
 
-	public void deleteAlertReByUserno(int userNo);
-
 	public List<Reservation> selectReserveList(int userNo);
 
 	

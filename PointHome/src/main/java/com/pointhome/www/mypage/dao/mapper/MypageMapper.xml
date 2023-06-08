@@ -78,20 +78,12 @@
 	</select>
 	
 	<select id="selectAlertCnt" parameterType="int" resultType="int">
-<!--         select sum (T.cnt) from -->
-<!--        (  -->
        select count(*) from user_alert where user_no = #{userNo} and is_read ='N'
-<!--         union all -->
-<!--         select count(*) AS cnt from user_alert_recommend where user_no = #{userNo} and is_read ='N') T -->
 	</select>
 	
 	<update id="deleteAlertByUserno" parameterType="int">
 		 UPDATE user_alert set is_read = 'Y' where user_no = #{userNo}
 	</update>
-	
-<!-- 	<update id="deleteAlertReByUserno" parameterType="int"> -->
-<!-- 		 UPDATE user_alert_recommend set is_read = 'Y' where user_no = #{userNo} -->
-<!-- 	</update> -->
 	
 	<select id="selectReserveList" parameterType="int" resultType="Reservation">
 		SELECT * FROM reservation WHERE user_no = #{userNo}
