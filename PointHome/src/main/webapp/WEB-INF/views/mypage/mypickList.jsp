@@ -39,7 +39,9 @@ body {
 	
 }
 
-
+* {
+ 	font-family : 'NotoSansKR-Regular';
+}
 
 
 </style>

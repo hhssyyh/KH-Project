@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 
 <c:import url="/WEB-INF/views/layout/header.jsp" />
 
@@ -31,65 +33,50 @@
     </tr>
   </thead>
   
-  <c:forEach var="list" items="reservelist">
-      <th scope="row">1</th>
-      <td>해성동자</td>
-      <td>list.resDate</td>
-      <td>1234-1234</td>
-      <td>예약완료</td>
+
+
   
-  </c:forEach>
+<jsp:useBean id="now" class="java.util.Date" />
+<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />
+  
   <tbody class="table-group-divider">
-    <tr>
-      <th scope="row">1</th>
-      <td>해성동자</td>
-      <td>2023.05.23</td>
-      <td>1234-1234</td>
-      <td>예약완료</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>2023.05.23</td>
-      <td>1234-1234</td>
-      <td>예약완료</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td >Larry the Bird</td>
-	  <td>2023.05.23</td>
-      <td>1234-1234</td>
-      <td>예약완료</td>
-    </tr>
-    <tr>
-      <th scope="row">4</th>
-      <td >Larry the Bird</td>
-	  <td>2023.05.23</td>
-      <td>1234-1234</td>
-      <td>예약완료</td>
-    </tr>
-    <tr>
-      <th scope="row">5</th>
-      <td >Larry the Bird</td>
-	  <td>2023.05.23</td>
-      <td>1234-1234</td>
-      <td>예약완료</td>
-    </tr>
-    <tr>
-      <th scope="row">6</th>
-      <td >Larry the Bird</td>
-	  <td>2023.05.23</td>
-      <td>1234-1234</td>
-      <td>예약완료</td>
-    </tr>
-    <tr>
-      <th scope="row">7</th>
-      <td >Larry the Bird</td>
-	  <td>2023.05.23</td>
-      <td>1234-1234</td>
-      <td>예약완료</td>
-    </tr>
-    
+     <c:forEach var="list" items="${reservelist}">
+		<fmt:parseDate value="${RES_DATE}" var="resDate" pattern="yyyy-MM-dd"/>
+<%-- 		<c:choose> --%>
+<%-- 			<c:if test="${resDate > today }"> --%>
+<!-- 				 <tr> -->
+<%-- 			      <th scope="row">${list.RES_NO}</th> --%>
+<%-- 			      <td>${list.PARTNER_SHOPNAME}</td> --%>
+<%-- 			      <td>${list.RES_DATE }</td> --%>
+<%-- 			      <td>${list.RES_RESERVENO }</td> --%>
+<!-- 			      <td>예약완료</td> -->
+<!-- 			      </tr> -->
+<%-- 			</c:if> --%>
+
+<%-- 			<c:if test="${resDate < today }"> --%>
+				 <tr>
+			      <th scope="row">${list.RES_NO}</th>
+			      <td>${list.PARTNER_SHOPNAME}</td>
+			      <td>${list.RES_DATE }</td>
+			      <td>${list.RES_RESERVENO }</td>
+			      <td><button>리뷰쓰기</button></td>
+			      </tr>
+<%-- 			</c:if> --%>
+			
+<%-- 			<c:otherwise> --%>
+<!-- 				<tr> -->
+<%-- 			      <th scope="row">${list.RES_NO}</th> --%>
+<%-- 			      <td>${list.PARTNER_SHOPNAME}</td> --%>
+<%-- 			      <td>${list.RES_DATE }</td> --%>
+<%-- 			      <td>${list.RES_RESERVENO }</td> --%>
+<!-- 			      <td><button>리뷰쓰기</button></td> -->
+<!-- 			     </tr> -->
+			
+<%-- 			</c:otherwise> --%>
+		
+<%-- 		</c:choose> --%>
+  	</c:forEach>
+
   </tbody>
 </table>
 

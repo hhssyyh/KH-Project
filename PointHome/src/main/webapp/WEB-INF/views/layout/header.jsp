@@ -66,6 +66,11 @@ nav {
 #alertCk{
 	position: relative;
 }
+
+* {
+ 	font-family : 'NotoSansKR-Regular';
+}
+
 </style>
 
 <script type="text/javascript">
@@ -127,9 +132,9 @@ $("#alertCnt").on('click', "#alertCk", function() {
 <!-- 카테고리 영역 -->
 <div>
 	<a class="category mx-5" href="/partner/list">전체</a>
-	<a class="category mx-5" href="/partner/typelist?partnerType=t">타로</a>
-	<a class="category mx-5" href="/partner/typelist?partnerType=c">철학</a>
-	<a class="category mx-5" href="/partner/typelist?partnerType=s">신점</a>
+	<a class="category mx-5" href="/partner/list?partnerType=t">타로</a>
+	<a class="category mx-5" href="/partner/list?partnerType=c">철학</a>
+	<a class="category mx-5" href="/partner/list?partnerType=s">신점</a>
 </div>
 <!-- 카테고리 영역 -->
 

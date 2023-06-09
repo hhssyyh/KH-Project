@@ -43,7 +43,7 @@ body {
 #container{
 	margin: 0 auto;
 	margin-top: 154px;
- 	background-color: #5758BB; 
+ 	background-color: #C8D7FF; 
 	width:80%; 
 	height:350px;
 	display: flex;
