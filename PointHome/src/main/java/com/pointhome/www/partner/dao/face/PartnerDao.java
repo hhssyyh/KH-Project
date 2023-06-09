@@ -4,14 +4,15 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.pointhome.www.main.dto.Reservation;
 import com.pointhome.www.mypage.dto.MyPick;
 import com.pointhome.www.partner.dto.Partner;
 import com.pointhome.www.partner.dto.PartnerFile;
 import com.pointhome.www.partner.dto.PartnerNotice;
 import com.pointhome.www.partner.dto.PartnerNoticeFile;
+import com.pointhome.www.partner.dto.PartnerVideo;
 import com.pointhome.www.util.Paging;
 
 public interface PartnerDao {
@@ -50,6 +51,26 @@ public interface PartnerDao {
 
 	public int selectCntTypeAll(Map<String, Object> pagingMap);
 
+	
+	
+	/**
+	 * 제휴사 페이지에서 보여줄 예약 리스트 가져오기
+	 * @param paging 
+	 * 
+	 * @param partNo
+	 * @return
+	 */
+	public List<Map<String, Object>> selectReserveList(@Param("paging") Paging paging, @Param("partNo") Integer partNo);
+
+	/**
+	 * partNo으로 reserve 갯수 select
+	 * 
+	 * @param partNo
+	 * @return
+	 */
+	public int selectCntReservation(int partNo);
+	
+	
 
 	/**
 	 * 파트너 -> 유저 공지사항 조회
@@ -182,6 +203,42 @@ public interface PartnerDao {
 	
 	public void insertNoticeAlert(@Param("partnerNotice") PartnerNotice partnerNotice, @Param("pickUser") MyPick mp);
 
+	/**
+	 * 파트너 페이지에서 예약 update
+	 * 
+	 * @param reservation
+	 */
+	public void updateReservation(Reservation reservation);
 	
+	/**
+	 * 영상 보여주기
+	 * 
+	 * @param partnerNo - 제휴사 고유 번호
+	 * @return video - 영상 출력 정보를 담은 DTO
+	 */
+	public List<PartnerVideo> viewVideo(int partnerNo);
+	
+	/**
+	 * 영상 넣기
+	 * 
+	 * @param video - 영상 URL
+	 */
+	public void insertVideo(PartnerVideo video);
+	
+	/**
+	 * 영상 삭제
+	 * 
+	 * @param partnerVideoNo - 제휴사 고유 번호
+	 * @return video - 영상 출력 정보를 담은 DTO
+	 */
+	public void deleteVideo(int partnerVideoNo);
+	
+	/**
+	 * 영상 중복검사
+	 * 
+	 * @param videoId - 영상 url
+	 * @return video - 중복 값이 있으면 반환
+	 */
+	public int test(String videoId);	
 
 }

@@ -48,7 +48,7 @@
 	</select>	
 
 	<select id="selectByUserEmailPw" resultType="User" parameterType="User">
-		SELECT user_no FROM user_tb
+		SELECT user_no,user_nick FROM user_tb
 		WHERE 1=1 AND 
 			user_email = #{userEmail} AND
 			user_pw = #{userPw}
@@ -83,9 +83,14 @@
 		where user_Email = #{userEmail}
 	</select>
 	
-	<select id="selectUserNoByEmail" parameterType="User" resultType="int">
-		select user_no from user_tb
+	<select id="selectUserNoByEmail" parameterType="User" resultType="User">
+		select user_no,user_nick from user_tb
 		where user_email = #{userEmail}
 	</select>
 	
+	
+	
+	
 </mapper>
+
+

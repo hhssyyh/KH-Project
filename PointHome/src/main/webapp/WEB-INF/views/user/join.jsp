@@ -4,6 +4,7 @@
 
 <c:import url="../layout/header.jsp"/>
 <link href="/resources/join/user/css/join.css" rel="stylesheet">
+<script type="text/javascript" src="/resources/join/user/js/Email.js"></script>
 
 <!-- 전체 배경화면 색 설정 -->
 <div class="bg-light">
@@ -41,15 +42,15 @@
 	<div class="row g-2 mb-3">
 		<div class="col-5">
 			<div class="form-floating">
-				<input type="email" class="form-control" name="userEmail" id="userEmail" placeholder="이메일" value="${userInfo.userEmail}" readonly="readonly">
-				<label for="userEmail">이메일</label>
+				<input type="text" class="form-control" name="Email" id="Email" placeholder="이메일" value="${userInfo.userEmail}" readonly="readonly">
+				<label for="Email">이메일</label>
 			</div>
 		</div>
 		
 		<div class="col-4">
 			<div class="form-floating">
 				<select class="form-select" name="userEmailSelect" id="userEmailSelect">
-					<option selected>직접입력</option>
+					<option value="" selected>직접입력</option>
 					<option value="@gmail.com">@gmail.com</option>
 					<option value="@naver.com">@naver.com</option>
 					<option value="@hanmail.net">@hanmail.net</option>
@@ -57,27 +58,15 @@
 				<label for="userEmailSelect">선택</label>
 			</div>
 		</div>
+
+		<input type="email" class="form-control" name="userEmail" id="userEmail" placeholder="이메일" value="${userInfo.userEmail}" readonly="readonly">
+		
 		<div class="col-3">
 			<div class="form-floating">
 				<button type="button" class="btn btn-primary btn-lg">중복 확인</button>
 			</div>
 		</div>
 		
-		<script type="text/javascript">
-		$(document).ready(function() {
-			  // Add an event listener to the select element
-			  $('#userEmailSelect').change(function() {
-			    // Get the selected option value
-			    const selectedOption = $(this).val();
-			    
-			    // Set the input value with the selected option value
-			    $('#userEmail').val(selectedOption);
-			    
-			    // Set the output value with the selected option value
-			    $('#outputEmail').val(selectedOption);
-			  });
-			});
-		</script>
 	</div>
 	</c:if>
 	<!-- 소셜 로그인일 경우 -->
@@ -87,11 +76,11 @@
 	<div class="row g-2 mb-3">
 		<div class="col-5">
 			<div class="form-floating">
-				<input type="email" class="form-control" name="userEmail" id="userEmail" placeholder="이메일">
-				<label for="userEmail">이메일</label>
+				<input type="email" class="form-control" name="Email" id="Email" placeholder="이메일">
+				<label for="Email">이메일</label>
 			</div>
 		</div>
-		
+	
 		<div class="col-4">
 			<div class="form-floating">
 				<select class="form-select" name="userEmailSelect" id="userEmailSelect">
@@ -103,6 +92,9 @@
 				<label for="userEmailSelect">선택</label>
 			</div>
 		</div>
+		
+		<input type="text" class="form-control" name="userEmail" id="userEmail" placeholder="이메일">
+	
 		<div class="col-3">
 			<div class="form-floating">
 				<button type="button" class="btn btn-primary btn-lg">중복 확인</button>

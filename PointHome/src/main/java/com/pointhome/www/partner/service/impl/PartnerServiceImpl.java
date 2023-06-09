@@ -12,15 +12,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.pointhome.www.main.dto.Reservation;
 import com.pointhome.www.mypage.dto.MyPick;
 import com.pointhome.www.partner.dao.face.PartnerDao;
 import com.pointhome.www.partner.dto.Partner;
 import com.pointhome.www.partner.dto.PartnerFile;
 import com.pointhome.www.partner.dto.PartnerNotice;
 import com.pointhome.www.partner.dto.PartnerNoticeFile;
+import com.pointhome.www.partner.dto.PartnerVideo;
 import com.pointhome.www.partner.service.face.PartnerService;
 import com.pointhome.www.util.Paging;
 
@@ -58,6 +59,14 @@ public class PartnerServiceImpl implements PartnerService {
 			return false;
 		}
 	}
+	
+	
+	@Override
+	public void updateReservation(Reservation reservation) {
+		partnerDao.updateReservation(reservation);
+	}
+	
+	
 
 	@Override
 	public Partner getPartner(Partner partner) {
@@ -341,4 +350,46 @@ public class PartnerServiceImpl implements PartnerService {
 		return partnerDao.getPartnerImg(partNo);
 	}
 	
+	@Override
+	public Paging getPaging(int curPage, int partNo) {
+		int totalPage = partnerDao.selectCntReservation(partNo);
+		Paging paging = new Paging(totalPage, curPage);
+
+		return paging;
+	}
+
+	@Override
+	public List<Map<String, Object>> getReserveList(Paging paging, int partNo) {
+
+		return partnerDao.selectReserveList(paging, partNo);
+	}
+
+	@Override
+	public List<PartnerVideo> viewVideo(int partnerNo) {
+		
+		logger.info("여긴 서비스 임플 왔냐 : {}", partnerNo);
+		
+		List<PartnerVideo> video = partnerDao.viewVideo(partnerNo);
+		
+		return video;
+	}
+	
+	@Override
+	public void insertVideo(PartnerVideo video) {
+		
+		partnerDao.insertVideo(video);
+	}
+
+	@Override
+	public void deleteVideo(int partnerVideoNo) {
+		
+		partnerDao.deleteVideo(partnerVideoNo);
+		
+	}
+
+	@Override
+	public int test(String videoId) {
+		return partnerDao.test(videoId);
+	}
+			
 }

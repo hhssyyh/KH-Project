@@ -85,7 +85,6 @@
 		 UPDATE user_alert set is_read = 'Y' where user_no = #{userNo}
 	</update>
 	
-
 	<select id="selectReserveList" parameterType="int" resultType="Map">
 		select P.partner_shopname, P.partner_phone, P.partner_email, P.partner_type
         , R.*

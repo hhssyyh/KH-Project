@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -42,82 +43,39 @@ a {
 
 <nav class="navbar bg-light fixed-top" style="background-color: #ccc;">
   <div class="container-fluid">
-  
     <a class="ms-3" href="/partner/main" style="font-size: 23px;">PointHouse(제휴사)</a>
-    
-    
-    <!-- span이 원래 버튼, i로 바꿈 -->
-<!--     <span class="bi bi-list text-dark" style="font-size: 20px;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar"></span> -->
-    <i class="bi bi-list text-dark me-3" style="font-size: 30px;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar"></i>
-    
-    <!-- 마이페이지, 찜, 예약결제, Real 상담, 자유게시판, 리뷰 -->
-    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-      <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">메뉴</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-      </div>
-      <div class="offcanvas-body">
-        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-        
-          <!-- dropdown 부분 -->
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Dropdown
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li>
-                <hr class="dropdown-divider">
-              </li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
-          </li>
-        
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Dropdown
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li>
-                <hr class="dropdown-divider">
-              </li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
-          </li>
-          
-        </ul>
-      </div>
-    </div>
+	<c:if test="${not empty partnerLogin }">
+    	<a href="./logout" style="font-weight: bold;">로그아웃</a>
+    </c:if>
   </div>
 </nav>
 
-<div id="sidebarContainer">
+<div id="sidebarContainer" style="width: 15%;">
 	<div class="accordion accordion-flush" id="accordionFlushExample">
-	
+
 	 <div class="accordion-body"><a href="/partner/main">대시보드</a></div>
 	 <!-- #1 -->
 	  <div class="accordion-item">
 	    <h2 class="accordion-header" id="flush-headingOne">
 	      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
 	        상점관리
+	        수정
 	      </button>
 	    </h2>
 	    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
 	      <div class="accordion-body"><a href="./shopsetting">상점수정</a></div>
 	    </div>
+	    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+	      <div class="accordion-body"><a href="./partnerInfo">회원수정</a></div>
+	    </div>
+	    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+	      <div class="accordion-body"><a href="./viewVideo">영상수정</a></div>
+	    </div>
 	  </div>
 	  <!-- #2 -->
-	  <div class="accordion-item">
-	    <h2 class="accordion-header" id="flush-headingTwo">
-	      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-	       	예약관리
-	      </button>
-	    </h2>
-	    <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
-			<div class="accordion-body"><a href="./usermanage">회원관리</a></div>				   		
+	  <div class="accordion-item" id="flush-headingTwo">
+	    <div class="accordion-body">
+			<a href="./reservemanage">예약관리</a>			   		
 	    </div>
 	  </div>
 	  
@@ -129,22 +87,17 @@ a {
 	      </button>
 	    </h2>
 	    <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
-			<div class="accordion-body"><a href="./usermanage">회원관리</a></div>				   		
+			<div class="accordion-body"><a href="./viewReview">리뷰 조회</a></div>				   		
+	    </div>
+	    <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+			<div class="accordion-body"><a href="./usermanage">문의?조회?</a></div>				   		
 	    </div>
 	  </div>
 	  
 	  <!-- #4 -->
-	  	  <div class="accordion-item">
-	    <h2 class="accordion-header" id="flush-headingFour">
-	      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
-	        공지관리
-	      </button>
-	    </h2>
-	    <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
-			<div class="accordion-body"><a href="./partnernotice">공지사항</a></div>				   		
-	    </div>
-	    <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
-			<div class="accordion-body"><a href="./usermanage">회원관리</a></div>				   		
+	  <div class="accordion-item">
+	    <div class="accordion-body">
+			<a href="./reservemanage">공지사항</a>			   		
 	    </div>
 	  </div>
 	  

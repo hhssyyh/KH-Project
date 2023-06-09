@@ -136,7 +136,7 @@ public interface UserService {
 	 * @param userInfo -카카오로부터 읽어온 사용자 정보 
 	 * @return 사용자의 userno
 	 */
-	public int getUserNo(User userInfo);
+	public User getUserNo(User userInfo);
 
 	/**
 	 * 가입한 회원의 이메일을 조회

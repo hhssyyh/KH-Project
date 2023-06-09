@@ -3,7 +3,6 @@ package com.pointhome.www.partner.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 
@@ -18,11 +17,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.pointhome.www.main.dto.Reservation;
+import com.pointhome.www.main.service.face.MainService;
 import com.pointhome.www.mypage.service.face.MypageService;
 import com.pointhome.www.partner.dto.Partner;
 import com.pointhome.www.partner.dto.PartnerFile;
 import com.pointhome.www.partner.dto.PartnerNotice;
 import com.pointhome.www.partner.dto.PartnerNoticeFile;
+import com.pointhome.www.partner.dto.PartnerVideo;
 import com.pointhome.www.partner.service.face.PartnerService;
 import com.pointhome.www.util.Paging;
 
@@ -35,6 +37,7 @@ public class PartnerController {
 	
 	@Autowired PartnerService partnerService;
 	@Autowired MypageService mypageService;
+	@Autowired MainService mainService;
 	
 	@GetMapping("/main")
 	public void main(HttpSession session) {
@@ -97,12 +100,67 @@ public class PartnerController {
 		
 	}
 	
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+
+		return "redirect:./main";
+	}
+	
 	@GetMapping("/shopsetting")
 	public void shopsettingGet(HttpSession session, Model model) {
 		Partner partnerInfo = partnerService.getPartnerInfo((Integer)session.getAttribute("partnerNo"));
 		
 		model.addAttribute("partnerInfo", partnerInfo);
 	}
+	
+	@PostMapping("/shopsetting")
+	public String shopsettingPost(HttpSession session, Partner partner) {
+		
+		partner.setPartnerNo((int)session.getAttribute("partnerNo"));
+		logger.debug("{}", partner);
+		
+//		partnerService.partnerShopUpdate(partner);
+		
+		return "redirect:./shopsetting";
+	}
+	
+	
+	@GetMapping("/reservemanage")
+	public void reservemanageGet(HttpSession session, Model model, @RequestParam(defaultValue = "0") int curPage) {
+		logger.debug("!!!!!!!!!!{}", curPage);
+		logger.debug("!!!!!!!!!!!{}", (int)session.getAttribute("partnerNo"));
+		Paging paging = partnerService.getPaging(curPage, (int)session.getAttribute("partnerNo"));
+		List<Map<String, Object>> reserveList = partnerService.getReserveList(paging, (int)session.getAttribute("partnerNo"));
+
+		model.addAttribute("reserveList", reserveList);
+	}
+
+	@GetMapping("/updateReserve")
+	public void updateReserveGet(HttpSession session, Model model, String date, String time, int resNo) {
+		model.addAttribute("date", date);
+		model.addAttribute("time", time);
+		model.addAttribute("resNo", resNo);
+	}
+	
+	@GetMapping("/updateReserveAjax")
+	public void updateReserveAjax(Reservation reservation, int resNo, HttpSession session, Model model) {
+		reservation.setPartNo((int)session.getAttribute("partnerNo"));
+		List<Integer> reserveList = mainService.reserveTime(reservation);
+		
+		model.addAttribute("reserveList", reserveList);
+		model.addAttribute("resNo", resNo);
+		model.addAttribute("resDate", reservation.getResDate());
+	}
+	
+	@GetMapping("/updateReserveComplete")
+	public String updateReserveComplete(Reservation reservation, HttpSession session) {
+		reservation.setPartNo((int)session.getAttribute("partnerNo"));
+		partnerService.updateReservation(reservation);
+		
+		return "redirect:./reservemanage";
+	}
+	
 	
 	
 	
@@ -294,7 +352,59 @@ public class PartnerController {
 			return "redirect:./main";
 		}
 		
-	   
+		@GetMapping("/viewVideo")
+		public void viewVideo(HttpSession session, Model model) {
+			logger.debug("/viewVideo [GET]");
+			
+			int partnerNo = (Integer)session.getAttribute("partnerNo");
+			
+			logger.info("{}", partnerNo);
+			
+			List<PartnerVideo> video = partnerService.viewVideo(partnerNo);
+			
+			model.addAttribute("video", video);
+			
+			logger.info("ggggggg{}",video);
+
+		}	
+		
+		@PostMapping("/insertVideo")
+		public String insertVideo(PartnerVideo video, HttpSession session, Model model) {
+			
+			logger.debug("/insertVideo [POST]");
+			
+			video.setPartnerNo((Integer)session.getAttribute("partnerNo"));
+			
+			String youtubeUrl = video.getPartnerVideoUrl();
+			String videoId = youtubeUrl.substring(youtubeUrl.indexOf("=") + 1);	
+			
+			if(partnerService.test(videoId) > 0) {
+				
+//				model.addAttribute("test",1);
+				
+				return "redirect:./viewVideo";
+			}
+		
+			video.setPartnerVideoUrl(videoId);
+			
+			logger.info("인서트 인서트 : {}",video);
+			logger.info("자른 유알엘 : {}",videoId);
+
+			partnerService.insertVideo(video);
+			
+			return "redirect:./viewVideo";
+			
+		}	
+		
+		@PostMapping("/deleteVideo")
+		public String deleteVideo(int partnerVideoNo) {
+			logger.debug("/deleteVideo [POST]");
+			logger.info("{}",partnerVideoNo );
+			
+			partnerService.deleteVideo(partnerVideoNo);
+			
+			return "redirect:./viewVideo";
+		}	   
 
 }
     

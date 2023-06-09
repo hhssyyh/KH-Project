@@ -23,23 +23,28 @@ a {
 	color: black;
 	text-decoration: none;
 }
-
 nav {
-	background-color: white;
+	background-color: none;
 }
 .category{
 	font-family : 'SBAggroM';
 	font-size: 1.8em;
 	color: balck;
+	margin-top: 5px;
 }
 .nav_ment{
-	font-family : 'NotoSansKR-Bold';
-	font-size: 1.5em;
+	font-family : 'Noto_Sans_KR700';
+	font-size: 24px;
+}
+.offcanvas-body>ul>li{
+	font-family : 'SBAggroM';
+	font-size: 24px;
+	margin-top : 5px;
+	margin-bottom : 5px;
 }
 .offcanvas-body>ul>li>a{
-	font-family : 'SBAggroM';
+	margin-left : 20px;
 }
-
 .alarmCount {
     position: absolute;
 /*     top: -16px; */
@@ -62,9 +67,11 @@ nav {
     color: #fff;
     transform: translate( -50%, -50% );
 }
-
 #alertCk{
-	position: relative;
+/* 	position: relative; */
+	width: 20px; 
+	height: 20px;
+	font-size: 25px;
 }
 
 * {
@@ -73,6 +80,7 @@ nav {
 
 </style>
 
+<c:if test="${login }">
 <script type="text/javascript">
 $(function()  {
 $("#alertCnt").on('click', "#alertCk", function() {
@@ -101,14 +109,15 @@ $("#alertCnt").on('click', "#alertCk", function() {
 
 
 </script>
+</c:if>
 </head>
 <body>
 
 <nav class="navbar fixed-top">
-<div class="container-fluid">
+<div class="container-fluid my-2">
 
 <!-- 로고 영역 -->
-<a class="ms-3" href="/">
+<a class="col-1 ms-3" href="/">
     <div style="width:40px; heitght:40px; display: inline-block;">
 	<svg xmlns="http://www.w3.org/2000/svg" version="1.1"xlink="http://www.w3.org/1999/xlink"xmlns:svgjs="http://svgjs.com/svgjs" width="100%" height="100%"viewBox="12.401999473571777 6.422000408172607 75.19662475585938 87.156005859375">
 		<g fill="#fcbf19">
@@ -129,51 +138,49 @@ $("#alertCnt").on('click', "#alertCk", function() {
 </a>
 <!-- 로고 영역 끝 -->
   
+<div class="col-4"></div>
+  
 <!-- 카테고리 영역 -->
+
 <div>
 	<a class="category mx-5" href="/partner/list">전체</a>
 	<a class="category mx-5" href="/partner/list?partnerType=t">타로</a>
 	<a class="category mx-5" href="/partner/list?partnerType=c">철학</a>
 	<a class="category mx-5" href="/partner/list?partnerType=s">신점</a>
+
 </div>
 <!-- 카테고리 영역 -->
 
-<!-- 검색 영역 -->    
-<div>
-	<form class="d-flex" role="search" style="width: 400px; margin: 0 auto;">
-		<input class="form-control me-2" type="search" placeholder="검색">
-		<a href="#" style="color: white;">
-			<i class="bi bi-sea	ch" style="font-size: 25px; margin-left: 10px;"></i>
-		</a>
-	</form>
-</div>
-
 <!-- 알림 영역 -->    
-<span id="alertCnt">
-<c:if test="${not empty sessionScope.login }">
-<c:choose>
-<c:when test="${alertCnt eq 0}">
-<a href="/mypage/alertList" id="alertCk"><img src="../resources/bell.svg" style="width: 20px; height: 20px;"></a>	
-</c:when>
-<c:otherwise>
-<a href="/mypage/alertList" id="alertCk">
- <img src="../resources/bell.svg" style="width: 20px; height: 20px;">
-<span class="alarmCount">${alertCnt} </span>
-</a>
-</c:otherwise>
-</c:choose>
-</c:if>
-</span>
+<div class="col-1 text-end">	
+	<c:if test="${not empty sessionScope.login }">
+	<c:choose>
+	<c:when test="${alertCnt eq 0}">
+		<a href="/mypage/alertList" id="alertCk">
+			<i class="bi bi-bell"></i>
+		</a>	
+	</c:when>
+	<c:otherwise>
+		<a href="/mypage/alertList" id="alertCk">
+			<i class="bi bi-bell"></i>
+			<span class="alarmCount">${alertCnt} </span>
+		</a>
+	</c:otherwise>
+	</c:choose>
+	</c:if>
+</div>
 <!-- 알림 영역 끝 -->    
     
 <!-- 사이드바 햄버거 버튼 -->    
-<i class="bi bi-list text-black me-3" style="font-size: 30px;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar"></i>
+<div class="col-1 text-end">
+	<i class="bi bi-list" style="font-size: 30px;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar"></i>
+</div>
 <!-- 사이드바 햄버거 버튼 끝 -->    
     
 <!-- 마이페이지, 찜, 예약결제, Real 상담, 자유게시판, 리뷰 -->
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
 	
-	<div class="offcanvas-header bg-dark">
+	<div class="offcanvas-header bg-dark mb-2">
 	
 	<!-- 로그인하지 않았을때 -->
 	<c:if test="${sessionScope.login eq false || sessionScope.login == null }">
@@ -198,7 +205,7 @@ $("#alertCnt").on('click', "#alertCk", function() {
 	</a>
 	<a href="/mypage/view">
 		<span class="nav_ment nav_link ustify-content-start fs-5 text-white">
-			${ sessionScope.usernick } 님 환영합니다
+			${ usernick } 님 환영합니다
 		</span>
 	</a>
 	</c:if>
@@ -211,7 +218,7 @@ $("#alertCnt").on('click', "#alertCk", function() {
 	</div>
 
 <div class="offcanvas-body">
-	<ul class="navbar-nav flex-grow-1 pe-3 fs-3 mx-3">
+	<ul class="navbar-nav flex-grow-1 pe-3 mx-3">
 	  
 		<li class="nav-item">
 			<i class="bi bi-house-door-fill"></i>
@@ -240,7 +247,7 @@ $("#alertCnt").on('click', "#alertCk", function() {
 		<li class="nav-item"><hr></li>
 	</ul>
 		  
-	<ul class="navbar-nav flex-grow-1 pe-3 fs-3 mx-3">
+	<ul class="navbar-nav flex-grow-1 pe-3 mx-3">
 		
 		<li class="nav-item">
 			<i class="bi bi-chat-left-dots-fill" style="color:dark;"></i>
@@ -283,7 +290,6 @@ $("#alertCnt").on('click', "#alertCk", function() {
 </div>
 </div>
 
-</div>
 </nav>
 
 </body>

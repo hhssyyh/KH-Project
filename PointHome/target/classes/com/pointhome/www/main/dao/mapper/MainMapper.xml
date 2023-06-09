@@ -7,7 +7,7 @@
   
 <mapper namespace="com.pointhome.www.main.dao.face.MainDao">
 
-	<select id="selectReserveTime" resultType="list" parameterType="Reservation">
+	<select id="selectReserveTime" resultType="String" parameterType="Reservation">
 		SELECT res_time FROM reservation
 		WHERE res_date = #{resDate} AND part_no = #{partNo}
 	</select>
@@ -29,6 +29,24 @@
 		FROM partner_tb
 		WHERE partner_no = #{partNo}
 	</select>
+	
+	<select id="selectCntReview" parameterType="int" resultType="int">
+		SELECT count(*) FROM review
+		WHERE part_no = #{partNo}
+	</select>
+
+	<select id="selectReviewListByPartNo" parameterType="map" resultType="map">
+		SELECT * FROM (
+			SELECT rownum rnum, R.* FROM (
+				SELECT re.*, (SELECT user_nick FROM user_tb u WHERE u.user_no = re.user_no) user_nick
+				FROM review re
+				WHERE re.part_no=#{partNo}
+				ORDER BY review_no DESC
+			) R
+		)
+		WHERE rnum BETWEEN #{paging.startNo} and #{paging.endNo}
+	</select>
+	
 </mapper>
 
 

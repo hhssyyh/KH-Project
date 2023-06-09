@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -15,12 +16,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.pointhome.www.main.dto.Reservation;
 import com.pointhome.www.main.service.face.MainService;
 import com.pointhome.www.mypage.service.face.MypageService;
 import com.pointhome.www.partner.dto.Partner;
+import com.pointhome.www.util.Paging;
 
 @Controller
 public class mainController {
@@ -48,15 +51,19 @@ public class mainController {
 		Partner partner = mainService.getPartnerView(partNo);
 		logger.debug("+++++++++++++++{}", partner);
 		
-		int userNo = (Integer)session.getAttribute("userno");
-		
-		int isPick = mypageService.isPick(userNo, partNo);
-		int alertCnt = mypageService.getAlertCnt(userNo);
+		if(session.getAttribute("userno") == null) {
+			
+		} else {
+			int userNo = (Integer)session.getAttribute("userno");
+			int isPick = mypageService.isPick(userNo, partNo);
+			int alertCnt = mypageService.getAlertCnt(userNo);
+			
+			model.addAttribute("isPick", isPick);
+			model.addAttribute( "alertCnt" , alertCnt);
+		}
 
 		model.addAttribute("partNo", partNo);
 		model.addAttribute("partner", partner);
-		model.addAttribute("isPick", isPick);
-		model.addAttribute( "alertCnt" , alertCnt);
 	}
 	
 	@RequestMapping("/main/detailPick")
@@ -86,8 +93,17 @@ public class mainController {
 	}
 	
 	@GetMapping("/main/review")
-	public void reviewGet() {
-		
+	public void reviewGet(int partNo, @RequestParam(defaultValue = "0") int curPage, Model model) {
+		Partner partner = mainService.getPartnerView(partNo);
+
+		Paging paging = mainService.getPaging(curPage, partNo);
+		List<Map<String, Object>> reviewList  = mainService.getReviewList(paging, partNo);
+
+		logger.debug("+!+!+!+!+!!+{}", reviewList);
+
+		model.addAttribute("partNo", partNo);
+		model.addAttribute("partner", partner);
+		model.addAttribute("reviewList", reviewList);
 	}
 	
 	@GetMapping("/main/notice")
@@ -111,7 +127,8 @@ public class mainController {
 		
 		List<Integer> reserveList = mainService.reserveTime(reservation);
 		
-//		logger.debug("!!!!!!!!!!!!!!!!!!!!!!!!!!{}", reservation);
+		logger.debug("!!!!!!!!!!!!!!!!!!!!!!!!!!{}", reserveList);
+		
 		
 		model.addAttribute("reserveList", reserveList);
 		model.addAttribute("resDate", reservation.getResDate());
