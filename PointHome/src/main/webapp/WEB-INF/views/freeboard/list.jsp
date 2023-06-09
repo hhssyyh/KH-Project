@@ -75,7 +75,16 @@ window.onload=function(){
       console.log(keyword)
       
       location.href = "/freeboard/list?curPage=1" + "&searchType=" + searchType + "&keyword=" + keyword;
+      
    }
+   var input = document.getElementById("search");
+
+   input.addEventListener("keyup", function (event) {
+     if (event.keyCode === 13) {
+       event.preventDefault();
+       document.getElementById("searchBtn").click();
+     }
+   });   
 }
 </script>
 <div id="header" style="margin-top: 60px; margin-bottom: 80px;">
@@ -92,11 +101,12 @@ window.onload=function(){
       <select class="form-contril search-select" name="searchType">
          <option value="freeboard_title">제목</option>
          <option value="freeboard_content">내용</option>
+         <option value="user_nick">닉네임</option>
          <option value="freeboard_titcont">제목+내용</option>
       </select>
       <input name="keyword" type="text" class="form-control"
          placeholder="검색어 입력" aria-label="search"
-         aria-describedby="button-addon2" name="serchName">
+         aria-describedby="button-addon2" name="serchName" id="search">
          
       <button class="btn btn-info" type="button" id="searchBtn">검색</button>
    </div>

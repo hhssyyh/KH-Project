@@ -25,7 +25,11 @@
          <if test='searchType.equals("freeboard_content")'>
             WHERE f.freeboard_content LIKE concat(concat('%', #{keyword}), '%')
          </if>
-   
+         
+         <if test='searchType.equals("user_nick")'>
+            WHERE u.user_nick LIKE concat(concat('%', #{keyword}), '%')
+         </if>   
+         
          <if test='searchType.equals("freeboard_titcont")'>
             WHERE f.freeboard_title LIKE concat(concat('%', #{keyword}), '%')
             or f.freeboard_content LIKE concat(concat('%', #{keyword}), '%')
@@ -214,7 +218,11 @@
       <if test='searchType.equals("freeboard_content")'>
          WHERE f.freeboard_content LIKE concat(concat('%', #{keyword}), '%')
       </if>
-
+      
+      <if test='searchType.equals("user_nick")'>
+            WHERE u.user_nick LIKE concat(concat('%', #{keyword}), '%')
+      </if>  
+      
       <if test='searchType.equals("freeboard_titcont")'>
          WHERE f.freeboard_title LIKE concat(concat('%', #{keyword}), '%')
          or f.freeboard_content LIKE concat(concat('%', #{keyword}), '%')
@@ -258,7 +266,10 @@
       <if test='searchType.equals("freeboard_content")'>
          WHERE f.freeboard_content LIKE concat(concat('%', #{keyword}), '%')
       </if>
-
+      
+      <if test='searchType.equals("user_nick")'>
+         WHERE u.user_nick LIKE concat(concat('%', #{keyword}), '%')
+      </if>  
       <if test='searchType.equals("freeboard_titcont")'>
          WHERE f.freeboard_title LIKE concat(concat('%', #{keyword}), '%')
          or f.freeboard_content LIKE concat(concat('%', #{keyword}), '%')
