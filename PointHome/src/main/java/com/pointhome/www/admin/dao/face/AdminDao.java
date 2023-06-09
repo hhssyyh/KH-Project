@@ -54,7 +54,7 @@ public interface AdminDao {
 	 * @param userno - 해당 유저
 	 * @return 해당 유저의 모든 게시글
 	 */
-	public List<FreeBoard> selectUserPost(int userno);
+	public List<FreeBoard> selectUserPost(int userNo);
 	/**
 	 * 해당 유저를 통해 모든 댓글 조회
 	 * @param userno - 해당 유저 
@@ -215,11 +215,6 @@ public interface AdminDao {
 	 */
 	public UserFile selectImgByUserno(int userNo);
 
-	/**
-	 *  모든 제휴사 정보를 조회한다.
-	 * @return 모든 제휴사 정보
-	 */
-	public List<Partner> selectAllPartner();
 
 	/**
 	 *  해당 유저의 모든 정보 조회
@@ -264,7 +259,7 @@ public interface AdminDao {
 	public void updatePartner(Partner partner);
 
 	/**
-	 * 총 게시글 수 조회
+	 * 총 사용자 수 조회
 	 * 
 	 * @param filter - 필터
 	 * @param searchType - 검색 타입
@@ -272,6 +267,33 @@ public interface AdminDao {
 	 * @return 필터, 검색타입, 키워드를 적용한 총 게시글 수 
 	 */
 	public int selectCntAll(@Param("filter") String filter, @Param("searchType") String searchType, @Param("keyword") String keyword);
+
+	/**
+	 * 총 제휴사 수 조회
+	 * 
+	 * @param filter - 필터
+	 * @param searchType - 검색 타입
+	 * @param keyword - 키워드
+	 * @return 필터, 검색타입, 키워드를 적용한 총 게시글 수 
+	 */
+	public int selectCntAllPartner(@Param("filter") String filter, @Param("searchType") String searchType, @Param("keyword") String keyword);
+
+	  /**
+	    * 페이징과 필터, 검색 타입, 키워드가 적용된 게시글 목록 조회
+	    * 
+	    * @param paging - 페이징
+	    * @param filter - 필터
+	    * @param searchType - 검색 타입
+	    * @param keyword - 키워드 
+	    * @return -페이징과 필터, 검색 타입, 키워드가 적용된 게시글 목록
+	    */
+	public List<Partner> selectAllPartner(@Param("paging") Paging paging, @Param("filter") String filter, @Param("searchType")  String searchType, @Param("keyword")  String keyword);
+
+	/**
+	 * 사용자가 작성한 게시글 삭제
+	 * @param userNo
+	 */
+	public void deleteUserPost(FreeBoard freeBoard);
 	
 
 	

@@ -9,7 +9,7 @@
 
 
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 $( () => {
 	var userno = $("#userno").val();
 	console.log(userno);
@@ -70,7 +70,7 @@ $( () => {
 	   
 	}) /* start func end */
 </script>
-
+ -->
 <c:import url="/WEB-INF/views/layout/adminLayout/adminHeader.jsp" />
 
 <c:import url="/WEB-INF/views/layout/adminLayout/sidebar.jsp" />
@@ -109,16 +109,14 @@ $( () => {
 				<th>게시글 수</th>
 
 				<td>${detailList.FREEBOARD}
-					<button id="boardChk" type="button" class="btn btn-primary"
-						data-bs-toggle="modal" data-bs-target="#exampleModal">
-						게시글 확인</button>
+					<a href="./userboardpost?userNo=${param.userNo }"><button id="boardChk" type="button" class="btn btn-primary">
+						게시글 확인</button></a>
 
 				</td>
 
 				<th>댓글 개수</th>
 				<td>${detailList.FREEBOARDCOMMENT}
-					<button id="cmtChk" type="button" class="btn btn-primary"
-						data-bs-toggle="modal" data-bs-target="#exampleModal">댓글
+					<button id="cmtChk" type="button" class="btn btn-primary">댓글
 						확인</button>
 				</td>
 			</tr>
@@ -126,7 +124,7 @@ $( () => {
 		</table>
 
 
-		<!-- Modal -->
+<%-- 		<!-- Modal -->
 		<div class="modal fade modal-xl" id="exampleModal" tabindex="-1"
 			aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
@@ -151,7 +149,7 @@ $( () => {
 					</div>
 				</div>
 			</div>
-		</div>
+		</div> --%>
 		
     
 	

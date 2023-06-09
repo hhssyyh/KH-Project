@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
@@ -22,8 +21,8 @@ import com.pointhome.www.admin.dto.AdminNoticeFile;
 import com.pointhome.www.admin.service.face.AdminService;
 import com.pointhome.www.freeboard.dto.FreeBoard;
 import com.pointhome.www.freeboard.dto.FreeBoardComment;
-import com.pointhome.www.freeboard.dto.FreeBoardFile;
 import com.pointhome.www.partner.dto.Partner;
+import com.pointhome.www.partner.dto.PartnerFile;
 import com.pointhome.www.partner.dto.PartnerFile;
 import com.pointhome.www.user.dto.User;
 import com.pointhome.www.user.dto.UserFile;
@@ -74,8 +73,8 @@ public class AdminServiceImpl implements AdminService {
 	}
 	
 	@Override
-	public List<FreeBoard> userPost(int userno) {
-		List<FreeBoard> fbList = adminDao.selectUserPost(userno);
+	public List<FreeBoard> userPost(int userNo) {
+		List<FreeBoard> fbList = adminDao.selectUserPost(userNo);
 		
 		return fbList;
 		
@@ -328,10 +327,14 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public List<Partner> partnerList() {
-		return adminDao.selectAllPartner();
+	public List<Partner> partnerList(Paging paging, String filter, String searchType,
+	         String keyword) {
+		List<Partner> list =adminDao.selectAllPartner(paging, filter, searchType, keyword);
+		return list;
+
 	}
 
+	
 	@Override
 	public Partner partnerdetail(int partnerNo) {
 		
@@ -402,4 +405,19 @@ public class AdminServiceImpl implements AdminService {
 	      
 	      return paging;
 	}
+
+	@Override
+	public Paging getPagingPartnerManage(int curPage, String filter, String searchType, String keyword) {
+		int totalPage = adminDao.selectCntAllPartner(filter, searchType, keyword);
+	      Paging paging = new Paging(totalPage, curPage);
+	      
+	      return paging;
+	}
+	
+	@Override
+	public void removeuserpost(FreeBoard freeBoard) {
+		
+		 adminDao.deleteUserPost(freeBoard);
+	}
+
 }

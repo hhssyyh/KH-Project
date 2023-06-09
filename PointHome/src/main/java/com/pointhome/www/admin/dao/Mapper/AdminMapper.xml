@@ -108,12 +108,11 @@
 		u.user_no = #{userNo}
 	</select>
 
-	<select id="selectUserPost" parameterType="int"
-		resultType="FreeBoard">
-		SELECT FREEBOARD_NO, FREEBOARD_TITLE,
-		FREEBOARD_HIT,FREEBOARD_DATE
-		FROM freeboard
-		where user_no = #{userno}
+	<select id="selectUserPost" parameterType="int" resultType="FreeBoard">
+		SELECT user_no,FREEBOARD_NO, FREEBOARD_TITLE,
+		FREEBOARD_HIT,FREEBOARD_DATE, freeboard_content
+		from freeboard
+		where user_no = #{userNo}
 	</select>
 
 	<select id="selectUserCmt" parameterType="int"
@@ -121,7 +120,7 @@
 		select COMM_NO, COMM_CONTENT, COMM_DATE, FREEBOARD_NO
 		FROM
 		FREEBOARD_COMMENT
-		WHERE user_no = #{userno}
+		WHERE user_no = #{userNo}
 		ORDER BY FREEBOARD_NO desc,
 		comm_no desc
 	</select>
@@ -301,10 +300,6 @@
 		WHERE user_no = #{userNo}
 	</select>
 	
-	<select id="selectAllPartner" resultType="Partner"> 
-		select * from partner_tb
-		order by partner_no
-	</select>
 	
 	<select id="selectPartnerInfo" resultType="Partner" parameterType="int">
 		select * from partner_tb
@@ -397,4 +392,91 @@
     )
    </select>
 
+
+
+	 <select id="selectCntAllPartner" resultType="int">
+      select count(*) from ( select * from (
+		  select rownum rnum, A.* from(
+		  select *
+		  from partner_tb
+
+         
+         <if test='searchType == "partner_no"'>
+            WHERE partner_no LIKE concat(concat('%', #{keyword}), '%')
+         </if>
+   
+         <if test='searchType.equals("partner_email")'>
+            WHERE partner_email LIKE concat(concat('%', #{keyword}), '%')
+         </if>
+   
+         <if test='searchType.equals("partner_nick")'>
+            WHERE partner_nick LIKE concat(concat('%', #{keyword}), '%')
+         </if>
+         
+         <choose>
+            <when test='filter.equalsIgnoreCase("joindateasc")'>
+               ORDER BY partner_joindate asc
+            </when>
+            <when test='filter.equalsIgnoreCase("joindatedesc")'>
+               ORDER BY partner_joindate  DESC
+            </when>
+            
+            <when test='filter.equalsIgnoreCase("partnernoasc")'>
+               ORDER BY partner_no asc
+            </when>
+            <when test='filter.equalsIgnoreCase("partnernodesc")'>
+               ORDER BY partner_no DESC
+            </when>
+
+         </choose>
+      
+      ) A
+      )
+    )
+   </select>
+   <select id="selectAllPartner" resultType="Partner">
+		  select * from (
+		  select rownum rnum, A.* from(
+		  select *
+		  from partner_tb
+		  
+         <if test='searchType == "partner_no"'>
+            WHERE partner_no LIKE concat(concat('%', #{keyword}), '%')
+         </if>
+   
+         <if test='searchType.equals("partner_email")'>
+            WHERE partner_email LIKE concat(concat('%', #{keyword}), '%')
+         </if>
+   
+         <if test='searchType.equals("partner_nick")'>
+            WHERE partner_nick LIKE concat(concat('%', #{keyword}), '%')
+         </if>
+         
+         <choose>
+            <when test='filter.equalsIgnoreCase("joindateasc")'>
+               ORDER BY partner_joindate asc
+            </when>
+            <when test='filter.equalsIgnoreCase("joindatedesc")'>
+               ORDER BY partner_joindate  DESC
+            </when>
+            
+            <when test='filter.equalsIgnoreCase("partnernoasc")'>
+               ORDER BY partner_no asc
+            </when>
+            <when test='filter.equalsIgnoreCase("partnernodesc")'>
+               ORDER BY partner_no DESC
+            </when>
+         </choose>
+      ) A
+      )
+      WHERE rnum BETWEEN #{paging.startNo} and #{paging.endNo}
+		
+	</select>
+   
+   <delete id="deleteUserPost" parameterType="FreeBoard" >
+   		delete freeboard
+		where freeboard_no = #{freeboardNo}
+   	
+   </delete>
+   
 </mapper>

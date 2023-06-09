@@ -1,8 +1,10 @@
 package com.pointhome.www.admin.controller;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -116,7 +118,8 @@ public class AdminController {
 		logger.debug("userNo!!!!!!!!!!!!{}",userNo);
 		
 		Map<String, Object> detailList = adminService.userdetail(userNo);
-		 
+		
+		
 		model.addAttribute("detailList", detailList);
 		
 	}
@@ -156,15 +159,23 @@ public class AdminController {
 	
 	
 	
-	
-	
 	// 제휴사 관리
 	@GetMapping("/partnermanage")
-	public void partnerrmanage(Model model) {
+	public void partnerrmanage(@RequestParam(defaultValue = "0") int curPage,
+	         @RequestParam(defaultValue = "date")  String filter, Model model, 
+	         @RequestParam(value = "searchType",required = false, defaultValue = "title") String searchType,
+	         @RequestParam(value = "keyword",required = false, defaultValue = "") String keyword
+	         )throws Exception{
 		
-		List<Partner> partnerList = adminService.partnerList();
+		Paging paging = adminService.getPagingPartnerManage(curPage, filter, searchType, keyword);
+		
+		List<Partner> partnerList = adminService.partnerList(paging, filter, searchType, keyword);
 		
 		model.addAttribute("partnerList", partnerList);
+	      model.addAttribute("paging", paging);
+	      model.addAttribute("filter", filter);
+	      model.addAttribute("searchType", searchType);
+	      model.addAttribute("keyword", keyword);
 		
 	}
 	@GetMapping("/partnerdetail")
@@ -210,6 +221,7 @@ public class AdminController {
 		
 		return "redirect:/admin/partnerdetail?partnerNo="+partner.getPartnerNo();
 	}
+	
 	
 	
 	
@@ -271,22 +283,34 @@ public class AdminController {
 	
 	
 	
+	//사용자가 작성한 글, 댓글 가져오기 
 	
 	
-//	about AJAX ctr
-	
-	@GetMapping("/ajax/boardchkajax")
-	public String boardChkAjaxGet(int userno, Model model) {
-		logger.debug("/admin/ajax/boardchkajax [GET]");
+	@GetMapping("/userboardpost")
+	public void userboardpost(int userNo, Model model) {
 		
-		logger.debug("ajax - {}", userno);	
+		logger.debug("userboardpost --userno - {}", userNo);	
 		
-		List<FreeBoard> fbList = adminService.userPost(userno);
+		List<FreeBoard> fblist = adminService.userPost(userNo);
 		
-		model.addAttribute("fbList", fbList);
-		logger.debug("{}", fbList);
-		return "/admin/ajax/boardchkajax"; 
+		model.addAttribute("fblist", fblist);
+		logger.debug("{}", fblist);
 	}
+	
+	
+	@RequestMapping("/removeuserpost")
+	public void removeuserpost(HttpServletResponse response,FreeBoard freeBoard) {
+		
+		adminService.removeuserpost(freeBoard);
+		try {
+	        response.sendRedirect("/admin/userboardpost?userNo="+freeBoard.getUserNo());
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+		
+	}
+	
+	
 	
 	@GetMapping("/ajax/cmtchkajax")
 	public void cmtChkAjax(int userno, Model model) {
@@ -299,6 +323,15 @@ public class AdminController {
 		
 		model.addAttribute("cmtList", cmtList);
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	@RequestMapping("/delete")
 	public String delete(AdminNotice adminNotice) {
