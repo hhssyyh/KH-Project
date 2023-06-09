@@ -55,7 +55,7 @@ public interface AdminService {
 	 * @param userno - 유저
 	 * @return - 글 전체 조회 
 	 */
-	public List<FreeBoard> userPost(int userno);
+	public List<FreeBoard> userPost(int userNo);
 	/**
 	 *  댓글 전체 조회
 	 * @param userno - 유저 번호
@@ -178,10 +178,14 @@ public interface AdminService {
 	public UserFile selectImg(int userNo);
 	/**
 	 * 전체 제휴사 조회
+	 * @param keyword 
+	 * @param searchType 
+	 * @param filter 
+	 * @param paging 
 	 * 
 	 * @return 모든 제휴사를 조회한다.
 	 */
-	public List<Partner> partnerList();
+	public List<Partner> partnerList(Paging paging, String filter, String searchType, String keyword);
 	/**
 	 * 선택한 유저의 상세 조회 
 	 * @param partnerNo - 선택한 유저
@@ -222,6 +226,22 @@ public interface AdminService {
 	 * @return - 계산이 완료된 Paging 객체
 	 */
 	public Paging getPagingUserManage(int curPage, String filter, String searchType, String keyword);
+	/**
+	 * 게시글 목록을 위한 페이징 객체 생성
+	 * 
+	 * @param curPage- 현재페이지
+	 * @param filter - 필터
+	 * @param searchType - 검색 타입
+	 * @param keyword - 키워드
+	 * @return - 계산이 완료된 Paging 객체
+	 */
+	public Paging getPagingPartnerManage(int curPage, String filter, String searchType, String keyword);
+	/**
+	 * 사용자가 작성한 게시글 삭제 
+	 * @param freeBoard - 사용자번호
+	 * @return 삭제된 게시글
+	 */
+	public void removeuserpost(FreeBoard freeBoard);
 	
 
 	
