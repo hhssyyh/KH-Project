@@ -355,7 +355,26 @@
    	'N'  )
 	</insert>
 
+	<select parameterType="int" id="viewVideo" resultType="PartnerVideo">
+		SELECT * FROM partner_video
+		WHERE partner_no = #{partnerNo}
+	</select>
 
+	<insert parameterType="PartnerVideo" id="insertVideo">
+		INSERT INTO partner_video (partner_video_no, partner_video_url, partner_no)
+		VALUES (partner_video_no_seq.nextval, #{partnerVideoUrl}, #{partnerNo})
+	</insert>
+
+	<delete parameterType="int" id="deleteVideo">
+		DELETE partner_video
+		WHERE partner_video_no = #{partnerVideoNo}
+	</delete>
+
+	<select parameterType="String" id="test" resultType="int">
+		SELECT COUNT(*) AS url_count
+		FROM partner_video
+		WHERE partner_video_url = #{videoId}
+	</select>
 
 
 </mapper>

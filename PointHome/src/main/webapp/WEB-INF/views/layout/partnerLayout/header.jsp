@@ -68,6 +68,9 @@ a {
 	    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
 	      <div class="accordion-body"><a href="./partnerInfo">회원수정</a></div>
 	    </div>
+	    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+	      <div class="accordion-body"><a href="./viewVideo">영상수정</a></div>
+	    </div>
 	  </div>
 	  <!-- #2 -->
 	  <div class="accordion-item" id="flush-headingTwo">
