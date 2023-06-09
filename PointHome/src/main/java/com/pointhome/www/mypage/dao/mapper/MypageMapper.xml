@@ -81,12 +81,17 @@
        select count(*) from user_alert where user_no = #{userNo} and is_read ='N'
 	</select>
 	
-<!-- 	<update id="deleteAlertByUserno" parameterType="int"> -->
-<!-- 		 UPDATE user_alert set is_read = 'Y' where user_no = #{userNo} -->
-<!-- 	</update> -->
-
-	<select id="selectReserveList" parameterType="int" resultType="Reservation">
-		SELECT * FROM reservation WHERE user_no = #{userNo}
+	<update id="deleteAlertByUserno" parameterType="int">
+		 UPDATE user_alert set is_read = 'Y' where user_no = #{userNo}
+	</update>
+	
+	<select id="selectReserveList" parameterType="int" resultType="Map">
+		select P.partner_shopname, P.partner_phone, P.partner_email, P.partner_type
+        , R.*
+        from partner_tb P, reservation R
+		 where R.user_no = #{userNo}
+		and P.partner_no = R.part_no
+		order by res_no desc
 	</select>
 	
 </mapper>

@@ -55,6 +55,11 @@ body {
  width: 5px;
 }
 
+* {
+ 	font-family : 'NotoSansKR-Regular';
+}
+
+
 </style>
 
 

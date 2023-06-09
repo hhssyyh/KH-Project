@@ -73,6 +73,11 @@ nav {
 	height: 20px;
 	font-size: 25px;
 }
+
+* {
+ 	font-family : 'NotoSansKR-Regular';
+}
+
 </style>
 
 <c:if test="${login }">
@@ -136,11 +141,13 @@ $("#alertCnt").on('click', "#alertCk", function() {
 <div class="col-4"></div>
   
 <!-- 카테고리 영역 -->
-<div class="category col-4 text-end">
-	<a class="mx-5" href="/partner/list">전체</a>
-	<a class="mx-5" href="/partner/list?partnerType=t">타로</a>
-	<a class="mx-5" href="/partner/list?partnerType=c">철학</a>
-	<a class="mx-5" href="/partner/list?partnerType=s">신점</a>
+
+<div>
+	<a class="category mx-5" href="/partner/list">전체</a>
+	<a class="category mx-5" href="/partner/list?partnerType=t">타로</a>
+	<a class="category mx-5" href="/partner/list?partnerType=c">철학</a>
+	<a class="category mx-5" href="/partner/list?partnerType=s">신점</a>
+
 </div>
 <!-- 카테고리 영역 -->
 

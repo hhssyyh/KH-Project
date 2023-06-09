@@ -16,7 +16,7 @@ a {
 #myBanner {
 	height: 300px;
 	width: 100%;
-	background-color: #ccc;
+	background-color: #E8F5FF	
 }
 
 #profile {
@@ -54,6 +54,8 @@ a {
 }
 
 #myImg {width: 150px; height: 150px;}
+
+
 
 </style>
 

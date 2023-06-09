@@ -70,6 +70,11 @@ a {
 	width: 10%;
 	margin-right: 10px;
 }
+
+* {
+ 	font-family: 'SBAggroL';
+}
+
 </style>
 
 
