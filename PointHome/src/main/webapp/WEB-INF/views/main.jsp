@@ -3,7 +3,8 @@
 
 <c:import url="./layout/header.jsp"></c:import>
 
-<div style="padding-bottom: 105px; padding-top: 64px;">
+<div style="padding-bottom: 105px; margin-top: 80px;">
+
 <!-- carosel -->
 <div>
 	<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">

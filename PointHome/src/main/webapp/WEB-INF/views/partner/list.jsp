@@ -5,13 +5,6 @@
 <c:import url="/WEB-INF/views/layout/header.jsp" />
 
 <style type="text/css">
- #header, #footer {
-   text-align: center;
-
-#header h1 {
-   line-height: 3em;
-}
-
 .row {
    margin: 0px auto; /*가운데 정렬*/
 }
