@@ -3,8 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<c:import url="/WEB-INF/views/layout/header.jsp" />
-
+<c:import url="/WEB-INF/views/layout/adminLayout/adminHeader.jsp" />
+<!-- 
 <style type="text/css">
  #header, #footer {
    text-align: center;
@@ -22,38 +22,17 @@ $(function() {
 
 function filterSelect() {
    console.log("click")
-//    $.ajax({
-//          type : 'get',           // 타입 (get, post, put 등등)
-//          url : './listFilter',  // 요청할 서버url
-//          dataType : 'html',       // 데이터 타입 (html, xml, json, text 등등)
-//          data : {  // 보낼 데이터 (Object , String, Array)
-//                curPage : ${paging.curPage}
-//             , filter : $("#filter").val()
-//          }, 
-//          success : function(result) { // 결과 성공 콜백함수
-//               $("#listTable").html(result)
-//          },
-//          error : function(request, status, error) { // 결과 에러 콜백함수
-//          }
-//    })
 
    console.log( $("#filter").val() )
 
-   //curPage 유지
-   //    var curPage = ( ${not empty param.curPage} ) ?"curPage="+${param.curPage } + "&" : ""
-//    var filter = $("#filter").val();
-//    location.href = "?" + curPage + "filter=" + filter
-   
-   //curPage 초기화
+
    var filter = $("#filter").val();
    var searchType = "${searchType}";
    var keyword = "${keyword}";
    
-//       if(${not empty searchType }){
+
          location.href = "/freeboard/list" + "?searchType=" + searchType + "&keyword=" + keyword + "&filter=" + filter;
-//       }else{
-//          location.href = "?filter=" + filter
-//       }
+
 
 }
 </script>
@@ -75,21 +54,65 @@ window.onload=function(){
       console.log(keyword)
       
       location.href = "/freeboard/list?curPage=1" + "&searchType=" + searchType + "&keyword=" + keyword;
-      
    }
-   var input = document.getElementById("search");
-
-   input.addEventListener("keyup", function (event) {
-     if (event.keyCode === 13) {
-       event.preventDefault();
-       document.getElementById("searchBtn").click();
-     }
-   });   
 }
+</script> -->
+
+<script type="text/javascript">
+
+function allCheck(){
+	var ac = document.querySelector(".allcheck");
+	var rc = document.querySelectorAll(".rowcheck");
+	
+		
+	if(ac.checked == true) {
+		for(i=0; i<rc.length; i++) {
+			rc[i].checked = true;
+			
+		}
+		alert("전체 행이 선택되었습니다");
+	}else {
+		for(i=0, i<rc.length; i++) {
+			
+		rc[i].checked = false;
+		}
+	}
+	alert("전체 행이 선택 해제 되었습니다");
+	
+}
+
+// function removeuserpost(){
+// 	var del = document.querySelector(".del");
+	
+// 	del.onclick = () {
+		
+// 		for(var i=0; i<rc.length; i++) {}
+// 		if(rc[i].checked){
+// 			rc[i].parentElement.parentElement.removeuserpost();
+// 			}
+		
+		
+// 		}
+// 	}
+	
+// } 
+ 
+
+$("#removeuserpost").click(function() {
+	console.log("click")
+}) 
+
 </script>
-<div id="header" style="margin-top: 60px; margin-bottom: 80px;">
-   <img src="/resources/images/dd5.png" class="img-fluid" alt="점">
-</div>
+
+<style type="text/css">
+   .checkbox-table .checkbox-cell input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+   }
+</style>
+
+
+
 
 
 <div class="container text-center">
@@ -97,16 +120,15 @@ window.onload=function(){
    <h1 style="text-align: center">자유게시판</h1>
 
    <!-- 검색 기능 -->
-   <div class="input-group mt-2">
+ <%--   <div class="input-group mt-2">
       <select class="form-contril search-select" name="searchType">
          <option value="freeboard_title">제목</option>
          <option value="freeboard_content">내용</option>
-         <option value="user_nick">닉네임</option>
          <option value="freeboard_titcont">제목+내용</option>
       </select>
       <input name="keyword" type="text" class="form-control"
          placeholder="검색어 입력" aria-label="search"
-         aria-describedby="button-addon2" name="serchName" id="search">
+         aria-describedby="button-addon2" name="serchName">
          
       <button class="btn btn-info" type="button" id="searchBtn">검색</button>
    </div>
@@ -142,47 +164,46 @@ window.onload=function(){
                <option value="recommend">추천순</option>
             </c:otherwise>
          </c:choose>
-      </select>
+      </select> --%>
 
       <hr>
 
-      <table id="listTable" class="table table-hover table-sm text-center">
+      <table id="listTable" class="table table-hover table-sm text-center checkbox-table">
          <thead>
             <tr>
+            	<th><input type="checkbox" name="allcheck" onClick='allCheck()'/></th> 
                <th>글번호</th>
                <th>제목</th>
-               <th>닉네임</th>
                <th>조회수</th>
                <th>작성일</th>
-               <th>댓글수</th>
-               <th>추천수</th>
             </tr>
          </thead>
-         <c:forEach var="board" items="${list }">
+         <c:forEach var="board" items="${fblist}">
             <tr>
-               <td>${board.FREEBOARD_NO }</td>
+            	<td><input type="checkbox" name='rowcheck' value="${board.freeboardNo}" /></td> <!-- 체크박스 -->
+               <td>${board.freeboardNo }</td>
                <td class="text-start"><a
-                  href="./view?freeboardNo=${board.FREEBOARD_NO }">${board.FREEBOARD_TITLE }</a></td>
-               <td>${board.USER_NICK}</td>
-               <td>${board.FREEBOARD_HIT }</td>
-               <td><fmt:formatDate value="${board.FREEBOARD_DATE }"
+                  href="/freeboard/view?freeboardNo=${board.freeboardNo }">${board.freeboardTitle }</a></td>
+               <td>${board.freeboardHit }</td>
+               <td><fmt:formatDate value="${board.freeboardDate }"
                      pattern="yy/MM/dd hh:mm" />
-               <td>${board.COMMENTCNT }</td>
-               <td>${board.RECOMMENDCNT }</td>
             </tr>
          </c:forEach>
       </table>
 
-
-      <c:if test="${not empty login and login}">
+      <c:if test="${not empty adminLogin and adminLogin}">
          <!-- 작성 버튼 -->
-         <div class="float-end mb-3">
-            <a href="./write"><button id="btnWrite" class="btn btn-info">글쓰기</button></a>
+<!--          <div class="float-end mb-3">
+            <a href="./write"><button id="btnWrite" class="btn btn-info">수정</button></a>
          </div>
-         <div class="clearfix"></div>
+         <div class="clearfix"></div> -->
+         
+         <div class="float-end mb-3">
+			<button id="btnWrite" class="del" id="removeuserpost">삭제</button>
+         </div>
       </c:if>
 
-      <c:if test="${empty login and !login}">
+      <c:if test="${empty adminLogin and !adminLogin}">
          <br>
          <br>
       </c:if>
@@ -192,11 +213,11 @@ window.onload=function(){
 
 
    <!-- 페이징 -->
-   <div style="margin-bottom: 200px;">
+<%--    <div style="margin-bottom: 200px;">
       <!-- href로 링크만 넣어주면 됨 -->
       <ul class="pagination justify-content-center">
 
-         <%--첫 페이지로 이동 --%>
+         첫 페이지로 이동
          <!--1번이 아닐때 = ne  -->
          <c:if test="${paging.curPage ne 1 }">
             <li class="page-item"><a class="page-link" href="./list?filter=${filter}&searchType=${searchType}&keyword=${keyword}">&larr;
@@ -207,9 +228,9 @@ window.onload=function(){
                href="./list?filter=${filter}&searchType=${searchType}&keyword=${keyword}">&larr; 처음</a></li>
          </c:if>
 
-         <%--이전 페이징 리스트로 이동 --%>
-         <%--    <li class="page-item"><a class="page-link" href="./list?curPage=${paging.curPage - paging.pageCount }">&laquo;</a></li> --%>
-         <%--    <li class="page-item"><a class="page-link" href="./list?curPage=${paging.endPage- paging.pageCount }">&laquo;</a></li> --%>
+         이전 페이징 리스트로 이동
+            <li class="page-item"><a class="page-link" href="./list?curPage=${paging.curPage - paging.pageCount }">&laquo;</a></li>
+            <li class="page-item"><a class="page-link" href="./list?curPage=${paging.endPage- paging.pageCount }">&laquo;</a></li>
 
          <c:if test="${paging.startPage ne 1 }">
             <li class="page-item"><a class="page-link"
@@ -223,13 +244,13 @@ window.onload=function(){
 
 
 
-         <%--이전 페이지로 이동 --%>
+         이전 페이지로 이동
          <c:if test="${paging.curPage gt 1 }">
             <li class="page-item"><a class="page-link"
                href="./list?curPage=${paging.curPage -1 }&filter=${filter}&searchType=${searchType}&keyword=${keyword}">&lt;</a></li>
          </c:if>
 
-         <%--페이징 번호 리스트 --%>
+         페이징 번호 리스트
          <c:forEach var="i" begin="${paging.startPage }"
             end="${paging.endPage }">
             <c:if test="${paging.curPage eq i }">
@@ -244,13 +265,13 @@ window.onload=function(){
 
          </c:forEach>
 
-         <%--다음 페이지로 이동 --%>
+         다음 페이지로 이동
          <c:if test="${paging.curPage lt paging.totalPage }">
             <li class="page-item"><a class="page-link"
                href="./list?curPage=${paging.curPage +1 }&filter=${filter}&searchType=${searchType}&keyword=${keyword}">&gt;</a></li>
          </c:if>
 
-         <%--다음 페이징 리스트로 이동 --%>
+         다음 페이징 리스트로 이동
          <c:if test="${paging.endPage ne paging.totalPage}">
             <li class="page-item"><a class="page-link"
                href="./list?curPage=${paging.startPage + paging.pageCount }&filter=${filter}&searchType=${searchType}&keyword=${keyword}">&raquo;</a></li>
@@ -261,7 +282,7 @@ window.onload=function(){
                href="./list?curPage=${paging.startPage + paging.pageCount }&filter=${filter}&searchType=${searchType}&keyword=${keyword}">&raquo;</a></li>
          </c:if>
 
-         <%--마지막 페이지로 이동 --%>
+         마지막 페이지로 이동
          <c:if test="${paging.curPage ne paging.totalPage }">
             <li class="page-item"><a class="page-link"
                href="./list?curPage=${paging.totalPage }&filter=${filter}&searchType=${searchType}&keyword=${keyword}">마지막&rarr; </a></li>
@@ -273,7 +294,7 @@ window.onload=function(){
 
    </div>
 
-</div>
+</div> --%>
 
 
 

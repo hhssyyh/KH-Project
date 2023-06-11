@@ -3,7 +3,6 @@ package com.pointhome.www.partner.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 
@@ -25,6 +24,7 @@ import com.pointhome.www.partner.dto.Partner;
 import com.pointhome.www.partner.dto.PartnerFile;
 import com.pointhome.www.partner.dto.PartnerNotice;
 import com.pointhome.www.partner.dto.PartnerNoticeFile;
+import com.pointhome.www.partner.dto.PartnerVideo;
 import com.pointhome.www.partner.service.face.PartnerService;
 import com.pointhome.www.util.Paging;
 
@@ -356,7 +356,59 @@ public class PartnerController {
 			return "redirect:./main";
 		}
 		
-	   
+		@GetMapping("/viewVideo")
+		public void viewVideo(HttpSession session, Model model) {
+			logger.debug("/viewVideo [GET]");
+			
+			int partnerNo = (Integer)session.getAttribute("partnerNo");
+			
+			logger.info("{}", partnerNo);
+			
+			List<PartnerVideo> video = partnerService.viewVideo(partnerNo);
+			
+			model.addAttribute("video", video);
+			
+			logger.info("ggggggg{}",video);
+
+		}	
+		
+		@PostMapping("/insertVideo")
+		public String insertVideo(PartnerVideo video, HttpSession session, Model model) {
+			
+			logger.debug("/insertVideo [POST]");
+			
+			video.setPartnerNo((Integer)session.getAttribute("partnerNo"));
+			
+			String youtubeUrl = video.getPartnerVideoUrl();
+			String videoId = youtubeUrl.substring(youtubeUrl.indexOf("=") + 1);	
+			
+			if(partnerService.test(videoId) > 0) {
+				
+//				model.addAttribute("test",1);
+				
+				return "redirect:./viewVideo";
+			}
+		
+			video.setPartnerVideoUrl(videoId);
+			
+			logger.info("인서트 인서트 : {}",video);
+			logger.info("자른 유알엘 : {}",videoId);
+
+			partnerService.insertVideo(video);
+			
+			return "redirect:./viewVideo";
+			
+		}	
+		
+		@PostMapping("/deleteVideo")
+		public String deleteVideo(int partnerVideoNo) {
+			logger.debug("/deleteVideo [POST]");
+			logger.info("{}",partnerVideoNo );
+			
+			partnerService.deleteVideo(partnerVideoNo);
+			
+			return "redirect:./viewVideo";
+		}	   
 
 }
     

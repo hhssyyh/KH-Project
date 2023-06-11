@@ -93,7 +93,7 @@ public interface MypageDao {
 
 	public void deleteAlertByUserno(int userNo);
 
-	public List<Reservation> selectReserveList(int userNo);
+	public List<Map<String, Object>> selectReserveList(int userNo);
 
 	
 

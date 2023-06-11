@@ -76,7 +76,7 @@ public interface MypageService {
 
 	public void deleteAlert(int userNo);
 
-	public List<Reservation> selectReserve(int userNo);
+	public List<Map<String, Object>> selectReserve(int userNo);
 
 
 	

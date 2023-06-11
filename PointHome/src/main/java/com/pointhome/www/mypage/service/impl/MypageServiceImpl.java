@@ -146,7 +146,7 @@ public class MypageServiceImpl implements MypageService {
 	}
 
 	@Override
-	public List<Reservation> selectReserve(int userNo) {
+	public List<Map<String, Object>> selectReserve(int userNo) {
 		return mypageDao.selectReserveList(userNo);
 	}
 	

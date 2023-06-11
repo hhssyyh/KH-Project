@@ -89,13 +89,14 @@ public class MypageController {
 		
 		int userNo = (Integer)session.getAttribute("userno");
 		
-		List <Reservation> reservelist = mypageService.selectReserve(userNo);
+		List<Map<String, Object>> reservelist = mypageService.selectReserve(userNo);
 		
 		logger.info("{}",reservelist);
 		
 		model.addAttribute("reservelist", reservelist);
 		
 	}
+	
 	
 	@GetMapping("/myreservedetail")
 	public void myreservedetail() {}

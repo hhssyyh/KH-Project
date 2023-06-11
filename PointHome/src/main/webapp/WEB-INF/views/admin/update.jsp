@@ -137,7 +137,7 @@ $(function() {
 <input type="hidden" name="noticeNo" value="${notice.noticeNo}">
 <!-- title JSTL로 가지고 오기 -->
 <div id="noticeTitle">
-	<h3>  <input type="text" id="noticeTitle" name="noticeTitle" placeholder= "${notice.noticeTitle }" style="border: none;" required ></h3>
+	<h3>  <input type="text" id="noticeTitle" name="noticeTitle" value= "${notice.noticeTitle }" style="border: none;" required ></h3>
 </div>
 <i class="bi bi-person-circle fs-1" style="height:200px"></i> 운영자 <br>
 <!-- 날짜 -->

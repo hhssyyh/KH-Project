@@ -42,8 +42,10 @@ body {
 
 #container{
 	margin: 0 auto;
+
 	margin-top: 20px;
  	background-color: #5758BB; 
+
 	width:80%; 
 	height:350px;
 	display: flex;
