@@ -172,36 +172,40 @@ public class PartnerController {
 	}
 	
 	@RequestMapping("/list")
-	public void typeList(@RequestParam(defaultValue = "0") int curPage, 
-			Model model, 
-			String partnerType,
-			HttpSession session
-			) {
-		
-		Map<String, Object> pagingMap = new HashMap<String, Object>();		
-		
-		logger.info("{}",partnerType);
-		
-		pagingMap.put("partnerType", partnerType);
-		pagingMap.put("curPage", curPage);
-	
-		int userNo = (Integer)session.getAttribute("userno");
-		
-		Paging paging  = partnerService.getTypePaging(pagingMap);
-		
-		List<Map<String, Object >> list = partnerService.getPartTypePick(curPage, paging, userNo,partnerType);
-
-		int alertCnt = mypageService.getAlertCnt(userNo);
-		
-		model.addAttribute("partnerType", partnerType);
-		model.addAttribute("list", list);
-		model.addAttribute("paging", paging);
-		model.addAttribute( "alertCnt" , alertCnt);
-		
-		
-		logger.info("!!!!!!!!!!!!!!!!{}", list);
-
-	}
+	   public void typeList(@RequestParam(defaultValue = "0") int curPage, 
+	         Model model, 
+	         String partnerType,
+	         HttpSession session
+	         ) {
+	      
+	      Map<String, Object> pagingMap = new HashMap<String, Object>();      
+	      
+	      logger.info("{}",partnerType);
+	      
+	      pagingMap.put("partnerType", partnerType);
+	      pagingMap.put("curPage", curPage);
+	      Paging paging  = partnerService.getTypePaging(pagingMap);
+	   
+	      if(session.getAttribute("userno") == null) {
+	         int userNo = 0;
+	         List<Map<String, Object >> list = partnerService.getPartTypePick(curPage, paging, userNo,partnerType);
+	         
+	         model.addAttribute("list", list);
+	         
+	      } else {
+	         int userNo = (Integer)session.getAttribute("userno");
+	         
+	         List<Map<String, Object >> list = partnerService.getPartTypePick(curPage, paging, userNo,partnerType);
+	         int alertCnt = mypageService.getAlertCnt(userNo);
+	         
+	         model.addAttribute("list", list);
+	         model.addAttribute( "alertCnt" , alertCnt);
+	      }
+	      
+	      model.addAttribute("partnerType", partnerType);
+	      model.addAttribute("paging", paging);
+	      
+	   }
 	
 	
 	@GetMapping("/detail")

@@ -1,28 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<style type="text/css">
-#footer {
-	width: 100%;
-	height: 280px;
-	padding: 50px 80px;
-	font-family : Noto_Sans_KR500;
-}
-
-.footA {
-	font-size: 17px;
-/* 	font-weight: bold; */
-}
-
-.footInfo {
-	font-size: 16px;
-/* 	font-weight: bold; */
-}
-</style>
-
+<link rel="stylesheet" href="/resources/layout/css/footer.css">
 
 <div class="d-flex flex-wrap justify-content-between align-items-center py-2 border-top"></div>
 <div class="container" id="footer">
-	
 
 	<div class="mb-3">
 		<a href="#" class="footA pe-2">이용약관</a> 
@@ -48,11 +29,3 @@
 
 </body>
 </html>
-
-
-
-
-
-
-
-
