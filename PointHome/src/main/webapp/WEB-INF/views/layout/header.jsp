@@ -186,6 +186,12 @@
 			<a class="btn btn-dark fs-4" href="/user/logout">로그아웃</a>
 		</div>
 	</c:if>
+	<c:if test="${sessionScope.login ne true}">
+		<hr>
+		<div class="nav_ment d-grid gap-2 col-10 mx-auto">
+			<a class="btn btn-dark fs-4" href="/admin/login">관리자 로그인</a>
+		</div>
+	</c:if>
 </div>
 
 </div>
