@@ -1,10 +1,8 @@
 package com.pointhome.www.user.controller;
 
-
 import java.io.IOException;
 import java.util.Map;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -25,12 +23,17 @@ import com.pointhome.www.user.dto.User;
 import com.pointhome.www.user.dto.UserSocial;
 import com.pointhome.www.user.service.face.UserService;
 
-
 @Controller
 public class userController {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired UserService userService;
+	
+	@GetMapping("/user/test")
+	public void test() {
+		logger.debug("/user/test [GET]");
+		
+	}
 	
 	@GetMapping("/user/join")
 	public void join() {
