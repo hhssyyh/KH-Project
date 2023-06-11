@@ -42,9 +42,7 @@ body {
 
 #container{
 	margin: 0 auto;
-
 	margin-top: 20px;
- 	background-color: #5758BB; 
 
 	width:80%; 
 	height:350px;
@@ -67,6 +65,11 @@ body {
 .nav-link {
 	color: #5758BB;
 	font-weight: bold;
+}
+
+#profileImg {
+	width:400px; 
+	height:400px;
 }
 </style>
     
@@ -92,11 +95,20 @@ body {
 
 <div id="container">
 	<div>
-		<div style="width:200px; height:200px;">
+		<c:choose>
+		<c:when test="${partnerFile.partnerImg eq null}">
+		<div style="width:400px; height:400px;">
 			<img id="profileImg" alt="" src="https://t1.daumcdn.net/cfile/tistory/2513B53E55DB206927">
 		</div>
+		</c:when>
+		<c:otherwise>
+		<div style="width:200px; height:200px;">
+			<img id="profileImg" alt="" src="/upload/${partnerFile.partnerImg }">
+		</div>
+		</c:otherwise>
+		
+		</c:choose>
 	</div>
-	
 	
 	<span class="pick" > 
 	<input class="partNo" type="hidden" value="${partNo}">

@@ -184,23 +184,27 @@ public class PartnerController {
 		
 		pagingMap.put("partnerType", partnerType);
 		pagingMap.put("curPage", curPage);
-	
-		int userNo = (Integer)session.getAttribute("userno");
-		
 		Paging paging  = partnerService.getTypePaging(pagingMap);
-		
-		List<Map<String, Object >> list = partnerService.getPartTypePick(curPage, paging, userNo,partnerType);
-
-		int alertCnt = mypageService.getAlertCnt(userNo);
+	
+		if(session.getAttribute("userno") == null) {
+			int userNo = 0;
+			List<Map<String, Object >> list = partnerService.getPartTypePick(curPage, paging, userNo,partnerType);
+			
+			model.addAttribute("list", list);
+			
+		} else {
+			int userNo = (Integer)session.getAttribute("userno");
+			
+			List<Map<String, Object >> list = partnerService.getPartTypePick(curPage, paging, userNo,partnerType);
+			int alertCnt = mypageService.getAlertCnt(userNo);
+			
+			model.addAttribute("list", list);
+			model.addAttribute( "alertCnt" , alertCnt);
+		}
 		
 		model.addAttribute("partnerType", partnerType);
-		model.addAttribute("list", list);
 		model.addAttribute("paging", paging);
-		model.addAttribute( "alertCnt" , alertCnt);
 		
-		
-		logger.info("!!!!!!!!!!!!!!!!{}", list);
-
 	}
 	
 	

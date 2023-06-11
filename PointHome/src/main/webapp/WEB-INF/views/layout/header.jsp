@@ -68,7 +68,7 @@ nav {
     transform: translate( -50%, -50% );
 }
 #alertCk{
-/* 	position: relative; */
+ 	position: relative; 
 	width: 20px; 
 	height: 20px;
 	font-size: 25px;
