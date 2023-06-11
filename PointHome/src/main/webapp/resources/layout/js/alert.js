@@ -2,7 +2,7 @@ $("#alertCnt").on('click', "#alertCk", function() {
 
 	console.log("click")
 	console.log(${userno})
-	
+
 	$.ajax({
 		type: 'get',
 		url : '/mypage/deleteAlert',
