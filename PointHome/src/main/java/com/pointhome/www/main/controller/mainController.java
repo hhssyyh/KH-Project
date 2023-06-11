@@ -23,6 +23,8 @@ import com.pointhome.www.main.dto.Reservation;
 import com.pointhome.www.main.service.face.MainService;
 import com.pointhome.www.mypage.service.face.MypageService;
 import com.pointhome.www.partner.dto.Partner;
+import com.pointhome.www.partner.dto.PartnerFile;
+import com.pointhome.www.partner.service.face.PartnerService;
 import com.pointhome.www.util.Paging;
 
 @Controller
@@ -31,6 +33,7 @@ public class mainController {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired MainService mainService;
 	@Autowired MypageService mypageService;
+	@Autowired PartnerService partnerService;
 
 	@GetMapping("/")
 	public String main(HttpSession session, Model model) {
@@ -49,6 +52,7 @@ public class mainController {
 	@GetMapping("/main/detail")
 	public void detailGet(int partNo, Model model, HttpSession session) {
 		Partner partner = mainService.getPartnerView(partNo);
+		PartnerFile partnerFile = partnerService.getPartnerFile(partNo);
 		logger.debug("+++++++++++++++{}", partner);
 		
 		if(session.getAttribute("userno") == null) {
@@ -58,10 +62,13 @@ public class mainController {
 			int isPick = mypageService.isPick(userNo, partNo);
 			int alertCnt = mypageService.getAlertCnt(userNo);
 			
+			
 			model.addAttribute("isPick", isPick);
 			model.addAttribute( "alertCnt" , alertCnt);
 		}
-
+		
+		
+		model.addAttribute("partnerFile", partnerFile);
 		model.addAttribute("partNo", partNo);
 		model.addAttribute("partner", partner);
 	}

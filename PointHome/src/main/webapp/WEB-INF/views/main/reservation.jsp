@@ -52,7 +52,6 @@ var resDiv = $("input[name=resDiv]").val()
 
 <!-- fullCanlendar JS Code -->
 <script type="text/javascript">
-
 document.addEventListener('DOMContentLoaded', function() {
     	var calendarEl = document.getElementById('calendar');
     	var today = new Date().toISOString().split("T")[0];
@@ -101,7 +100,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         calendar.render();
     });
-
 </script>
 
 <div id="calendarDiv">

@@ -69,7 +69,7 @@
 	</select>
 	
 	<select id="getPickList" parameterType="int" resultType="Map" >
-		SELECT * from partnerfile_tb pf, (SELECT * FROM partner_tb pt, partner_pick pp where pt.partner_no = pp.part_no and user_no=111 ORDER BY pick_no DESC)B
+		SELECT * from partnerfile_tb pf, (SELECT * FROM partner_tb pt, partner_pick pp where pt.partner_no = pp.part_no and user_no=#{userNo} ORDER BY pick_no DESC)B
  		WHERE pf.partner_no(+) = B.partner_no
 	</select>
 
