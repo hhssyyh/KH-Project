@@ -12,9 +12,7 @@
 #header h1 {
    line-height: 3em;
 }
-
 </style>
-
 <script type="text/javascript">
 $(function() {
    console.log("${paging.curPage}")
@@ -160,15 +158,15 @@ window.onload=function(){
          </thead>
          <c:forEach var="board" items="${list }">
             <tr>
-               <td>${board.FREEBOARD_NO }</td>
-               <td class="text-start"><a
-                  href="./view?freeboardNo=${board.FREEBOARD_NO }">${board.FREEBOARD_TITLE }</a></td>
-               <td>${board.USER_NICK}</td>
-               <td>${board.FREEBOARD_HIT }</td>
-               <td><fmt:formatDate value="${board.FREEBOARD_DATE }"
-                     pattern="yy/MM/dd hh:mm" />
-               <td>${board.COMMENTCNT }</td>
-               <td>${board.RECOMMENDCNT }</td>
+				<td>${board.FREEBOARD_NO }</td>
+				<td class="text-start">
+					<a href="./view?freeboardNo=${board.FREEBOARD_NO }">${board.FREEBOARD_TITLE }</a>
+				</td>
+				<td>${board.USER_NICK}</td>
+				<td>${board.FREEBOARD_HIT }</td>
+				<td><fmt:formatDate value="${board.FREEBOARD_DATE }" pattern="yy/MM/dd hh:mm" /></td>
+				<td>${board.COMMENTCNT }</td>
+				<td>${board.RECOMMENDCNT }</td>
             </tr>
          </c:forEach>
       </table>
