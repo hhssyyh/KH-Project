@@ -196,6 +196,7 @@ function updateCom(th, commNo) {
 	<span id="recommend">
 		<span class="hit me-2">추천수 ${cntRecommend }</span>
 		
+		<c:if test="${userno ne board.userNo }">
 		<span>
 			<c:if test="${isRecommend eq 0 }">
 				<button id="recommendBtn" class="btn btn-secondary">>추천</button>
@@ -204,6 +205,7 @@ function updateCom(th, commNo) {
 				<button id="recommendBtn" class="btn btn-secondary">>추천 취소</button>
 			</c:if>
 		</span>
+		</c:if>
 		
 	</span>
 </div>
