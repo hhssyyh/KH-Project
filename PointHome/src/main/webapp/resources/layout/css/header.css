@@ -10,12 +10,12 @@
     vertical-align: sub;
 }
 .layout_header {
-	margin: -8px 0px 0px 150px !important;
+	margin-top: -8px;
 	height : 80px;
 	background-color:rgba(255, 255, 255);
+    padding: 0 122px;
 }
 .hambergerBtn{
-	margin-right: 30px;
 }
 .category{
 	font-family : 'SBAggroM';

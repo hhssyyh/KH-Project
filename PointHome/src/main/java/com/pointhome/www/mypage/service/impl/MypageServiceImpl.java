@@ -19,6 +19,7 @@ import com.pointhome.www.main.dto.Reservation;
 import com.pointhome.www.mypage.dao.face.MypageDao;
 import com.pointhome.www.mypage.dto.MyPick;
 import com.pointhome.www.mypage.dto.Review;
+import com.pointhome.www.mypage.dto.ReviewFile;
 import com.pointhome.www.mypage.service.face.MypageService;
 import com.pointhome.www.user.dto.User;
 import com.pointhome.www.user.dto.UserFile;
@@ -149,6 +150,7 @@ public class MypageServiceImpl implements MypageService {
 	@Override
 	public void insertReview(Review myreview) {
 		mypageDao.insertMyReview(myreview);
+
 	}
 
 	@Override

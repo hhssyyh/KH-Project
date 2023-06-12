@@ -22,11 +22,11 @@
 <script type="text/javascript">
 $(function() {      
       
-	$("#reviewContent").summernote({
-// 		width: 700,
-         height: 300,
-         focus: true
-      })
+// 	$("#reviewContent").summernote({
+// // 		width: 700,
+//          height: 300,
+//          focus: true
+//       })
       
     $("#btnCancle").click(function(){
   		history.go(-1)();
@@ -124,6 +124,11 @@ input[type=text] {
 	background-color: #F8F6F4;
 	
 }
+
+#reviewContent {
+	width: 800px;
+	height: 300px;
+}
 </style>
 </head>
 
@@ -135,10 +140,8 @@ input[type=text] {
 
 <div class="text-center">
 
-<form action="./writeReview" method="post">
+<form action="./writeReview" method="post" enctype="multipart/form-data">
    
-   
-   <input type="text" id="reviewTitle" name="reviewTitle" required ><br><br>
 	<div class="reviewStar space-x-4 mx-auto">
 	<input type="radio" id="5-stars" name="reviewGrade" value="5" />
 	<label for="5-stars" class="star">★</label>
@@ -153,7 +156,7 @@ input[type=text] {
 	</div>
    <br>
    
-   <div class="text-center"><textarea style="display: none" id="reviewContent" name="reviewContent" ></textarea></div>
+   <div class="text-center"><textarea id="reviewContent" name="reviewContent"></textarea></div>
 
    <div class="modal">
       <div class="modal_body" >게시글을 등록하시겠습니까?&nbsp;&nbsp;&nbsp;    

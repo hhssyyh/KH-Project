@@ -88,7 +88,7 @@
 				 </tr>     
 			</c:when>	 
 
-			<c:when test="${list.RESERVE_TIME < today && list.ISREVIEW eq 1}">
+			<c:when test="${list.RESERVE_TIME < today}">
 				 <tr>
 			      <th scope="row">${list.RNUM}</th>
 			      <td>${list.PARTNER_SHOPNAME}</td>

@@ -64,6 +64,7 @@ public class FreeBoardController {
       logger.info("/freeboard/view [GET]");
 
       FreeBoard board = freeBoardService.view(freeboardNo);
+      logger.info("diddddddddddddddddddddddd {}", board);
 
       List<FreeBoardComment> boardCommentList = freeBoardService.commentView(freeboardNo);
       logger.info("{}",boardCommentList);
