@@ -14,6 +14,7 @@ a {
 }
 
 #myBanner {
+	margin-top: 100px;
 	height: 300px;
 	width: 100%;
 	background-color: #E8F5FF	
@@ -42,10 +43,22 @@ a {
 	margin-top: 3px;
 }
 
-.btnRow {
+/* .btnRowBox { */
+/* 	height: 300px; */
+/* 	width: 50%; */
+/* 	margin-top: 200px; */
+/* 	margin-left: 1000px; */
 	
-	margin-top: 10px;
-}
+/* } */
+/* .btnRow { */
+	
+/* 	margin-top: 100px; */
+/* } */
+
+/* .btnRow2 { */
+	
+/* 	margin-top: 50px; */
+/* } */
 
  .proBtn {
 	width: 150px;
@@ -60,39 +73,46 @@ a {
 </style>
 
 
-<div style="margin: 10px; margin-left: 40px; margin-top: 80px;">
-	<a href="./view" style="font-size: 30px;">MYMENU</a>
-</div>
+<!-- <div style="margin: 10px; margin-left: 40px; margin-top: 80px;"> -->
+<!-- 	<a href="./view" style="font-size: 30px;">MYMENU</a> -->
+<!-- </div> -->
 
 <div id="myBanner">
-	<div id="profile">
-		<span>
-			<c:choose>
-			<c:when test="${userFile.userImg eq null }">
-			<div id="image_container"><img id="myImg" alt="" src="https://t1.daumcdn.net/cfile/tistory/2513B53E55DB206927"></div>
-			</c:when>
-			<c:otherwise>
-				<a href="./view"><img id="myImg" src="/upload/${userFile.userImg }"  alt=""></a>
-			</c:otherwise>
-			</c:choose>
-		</span>
-		
-		
-		<div id="nickDiv">
-			<div style="font-size: 30px;">${res.userNick }</div>
-			${profile }
-<%-- 			<img src="/upload/${profile.userImg}"  alt=""> --%>
-			<a href="./userinfo"><button class="btn btn-outline-dark nickBtn">회원정보수정</button></a>
+	<div id="box" style="width: 1200px; margin: 0 auto;">
+		<div id="profile">
+			<span>
+				<c:choose>
+				<c:when test="${userFile.userImg eq null }">
+				<div id="image_container"><img id="myImg" alt="" src="https://t1.daumcdn.net/cfile/tistory/2513B53E55DB206927"></div>
+				</c:when>
+				<c:otherwise>
+					<a href="./view"><img id="myImg" src="/upload/${userFile.userImg }"  alt=""></a>
+				</c:otherwise>
+				</c:choose>
+			</span>
+			
+			
+			<div id="nickDiv">
+				<div style="font-size: 30px;">${res.userNick }</div>
+				${profile }
+	<%-- 			<img src="/upload/${profile.userImg}"  alt=""> --%>
+				<a href="./userinfo"><button class="btn btn-outline-dark nickBtn">회원정보수정</button></a>
+			</div>
 		</div>
+		<div class="btnRowBox">
+			<div class="btnRow">
+				<a href="/mypage/myboardList"><button class="btn btn-outline-dark proBtn" style="margin: 8px; ">내가 쓴 글</button></a>
+				<a href="/mypage/alertList"><button class="btn btn-outline-dark proBtn" style="margin: 8px;">알림 내역</button></a>
+			</div>
+			<div class="btnRow2">
+				<a href="/mypage/mypickList"><button class="btn btn-outline-dark proBtn" style="margin: 8px;">찜 내역</button></a>
+				<a href="/mypage/myreview"><button class="btn btn-outline-dark proBtn" style="margin: 8px;">리뷰 조회</button></a>   
+			</div>
+		</div>
+	
 	</div>
+</div>
 
-</div>
-<div class="btnRow">
-	<a href="/mypage/myboardList"><button class="btn btn-outline-dark proBtn" style="margin: 8px; margin-left: 1000px; margin-top: -400px;">내가 쓴 글</button></a>
-	<a href="/mypage/alertList"><button class="btn btn-outline-dark proBtn" style="margin: 8px; margin-left: 1200px; margin-top: -447px;">알림 내역</button></a>
-	<a href="/mypage/mypickList"><button class="btn btn-outline-dark proBtn" style="margin: 8px; margin-left: 1000px; margin-top: -400px;">찜 내역</button></a>
-	<a href="/mypage/myreview"><button class="btn btn-outline-dark proBtn" style="margin: 8px; margin-left: 1200px; margin-top: -447px;">리뷰 조회</button></a>   
-</div>
 
 
 
