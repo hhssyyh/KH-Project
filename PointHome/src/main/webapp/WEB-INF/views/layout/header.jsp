@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="java.util.Date" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,10 +41,10 @@ $( () => {
 </c:if>
 
 <!-- Font모음 css -->
-<link href="/resources/common/css/font.css" rel="stylesheet">
+<link href="/resources/common/css/font.css" rel="stylesheet" type="text/css">
 
 <!-- css파일 -->
-<link href="/resources/layout/css/header.css" rel="stylesheet">
+<link href="/resources/layout/css/header.css?d=<%= new Date() %>" rel="stylesheet" type="text/css">
 
 </head>
 <body>
@@ -214,5 +216,5 @@ $( () => {
 
 </div>
 
-</nav>
 </div>
+</nav>
