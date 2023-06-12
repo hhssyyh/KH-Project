@@ -15,9 +15,27 @@
 <!-- jQuery -->
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 
-<!-- 알람 js파일 -->
+<!-- 알람 js -->
 <c:if test="${login }">
-<script type="text/javascript" src="/resources/layout/js/alert.js"></script>
+<script type="text/javascript">
+$( () => {
+   $("#alertCnt").on('click', "#alertCk", function() {
+   
+      console.log("click");
+      console.log(${userno});
+   
+      $.ajax({
+         type: 'get'
+         , url : '/mypage/deleteAlert'
+         , dataType : 'json'
+         , data: { userNo: ${userno} }
+         , success : function(result) { console.log(result) }
+         , error : function(request, status, error) { console.log(error) }
+      })
+   
+   })
+})
+</script>
 </c:if>
 
 <!-- Font모음 css -->
@@ -53,7 +71,7 @@
 <!-- 카테고리 영역 -->
 
 <!-- 알림 영역 -->    
-<div>	
+<div id="alertCnt">	
 	<c:if test="${not empty sessionScope.login }">
 	<c:choose>
 	<c:when test="${alertCnt eq 0}">
@@ -135,12 +153,12 @@
 		<c:if test="${login}">
 		<li class="nav-item">
 			<i class="bi bi-bag-check-fill"></i>
-			<a class="nav-link d-inline" href="#">나의 찜</a>
+			<a class="nav-link d-inline" href="/mypage/mypickList">나의 찜</a>
 		</li>
 	
 		<li class="nav-item">
 			<i class="bi bi-calendar3"></i>
-			<a class="nav-link d-inline" href="#">나의 예약내역</a>
+			<a class="nav-link d-inline" href="/mypage/myreserve">나의 예약내역</a>
 		</li>
 		</c:if>
 		<!-- 로그인시에만 출력 -->
