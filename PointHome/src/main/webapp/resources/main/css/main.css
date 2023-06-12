@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 a {
-	color:black;
+	color: black;
 	text-decoration: none;
 }
 .popularity {
@@ -63,18 +63,22 @@ a {
 	display: inline-block;
 }
 .card-star-icon{
-	color: yellow;	
+	vertical-align: text-bottom;
 }
 .card-star-cnt{
+	color: #808080;
 	font-family: Noto_Sans_KR700;
 }
 .card-comment{
 	display: inline-block;
 }
 .card-comment-icon{
-	color: gray;
+	color: #595858;
+	vertical-align: middle;
+	stroke: black;
 }
 .card-comment-cnt{
+	color: #808080;
 	font-family: Noto_Sans_KR700;
 }
 .card-title{
