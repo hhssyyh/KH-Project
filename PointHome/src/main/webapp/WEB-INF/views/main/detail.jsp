@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <c:import url="/WEB-INF/views/layout/header.jsp"/>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9ee1207dbdc41dc68f5d04b09a2bcafa&libraries=services"></script>
@@ -26,11 +27,13 @@ function pickPart(th) {
 		   success : function(result) { // 결과 성공 콜백함수
 		    	console.log(result)
 		        if( result.isPick ) { //찜 했음
-					$(th).find("i").toggleClass("bi-heart")
-					$(th).find("i").addClass("bi-heart-fill")
+// 					$(th).find("i").toggleClass("bi-heart")
+// 					$(th).find("i").addClass("bi-heart-fill")
+					$(th).html("구독 취소")
 				} else { //찜 취소
-					$(th).find("i").toggleClass("bi-heart-fill")
-					$(th).find("i").addClass("bi-heart")
+// 					$(th).find("i").toggleClass("bi-heart-fill")
+// 					$(th).find("i").addClass("bi-heart")
+					$(th).html("구독")
 				}
 		   
 		   },
@@ -47,6 +50,7 @@ function pickPart(th) {
 	display: flex;
  	justify-content: center;
  	align-items: center;
+ 	margin-top: 20px;
 }
 
 .fc-day-sun a {
@@ -88,6 +92,67 @@ function pickPart(th) {
 	padding: 50px;
 }
 </style>
+
+<style>
+#commentTb th {
+	padding: 15px 0px;
+}
+
+#commentTb td {
+	padding: 15px 0px;
+}
+
+.star-ratings {
+  color: #aaa9a9; 
+  position: relative;
+  unicode-bidi: bidi-override;
+  width: max-content;
+  -webkit-text-fill-color: transparent; /* Will override color (regardless of order) */
+  -webkit-text-stroke-width: 1.3px;
+  -webkit-text-stroke-color: #2b2a29;
+}
+ 
+.star-ratings-fill {
+  color: #fff58c;
+  padding: 0;
+  position: absolute;
+  z-index: 1;
+  display: flex;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  -webkit-text-fill-color: gold;
+}
+ 
+.star-ratings-base {
+  z-index: 0;
+  padding: 0;
+}
+
+a {
+	color: black;
+}
+
+.partner-tab-link {
+	width: 323px;
+}
+
+.partner-btn {
+	background-color: #7e00c2; 
+	border-color: #7e00c2;
+	color: white; 
+	width: 170px; 
+	height: 47px; 
+}
+
+.partner-btn:hover {
+	background-color: #6913AB; 
+	border-color: #6913AB;
+	color: white; 
+}
+
+</style>
+
 
 <script type="text/javascript">
 var resDate = $("input[name=resDate]").val()
@@ -136,7 +201,6 @@ document.addEventListener('DOMContentLoaded', function() {
             validRange: {
             	start: today
             },
-            
             selectable: true,
             selectMirror: true,
 
@@ -149,40 +213,59 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-<div id="container">
-	<div>
+<div style="font-family: Noto_Sans_KR500">
+
+<div id="container" style="padding-left: 180px;">
+	<div style="margin-right: 80px;">
 		<c:choose>
 			<c:when test="${partnerFile.partnerImg eq null}">
-				<div style="width:450px; height:450px;">
-					<img id="profileImg" style="width:450px; height:450px;" alt="" src="https://t1.daumcdn.net/cfile/tistory/2513B53E55DB206927">
+				<div style="width:600px; height:400px;">
+					<img id="profileImg" style="width:600px; height:400px;" alt="" src="https://t1.daumcdn.net/cfile/tistory/2513B53E55DB206927">
 				</div>
 			</c:when>
 			<c:otherwise>
-				<div style="width:450px; height:450px;">
-					<img id="profileImg" style="width:450px; height:450px;" alt="" src="/upload/${partnerFile.partnerImg }">
+				<div style="width:600px; height:400px;">
+					<img id="profileImg" style="width:600px; height:400px;" alt="" src="/upload/${partnerFile.partnerImg }">
 				</div>
 			</c:otherwise>
 		</c:choose>
 	</div>
 	
+	<div class="d-flex" style="height: 380px;">
+	  <div class="vr"></div>
+	</div>
 	
 	<div>
-		<div style="font-size: 50px; margin-bottom: 10px;">
+		<div>
+			<button class="btn btn-secondary" style="font-size: 18px;" disabled="disabled">
+				<c:if test="${partner.partnerType eq 't'.charAt(0) }">
+					타로
+				</c:if>
+				<c:if test="${partner.partnerType eq 's'.charAt(0) }">
+					신점
+				</c:if>
+				<c:if test="${partner.partnerType eq 'c'.charAt(0) }">
+					사주
+				</c:if>
+			</button>
+		</div>
+		<div style="font-size: 50px;">
 			${partner.partnerShopname }(${partner.partnerNick })
 		</div>
-		<div>
-			<span style="font-size: 22px;">${partner.partnerEmail }</span>
-			<br>
-			<span style="font-size: 22px;">${partner.partnerPhone }</span>
+		<div style="font-size: 19px; width: 400px; padding-top: 10px;">
+			${partner.partnerPr }
 		</div>
-		<div class="pick" style="margin-top: 20px;"> 
-			<input class="partNo" type="hidden" value="${partNo}">
-			<c:if test="${isPick eq 0}">
-				<button type="button" onclick="pickPart(this)" class="btn btn-danger">구독</button>
-			</c:if>
-			<c:if test="${isPick eq 1}">
-				<button type="button" onclick="pickPart(this)" class="btn btn-danger">구독 취소</button>
-			</c:if>
+		<div style="margin-top: 50px;">
+			<button class="btn partner-btn" style="margin-right: 10px;">1:1 채팅</button>
+			<span class="pick" style="margin-top: 20px;"> 
+				<input class="partNo" type="hidden" value="${partNo}">
+				<c:if test="${isPick eq 0}">
+					<button type="button" id="i" onclick="pickPart(this)" class="btn partner-btn">구독</button>
+				</c:if>
+				<c:if test="${isPick eq 1}">
+					<button type="button" id="i" onclick="pickPart(this)" class="btn partner-btn">구독 취소</button>
+				</c:if>
+			</span>
 		</div>
 	</div>
 </div>
@@ -190,38 +273,75 @@ document.addEventListener('DOMContentLoaded', function() {
 <div class="container" style="margin: 150px auto;">
 	<ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
 	  <li class="nav-item" role="presentation">
-	    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">예약</button>
+	    <button class="nav-link active partner-tab-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">예약</button>
 	  </li>
 	  <li class="nav-item" role="presentation">
-	    <button class="nav-link" id="review-tab" data-bs-toggle="tab" data-bs-target="#review-tab-pane" type="button" role="tab" aria-controls="review-tab-pane" aria-selected="false">위치안내</button>
+	    <button class="nav-link partner-tab-link" id="review-tab" data-bs-toggle="tab" data-bs-target="#review-tab-pane" type="button" role="tab" aria-controls="review-tab-pane" aria-selected="false">위치안내</button>
 	  </li>
 	  <li class="nav-item" role="presentation">
-	    <button class="nav-link" id="notice-tab" data-bs-toggle="tab" data-bs-target="#notice-tab-pane" type="button" role="tab" aria-controls="notice-tab-pane" aria-selected="false">리뷰</button>
+	    <button class="nav-link partner-tab-link" id="notice-tab" data-bs-toggle="tab" data-bs-target="#notice-tab-pane" type="button" role="tab" aria-controls="notice-tab-pane" aria-selected="false">리뷰</button>
 	  </li>
 	  <li class="nav-item" role="presentation">
-	    <button class="nav-link" id="reserve-tab" data-bs-toggle="tab" data-bs-target="#reserve-tab-pane" type="button" role="tab" aria-controls="reserve-tab-pane" aria-selected="false">공지사항</button>
+	    <button class="nav-link partner-tab-link" id="reserve-tab" data-bs-toggle="tab" data-bs-target="#reserve-tab-pane" type="button" role="tab" aria-controls="reserve-tab-pane" aria-selected="false">공지사항</button>
 	  </li>
 	</ul>
 	<div class="tab-content" id="myTabContent">
+	  <!-- 예약 페이지 -->
 	  <div class="tab-pane fade show active content-pd" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
-	  	<!-- 예약 페이지 -->
 	  	<div id="calendarDiv">
-			<div id='calendar' style="width: 600px; height: 600px; margin-right: 30px;"></div>
-			<div id="reserveTime" style="width: 500px; height: 500px; padding: 20px; padding-top: 60px;"></div>
+			<div id='calendar' style="width: 600px; height: 600px; margin-right: 30px; margin-left: 20px;"></div>
+			<div id="reserveTime" style="width: 550px; height: 500px; padding: 20px; padding-top: 60px;">
+				<div style="font-size: 20px; text-align: center; margin-top: 150px;">원하는 날짜를 선택하세요</div> 
+			</div>
+		</div>
+		<hr style="margin: px auto;">
+	    <!-- 지도 -->
+		<div style="margin: 40px;">
+			<div id="map" style="width:600px; height:500px; "></div>
+		</div>
+		<div style="margin: 70px auto; padding: 20px 130px;">
+			<div style="margin-bottom: 30px;">
+				<div style="font-size: 25px;">- 유의사항 안내</div>
+				<div style="font-size: 20px; padding: 5px;">유의사항사항사항</div>
+			</div>
+			<div>
+				<div style="font-size: 25px;">- 환불 안내</div>
+			</div>
 		</div>
 	  </div>
 	  <div class="tab-pane fade content-pd" id="review-tab-pane" role="tabpanel" aria-labelledby="review-tab" tabindex="0">
-	  	<div id="container2">
-			<div id="map" style="width:500px; height:400px;"></div>
-		</div>
-	  </div>
-	  <div class="tab-pane fade content-pd" id="notice-tab-pane" role="tabpanel" aria-labelledby="notice-tab" tabindex="0">
 	  	
 	  </div>
+	  <!-- 리뷰 -->
+	  <div class="tab-pane fade content-pd" id="notice-tab-pane" role="tabpanel" aria-labelledby="notice-tab" tabindex="0">
+	  	<div style="border: 1px solid #ccc; padding: 20px 30px; width: 1000px; margin: 0 auto; margin-top: 20px;">
+		  	<c:forEach var="review" items="${reviewList }">
+		  		<div style="margin: 0 auto; font-size: 18px;">
+			  		<div style="padding: 20px;">
+			  			<span style="font-weight: bold; margin-right: 10px;"><i class="bi bi-person-circle"></i> ${review.USER_NICK }</span>
+						<span style="float: right;"><fmt:formatDate value="${review.REVIEW_DATE }" pattern="yy/MM/dd hh:mm"/></span>
+			  			<span class="star-ratings">
+							<span class="star-ratings-fill space-x-2 text-lg" style="width: ${review.REVIEW_GRADE * 20 }%;">
+								<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+							</span>
+							<span class="star-ratings-base space-x-2 text-lg">
+								<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+							</span>
+						</span>
+						<span>${review.REVIEW_GRADE }</span>
+				  		<div style="margin-top: 10px; margin-left: 3px;">${review.REVIEW_CONTENT }</div>
+			  		</div>
+			  		<hr>
+		  		</div>
+		  	</c:forEach>
+	  	</div>
+	  </div>
+	  <!-- 공지사항 -->
 	  <div class="tab-pane fade content-pd" id="reserve-tab-pane" role="tabpanel" aria-labelledby="reserve-tab" tabindex="0">...</div>
 	</div>
 </div>
 
+</div>
 
 
 <!-- 지도 -->

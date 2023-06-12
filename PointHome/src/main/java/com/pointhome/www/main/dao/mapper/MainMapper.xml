@@ -25,7 +25,8 @@
 			partner_shopname,
 			partner_type,
 			partner_price,
-			partner_address
+			partner_address,
+			partner_pr
 		FROM partner_tb
 		WHERE partner_no = #{partNo}
 	</select>
