@@ -9,18 +9,30 @@
 <title>Insert title here</title>
 
 <style type="text/css">
-.btn-secondary {
+ .resRadio { 
+	font-size: 18px;
+ } 
+
+ .resRadio:hover { 
+ 	background-color: #7e00c2;
+ 	border-color: #7e00c2;
+ 	color: white; 
+ } 
+
+.btn-light {
 	margin: 10px;
 }
 
 .btnSelected {
-	background-color: orange;
-	border-color: orange;
+	background-color: #7e00c2; 
+	border-color: #7e00c2;
+ 	color: white; 
 }
 
 .btnSelected:hover {
-	background-color: orange;
-	border-color: orange;
+	background-color: #7e00c2; 
+	border-color: #7e00c2;
+ 	color: white; 
 }
 
 </style>
@@ -42,30 +54,30 @@ $(".resRadio").click(function() {
 
 
 	<input type="text" name="resDate" value="${resDate }" style="display: none;">
-<!-- 	<p>오전</p> -->
-<%-- 	${reserveList.get(0)} --%>
-<%-- 	${reserveList.contains('1')} --%>
-
-<c:set var="dateMap" value="<%=new HashMap() %>" />
-<c:set target="${dateMap }" property="1" value="10:00" />
-<c:set target="${dateMap }" property="2" value="10:30" />
-<c:set target="${dateMap }" property="3" value="11:00" />
-<c:set target="${dateMap }" property="4" value="11:30" />
-
-<c:set target="${dateMap }" property="5" value="13:00" />
-<c:set target="${dateMap }" property="6" value="13:30" />
-<c:set target="${dateMap }" property="7" value="14:00" />
-<c:set target="${dateMap }" property="8" value="14:30" />
-<c:set target="${dateMap }" property="9" value="15:00" />
-<c:set target="${dateMap }" property="10" value="15:30" />
-<c:set target="${dateMap }" property="11" value="16:00" />
-<c:set target="${dateMap }" property="12" value="16:30" />
-<c:set target="${dateMap }" property="13" value="17:00" />
-<c:set target="${dateMap }" property="14" value="17:30" />
-<c:set target="${dateMap }" property="15" value="18:00" />
-<c:set target="${dateMap }" property="16" value="18:30" />
-<c:set target="${dateMap }" property="17" value="19:00" />
-<c:set target="${dateMap }" property="18" value="19:30" />
+	<!-- 	<p>오전</p> -->
+	<%-- 	${reserveList.get(0)} --%>
+	<%-- 	${reserveList.contains('1')} --%>
+	
+	<c:set var="dateMap" value="<%=new HashMap() %>" />
+	<c:set target="${dateMap }" property="1" value="10:00" />
+	<c:set target="${dateMap }" property="2" value="10:30" />
+	<c:set target="${dateMap }" property="3" value="11:00" />
+	<c:set target="${dateMap }" property="4" value="11:30" />
+	
+	<c:set target="${dateMap }" property="5" value="13:00" />
+	<c:set target="${dateMap }" property="6" value="13:30" />
+	<c:set target="${dateMap }" property="7" value="14:00" />
+	<c:set target="${dateMap }" property="8" value="14:30" />
+	<c:set target="${dateMap }" property="9" value="15:00" />
+	<c:set target="${dateMap }" property="10" value="15:30" />
+	<c:set target="${dateMap }" property="11" value="16:00" />
+	<c:set target="${dateMap }" property="12" value="16:30" />
+	<c:set target="${dateMap }" property="13" value="17:00" />
+	<c:set target="${dateMap }" property="14" value="17:30" />
+	<c:set target="${dateMap }" property="15" value="18:00" />
+	<c:set target="${dateMap }" property="16" value="18:30" />
+	<c:set target="${dateMap }" property="17" value="19:00" />
+	<c:set target="${dateMap }" property="18" value="19:30" />
 
 	<c:forEach var="i" begin="1" end="18">
 		<c:if test="${i eq 1 }">
@@ -75,11 +87,11 @@ $(".resRadio").click(function() {
 		   <p>오후</p>
 		</c:if>	
 		<c:if test="${reserveList.contains(String.valueOf(i))}">
-			<label for="${i}" class="btn btn-secondary resRadio disabled">${dateMap.get(String.valueOf(i)) }</label>
+			<label for="${i}" class="btn btn-light resRadio disabled">${dateMap.get(String.valueOf(i)) }</label>
    			<input type="radio" name="resTime" value="${i }" id="${i }" style="display: none;">
 		</c:if>
 		<c:if test="${not reserveList.contains(String.valueOf(i))}">
-			<label for="${i }" class="btn btn-secondary resRadio">${dateMap.get(String.valueOf(i)) }</label>
+			<label for="${i }" class="btn btn-light resRadio">${dateMap.get(String.valueOf(i)) }</label>
    			<input type="radio" name="resTime" value="${i }" id="${i }" style="display: none;">
 		</c:if>
 	</c:forEach>
@@ -116,10 +128,10 @@ $(".resRadio").click(function() {
 	
 	
 	<c:if test="${empty login }">
-	   <button style="float: right;" id="payBtn" class="btn btn-secondary" disabled="disabled">예약하기</button>
+	   <button style="float: right; background-color: #7e00c2; color: white; font-size: 17px;" id="payBtn" class="btn" disabled="disabled">예약하기</button>
 	</c:if>
 	<c:if test="${login }">
-	   <button style="float: right;" id="payBtn" class="btn btn-secondary">예약하기</button>
+	   <button style="float: right; background-color: #7e00c2; color: white; font-size: 17px;" id="payBtn" class="btn">예약하기</button>
 	</c:if>
    
 </body>

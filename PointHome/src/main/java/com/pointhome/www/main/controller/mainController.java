@@ -50,10 +50,14 @@ public class mainController {
 	}
 	
 	@GetMapping("/main/detail")
-	public void detailGet(int partNo, Model model, HttpSession session) {
+	public void detailGet(int partNo, @RequestParam(defaultValue = "0") int curPage, Model model, HttpSession session) {
+		
 		Partner partner = mainService.getPartnerView(partNo);
 		PartnerFile partnerFile = partnerService.getPartnerFile(partNo);
 		logger.debug("+++++++++++++++{}", partner);
+		
+		Paging paging = mainService.getPaging(curPage, partNo);
+		List<Map<String, Object>> reviewList  = mainService.getReviewList(paging, partNo);
 		
 		if(session.getAttribute("userno") == null) {
 			
@@ -68,6 +72,7 @@ public class mainController {
 		}
 		
 		
+		model.addAttribute("reviewList", reviewList);
 		model.addAttribute("partnerFile", partnerFile);
 		model.addAttribute("partNo", partNo);
 		model.addAttribute("partner", partner);
