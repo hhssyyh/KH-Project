@@ -172,9 +172,9 @@ $( () => {
 		
 		<li class="nav-item">
 			<i class="bi bi-chat-left-dots-fill" style="color:dark;"></i>
-			<a class="nav-link d-inline" href="#">리뷰 모음</a>
+			<a class="nav-link d-inline" href="/mypage/myreview">리뷰 모음</a>
 		</li>
-	
+
 		<li class="nav-item">
 			<i class="bi bi-journal-text"></i>
 			<a class="nav-link d-inline" href="/freeboard/list">자유게시판</a>

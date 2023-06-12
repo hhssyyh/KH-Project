@@ -73,10 +73,10 @@ function deleteRow(th){
 	<c:forEach var="list" items="${boardList}">
 <%-- 		<span><a href="/main/detail?partNo=${list.freeboardTitle}"><img id="profileImg2" alt="" src="https://t1.daumcdn.net/cfile/tistory/2513B53E55DB206927"></a></span> --%>
 			
-			<div class="del">
-				<button type="button" id= "button" onclick="deleteRow(this);" style ="display: none;"></button>
-				<label for="button"><i class="bi bi-check-square"></i></label>
-			</div>
+<!-- 			<div class="del"> -->
+<!-- 				<button type="button" id= "button" onclick="deleteRow(this);" style ="display: none;"></button> -->
+<!-- 				<label for="button"><i class="bi bi-check-square"></i></label> -->
+<!-- 			</div> -->
 			<a href="/freeboard/view?freeboardNo=${list.freeboardNo}"><h5 style="margin: 20px; margin-left: 103px; margin-bottom: 60px;">${list.freeboardTitle }</h5></a>
 			<h6 style="margin: 20px; margin-left: 103px; margin-top: -52px;"><fmt:formatDate value="${list.freeboardDate }" pattern="yy/MM/dd hh:mm" /></h6>
 			<hr>

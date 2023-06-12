@@ -88,6 +88,5 @@ public class Review {
 		this.resNo = resNo;
 	}
 
-	
-	
+
 }

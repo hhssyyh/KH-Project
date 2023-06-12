@@ -10,6 +10,7 @@ import com.pointhome.www.main.dto.Reservation;
 import com.pointhome.www.mypage.dto.AlertRecomm;
 import com.pointhome.www.mypage.dto.MyPick;
 import com.pointhome.www.mypage.dto.Review;
+import com.pointhome.www.mypage.dto.ReviewFile;
 import com.pointhome.www.partner.dto.Partner;
 import com.pointhome.www.user.dto.User;
 import com.pointhome.www.user.dto.UserFile;
@@ -135,7 +136,7 @@ public interface MypageDao {
 	 * @param myreview - 리뷰 정보 담은 DTO
 	 */
 	public void insertMyReview(Review myreview);
-
+	
 	/**
 	 * 리뷰 삭제
 	 * 
@@ -150,6 +151,8 @@ public interface MypageDao {
 	 * @return 내가 쓴 리뷰 내역 리스트
 	 */
 	public List<Map<String, Object>> selectMyReviewList(int userNo);
+
+
 	
 
 	

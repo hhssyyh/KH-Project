@@ -191,8 +191,16 @@ public class MypageController {
 		
 	}
 	
-	@GetMapping("/myreview")
-	public void myreview() {}
+	@RequestMapping("/myreview")
+	public void myreviewList(HttpSession session, Model model) {
+		int userNo = (Integer)session.getAttribute("userno");
+		
+		List<Map<String, Object>> reviewList = mypageService.selectReviewList(userNo);
+		
+		logger.info("{}", reviewList);
+		
+		model.addAttribute("reviewlist", reviewList);
+	}
 	
 	
 	@GetMapping("/serviceCenter")
@@ -316,7 +324,9 @@ public class MypageController {
 		
 		mypageService.insertReview(myreview);
 		
-		return "redirect: ./myreserve";
+//		return null;
+		
+		return "redirect:./myreserve";
 	}
 	
 	@RequestMapping("/deleteReview")
@@ -331,21 +341,9 @@ public class MypageController {
 		
 		mypageService.deleteReview(myreview);
 		
-		return "redirect: ./myreserve";
+		return "redirect:./myreserve";
 		
-	}
-	
-	@RequestMapping("/myReviewList")
-	public void myreviewList(HttpSession session, Model model) {
-		int userNo = (Integer)session.getAttribute("userno");
-		
-		List<Map<String, Object>> reviewList = mypageService.selectReviewList(userNo);
-		
-		logger.info("{}", reviewList);
-		
-		model.addAttribute("reviewlist", reviewList);
-		
-	}
+	}	
 	
 	
 }
