@@ -1,9 +1,11 @@
 <%@ page session="true" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page import="java.util.Date" %>
 
 <c:import url="./layout/header.jsp"></c:import>
 
-<link rel="stylesheet" href="/resources/main/css/main.css">
+<link rel="stylesheet" href="/resources/main/css/main.css?d=<%= new Date() %>">
+
 <div style="padding-bottom: 105px; margin-top: 80px;">
 
 <!-- carosel -->
@@ -46,11 +48,33 @@
 	
 		<!-- card 1개-->
 		<div class="card">
-			<a href="#"><img src="../resources/dog.jpeg" class="card-img-top" alt="프로필사진"></a>
+			<!-- 카드 사진 start -->
+			<a href="#"><img src="../resources/main/img/partner_01.png" class="card-img-top" alt="프로필사진"></a>
+			<!-- 카드 사진 end -->
 
 			<div class="card-content">
 				<div>
-					<div class="card-content-type t">타로</div>
+					<div class="card-content-type ${'t'}">
+						<c:if test="${'t' eq 't'}">타로</c:if>
+<%-- 						<c:if test="${'s' eq 's'}">신점</c:if> --%>
+<%-- 						<c:if test="${'c' eq 'c'}">철학</c:if> --%>
+					</div>
+					
+					<div class="card-content-place">
+						<i class="bi bi-geo-alt-fill"></i>
+						경남 양산시 호포역
+					</div>
+				</div>
+
+				<!-- card 제휴사 상호/이름 start -->
+				<div class="card-title">
+					<a href="#">
+						<span class="card-title-name">화련</span>
+						<span class="card-title-shop">양산신당</span>
+					</a>
+				</div>
+				<!-- card 제휴사 상호/이름 end -->
+				<div>
 					<div class="card-star"> 
 						<a href="#">
 							<span class="card-star-icon">
@@ -80,13 +104,15 @@
 						</a>
 					</div>
 				</div>
-
-				<div class="card-title">
+				
+				<div class="card-price">
 					<a href="#">
-						<span class="card-title-shop">KH타로</span>
-						<span class="card-title-name">지훈동자</span>
+						<span class="card-price-discount">50%</span>
+						<span class="card-price-dismon">50,000원</span>
+						<span class="card-price-money">100,000원</span>
 					</a>
 				</div>
+				
 			</div>
 		</div>
 		<!-- card 1개 end -->
@@ -96,5 +122,7 @@
 
 </div>
 <!-- card end -->
+
+</div>
 
 <c:import url="./layout/footer.jsp"></c:import>

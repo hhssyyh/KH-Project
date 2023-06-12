@@ -1,95 +1,151 @@
 @charset "UTF-8";
 
 a {
-	color: black;
+	color : black;
 	text-decoration: none;
 }
+a :hover{
+	color : black;
+}
+
 .popularity {
 	margin: 20px 38px 5px 38px;
 }
+
 .popularity-text {
-	font-family : 'SBAggroM';
+	font-family: 'SBAggroM';
 	font-size: 45px;
 	vertical-align: top;
 }
-.popularity-text-sub {	
+
+.popularity-text-sub {
 	margin-top: 8px;
 	margin-left: 10px;
 	width: 90px;
 	height: 25px;
 	padding-top: 2px;
-	font-size:20px;
-	font-family : 'SBAggroM';
+	font-size: 20px;
+	font-family: 'SBAggroM';
 	color: white;
 	line-height: 25px;
 	text-align: center;
 	background-color: #ff1e00;
 	border-radius: 50px;
 }
+
 .card {
-	margin : 0px 3px;
+	margin: 0px 3px;
 	border-radius: 10px;
-	
+	box-shadow: 0 2px 3px rgba(0, 0, 0, 0.6);
 }
-.card-img-top{
+
+.card-img-top {
 	width: 300px;
-	height: 200px;	
+	height: 200px;
 }
-.card-content-type{
-	margin-top: 8px;
-	margin-left: 10px;
-	margin-right: 5px;
+
+.card-content {
+	margin-left: 20px;
+	margin-top: 10px;
+}
+
+.card-content-type {
 	width: 60px;
 	height: 25px;
 	padding-top: 2px;
-	font-size:20px;
-	font-family : 'SBAggroM';
+	font-size: 20px;
+	font-family: 'SBAggroM';
 	color: white;
 	line-height: 25px;
 	text-align: center;
 	border-radius: 10px;
 	display: inline-block;
 }
-.t{
+.card-content-place{
+	color: gray;
+	display: inline-block;
+	font-family: 'SBAggroM';
+	float: right;
+	margin-top:3px;
+	margin-right: 20px;
+}
+.t {
 	background-color: #7e00c2;
 }
-.s{
+
+.s {
 	background-color: red;
 }
-.c{
+
+.c {
 	background-color: gray;
 }
-.card-star{
-	display: inline-block;
+
+.card-title {
+	margin-top: 3px;
+	margin-bottom: 0px;
 }
-.card-star-icon{
+
+.card-title-name {
+	margin-left: 3px;
+	font-size: 30px;
+	font-family: Noto_Sans_KR900;
+}
+
+.card-title-shop {
+	margin-left: 5px;
+	color: #363636; font-size : 20px;
+	font-family: Noto_Sans_KR900;
+	font-size: 20px;
+}
+
+.card-star {
+	display: inline-block;
+	margin-left: 4px;
+}
+
+.card-star-icon {
 	vertical-align: text-bottom;
 }
-.card-star-cnt{
+
+.card-star-cnt {
 	color: #808080;
 	font-family: Noto_Sans_KR700;
 }
-.card-comment{
+
+.card-comment {
 	display: inline-block;
 }
-.card-comment-icon{
+
+.card-comment-icon {
 	color: #595858;
 	vertical-align: middle;
 	stroke: black;
 }
-.card-comment-cnt{
+
+.card-comment-cnt {
 	color: #808080;
 	font-family: Noto_Sans_KR700;
 }
-.card-title{
-	margin-left: 10px;
+
+.card-price {
+	font-family: Noto_Sans_KR700;
+	margin-bottom: 7px;
 }
-.card-title-shop{
-	font-size:30px;
-	font-family: Noto_Sans_KR900;
+.card-price-discount{
+	color: #ff2929;
+	font-size : 25px;
+    vertical-align: text-bottom;
 }
-.card-title-name{
-	font-size:20px;
-	font-family: Noto_Sans_KR900;
-	vertical-align: text-bottom;
+.card-price-dismon {
+	margin-left: 5px;
+	color: black;
+	font-size : 25px;
+    vertical-align: text-bottom;
+}
+.card-price-money {
+	color: gray;
+	font-size : 15px;
+	text-decoration: line-through;
+    vertical-align: super;
 }
