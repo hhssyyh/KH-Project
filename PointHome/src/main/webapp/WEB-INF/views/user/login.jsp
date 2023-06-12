@@ -2,6 +2,7 @@
 <%@ page import="java.net.URLEncoder" %>
 <%@ page import="java.security.SecureRandom" %>
 <%@ page import="java.math.BigInteger" %>
+<%@ page import="java.util.Date" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -16,9 +17,8 @@
 <!-- 폰트모음 -->
 <link href="/resources/common/css/font.css" rel="stylesheet">
 
-<link href="/resources/login/user/css/login.css" rel="stylesheet">
-<link href="/resources/login/user/css/test.css" rel="stylesheet">
-
+<link href="/resources/login/user/css/login.css?d=<%= new Date() %>"" rel="stylesheet">
+<link href="/resources/login/user/css/ani-background.css" rel="stylesheet">
 </head>
 <body>
 <!-- 애니메이션 배경 start -->
@@ -54,11 +54,11 @@
 <!-- 로그인 정보 입력 start -->
 <div class="login-info">
 	<div class="form-floating">
-		<input type="text" class="form-control" name="userEmail" id="userEmail" placeholder="이메일">
+		<input type="email" class="form-control" name="userEmail" id="userEmail" placeholder="이메일">
 		<label for="userEmail">이메일</label>
 	</div>
 	
-	<div class="form-floating">
+	<div class="form-floating mt-3">
 		<input type="password" class="form-control" name="userPw" id="userPw" placeholder="비밀번호">
 		<label for="userPw">비밀번호</label>
 	</div>
