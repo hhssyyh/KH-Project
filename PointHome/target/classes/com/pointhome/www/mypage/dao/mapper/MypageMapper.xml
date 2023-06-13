@@ -150,5 +150,7 @@
 		where rnum between #{paging.startNo} and #{paging.endNo}
 	</select>
 	
-	
+	<delete id="myBoardListDelete" parameterType="String">
+		DELETE FROM freeboard WHERE freeboard_no = #{freeboardNo}
+	</delete>
 </mapper>

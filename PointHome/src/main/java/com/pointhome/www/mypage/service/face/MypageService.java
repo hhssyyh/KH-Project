@@ -138,6 +138,15 @@ public interface MypageService {
 
 	public Paging getPaging(int curPage, int userNo);
 
+	/**
+	 * 사용자가 작성한 게시글 삭제
+	 * 
+	 * @param freeboardNo - 게시글 번호
+	 */
+	public void removeboardlist(String freeboardNo);
+
+	
+
 
 	
 
