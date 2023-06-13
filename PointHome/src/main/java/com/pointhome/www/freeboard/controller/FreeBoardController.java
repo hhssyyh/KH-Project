@@ -20,6 +20,7 @@ import com.pointhome.www.freeboard.dto.FreeBoard;
 import com.pointhome.www.freeboard.dto.FreeBoardComment;
 import com.pointhome.www.freeboard.dto.FreeBoardFile;
 import com.pointhome.www.freeboard.service.face.FreeBoardService;
+import com.pointhome.www.mypage.service.face.MypageService;
 import com.pointhome.www.user.dto.User;
 import com.pointhome.www.util.Paging;
 
@@ -30,13 +31,14 @@ public class FreeBoardController {
    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
    @Autowired FreeBoardService freeBoardService;
+   @Autowired MypageService mypageService;
 
    @RequestMapping("/list")
    public void BoardList( @RequestParam(defaultValue = "0") int curPage,
          @RequestParam(defaultValue = "date")  String filter, Model model, 
          @RequestParam(value = "searchType",required = false, defaultValue = "title") String searchType,
-         @RequestParam(value = "keyword",required = false, defaultValue = "") String keyword
-         )throws Exception{
+         @RequestParam(value = "keyword",required = false, defaultValue = "") String keyword,
+		   HttpSession session)throws Exception{
 
       logger.info("/freeboard/list [GET]");
 
@@ -44,7 +46,9 @@ public class FreeBoardController {
 
       List<Map<String, Object>> list = freeBoardService.selectAllSearch(paging, filter, searchType, keyword);
 
-      
+      int userNo = (Integer)session.getAttribute("userno");
+      int alertCnt = mypageService.getAlertCnt(userNo);
+      model.addAttribute( "alertCnt" , alertCnt);
       
 
       logger.info("!!!!!!!!!!!!!!!!{}", list);
@@ -89,6 +93,10 @@ public class FreeBoardController {
 //      User commentUser = freeBoardService.commentUser();
 
       model.addAttribute("viewUser", viewUser);
+      
+      int userNo = (Integer)session.getAttribute("userno");
+      int alertCnt = mypageService.getAlertCnt(userNo);
+      model.addAttribute( "alertCnt" , alertCnt);
 
       //닉네임 띄우기 댓글 리스트에
 //      List<User> viewUserNick = freeBoardService.viewUserNick(freeboardNo);
@@ -101,8 +109,12 @@ public class FreeBoardController {
 
 
    @GetMapping("/write")
-   public void write() {
+   public void write(HttpSession session, Model model) {
       logger.info("/board/write");
+      
+      int userNo = (Integer)session.getAttribute("userno");
+      int alertCnt = mypageService.getAlertCnt(userNo);
+      model.addAttribute( "alertCnt" , alertCnt);
    }
 
 

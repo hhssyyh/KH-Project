@@ -88,6 +88,22 @@ body {
 			<hr>
 			</c:when>
 			
+			<c:when test="${list.TYPE eq 'V'}">
+			<a href="/main/detail?partNo=${list.NUM}"><h5 style="margin: 20px; margin-left: 103px; margin-bottom: 60px;">
+			${list.CONTENT} 
+			</a>
+			<h6 style="margin: 20px; margin-left: 103px; margin-top: -52px;"><fmt:formatDate value="${list.ALERT_DATE }" pattern="yy/MM/dd hh:mm" /></h6>
+			<hr>
+			</c:when>
+			
+			<c:when test="${list.TYPE eq 'P'}">
+			<a href="/mypage/myreserve"><h5 style="margin: 20px; margin-left: 103px; margin-bottom: 60px;">
+			${list.CONTENT} 
+			</a>
+			<h6 style="margin: 20px; margin-left: 103px; margin-top: -52px;"><fmt:formatDate value="${list.ALERT_DATE }" pattern="yy/MM/dd hh:mm" /></h6>
+			<hr>
+			</c:when>
+			
 			<c:otherwise>
 			<a href="/freeboard/view?freeboardNo=${list.NUM}"><h5 style="margin: 20px; margin-left: 103px; margin-bottom: 60px;">
 			${list.CONTENT} 

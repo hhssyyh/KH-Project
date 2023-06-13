@@ -41,8 +41,35 @@ body {
 }
 
 * {
- 	font-family : 'NotoSansKR-Regular';
+ 	font-family: 'SBAggroM';
 }
+
+.pagination {
+	margin-top : 50px;
+	margin-bottom : -150px;
+}
+
+.page-link {
+  color: #483D8B; 
+  background-color: white;
+  border-color: #D2D2FF;
+}
+
+.page-item.active .page-link {
+ z-index: 1;
+ color: #483D8B;
+ font-weight:bold;
+ background-color: #A696CD;
+  border-color: #CBB8EE;
+ 
+}
+
+.page-link:focus, .page-link:hover {
+  color: #483D8B;
+  background-color: #A696CD; 
+  border-color: #CBB8EE;
+}
+
 
 </style>
 
@@ -84,29 +111,82 @@ function deleteRow(th){
 		
 	</c:forEach>
 
+<!-- 페이징 -->
+<div style="margin-bottom: 200px;"><!-- href로 링크만 넣어주면 됨 -->
+<ul class="pagination justify-content-center">
 
-	
-	
+   <%--첫 페이지로 이동 --%>
+   <!--1번이 아닐때 = ne  -->
+   <c:if test="${paging.curPage ne 1 }">
+      <li class="page-item"><a class="page-link" href="./myboardList">&larr; 처음</a></li>
+   </c:if>
+   <c:if test="${paging.curPage eq 1 }">
+      <li class="page-item disabled"><a class="page-link" href="./myboardList">&larr; 처음</a></li>
+   </c:if>
+
+   <%--이전 페이징 리스트로 이동 --%>
+<%--    <li class="page-item"><a class="page-link" href="./myboardList?curPage=${paging.curPage - paging.pageCount }">&laquo;</a></li> --%>
+<%--    <li class="page-item"><a class="page-link" href="./myboardList?curPage=${paging.endPage- paging.pageCount }">&laquo;</a></li> --%>
+
+   <c:if test="${paging.startPage ne 1 }">
+      <li class="page-item"><a class="page-link" href="./myboardList?curPage=${paging.startPage - paging.pageCount }">&laquo;</a></li>
+   </c:if> 
+
+   <c:if test="${paging.startPage eq 1 }">
+      <li class="page-item disabled"><a class="page-link" href="./myboardList?curPage=${paging.startPage - paging.pageCount }">&laquo;</a></li>
+   </c:if> 
+
+
+
+   <%--이전 페이지로 이동 --%>
+   <c:if test="${paging.curPage gt 1 }">
+   <li class="page-item"><a class="page-link" href="./myboardList?curPage=${paging.curPage -1 }">&lt;</a></li>
+   </c:if>
+
+   <%--페이징 번호 리스트 --%>
+   <c:forEach var="i" begin="${paging.startPage }" end="${paging.endPage }">
+   <c:if test="${paging.curPage eq i }">
+      <li class="page-item active">
+         <a class="page-link" href="./myboardList?curPage=${i }">${i }</a>
+      </li>
+   </c:if>
+      
+   <c:if test="${paging.curPage ne i }">
+      <li class="page-item ">
+         <a class="page-link" href="./myboardList?curPage=${i }">${i }</a>
+      </li>
+   </c:if>
+   
+   </c:forEach>
+   
+   <%--다음 페이지로 이동 --%>
+   <c:if test="${paging.curPage lt paging.totalPage }">
+   <li class="page-item"><a class="page-link" href="./myboardList?curPage=${paging.curPage +1 }">&gt;</a></li>
+   </c:if>
+   
+   <%--다음 페이징 리스트로 이동 --%>
+   <c:if test="${paging.endPage ne paging.totalPage}">
+      <li class="page-item"><a class="page-link" href="./myboardList?curPage=${paging.startPage + paging.pageCount }">&raquo;</a></li>
+   </c:if> 
+
+   <c:if test="${paging.endPage eq paging.totalPage }">
+      <li class="page-item disabled"><a class="page-link" href="./myboardList?curPage=${paging.startPage + paging.pageCount }">&raquo;</a></li>
+   </c:if> 
+   
+   <%--마지막 페이지로 이동 --%>
+   <c:if test="${paging.curPage ne paging.totalPage }">
+      <li class="page-item"><a class="page-link" href="./myboardList?curPage=${paging.totalPage }">마지막&rarr; </a></li>
+   </c:if>
+   <c:if test="${paging.curPage eq paging.totalPage }">
+      <li class="page-item "><a class="page-link" > 마지막&rarr; </a></li>
+   </c:if>   
+</ul>
+
 </div>
-	
 
 </div>
 
+</div>
 
-</body>
-</html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<c:import url="/WEB-INF/views/layout/footer.jsp" />
 

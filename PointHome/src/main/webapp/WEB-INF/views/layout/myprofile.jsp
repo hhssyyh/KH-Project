@@ -14,10 +14,20 @@ a {
 }
 
 #myBanner {
-	margin-top: 100px;
+	display: flex;
 	height: 300px;
-	width: 100%;
-	background-color: #E8F5FF	
+	width: 60%;
+	text-align: center;
+	margin:0 auto; 
+	margin-top: 130px;
+	margin-bottom: 100px;
+ 	background-color: #E8F5FF;
+	justify-content: center;
+	border-radius: 50px;
+/* 	border:3px solid #A696CD; */
+	border: 10px solid #A696CD;
+	border-style: dotted;
+	
 }
 
 #profile {
@@ -25,7 +35,7 @@ a {
 	align-items: center;
 	float: left;
 	padding-top: 70px;
-	padding-left: 25%;
+	padding-left: 15%;
 }
 
 #profileImg {
@@ -35,40 +45,53 @@ a {
 #nickDiv {
 	text-align: center;
 	padding-left: 40px;
+	color: #3C3C8C;
 }
 
 .nickBtn {
 	width: 130px;
 	font-size: 13px;
 	margin-top: 3px;
+	border-color: #834683;
 }
 
-/* .btnRowBox { */
-/* 	height: 300px; */
-/* 	width: 50%; */
-/* 	margin-top: 200px; */
-/* 	margin-left: 1000px; */
-	
-/* } */
-/* .btnRow { */
-	
-/* 	margin-top: 100px; */
-/* } */
+ .btnRowBox { 
+ 
+ 	display: flex;
+	align-items: center;
+	float: right;
+ 	height: 300px; 
+ 	width: 50%; 
+ 	padding: 50px; 
+/*  	padding-right: 25%; */
 
-/* .btnRow2 { */
+} 
+ .btnRow { 	
+	width: 20%;
+	padding-right: 180px;
 	
-/* 	margin-top: 50px; */
-/* } */
+ } 
+
+ .btnRow2 { 
+
+ 	width: 20%;
+ } 
 
  .proBtn {
 	width: 150px;
 	font-size: 15px;
+	color: white;
 	margin: 10px;
+	background-color: #8C8CBE;
+	border-color: #8C8CBE;
 }
 
 #myImg {width: 150px; height: 150px;}
 
-
+table {
+  border-spacing: 10px;
+  border-collapse: separate;
+}
 
 </style>
 
@@ -78,7 +101,7 @@ a {
 <!-- </div> -->
 
 <div id="myBanner">
-	<div id="box" style="width: 1200px; margin: 0 auto;">
+	<div id="box" style="width: 1500px; margin: 0 auto;">
 		<div id="profile">
 			<span>
 				<c:choose>
@@ -99,6 +122,7 @@ a {
 				<a href="./userinfo"><button class="btn btn-outline-dark nickBtn">회원정보수정</button></a>
 			</div>
 		</div>
+		
 		<div class="btnRowBox">
 			<div class="btnRow">
 				<a href="/mypage/myboardList"><button class="btn btn-outline-dark proBtn" style="margin: 8px; ">내가 쓴 글</button></a>
