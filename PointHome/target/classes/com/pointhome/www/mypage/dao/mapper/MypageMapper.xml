@@ -122,11 +122,33 @@
 	</delete>
 	
 	<select id="selectMyReviewList" parameterType="int" resultType="Map">
-		select PT.partner_shopname, PT.partner_type,
+        select * from
+        (select rownum rnum, RV. *
+        from
+		(select PT.partner_shopname, PT.partner_type,
 		R.*
 		FRom partner_tb PT, review R
 		where pt.partner_no = R.part_no
 		and user_no = #{userNo}
+        order by review_date desc) RV 
+        order by rnum
+        )
 	</select>
+	
+	<select id="selectAllPaging" resultType="int" parameterType="map">
+		SELECT count(*) from freeboard where user_no = #{userNo}
+	</select>
+	
+	
+	<select id="getMyBoardList" resultType="FreeBoard" parameterType="map">
+		select * from (
+			select rownum rnum , B.*  from ( 
+				select freeboard_title, freeboard_no, freeboard_date from freeboard where user_no = #{userNo}
+				order by freeboard_no desc 
+			) B 
+		)freeboard
+		where rnum between #{paging.startNo} and #{paging.endNo}
+	</select>
+	
 	
 </mapper>

@@ -15,7 +15,6 @@
 <%-- 제휴사 헤더 (읽기전용)--%>
 <c:if test="${not empty partnerLogin and partnerLogin}">
 	<c:import url="/WEB-INF/views/layout/partnerLayout/header.jsp" />
-	<c:import url="/WEB-INF/views/layout/partnerLayout/sidebarContainer.jsp" />
 </c:if>
 
 <%-- 운영사헤더 --%>

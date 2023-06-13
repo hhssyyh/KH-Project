@@ -166,7 +166,8 @@
       
       ) A
       )
-    )
+     WHERE rnum BETWEEN #{paging.startNo} and #{paging.endNo}   
+     )
 </select>
 
 
@@ -597,5 +598,97 @@
     )
  </select>
  
+  <select id="selectPartReserveCntAll"  resultType="int">
+          select count(*) from ( select * from (
+		  select rownum rnum, A.* from(
+		  select re.res_no,re.part_no,re.res_date,re.res_reserveno,re.user_no,re.res_time,re.res_div,re.res_price,
+		  ut.user_name,ut.user_nick,ut.user_email,ut.user_phone
+		  FROM reservation re
+		  INNER JOIN user_tb ut on re.user_no = ut.user_no
+		  where re.part_no=#{partNo}
+		  and re.user_no= ut.user_no
+         
+   
+         <if test='searchType.equals("user_email")'>
+      	and user_email LIKE concat(concat('%', #{keyword}), '%')
+         </if>
+   
+         <if test='searchType.equals("user_nick")'>
+          and  user_nick LIKE concat(concat('%', #{keyword}), '%')
+         </if>
+           <if test='searchType.equals("user_name")'>
+           and user_name LIKE concat(concat('%', #{keyword}), '%')
+         </if>
+         
+         <choose>
+            
+            <when test='filter.equalsIgnoreCase("resdateasc")'>
+               ORDER BY res_date 
+            </when>
+            <when test='filter.equalsIgnoreCase("resdatedesc")'>
+               ORDER BY res_date DESC
+            </when>
+
+         </choose>
+      
+      ) A
+      )
+    )
+ </select>
+ 
+ <select id="selectPartReserveList" parameterType="map" resultType="map">
+    select * from ( select * from (
+		  select rownum rnum, A.* from(
+	  select re.res_no,re.part_no, re.res_date,re.res_reserveno,re.user_no,re.res_time,re.res_div,re.res_price,
+		  ut.user_name,ut.user_nick,ut.user_email,ut.user_phone
+		  FROM reservation re
+		  INNER JOIN user_tb ut on re.user_no = ut.user_no
+			where re.part_no=#{partNo}
+			and re.user_no= ut.user_no
+         
+   
+         <if test='searchType.equals("user_email")'>
+            and user_email LIKE concat(concat('%', #{keyword}), '%')
+         </if>
+   
+         <if test='searchType.equals("user_nick")'>
+           and user_nick LIKE concat(concat('%', #{keyword}), '%')
+         </if>
+         
+         <if test='searchType.equals("user_name")'>
+           and user_name LIKE concat(concat('%', #{keyword}), '%')
+         </if>
+         
+         <choose>
+          
+            <when test='filter.equalsIgnoreCase("resdateasc")'>
+               ORDER BY res_date 
+            </when>
+            <when test='filter.equalsIgnoreCase("resdatedesc")'>
+               ORDER BY res_date DESC
+            </when>
+
+         </choose>
+      
+      ) A
+      )
+	 WHERE rnum BETWEEN #{paging.startNo} and #{paging.endNo}    
+	 
+	 )
+</select>
+ 
+ 
+	<select id="selectReserveTime" resultType="String" parameterType="Reservation">
+		SELECT res_time FROM reservation
+		WHERE res_date = #{resDate} AND part_no = #{partNo}
+	</select>
+	
+		<update id="updateReservation">
+		UPDATE reservation
+		SET res_date = #{resDate},
+			res_time = #{resTime},
+			res_div = #{resDiv}
+		WHERE res_no = #{resNo}
+	</update>
  
 </mapper>

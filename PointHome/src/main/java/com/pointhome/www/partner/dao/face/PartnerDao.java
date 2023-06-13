@@ -289,6 +289,10 @@ public interface PartnerDao {
 	 * @param videoId - 영상 url
 	 * @return video - 중복 값이 있으면 반환
 	 */
-	public int test(String videoId);	
+	public int test(String videoId);
+
+	public List<MyPick> selectPickListByVideo(PartnerVideo video);
+
+	public void insertVideoAlert(@Param("video") PartnerVideo video, @Param("pickUser") MyPick mp);	
 
 }

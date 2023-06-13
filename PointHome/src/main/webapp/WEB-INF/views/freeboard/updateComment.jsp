@@ -73,6 +73,19 @@ div.fr {
 	box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
 	transform: translateX(0%) translateY(0%);
 }
+span{
+	font-family: 'SBAggroL';
+	white-space: nowrap;
+}
+button{
+	font-family: 'SBAggroM';
+}
+.btn-info {
+	font-family: 'SBAggroM';
+	background-color: #E8F5FF;
+	border-color: transparent;
+	color: white;
+}
 </style>
 
 
@@ -143,26 +156,27 @@ function updateCom(th, commNo) {
 <table id="commentTr">
 <c:forEach var="boardCommentList" items="${boardCommentList }">
 <tr>
-	<td><i class="bi bi-person-circle"></i>${viewUser.userNick }<td> 
+<%-- 	<td><i class="bi bi-person-circle"></i>${viewUser.userNick }<td>  --%>
+	<td><span>${boardCommentList.USER_NICK }&nbsp;</span></td>
 	<td class="comm">
 		<div class="commContent">
-			${boardCommentList.commContent }
+			<span>${boardCommentList.COMM_CONTENT }</span>
 		</div>
 		<div class="commInput">
-			<input class="commUpdateContent${boardCommentList.commNo}" type="text" name="commUpdateContent">
+			<input class="commUpdateContent${boardCommentList.COMM_NO}" type="text" name="commUpdateContent">
 		</div>
-	</td>
-	<td><fmt:formatDate value="${boardCommentList.commDate }" pattern="yy/MM/dd hh:mm"/></td>
+	</td> 
+	<td><span>&nbsp;&nbsp;(<fmt:formatDate value="${boardCommentList.COMM_DATE }" pattern="yy/MM/dd hh:mm"/>)</span></td>
 	
 	<td class="commBtn">
-		<c:if test="${not empty userno and userno eq boardCommentList.userNo || not empty adminLogin and adminLogin}">
+		<c:if test="${not empty userno and userno eq boardCommentList.USER_NO || not empty adminLogin and adminLogin}">
 			<div class="commBtnComment">
-				<button type="button" onclick="updateComment(this)" class="btn btn-secondary">수정</button>
-				<a href="./commentDelete?commNo=${boardCommentList.commNo}&freeboardNo=${board.freeboardNo}"><button type="button" class="btn btn-secondary">삭제</button></a>
+				<button type="button" onclick="updateComment(this)" class="btn btn-info btn-sm">수정</button>
+				<a href="./commentDelete?commNo=${boardCommentList.COMM_NO}&freeboardNo=${board.freeboardNo}"><button type="button" class="btn btn-info btn-sm">삭제</button></a>
 			</div>
 			<div class="commBtnInput">
-				<button onclick="updateCom(this, ${boardCommentList.commNo})" class="btn btn-secondary">완료</button> 
-				<button onclick="cancel(this)" class="btn btn-secondary">>취소</button>
+				<button onclick="updateCom(this, ${boardCommentList.COMM_NO})" class="btn btn-info btn-sm">완료</button> 
+				<button onclick="cancel(this)" class="btn btn-info btn-sm">취소</button>
 			</div>
 		</c:if>
 	</td>
