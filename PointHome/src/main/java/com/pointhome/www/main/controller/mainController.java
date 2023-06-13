@@ -1,5 +1,6 @@
 package com.pointhome.www.main.controller;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
@@ -21,9 +22,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.pointhome.www.main.dto.Reservation;
 import com.pointhome.www.main.service.face.MainService;
+import com.pointhome.www.mypage.dto.Review;
 import com.pointhome.www.mypage.service.face.MypageService;
 import com.pointhome.www.partner.dto.Partner;
 import com.pointhome.www.partner.dto.PartnerFile;
+import com.pointhome.www.partner.dto.PartnerVideo;
 import com.pointhome.www.partner.service.face.PartnerService;
 import com.pointhome.www.util.Paging;
 
@@ -59,6 +62,9 @@ public class mainController {
 		Paging paging = mainService.getPaging(curPage, partNo);
 		List<Map<String, Object>> reviewList  = mainService.getReviewList(paging, partNo);
 		
+		List<PartnerVideo> video = partnerService.viewVideo(partNo);
+		
+		
 		if(session.getAttribute("userno") == null) {
 			
 		} else {
@@ -71,11 +77,21 @@ public class mainController {
 			model.addAttribute( "alertCnt" , alertCnt);
 		}
 		
+		double grade = 0;
+		for(Map review : reviewList) {
+		    grade += ((BigDecimal) review.get("REVIEW_GRADE")).doubleValue();
+		}
+		double avgGrade = grade/reviewList.size();
+		logger.debug("!!!!!!!!!!!!!{}", avgGrade);
+		
 		
 		model.addAttribute("reviewList", reviewList);
+		model.addAttribute("reviewCnt", reviewList.size());
+		model.addAttribute("avgGrade", avgGrade);
 		model.addAttribute("partnerFile", partnerFile);
 		model.addAttribute("partNo", partNo);
 		model.addAttribute("partner", partner);
+		model.addAttribute("video", video);
 	}
 	
 	@RequestMapping("/main/detailPick")

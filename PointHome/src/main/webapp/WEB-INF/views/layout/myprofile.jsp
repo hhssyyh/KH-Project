@@ -17,7 +17,7 @@ a {
 	margin-top: 100px;
 	height: 300px;
 	width: 100%;
-	background-color: #E8F5FF	
+	background-color: #E8F5FF;	
 }
 
 #profile {
