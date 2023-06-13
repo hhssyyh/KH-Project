@@ -55,7 +55,7 @@ public interface FreeBoardService {
     * @param freeboardNo - 게시판 번호
     * @return 게시판 댓글 리스트
     */
-	public List<FreeBoardComment> commentView(int freeboardNo);
+	public List<Map<String, Object>> commentView(int freeboardNo);
 
    /**
     * 댓글 삽입
@@ -187,6 +187,15 @@ public interface FreeBoardService {
 	 * @return 페이징과 필터와 검색 타입과 키워드를 적용한 리스트 정보 
 	 */
 	public List<Map<String, Object>> selectAllSearch(Paging paging, String filter, String searchType, String keyword);
+
+	/**
+	 * 댓글 리스트에 보여줄 유저 닉네임 가져오기
+	 * 
+	 * 
+	 * @param freeboardNo 해당 게시글에 있는 유저 닉 찾기
+	 * @return 그 값담아주기
+	 */
+	public List<User> viewUserNick(int freeboardNo);
 
 }
 

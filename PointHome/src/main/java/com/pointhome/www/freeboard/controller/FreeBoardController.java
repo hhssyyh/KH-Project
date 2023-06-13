@@ -18,9 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.pointhome.www.freeboard.dto.FreeBoard;
 import com.pointhome.www.freeboard.dto.FreeBoardComment;
-
 import com.pointhome.www.freeboard.dto.FreeBoardFile;
-
 import com.pointhome.www.freeboard.service.face.FreeBoardService;
 import com.pointhome.www.user.dto.User;
 import com.pointhome.www.util.Paging;
@@ -66,7 +64,7 @@ public class FreeBoardController {
       FreeBoard board = freeBoardService.view(freeboardNo);
       logger.info("diddddddddddddddddddddddd {}", board);
 
-      List<FreeBoardComment> boardCommentList = freeBoardService.commentView(freeboardNo);
+      List<Map<String, Object>> boardCommentList = freeBoardService.commentView(freeboardNo);
       logger.info("{}",boardCommentList);
 
       int cntRecommend = freeBoardService.getCntRecommend(freeboardNo);
@@ -88,9 +86,17 @@ public class FreeBoardController {
       }
 
       User viewUser = freeBoardService.viewUser(board.getUserNo());
-      
+//      User commentUser = freeBoardService.commentUser();
+
       model.addAttribute("viewUser", viewUser);
 
+      //닉네임 띄우기 댓글 리스트에
+//      List<User> viewUserNick = freeBoardService.viewUserNick(freeboardNo);
+//      model.addAttribute("viewUserNick", viewUserNick);
+      
+//      logger.info("******* {}",viewUserNick);
+      
+      
    }
 
 
@@ -178,7 +184,8 @@ public class FreeBoardController {
       
       freeBoardService.updateComment(comment);
       
-      List<FreeBoardComment> boardCommentList = freeBoardService.commentView(freeboardNo);
+      List<Map<String, Object>> boardCommentList = freeBoardService.commentView(freeboardNo);
+//      List<FreeBoardComment> boardCommentList = freeBoardService.commentView(freeboardNo);
       model.addAttribute("boardCommentList", boardCommentList);
       
       
