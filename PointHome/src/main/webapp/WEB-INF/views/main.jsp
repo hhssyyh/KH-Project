@@ -19,6 +19,9 @@
 			<div class="carousel-item">
 				<img src="../resources/main/img/소원암.png" class="d-block w-70" style="margin: 0 auto;" alt="...">
 			</div>
+			<div class="carousel-item">
+				<img src="../resources/main/img/타로안내_배너.png" class="d-block w-70" style="margin: 0 auto;" alt="...">
+			</div>
 		</div>
 
 		<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
