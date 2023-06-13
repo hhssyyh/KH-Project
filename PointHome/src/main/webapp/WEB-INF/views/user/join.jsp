@@ -94,7 +94,7 @@
 			</div>
 		</div>
 		
-		<input type="text" class="form-control" name="userEmail" id="userEmail" placeholder="이메일">
+		<input type="hidden" class="form-control" name="userEmail" id="userEmail" placeholder="이메일">
 	
 		<div class="col-3">
 			<div class="form-floating">
