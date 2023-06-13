@@ -175,6 +175,11 @@ public class MypageServiceImpl implements MypageService {
 	public List<FreeBoard> selectboard(Paging paging, int userNo) {
 		return mypageDao.getMyBoardList(paging, userNo);
 	}
+
+	@Override
+	public void removeboardlist(String freeboardNo) {
+		mypageDao.myBoardListDelete(freeboardNo);
+	}
 	
 	
 	

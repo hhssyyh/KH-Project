@@ -157,6 +157,13 @@ public interface MypageDao {
 
 	public List<FreeBoard> getMyBoardList(@Param("paging") Paging paging, @Param("userNo") int userNo);
 
+	/**
+	 * 사용자가 작성한 게시글 삭제
+	 * 
+	 * @param freeboardNo - 게시글 번호
+	 */
+	public void myBoardListDelete(String freeboardNo);
+
 
 	
 

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -458,6 +460,44 @@ public class MypageController {
 		return "redirect:./myreserve";
 		
 	}	
+	
+	//boardlist 전체 삭제
+	@RequestMapping(value = "/removeboardlist", method = RequestMethod.GET)
+    public void cmtdelete(String freeboardNo,FreeBoard freeBoard) throws Exception {
+    	mypageService.removeboardlist(freeboardNo);
+    	
+    }
+    
+    //boardlist 선택삭제
+    @RequestMapping(value = "/removeboardlist",method = RequestMethod.POST)
+    public void cmtajax(HttpServletRequest request,FreeBoard freeBoard, 
+    		HttpSession session, Model model, @RequestParam(defaultValue = "0") int curPage ) throws Exception {
+            
+        String[] ajaxMsg = request.getParameterValues("valueArr");
+ 
+        int size = ajaxMsg.length;
+        for(int i=0; i<size; i++) {
+        	mypageService.removeboardlist(ajaxMsg[i]);
+        }
+        
+        
+        int userNo = (Integer)session.getAttribute("userno");
+        
+		Paging paging = mypageService.getPaging(curPage, userNo);
+		
+		logger.info("paging {}" , paging);
+		
+		List<FreeBoard> boardList = mypageService.selectboard(paging, userNo);
+		
+		logger.info("{}", boardList);
+		
+		model.addAttribute("paging", paging);
+		model.addAttribute( "boardList" , boardList);
+        
+        
+        
+    
+    }	
 	
 	
 }
