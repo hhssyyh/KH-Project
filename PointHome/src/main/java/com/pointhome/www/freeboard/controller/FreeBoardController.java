@@ -49,7 +49,6 @@ public class FreeBoardController {
       int userNo = (Integer)session.getAttribute("userno");
       int alertCnt = mypageService.getAlertCnt(userNo);
       model.addAttribute( "alertCnt" , alertCnt);
-      
 
       logger.info("!!!!!!!!!!!!!!!!{}", list);
 

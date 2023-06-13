@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="java.util.Date" %>
 
 <c:import url="../layout/header.jsp"/>
-<link href="/resources/join/user/css/join.css" rel="stylesheet">
+<link href="/resources/join/user/css/join.css?d=<%= new Date() %>" rel="stylesheet">
 <script type="text/javascript" src="/resources/join/user/js/Email.js"></script>
 
 <!-- 전체 배경화면 색 설정 -->
@@ -54,12 +55,12 @@
 					<option value="@gmail.com">@gmail.com</option>
 					<option value="@naver.com">@naver.com</option>
 					<option value="@hanmail.net">@hanmail.net</option>
-				</select> 
+				</select>
 				<label for="userEmailSelect">선택</label>
 			</div>
 		</div>
 
-		<input type="email" class="form-control" name="userEmail" id="userEmail" placeholder="이메일" value="${userInfo.userEmail}" readonly="readonly">
+		<input type="hidden" class="form-control" name="userEmail" id="userEmail" placeholder="이메일" value="${userInfo.userEmail}" readonly="readonly">
 		
 		<div class="col-3">
 			<div class="form-floating">
@@ -270,7 +271,8 @@
 	<!-- 주소 끝 -->
 		
 	<div class="d-grid mb-5">
-		<button class="btn btn-primary btn-lg" type="submit">가입하기</button>
+		<button class="btn btn-lg btn-signup" type="submit">가입하기</button>
+		<button class="btn btn-outline-secondary btn-lg mt-2 mb-5" type="submit">취소</button>
 	</div>
 	
 	</form>
@@ -285,4 +287,5 @@
 
 </div>
 
-<c:import url="../layout/footer.jsp"/>
+</body>
+</html>
