@@ -1,6 +1,6 @@
 package com.pointhome.www.admin.controller;
 
-import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,7 +25,7 @@ import com.pointhome.www.admin.dto.AdminNotice;
 import com.pointhome.www.admin.dto.AdminNoticeFile;
 import com.pointhome.www.admin.service.face.AdminService;
 import com.pointhome.www.freeboard.dto.FreeBoard;
-import com.pointhome.www.freeboard.dto.FreeBoardComment;
+import com.pointhome.www.main.dto.Reservation;
 import com.pointhome.www.partner.dto.Partner;
 import com.pointhome.www.partner.dto.PartnerFile;
 import com.pointhome.www.user.dto.User;
@@ -226,6 +226,70 @@ public class AdminController {
 	}
 	
 	
+	//파트너 예약
+	@GetMapping("/partreserve")
+	public void partreserveGet(@RequestParam(name = "partnerNo") int partNo, @RequestParam(defaultValue = "0") int curPage,
+	         @RequestParam(defaultValue = "date")  String filter, Model model, 
+	         @RequestParam(value = "searchType",required = false, defaultValue = "title") String searchType,
+	         @RequestParam(value = "keyword",required = false, defaultValue = "") String keyword
+	         )throws Exception{
+
+		  logger.debug("partNo!!!!!!!!!!!{}:",partNo);  
+		   
+		Paging paging = adminService.getPartReservePaging(partNo,curPage,filter,searchType,keyword);
+		List<Map<String, Object>> partReserveList = adminService.getPartReserveList(partNo,paging,filter,searchType,keyword);
+
+		model.addAttribute("partReserveList", partReserveList);
+		model.addAttribute("paging", paging);
+	      model.addAttribute("filter", filter);
+	      model.addAttribute("searchType", searchType);
+	      model.addAttribute("keyword", keyword);
+	      
+	      
+	      
+	}
+	@GetMapping("/partupdatereserve")
+	public void partUpdateReserveGet(HttpSession session, Model model, String date, String time, int resNo) {
+		model.addAttribute("date", date);
+		model.addAttribute("time", time);
+		model.addAttribute("resNo", resNo);
+	}
+	
+	
+	
+	@GetMapping("/reserveDateAjax")
+	public void reserveDateAjaxGet(Reservation reservation,int partnerPrice, Model model) {	
+		
+		List<Integer> reserveList = adminService.reserveTime(reservation);
+		
+		logger.debug("!!!!!!!!!!!!!!!!!!!!!!!!!!{}", reserveList);
+		
+		
+		model.addAttribute("reserveList", reserveList);
+		model.addAttribute("resDate", reservation.getResDate());
+		model.addAttribute("partnerPrice", partnerPrice);
+		
+	}
+	
+	
+	@GetMapping("/partupdatereserveajax")
+	public void updateReserveAjax(int partnerNo,Reservation reservation, int resNo, HttpSession session, Model model) {
+		reservation.setPartNo(partnerNo);
+		List<Integer> reserveList = adminService.reserveTime(reservation);
+		logger.debug("partnerNo { } :",partnerNo);
+		
+		model.addAttribute("reserveList", reserveList);
+		model.addAttribute("resNo", resNo);
+		model.addAttribute("resDate", reservation.getResDate());
+	}
+	
+	@GetMapping("/updateReserveComplete")
+	public String updateReserveComplete(Partner partner ,@RequestParam(name = "partnerNo") int partnerNo,Reservation reservation, HttpSession session) {
+		reservation.setPartNo(partnerNo);
+		adminService.updateReservation(reservation);
+		
+		return "redirect:./partreserve?partnerNo="+partner.getPartnerNo();
+	}
 	
 	
 	

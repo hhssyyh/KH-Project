@@ -13,6 +13,7 @@ import com.pointhome.www.admin.dto.AdminNotice;
 import com.pointhome.www.admin.dto.AdminNoticeFile;
 import com.pointhome.www.freeboard.dto.FreeBoard;
 import com.pointhome.www.freeboard.dto.FreeBoardComment;
+import com.pointhome.www.main.dto.Reservation;
 import com.pointhome.www.partner.dto.Partner;
 import com.pointhome.www.partner.dto.PartnerFile;
 import com.pointhome.www.user.dto.User;
@@ -317,11 +318,34 @@ public interface AdminDao {
 	 * @return 총 댓글 수 
 	 */
 	public int selectUserCmtCntAll(@Param("userNo") int userNo,@Param("filter") String filter, @Param("searchType") String searchType, @Param("keyword") String keyword);
+
+	/**
+	 * 총 예약 건 수 조회
+	 * @param type 
+	 * @param filter 
+	 * @return 총 예약 수 
+	 */
+	public int selectPartReserveCntAll(@Param("partNo") int partNo,@Param("filter") String filter, @Param("searchType") String searchType, @Param("keyword") String keyword);
 	
+	   /**
+	    * 페이징과 필터적용된 예약 목록 조회
+	    * 
+	    * @param paging - 페이징
+	    * @param filter - 필터
+	 * @param searchType - 검색 타입
+	    * @param keyword - 키워드 
+	    * @return -페이징과 필터,검색타입,키워드가 적용된 게시글 목록
+	    */
+	public List<Map<String, Object>> selectPartReserveList(@Param("partNo") int partNo,@Param("paging") Paging paging, @Param("filter") String filter, @Param("searchType")  String searchType, @Param("keyword")  String keyword);
 
+	public List<Integer> selectReserveTime(Reservation reservation);
 
-
-	
+	/**
+	 * 운영사 페이지에서 예약 update
+	 * 
+	 * @param reservation
+	 */
+	public void updateReservation(Reservation reservation);
 	
 	
 

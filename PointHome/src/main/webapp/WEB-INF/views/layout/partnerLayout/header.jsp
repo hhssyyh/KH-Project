@@ -97,7 +97,12 @@ a {
 	  <!-- #4 -->
 	  <div class="accordion-item">
 	    <div class="accordion-body">
-			<a href="./reservemanage">공지사항</a>			   		
+			<a href="./partnernotice">제휴사 공지사항 작성</a>			   		
+	    </div>
+	  </div>
+	  <div class="accordion-item">
+	    <div class="accordion-body">
+			<a href="./adminnoticelist">운영사 공지사항 조회</a>			   		
 	    </div>
 	  </div>
 	  
