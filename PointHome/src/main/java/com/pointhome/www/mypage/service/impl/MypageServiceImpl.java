@@ -23,6 +23,7 @@ import com.pointhome.www.mypage.dto.ReviewFile;
 import com.pointhome.www.mypage.service.face.MypageService;
 import com.pointhome.www.user.dto.User;
 import com.pointhome.www.user.dto.UserFile;
+import com.pointhome.www.util.Paging;
 
 @Service
 public class MypageServiceImpl implements MypageService {
@@ -118,11 +119,6 @@ public class MypageServiceImpl implements MypageService {
 	}
 
 	@Override
-	public List<FreeBoard> selectboard(int userNo) {
-		return mypageDao.selectBoardByUserNo(userNo);
-	}
-
-	@Override
 	public List<Map<String, Object>> selectPickList(int userNo) {
 		return mypageDao.getPickList(userNo);
 	}
@@ -161,6 +157,23 @@ public class MypageServiceImpl implements MypageService {
 	@Override
 	public List<Map<String, Object>> selectReviewList(int userNo) {
 		return mypageDao.selectMyReviewList(userNo);
+	}
+
+	@Override
+	public Paging getPaging(int curPage, int userNo) {
+		
+		int totalPage = mypageDao.selectAllPaging(curPage, userNo);
+		
+		logger.info("total: {}", totalPage);
+		
+		Paging paging = new Paging(totalPage, curPage);
+		
+		return paging;
+	}
+	
+	@Override
+	public List<FreeBoard> selectboard(Paging paging, int userNo) {
+		return mypageDao.getMyBoardList(paging, userNo);
 	}
 	
 	

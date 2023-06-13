@@ -124,11 +124,10 @@ a {
   transform: translateX(-50%) translateY(-50%);
 }
 
-*{
-font-family: 'Gowun Batang', serif;
-}
+
 #writeContainter {
 	margin-top: 54px;
+	font-family: 'Noto_Sans_KR500';
 }
 </style>
 

@@ -14,6 +14,7 @@ import com.pointhome.www.mypage.dto.ReviewFile;
 import com.pointhome.www.partner.dto.Partner;
 import com.pointhome.www.user.dto.User;
 import com.pointhome.www.user.dto.UserFile;
+import com.pointhome.www.util.Paging;
 
 public interface MypageDao {
 	
@@ -151,6 +152,10 @@ public interface MypageDao {
 	 * @return 내가 쓴 리뷰 내역 리스트
 	 */
 	public List<Map<String, Object>> selectMyReviewList(int userNo);
+
+	public int selectAllPaging(@Param("curPage")int curPage, @Param("userNo") int userNo);
+
+	public List<FreeBoard> getMyBoardList(@Param("paging") Paging paging, @Param("userNo") int userNo);
 
 
 	
