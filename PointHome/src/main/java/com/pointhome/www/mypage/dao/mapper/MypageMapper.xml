@@ -65,7 +65,7 @@
 	</delete>
 	
 	<select id="selectBoardByUserNo" parameterType="int" resultType="FreeBoard">
-		SELECT freeboard_no, freeboard_title, freeboard_date, freeboard_hit FROM freeboard WHERE user_no = #{userNo} ORDER BY freeboard_no
+		SELECT freeboard_no, freeboard_title, freeboard_date, freeboard_hit FROM freeboard WHERE user_no = #{userNo} ORDER BY freeboard_no DESC
 	</select>
 	
 	<select id="getPickList" parameterType="int" resultType="Map" >
@@ -100,15 +100,14 @@
         )
 	</select>
 	
-		<insert id="insertMyReview" parameterType="Review">
+	<insert id="insertMyReview" parameterType="Review">
 		<selectKey order="BEFORE" resultType="int" keyProperty="partNo">
 			select part_no from reservation where user_no = #{userNo} and res_no = #{resNo}
 		</selectKey>
-		INSERT INTO review (review_no, review_title, review_content, review_grade, user_no, res_no,  part_no)
+		INSERT INTO review (review_no, review_content, review_grade, user_no, res_no,  part_no)
 		VALUES
 		(
 		review_no_seq.nextval,
-		#{reviewTitle},
 		#{reviewContent},
 		#{reviewGrade},
 		#{userNo},

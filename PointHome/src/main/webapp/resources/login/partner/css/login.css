@@ -22,7 +22,6 @@ body {
 	background-color: white;
 	margin: 0 auto;
 	border-radius: 50px;
-	/* offset-x | offset-y | blur-radius | spread-radius | color */
 	box-shadow: 0 4px 5px rgba(0, 0, 0, 0.6);
 }
 

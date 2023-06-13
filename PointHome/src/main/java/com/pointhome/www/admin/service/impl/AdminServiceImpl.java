@@ -22,6 +22,7 @@ import com.pointhome.www.admin.dto.AdminNoticeFile;
 import com.pointhome.www.admin.service.face.AdminService;
 import com.pointhome.www.freeboard.dto.FreeBoard;
 import com.pointhome.www.freeboard.dto.FreeBoardComment;
+import com.pointhome.www.main.dto.Reservation;
 import com.pointhome.www.partner.dto.Partner;
 import com.pointhome.www.partner.dto.PartnerFile;
 import com.pointhome.www.partner.dto.PartnerFile;
@@ -443,6 +444,33 @@ public class AdminServiceImpl implements AdminService {
 	      Paging paging = new Paging(totalPage, curPage); 
 	      
 		return paging;
+	}
+
+	@Override
+	public Paging getPartReservePaging(int partNo, int curPage, String filter, String searchType, String keyword) {
+		int totalPage = adminDao.selectPartReserveCntAll(partNo,filter, searchType, keyword);
+	      
+	      Paging paging = new Paging(totalPage, curPage); 
+	      
+		return paging;
+	}
+
+	@Override
+	public List<Map<String, Object>> getPartReserveList(int partNo, Paging paging, String filter, String searchType,
+			String keyword) {
+		List<Map<String, Object>> partReserveList = adminDao.selectPartReserveList(partNo,paging, filter, searchType, keyword);
+		return partReserveList;
+	}
+	
+	@Override
+	public List<Integer> reserveTime(Reservation reservation) {
+		
+		return adminDao.selectReserveTime(reservation); 
+	}
+
+	@Override
+	public void updateReservation(Reservation reservation) {
+		adminDao.updateReservation(reservation);
 	}
 	
 }

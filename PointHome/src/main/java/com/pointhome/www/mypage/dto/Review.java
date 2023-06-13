@@ -5,7 +5,6 @@ import java.util.Date;
 public class Review {
 	
 	private int reviewNo;
-	private String reviewTitle;
 	private String reviewContent;
 	private int reviewGrade;
 	private Date reviewDate;
@@ -15,11 +14,10 @@ public class Review {
 	
 	public Review() {}
 
-	public Review(int reviewNo, String reviewTitle, String reviewContent, int reviewGrade, Date reviewDate, int userNo,
-			int partNo, int resNo) {
+	public Review(int reviewNo, String reviewContent, int reviewGrade, Date reviewDate, int userNo, int partNo,
+			int resNo) {
 		super();
 		this.reviewNo = reviewNo;
-		this.reviewTitle = reviewTitle;
 		this.reviewContent = reviewContent;
 		this.reviewGrade = reviewGrade;
 		this.reviewDate = reviewDate;
@@ -30,9 +28,8 @@ public class Review {
 
 	@Override
 	public String toString() {
-		return "Review [reviewNo=" + reviewNo + ", reviewTitle=" + reviewTitle + ", reviewContent=" + reviewContent
-				+ ", reviewGrade=" + reviewGrade + ", reviewDate=" + reviewDate + ", userNo=" + userNo + ", partNo="
-				+ partNo + ", resNo=" + resNo + "]";
+		return "Review [reviewNo=" + reviewNo + ", reviewContent=" + reviewContent + ", reviewGrade=" + reviewGrade
+				+ ", reviewDate=" + reviewDate + ", userNo=" + userNo + ", partNo=" + partNo + ", resNo=" + resNo + "]";
 	}
 
 	public int getReviewNo() {
@@ -41,14 +38,6 @@ public class Review {
 
 	public void setReviewNo(int reviewNo) {
 		this.reviewNo = reviewNo;
-	}
-
-	public String getReviewTitle() {
-		return reviewTitle;
-	}
-
-	public void setReviewTitle(String reviewTitle) {
-		this.reviewTitle = reviewTitle;
 	}
 
 	public String getReviewContent() {
@@ -99,7 +88,5 @@ public class Review {
 		this.resNo = resNo;
 	}
 
-	
-	
 
 }

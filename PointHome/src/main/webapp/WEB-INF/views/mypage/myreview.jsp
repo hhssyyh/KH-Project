@@ -7,50 +7,74 @@
 
 <link href="/resources/mypage/userInfo.css" rel="stylesheet">
 
+<style>
+.star-ratings {
+  color: #aaa9a9; 
+  position: relative;
+  unicode-bidi: bidi-override;
+  width: max-content;
+  -webkit-text-fill-color: transparent; /* Will override color (regardless of order) */
+  -webkit-text-stroke-width: 1.3px;
+  -webkit-text-stroke-color: #2b2a29;
+}
+ 
+.star-ratings-fill {
+  color: #fff58c;
+  padding: 0;
+  position: absolute;
+  z-index: 1;
+  display: flex;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  -webkit-text-fill-color: gold;
+}
+ 
+.star-ratings-base {
+  z-index: 0;
+  padding: 0;
+}
+</style>
 
 <div id="mypage">
 
 <c:import url="/WEB-INF/views/layout/myprofile.jsp" />
 
-
-
 <div id="userInfo"
-	style="margin: 0 auto; margin-top: 200px; padding: 30px;">
+	style="margin: 0 auto; margin-top: 30px; padding: 30px;">
 	<h4>리뷰조회</h4>
 	<hr id="line">
 	
 <table class="table">
-  <thead>
-	<tr>
-		<th>작성 가능 후기</th> 
-		<th>작성 완료 후기</th>
-	</tr>
-  </thead>
-
 
   <tbody class="table-group-divider">
     <tr>
-      <th scope="col">예약번호</th>
-      <th scope="col">예약 </th>
-      <th scope="col">예약일자</th>
-      <th scope="col">금액 </th>
-      <th scope="col">  </th>
+      <th scope="col">번호</th>
+      <th scope="col">제휴사 이름</th>
+      <th scope="col">별점</th>
+      <th scope="col">리뷰작성일자</th>
+      <th scope="col">리뷰내용</th>
      </tr>
      <hr>
-    <tr>
-      <th scope="row">1</th>
-      <td>해성동자</td>
-      <td>2023.05.23</td>
-      <td>1234-1234</td>
-      <td>예약완료</td>
+    
+   	<c:forEach var="list" items="${reviewlist}">
+	<tr>
+      <th scope="row">${list.REVIEW_NO}</th>
+      <td>${list.PARTNER_SHOPNAME}</td>
+      <td>
+      <span class="star-ratings">
+                  <span class="star-ratings-fill space-x-2 text-lg" style="width: ${list.REVIEW_GRADE * 20}%;">
+                     <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                  </span>
+                  <span class="star-ratings-base space-x-2 text-lg">
+                     <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                  </span>
+      </span>
+      </td>
+      <td>${list.REVIEW_DATE }</td>
+      <td>${list.REVIEW_CONTENT }</td>
     </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>2023.05.23</td>
-      <td>1234-1234</td>
-      <td>예약완료</td>
-    </tr>
+    	</c:forEach>
   
     
   </tbody>

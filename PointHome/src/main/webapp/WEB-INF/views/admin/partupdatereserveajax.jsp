@@ -1,42 +1,32 @@
 <%@page import="java.util.HashMap"%>
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 
 <style type="text/css">
- .resRadio { 
-	font-size: 18px;
- } 
-
- .resRadio:hover { 
- 	background-color: #7e00c2;
- 	border-color: #7e00c2;
- 	color: white; 
- } 
-
-.btn-light {
+.btn-secondary {
 	margin: 10px;
 }
 
 .btnSelected {
-	background-color: #7e00c2; 
-	border-color: #7e00c2;
- 	color: white; 
+	background-color: orange;
+	border-color: orange;
 }
 
 .btnSelected:hover {
-	background-color: #7e00c2; 
-	border-color: #7e00c2;
- 	color: white; 
+	background-color: orange;
+	border-color: orange;
 }
 
 </style>
 
+</head>
+<body>
 
 <script type="text/javascript">
 $(".resRadio").click(function() {
@@ -46,18 +36,25 @@ $(".resRadio").click(function() {
 // 	$("input[name=resTime]").removeAttr("checked")
 	$(this).children($("input[name=resTime]")).prop('checked', true)
 }) 
+</script>
 
+<script type="text/javascript">
+var resDate = $("input[name=resDate]").val()
+
+$("#updateReserve").click(function() {
+	var resTime = $("input:radio[name=resTime]:checked").val()
+	var resDiv = $("input[name=resDiv]:checked").val()
+   var partnerNo = "${param.partnerNo}";
+	
+	location.href = "./updateReserveComplete?partnerNo="+${partnerNo}+"&resNo=" + ${resNo} + "&resDate=" + resDate + "&resTime=" + resTime + "&resDiv=" + resDiv
+})
 </script>
 
 </head>
 <body>
 
-
 	<input type="text" name="resDate" value="${resDate }" style="display: none;">
-	<!-- 	<p>오전</p> -->
-	<%-- 	${reserveList.get(0)} --%>
-	<%-- 	${reserveList.contains('1')} --%>
-	
+
 	<c:set var="dateMap" value="<%=new HashMap() %>" />
 	<c:set target="${dateMap }" property="1" value="10:00" />
 	<c:set target="${dateMap }" property="2" value="10:30" />
@@ -87,11 +84,11 @@ $(".resRadio").click(function() {
 		   <p>오후</p>
 		</c:if>	
 		<c:if test="${reserveList.contains(String.valueOf(i))}">
-			<label for="${i}" class="btn btn-light resRadio disabled">${dateMap.get(String.valueOf(i)) }</label>
+			<label for="${i}" class="btn btn-secondary resRadio disabled">${dateMap.get(String.valueOf(i)) }</label>
    			<input type="radio" name="resTime" value="${i }" id="${i }" style="display: none;">
 		</c:if>
 		<c:if test="${not reserveList.contains(String.valueOf(i))}">
-			<label for="${i }" class="btn btn-light resRadio">${dateMap.get(String.valueOf(i)) }</label>
+			<label for="${i }" class="btn btn-secondary resRadio">${dateMap.get(String.valueOf(i)) }</label>
    			<input type="radio" name="resTime" value="${i }" id="${i }" style="display: none;">
 		</c:if>
 	</c:forEach>
@@ -101,44 +98,11 @@ $(".resRadio").click(function() {
    <input type="radio" class="form-check-input ms-3 me-1" name="resDiv" id="visit" value="visit"><label for="visit" class="me-2">방문</label>
    <input type="radio" class="form-check-input me-1" name="resDiv" id="video" value="video"><label for="video" class="me-2">화상전화</label>
    <input type="radio" class="form-check-input me-1" name="resDiv" id="chat" value="chat"><label for="chat">채팅</label>
-	
-	<br>
-	
-	
-	<script type="text/javascript">
-	var resDate = $("input[name=resDate]").val()
-	
-    var clientKey = 'test_ck_D5GePWvyJnrK0W0k6q8gLzN97Eoq' // 테스트용 클라이언트 키
-    var price = ${partnerPrice}
-        // 2. 결제창 SDK 초기화
-    var tossPayments = TossPayments(clientKey)
-	$("#payBtn").click(function() {
-		var resTime = $("input:radio[name=resTime]:checked").val()
-		var resDiv = $("input[name=resDiv]:checked").val()
-		tossPayments.requestPayment('카드', {
-			amount: price,
-			orderId: 'Dl8baxDJc-HODLm8KBv14',
-			orderName: '토스 티셔츠 외 2건',
-			customerName: '박토스',
-			successUrl: "http://localhost:8888/main/reserveComplete?partNo=" + ${param.partNo} + "&resDate=" + resDate + "&resTime=" + resTime + "&resDiv=" + resDiv + "&resPrice=" + price,
-			failUrl: 'http://localhost:8080/reserveFail',
-		})
-	})
-	</script>
-	
-	
-	<c:if test="${empty login }">
-	   <button style="float: right; background-color: #7e00c2; color: white; font-size: 17px;" id="payBtn" class="btn" disabled="disabled">예약하기</button>
-	</c:if>
-	<c:if test="${login }">
-	   <button style="float: right; background-color: #7e00c2; color: white; font-size: 17px;" id="payBtn" class="btn">예약하기</button>
-	</c:if>
-   
+
+	<button style="float: right;" id="updateReserve" class="btn btn-secondary">수정</button>
+
+
 </body>
 </html>
-
-
-
-
 
 

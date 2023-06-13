@@ -52,9 +52,9 @@
     	<a href="./partnermanage"><button type="button" class="btn btn-outline-dark proBtn">목록</button></a>
     	<a href="./removepartner?partnerNo=${param.partnerNo }"><button type="button" class="btn-open-popup btn btn-outline-dark proBtn">회원탈퇴</button></a>
 		<a href="./partnerupdate?partnerNo=${param.partnerNo }"><button type="button" class="btn btn-outline-dark proBtn">회원수정</button></a>
+		<a href="./partreserve?partnerNo=${param.partnerNo }"><button type="button" class="btn btn-primary">예약정보</button></a>
 	
 		<br>
-		<h1>예약 정보</h1>
 </div>
 
 

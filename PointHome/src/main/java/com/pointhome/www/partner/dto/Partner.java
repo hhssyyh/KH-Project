@@ -23,6 +23,7 @@ public class Partner {
 	private String partnerExtraaddress;
 	private Date partnerJoindate;
 	private int partnerPrice;
+	private String partnerPr;
 	
 	
 	public Partner() {}
@@ -32,7 +33,7 @@ public class Partner {
 			String partnerNick, char partnerType, String partnerShopname, String partnerBank, String partnerAccount,
 			char partnerGender, int partnerBirthyear, int partnerBirthmonth, int partnerBirthday, int partnerPostcode,
 			String partnerAddress, String partnerDetailaddress, String partnerExtraaddress, Date partnerJoindate,
-			int partnerPrice) {
+			int partnerPrice, String partnerPr) {
 		super();
 		this.partnerNo = partnerNo;
 		this.partnerName = partnerName;
@@ -54,6 +55,7 @@ public class Partner {
 		this.partnerExtraaddress = partnerExtraaddress;
 		this.partnerJoindate = partnerJoindate;
 		this.partnerPrice = partnerPrice;
+		this.partnerPr = partnerPr;
 	}
 
 
@@ -66,7 +68,8 @@ public class Partner {
 				+ ", partnerBirthyear=" + partnerBirthyear + ", partnerBirthmonth=" + partnerBirthmonth
 				+ ", partnerBirthday=" + partnerBirthday + ", partnerPostcode=" + partnerPostcode + ", partnerAddress="
 				+ partnerAddress + ", partnerDetailaddress=" + partnerDetailaddress + ", partnerExtraaddress="
-				+ partnerExtraaddress + ", partnerJoindate=" + partnerJoindate + ", partnerPrice=" + partnerPrice + "]";
+				+ partnerExtraaddress + ", partnerJoindate=" + partnerJoindate + ", partnerPrice=" + partnerPrice
+				+ ", partnerPr=" + partnerPr + "]";
 	}
 
 
@@ -268,12 +271,17 @@ public class Partner {
 	public void setPartnerPrice(int partnerPrice) {
 		this.partnerPrice = partnerPrice;
 	}
-	
-	
 
-	
-	
-	
+
+	public String getPartnerPr() {
+		return partnerPr;
+	}
+
+
+	public void setPartnerPr(String partnerPr) {
+		this.partnerPr = partnerPr;
+	}
+
 	
 	
 }

@@ -2,10 +2,12 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<c:import url="/WEB-INF/views/layout/partnerLayout/header.jsp" />
+<c:import url="/WEB-INF/views/layout/adminLayout/adminHeader.jsp"/>
+<c:import url="/WEB-INF/views/layout/adminLayout/sidebar.jsp"/>
 
 <!-- fullCalendar -->
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+
 
 <style type="text/css">
 .body {
@@ -47,9 +49,10 @@ document.addEventListener('DOMContentLoaded', function() {
         	},
         	dateClick: function(info) {
         		var date = new Date();
+
         		$.ajax({
 					   type : 'get',           // 타입 (get, post, put 등등)
-					   url : './updateReserveAjax',  // 요청할 서버url
+					   url : './partupdatereserveajax?partnerNo=${partnerNo}' , // 요청할 서버url
 					   dataType : 'html',       // 데이터 타입 (html, xml, json, text 등등)
 					   data : {  // 보낼 데이터 (Object , String, Array)
 						   resDate : info.dateStr,
@@ -78,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <div class="body">
 	<div style="width: 90%; margin: 0 auto;">
-		<h2>기존 예약 시간: ${date } ${time }</h2>
+		<h2>원래 예약: ${date } ${time }</h2>
 		<hr>
 		<div id="calendarDiv">
 			<div id='calendar' style="width: 600px; height: 600px; margin: 80px; margin-right: 60px;"></div>
