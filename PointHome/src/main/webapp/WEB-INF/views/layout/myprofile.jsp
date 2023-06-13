@@ -27,7 +27,6 @@ a {
 /* 	border:3px solid #A696CD; */
 	border: 10px solid #A696CD;
 	border-style: dotted;
-	
 }
 
 #profile {

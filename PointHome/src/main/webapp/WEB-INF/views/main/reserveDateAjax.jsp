@@ -34,7 +34,6 @@
 	border-color: #7e00c2;
  	color: white; 
 }
-
 </style>
 
 
@@ -98,9 +97,9 @@ $(".resRadio").click(function() {
    
    <br><br>
    
-   <input type="radio" class="form-check-input ms-3 me-1" name="resDiv" id="visit" value="visit"><label for="visit" class="me-2">방문</label>
-   <input type="radio" class="form-check-input me-1" name="resDiv" id="video" value="video"><label for="video" class="me-2">화상전화</label>
-   <input type="radio" class="form-check-input me-1" name="resDiv" id="chat" value="chat"><label for="chat">채팅</label>
+   <input type="radio" class="form-check-input radio-check ms-3 me-1" name="resDiv" id="visit" value="visit"><label for="visit" class="me-2">방문</label>
+   <input type="radio" class="form-check-input radio-check me-1" name="resDiv" id="video" value="video"><label for="video" class="me-2">화상전화</label>
+   <input type="radio" class="form-check-input radio-check me-1" name="resDiv" id="chat" value="chat"><label for="chat">채팅</label>
 	
 	<br>
 	
