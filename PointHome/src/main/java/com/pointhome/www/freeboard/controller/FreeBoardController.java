@@ -46,10 +46,11 @@ public class FreeBoardController {
 
       List<Map<String, Object>> list = freeBoardService.selectAllSearch(paging, filter, searchType, keyword);
 
-      int userNo = (Integer)session.getAttribute("userno");
-      int alertCnt = mypageService.getAlertCnt(userNo);
-      model.addAttribute( "alertCnt" , alertCnt);
-      
+      if(session.getAttribute("login") != null){
+	      int userNo = (Integer)session.getAttribute("userno");
+	      int alertCnt = mypageService.getAlertCnt(userNo);
+	      model.addAttribute( "alertCnt" , alertCnt);
+      }
 
       logger.info("!!!!!!!!!!!!!!!!{}", list);
 
@@ -86,7 +87,11 @@ public class FreeBoardController {
       if(session.getAttribute("login") != null)
       {
          int isRecommend = freeBoardService.isRecommend(freeboardNo, (Integer)session.getAttribute("userno"));
-         model.addAttribute("isRecommend", isRecommend);
+         model.addAttribute("isRecommend", isRecommend);     
+         
+         int userNo = (Integer)session.getAttribute("userno");
+         int alertCnt = mypageService.getAlertCnt(userNo);
+         model.addAttribute( "alertCnt" , alertCnt);
       }
 
       User viewUser = freeBoardService.viewUser(board.getUserNo());
@@ -94,9 +99,7 @@ public class FreeBoardController {
 
       model.addAttribute("viewUser", viewUser);
       
-      int userNo = (Integer)session.getAttribute("userno");
-      int alertCnt = mypageService.getAlertCnt(userNo);
-      model.addAttribute( "alertCnt" , alertCnt);
+
 
       //닉네임 띄우기 댓글 리스트에
 //      List<User> viewUserNick = freeBoardService.viewUserNick(freeboardNo);
