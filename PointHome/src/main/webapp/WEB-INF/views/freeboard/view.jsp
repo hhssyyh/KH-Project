@@ -82,6 +82,21 @@ div.fr {
   display: block;
 }
 
+span{
+	font-family: 'SBAggroL';
+	white-space: nowrap;
+}
+button{
+	font-family: 'SBAggroM';
+}
+.btn-info {
+	font-family: 'SBAggroM';
+	background-color: #7e00c2;
+	border-color: transparent;
+	color: white;
+}
+
+
 </style>
 
 
@@ -180,29 +195,28 @@ function updateCom(th, commNo) {
 
 <div class="container" style="margin-top: 180px; margin-bottom: 200px;">
 
-<h1 style="text-align: center">게시글 상세보기</h1>
+<h1 style="text-align: center; font-family: 'SBAggroM';">
+			<i class="bi bi-journal-text"></i>&nbsp;&nbsp;${board.freeboardTitle }
+			</h1>
 <hr>
-<!-- title JSTL로 가지고 오기 -->
-<h3>${board.freeboardTitle }</h3>
-<i class="bi bi-person-circle fs-1" style="height:200px"></i> ${viewUser.userNick } <br>
-
+<span style="font-family: 'SBAggroM';"><h5>${viewUser.userNick }</h5></span>
 <!-- 날짜 -->
-<fmt:formatDate value="${board.freeboardDate }" pattern="yy/MM/dd hh:mm"/>
+<span><fmt:formatDate value="${board.freeboardDate }" pattern="yy/MM/dd hh:mm"/></span>
 
 <!-- 조회수 추천수 -->
 <div class="fr">
-	<span class="count me-2">조회수 ${board.freeboardHit }</span>
-	<span class="cmtCount me-2">댓글 ${commentCnt }</span>
+	<span class="count me-2"><b>조회수</b> ${board.freeboardHit }</span>
+	<span class="cmtCount me-2"><b>댓글</b> ${commentCnt }</span>
 	<span id="recommend">
-		<span class="hit me-2">추천수 ${cntRecommend }</span>
+		<span class="hit me-2"><b>추천수</b> ${cntRecommend }</span>
 		
 		<c:if test="${userno ne board.userNo }">
 		<span>
 			<c:if test="${isRecommend eq 0 }">
-				<button id="recommendBtn" class="btn btn-secondary">>추천</button>
+				<button id="recommendBtn" class="btn btn-info btn-sm">추천</button>
 			</c:if>
 			<c:if test="${isRecommend eq 1 }">
-				<button id="recommendBtn" class="btn btn-secondary">>추천 취소</button>
+				<button id="recommendBtn" class="btn btn-info btn-sm">추천 취소</button>
 			</c:if>
 		</span>
 		</c:if>
@@ -214,8 +228,9 @@ function updateCom(th, commNo) {
 
 <div id="content" >
 <!-- 본문 내용 가져오기 -->
+<div style="font-family: 'SBAggroL';">
 ${board.freeboardContent }
-
+</div>
 <c:forEach var="bfile" items="${file}"><br>
 
 <%-- ${fn:contains(fn:toLowerCase(bfile.freeboardfileOrigin), "gif") } --%>
@@ -270,18 +285,18 @@ ${board.freeboardContent }
 <div class="modal2">
 <div class="modal2_body" >게시글을 삭제하시겠습니까?
 
-<a href="./delete?freeboardNo=${board.freeboardNo}"><button type="button" class="btn btn-outline-primary btn-default btn-xs">확인</button></a>
-<button type="button" class="btnModalCancle2 btn btn-outline-primary btn-default btn-xs">취소</button>
+<a href="./delete?freeboardNo=${board.freeboardNo}"><button type="button" class="btn btn-sm btn-outline-primary btn-default btn-xs">확인</button></a>
+<button type="button" class="btnModalCancle2 btn-sm btn btn-outline-primary btn-default btn-xs">취소</button>
 </div>
 </div>
 
 <div class="text-end">
 
-	<a href="./list"><button class="btn btn-secondary">목록</button></a>
+	<a href="./list"><button class="btn btn-info btn-sm">목록</button></a>
 
 <c:if test="${userno eq board.userNo || not empty adminLogin and adminLogin}">
-<a href="./update?freeboardNo=${board.freeboardNo}"><button type="button" class="btn btn-secondary" >수정</button></a>
-<button type="button" class="btn-reset-popup btn btn-secondary" >삭제</button>
+<a href="./update?freeboardNo=${board.freeboardNo}"><button type="button" class=" btn-sm btn btn-info" >수정</button></a>
+<button type="button" class="btn btn-info btn-sm">삭제</button>
 </c:if>
 </div>
 
@@ -293,47 +308,63 @@ ${board.freeboardContent }
 <!--    </div> -->
 
 <div class="comments">
-댓글 ${commentCnt }개
+<span><b>댓글</b> ${commentCnt }<b>개</b></span>
 
 
 
 <c:if test="${not empty login and login || not empty adminLogin and adminLogin}">
 <!-- post 댓글 인서트 -->
 <form action="./view" method="post">
-${userno} <input type="text" name="commContent" size="80" id="cmt">
-<input type="hidden" value="${board.freeboardNo }" name="freeboardNo">
-<button class="btn btn-secondary">작성</button><br><br>
+<div class="row">
+  <div class="col-md-6">
+    <div class="d-flex align-items-center">
+      <span><b>${viewUser.userNick}</b></span>
+      <div class="input-group" style="margin-left: 45px;">
+        <input type="text" class="form-control" name="commContent" id="cmt" style="max-width: 450px;" placeholder="댓글 작성" aria-label="Recipient's username" aria-describedby="button-addon2">
+        <input type="hidden" value="${board.freeboardNo }" name="freeboardNo">
+        <button class="btn btn-info btn-sm">작성</button>
+      </div>
+    </div>
+  </div>
+</div>
 </form>
 </c:if>
-
+<%-- <span><b>${viewUser.userNick}</b></span> --%>
+<!-- <div class="input-group mb-3"> -->
+<!--   <input type="text" class="form-control" placeholder="댓글 작성" aria-label="Recipient's username" aria-describedby="button-addon2"> -->
+<!--   <button class="btn btn-info" type="button">작성</button> -->
+<!-- </div> -->
+<!-- <input type="text" name="commContent" size="80" id="cmt"> -->
+<%-- <input type="hidden" value="${board.freeboardNo }" name="freeboardNo"> --%>
+<!-- <button class="btn btn-info">작성</button><br><br> -->
+<br><br>
 <table id="commentTr">
 <c:forEach var="boardCommentList" items="${boardCommentList }">
 <tr>
-	<td><i class="bi bi-person-circle"></i>${viewUser.userNick }<td> 
+<%-- 	<td><i class="bi bi-person-circle"></i>${viewUser.userNick }<td>  --%>
+	<td><span>${boardCommentList.USER_NICK } &nbsp;</span></td>
 	<td class="comm">
 		<div class="commContent">
-			${boardCommentList.commContent }
+			<span>${boardCommentList.COMM_CONTENT }</span>
 		</div>
 		<div class="commInput">
-			<input class="commUpdateContent${boardCommentList.commNo}" type="text" name="commUpdateContent">
+			<input class="commUpdateContent${boardCommentList.COMM_NO}" type="text" name="commUpdateContent">
 		</div>
 	</td> 
-	<td><fmt:formatDate value="${boardCommentList.commDate }" pattern="yy/MM/dd hh:mm"/></td>
+	<td><span>&nbsp;&nbsp;(<fmt:formatDate value="${boardCommentList.COMM_DATE }" pattern="yy/MM/dd hh:mm"/>)</span></td>
 	
 	<td class="commBtn">
-		<c:if test="${not empty userno and userno eq boardCommentList.userNo || not empty adminLogin and adminLogin}">
+		<c:if test="${not empty userno and userno eq boardCommentList.USER_NO || not empty adminLogin and adminLogin}">
 			<div class="commBtnComment">
-				<button type="button" onclick="updateComment(this)" class="btn btn-secondary">수정</button>
-				<a href="./commentDelete?commNo=${boardCommentList.commNo}&freeboardNo=${board.freeboardNo}"><button type="button" class="btn btn-secondary">>삭제</button></a>
+				<button type="button" onclick="updateComment(this)" class="btn btn-info btn-sm">수정</button>
+				<a href="./commentDelete?commNo=${boardCommentList.COMM_NO}&freeboardNo=${board.freeboardNo}"><button type="button" class="btn btn-info btn-sm">삭제</button></a>
 			</div>
 			<div class="commBtnInput">
-				<button onclick="updateCom(this, ${boardCommentList.commNo})" class="btn btn-secondary">완료</button> 
-				<button onclick="cancel(this)" class="btn btn-secondary">>취소</button>
+				<button onclick="updateCom(this, ${boardCommentList.COMM_NO})" class="btn btn-info btn-sm">완료</button> 
+				<button onclick="cancel(this)" class="btn btn-info btn-sm">취소</button>
 			</div>
 		</c:if>
 	</td>
-	
-	<br><br>
 </tr>
 </c:forEach>
 </table>
