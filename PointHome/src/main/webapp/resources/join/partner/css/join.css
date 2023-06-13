@@ -1,0 +1,35 @@
+@charset "UTF-8";
+
+body {
+	font-family: SBAggroM;
+}
+
+.join-form-background {
+	border: 1px solid none;
+	background-color: white;
+	border-radius: 20px;
+}
+
+form {
+	margin: 0 auto;
+	width: 70%;
+}
+
+svg {
+	margin-top: 50px;
+	margin-bottom: 50px;
+	width: 300px;
+}
+
+.btn-join{
+	display: flex;
+	margin: 10px auto;
+	background-color: #7e00c2;
+	color: white;
+	justify-content: center;
+}
+.btn-join:hover{
+	background-color: #9432c9;
+	color: white;
+	border: 1px solid #9432c9;	
+}

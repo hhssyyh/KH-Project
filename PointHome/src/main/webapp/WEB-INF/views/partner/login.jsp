@@ -43,10 +43,10 @@
 <!-- 사용자 / 제휴사 로그인 스위치 start -->
 <ul class="login-switch nav nav-tabs nav-justified">
 	<li class="nav-item">
-		<a class="selectLogin nav-link active text-dark" aria-current="page" href="/user/login">사용자</a>
+		<a class="login-switch-user nav-link text-secondary" aria-current="page" href="/user/login">사용자</a>
 	</li>
 	<li class="nav-item">
-		<a class="selectLogin nav-link text-secondary" href="./login">제휴사</a>
+		<a class="login-switch-partner nav-link active text-dark" href="./login">제휴사</a>
 	</li>
 </ul>
 <!-- 사용자 / 제휴사 로그인 스위치 end -->
