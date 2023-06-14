@@ -12,6 +12,7 @@ import com.pointhome.www.main.dao.face.MainDao;
 import com.pointhome.www.main.dto.Reservation;
 import com.pointhome.www.main.service.face.MainService;
 import com.pointhome.www.partner.dto.Partner;
+import com.pointhome.www.partner.dto.PartnerNotice;
 import com.pointhome.www.util.Paging;
 
 @Service
@@ -57,4 +58,15 @@ public class MainServiceImpl implements MainService {
 		return mainDao.selectReviewListByPartNo(paging, partNo);
 	}
 	
+	@Override
+	public List<PartnerNotice> getPartnerNotice(int partNo) {
+		
+		return mainDao.selectPartnerNotice(partNo);
+	}
+	
+	
 }
+
+
+
+

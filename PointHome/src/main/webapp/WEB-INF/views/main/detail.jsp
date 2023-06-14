@@ -165,6 +165,16 @@ a {
 	margin: 20px; 
 /* 	padding: 30px; */
 }
+
+.tdCenter {
+	position: relative;
+	top: 50%;
+	transform: translateY(15%);
+}
+
+table {
+	text-align: center;
+}
 </style>
 
 
@@ -281,9 +291,9 @@ document.addEventListener('DOMContentLoaded', function() {
 			</span>
 			(${avgGrade })
 		</div>
-<!-- 		<div style="font-size: 19px; width: 400px; padding-top: 10px;"> -->
-<%-- 			${partner.partnerPr } --%>
-<!-- 		</div> -->
+		<div style="font-size: 19px; width: 400px; padding-top: 10px;">
+			${partner.partnerPr }
+		</div>
 		<div style="margin-top: 50px; text-align: center;">
 			<button class="btn partner-btn" style="margin-right: 10px; background-color: orange; border-color: orange;">1:1 채팅</button>
 			<span class="pick" style="margin-top: 20px;"> 
@@ -309,6 +319,9 @@ document.addEventListener('DOMContentLoaded', function() {
 	  </li>
 	  <li class="nav-item">
 	    <a class="nav-link partner-tab-link" href="#review" style="font-size: 23px;">리뷰</a>
+	  </li>
+	  <li class="nav-item">
+	    <a class="nav-link partner-tab-link" href="#notice" style="font-size: 23px;">공지</a>
 	  </li>
 	  <li class="nav-item">
 	    <a class="nav-link partner-tab-link" href="#vedio" style="font-size: 23px;">영상</a>
@@ -367,10 +380,35 @@ document.addEventListener('DOMContentLoaded', function() {
 		  		</div>
 		  	</c:forEach>
 	  	</div>
+	  	<!-- 공지사항 -->
+	  	<div class="tab-title">공지</div>
+		<hr>
+		<div style="margin: 40px;">
+			<table class="table table-hover" style="font-size: 20px;">
+				<thead style="height: 50px;">
+					<tr>
+						<th>번호</th>
+						<th>제목</th>
+						<th>내용</th>
+						<th>날짜 <a href="/admin/noticelist"><button class="btn btn-secondary" style="float: right;">목록</button></a></th>
+					</tr>
+				</thead>
+				<tbody class="table-group-divider">
+				<c:forEach var="notice" items="${noticeList }">
+					<tr>
+						<td><div class="tdCenter">${notice.partnerNoticeNo }</div></td>
+						<td><div class="tdCenter"><a href="#">${notice.partnerNoticeTitle }</a></div></td>
+						<td><div class="tdCenter">${notice.partnerNoticeContent }</div></td>
+						<td><div class="tdCenter">${notice.partnerNoticeDate }</div></td>
+					</tr>
+				</c:forEach>
+				</tbody>
+			</table>
+		</div>
 	  	<div class="tab-title">영상</div>
 		<hr>
 		<!-- 영상 -->
-	  	<table id="vedio" class="table table-hover" style="width: 1100px; margin: 20px auto;">
+	  	<table id="notice" class="table table-hover" style="width: 1100px; margin: 20px auto;">
 			<c:forEach var="video" items="${video}">
 				<tr>
 					<td><iframe width="560" height="315"
@@ -386,7 +424,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			</c:forEach>
 		</table>
 		  <!-- 공지사항 -->
-	  	
+	  	<div id="video"></div>
 	</div>
 </div>
 
