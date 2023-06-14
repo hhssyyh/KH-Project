@@ -61,7 +61,25 @@ window.onload=function(){
    });   
 }
 </script>
+	<div class="container-fluid" style="margin-top: 58px;">
+		<div class="row">
+			<div class="col-sm-6 offset-sm-3">
+				<div class="input-group mb-3">
+					<select class="form-contril search-select"
+						style="border-bottom-left-radius: 12%; border-top-left-radius: 12%;"
+						name="searchType">
+						<option value="user_no">번호</option>
+						<option value="user_email">아이디</option>
+						<option value="user_nick">닉네임</option>
+					</select> <input style="width: 200px;" name="keyword" type="text"
+						class="form-control" placeholder="검색어 입력" aria-label="search"
+						aria-describedby="button-addon2" name="serchName" id="search">
 
+					<button class="btn btn-info" type="button" id="searchBtn" style="font-family: 'SBAggroM';">검색</button>
+				</div>
+			</div>
+		</div>
+	</div>
  <!-- 검색 기능 -->
  <div style="margin-top: 0; padding-top:60px; width:85%; margin-left:200px;">
    <div class="input-group " >

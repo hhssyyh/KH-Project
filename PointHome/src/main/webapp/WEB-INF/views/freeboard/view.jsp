@@ -77,18 +77,20 @@ div.fr {
 }
 
 .container img {
-  max-width: 100%;
-  height: auto;
-  display: block;
+	max-width: 100%;
+	height: auto;
+	display: block;
 }
 
-span{
+span {
 	font-family: 'SBAggroL';
 	white-space: nowrap;
 }
-button{
+
+button {
 	font-family: 'SBAggroM';
 }
+
 .btn-info {
 	font-family: 'SBAggroM';
 	background-color: #7e00c2;
@@ -96,7 +98,10 @@ button{
 	color: white;
 }
 
-
+#commentTr, .input-group {
+	display: flex;
+	width: 100%;
+}
 </style>
 
 

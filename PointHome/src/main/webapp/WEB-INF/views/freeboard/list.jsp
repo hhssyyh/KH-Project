@@ -158,8 +158,7 @@ a:hover {
 						class="form-control" placeholder="검색어 입력" aria-label="search"
 						aria-describedby="button-addon2" name="serchName" id="search">
 
-					<button class="btn btn-info" type="button" id="searchBtn"
-						style="font-family: 'SBAggroM';">검색</button>
+					<button class="btn btn-info" type="button" id="searchBtn" style="font-family: 'SBAggroM';">검색</button>
 				</div>
 			</div>
 		</div>
@@ -222,7 +221,7 @@ a:hover {
 					<td>${board.USER_NICK}</td>
 					<td>${board.FREEBOARD_HIT }</td>
 					<td><fmt:formatDate value="${board.FREEBOARD_DATE }"
-							pattern="yy/MM/dd hh:mm" />
+							pattern="yy/MM/dd HH:mm" />
 
 						<td>${board.COMMENTCNT }</td>
 									<td>${board.RECOMMENDCNT }</td>
