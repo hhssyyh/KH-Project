@@ -390,7 +390,6 @@ document.addEventListener('DOMContentLoaded', function() {
 						<th>번호</th>
 						<th>제목</th>
 						<th>내용</th>
-						
 						<th>날짜 <a href="/admin/noticelist"><button class="btn btn-secondary" style="float: right;">목록</button></a></th>
 					</tr>
 				</thead>
