@@ -82,7 +82,7 @@ button{
 }
 .btn-info {
 	font-family: 'SBAggroM';
-	background-color: #E8F5FF;
+	background-color: #7e00c2;
 	border-color: transparent;
 	color: white;
 }
@@ -98,7 +98,7 @@ $(function() {
 function updateComment(th){
 	
 	$(".commBtnInput").children(":nth-child(2)").each(function() {
-		cancel(this)
+		cancelCom(this)
 	})
 
 	var commentText = $(th).parents("tr").find(".commContent").text().trim()
@@ -111,7 +111,7 @@ function updateComment(th){
 	$(th).parents("tr").find(".commBtnInput").show()
 }
 
-function cancel(th) {
+function cancelCom(th) {
 	console.log("cancel")
 	
 	$(th).parents("tr").find(".commContent").show()
@@ -153,33 +153,38 @@ function updateCom(th, commNo) {
 	})
 }
 </script>
-<table id="commentTr">
-<c:forEach var="boardCommentList" items="${boardCommentList }">
-<tr>
-<%-- 	<td><i class="bi bi-person-circle"></i>${viewUser.userNick }<td>  --%>
-	<td><span>${boardCommentList.USER_NICK }&nbsp;</span></td>
-	<td class="comm">
-		<div class="commContent">
-			<span>${boardCommentList.COMM_CONTENT }</span>
-		</div>
-		<div class="commInput">
-			<input class="commUpdateContent${boardCommentList.COMM_NO}" type="text" name="commUpdateContent">
-		</div>
-	</td> 
-	<td><span>&nbsp;&nbsp;(<fmt:formatDate value="${boardCommentList.COMM_DATE }" pattern="yy/MM/dd hh:mm"/>)</span></td>
-	
-	<td class="commBtn">
-		<c:if test="${not empty userno and userno eq boardCommentList.USER_NO || not empty adminLogin and adminLogin}">
-			<div class="commBtnComment">
-				<button type="button" onclick="updateComment(this)" class="btn btn-info btn-sm">수정</button>
-				<a href="./commentDelete?commNo=${boardCommentList.COMM_NO}&freeboardNo=${board.freeboardNo}"><button type="button" class="btn btn-info btn-sm">삭제</button></a>
-			</div>
-			<div class="commBtnInput">
-				<button onclick="updateCom(this, ${boardCommentList.COMM_NO})" class="btn btn-info btn-sm">완료</button> 
-				<button onclick="cancel(this)" class="btn btn-info btn-sm">취소</button>
-			</div>
-		</c:if>
-	</td>
-</tr>
-</c:forEach>
-</table>
+		<table id="commentTr">
+			<c:forEach var="boardCommentList" items="${boardCommentList}">
+				<tr>
+					<td><br><span>${boardCommentList.USER_NICK}&nbsp;&nbsp;</span></td>
+					<td class="comm">
+						<br>
+						<div class="commContent" style="width: 980px;">
+							<span><i class="bi bi-chat-left-text"></i>&nbsp;${boardCommentList.COMM_CONTENT}</span>
+						</div>
+						<div class="commInput">
+							<input class="btn-info commUpdateContent${boardCommentList.COMM_NO}" type="text" name="commUpdateContent" 
+							style="width: 600px; background-color: white; color: black; border: 1px solid #CCCCCC; border-radius: 5px; font-family: 'SBAggroL';">
+						</div>
+					</td>
+					<td>
+						<br><span style="font-size: 12px; vertical-align : top;">&nbsp;&nbsp;(<fmt:formatDate value="${boardCommentList.COMM_DATE}" pattern="yy/MM/dd hh:mm" />)</span>
+					</td>
+					<td class="commBtn">
+						<c:if test="${not empty userno and userno eq boardCommentList.USER_NO || not empty adminLogin and adminLogin}">
+							<br>	
+							<div class="commBtnComment">
+								<button type="button" onclick="updateComment(this)" class="btn btn-info btn-sm">수정</button>
+								<a href="./commentDelete?commNo=${boardCommentList.COMM_NO}&freeboardNo=${board.freeboardNo}">
+									<button type="button" class="btn btn-info btn-sm">삭제</button><br>
+								</a>
+							</div>
+							<div class="commBtnInput">
+								<button onclick="updateCom(this, ${boardCommentList.COMM_NO})" class="btn btn-info btn-sm">확인</button>
+								<button onclick="cancelCom(this)" class="btn btn-info btn-sm">취소</button><br>
+							</div>
+						</c:if>
+					</td>
+				</tr>
+			</c:forEach>
+		</table>
