@@ -95,16 +95,16 @@ public class FreeBoardController {
       }
 
       User viewUser = freeBoardService.viewUser(board.getUserNo());
-//      User commentUser = freeBoardService.commentUser();
+//    User commentUser = freeBoardService.commentUser();
 
       model.addAttribute("viewUser", viewUser);
       
 
 
-      //닉네임 띄우기 댓글 리스트에
+//      //닉네임 띄우기 댓글 리스트에
 //      List<User> viewUserNick = freeBoardService.viewUserNick(freeboardNo);
 //      model.addAttribute("viewUserNick", viewUserNick);
-      
+//      
 //      logger.info("******* {}",viewUserNick);
       
       
