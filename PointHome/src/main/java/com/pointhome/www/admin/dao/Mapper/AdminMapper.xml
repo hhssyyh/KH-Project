@@ -349,7 +349,8 @@
 	
 	
 	<select id="selectPartnerInfo" resultType="Partner" parameterType="int">
-		select * from partner_tb
+		select *
+		from partner_tb
 		where partner_no=#{partnerNo}
 		
 	</select>
@@ -460,6 +461,26 @@
             WHERE partner_nick LIKE concat(concat('%', #{keyword}), '%')
          </if>
          
+         <if test='searchType.equals("partner_shopname")'>
+            WHERE partner_shopname LIKE concat(concat('%', #{keyword}), '%')
+         </if>
+		  <if test='searchType.equals("partner_type")'>
+    <choose>
+      <when test='keyword.equals("사주")'>
+        WHERE partner_type = 'c'
+      </when>
+      <when test='keyword.equals("신점")'>
+        WHERE partner_type = 's'
+      </when>
+      <when test='keyword.equals("타로")'>
+        WHERE partner_type = 't'
+      </when>
+      <otherwise>
+        WHERE partner_type LIKE concat(concat('%', #{keyword}), '%')
+      </otherwise>
+    </choose>
+  </if>
+         
          <choose>
             <when test='filter.equalsIgnoreCase("joindateasc")'>
                ORDER BY partner_joindate asc
@@ -483,40 +504,63 @@
    </select>
    <select id="selectAllPartner" resultType="Partner">
 		  select * from (
-		  select rownum rnum, A.* from(
-		  select *
-		  from partner_tb
+			  select rownum rnum, A.* from(
+				  select *
+				  from partner_tb
 		  
-         <if test='searchType == "partner_no"'>
-            WHERE partner_no LIKE concat(concat('%', #{keyword}), '%')
-         </if>
-   
-         <if test='searchType.equals("partner_email")'>
-            WHERE partner_email LIKE concat(concat('%', #{keyword}), '%')
-         </if>
-   
-         <if test='searchType.equals("partner_nick")'>
-            WHERE partner_nick LIKE concat(concat('%', #{keyword}), '%')
-         </if>
+		         <if test='searchType == "partner_no"'>
+		            WHERE partner_no LIKE concat(concat('%', #{keyword}), '%')
+		         </if>
+		   
+		         <if test='searchType.equals("partner_email")'>
+		            WHERE partner_email LIKE concat(concat('%', #{keyword}), '%')
+		         </if>
+		   
+		         <if test='searchType.equals("partner_nick")'>
+		            WHERE partner_nick LIKE concat(concat('%', #{keyword}), '%')
+		         </if>
+		         
+		         <if test='searchType.equals("partner_shopname")'>
+		            WHERE partner_shopname LIKE concat(concat('%', #{keyword}), '%')
+		         </if>
+		           <if test='searchType.equals("partner_type")'>
+				    <choose>
+				      <when test='keyword.equals("사주")'>
+				        WHERE partner_type = 'c'
+				      </when>
+				      <when test='keyword.equals("신점")'>
+				        WHERE partner_type = 's'
+				      </when>
+				      <when test='keyword.equals("타로")'>
+				        WHERE partner_type = 't'
+				      </when>
+				      <otherwise>
+				        WHERE partner_type LIKE concat(concat('%', #{keyword}), '%')
+				      </otherwise>
+				    </choose>
+				  </if>
+			
          
-         <choose>
-            <when test='filter.equalsIgnoreCase("joindateasc")'>
-               ORDER BY partner_joindate asc
-            </when>
-            <when test='filter.equalsIgnoreCase("joindatedesc")'>
-               ORDER BY partner_joindate  DESC
-            </when>
-            
-            <when test='filter.equalsIgnoreCase("partnernoasc")'>
-               ORDER BY partner_no asc
-            </when>
-            <when test='filter.equalsIgnoreCase("partnernodesc")'>
-               ORDER BY partner_no DESC
-            </when>
-         </choose>
-      ) A
-      )
-      WHERE rnum BETWEEN #{paging.startNo} and #{paging.endNo}
+		         <choose>
+		            <when test='filter.equalsIgnoreCase("joindateasc")'>
+		               ORDER BY partner_joindate asc
+		            </when>
+		            <when test='filter.equalsIgnoreCase("joindatedesc")'>
+		               ORDER BY partner_joindate  DESC
+		            </when>
+		            
+		            <when test='filter.equalsIgnoreCase("partnernoasc")'>
+		               ORDER BY partner_no asc
+		            </when>
+		            <when test='filter.equalsIgnoreCase("partnernodesc")'>
+		               ORDER BY partner_no DESC
+		            </when>
+		         </choose>
+	      	) A
+	      	order by rnum
+	      )  
+	      WHERE rnum BETWEEN #{paging.startNo} and #{paging.endNo}
+    
 		
 	</select>
 
@@ -659,6 +703,8 @@
            and user_name LIKE concat(concat('%', #{keyword}), '%')
          </if>
          
+         
+         
          <choose>
           
             <when test='filter.equalsIgnoreCase("resdateasc")'>
@@ -690,5 +736,51 @@
 			res_div = #{resDiv}
 		WHERE res_no = #{resNo}
 	</update>
+	
+	
+	
+ 	<select id="selectUserReserveList" parameterType="int" resultType="Map">
+ 	
+		  SELECT * FROM
+       (SELECT ROWNUM rnum, PR.*
+        FROM(
+        SELECT P.partner_shopname, P.partner_phone, P.partner_email, P.partner_type
+        , R.*,
+        (SELECT COUNT(*) From review WHERE user_no = #{userNo} and res_no = R.res_no) isReview
+        FROM partner_tb P, reservation R
+        WHERE R.user_no = #{userNo}
+		AND P.partner_no = R.part_no
+		ORDER BY res_no DESC) PR
+        ORDER BY rnum
+        )      
+    
+	</select>
+	
+	<select id="selectAllReview" resultType="map" parameterType="int">
+	
+		 SELECT
+		   r.*,u.*
+		  FROM
+		    review r
+		    JOIN user_tb u ON r.user_no = u.user_no
+		    where r.part_no = #{partNo}
+		  order by review_no desc
+	</select>
+	
+	<delete id="userReviewDelete" parameterType="String">
+			 delete from review
+ 			where review_no = #{reviewNo}
+ 
+	
+	</delete>
+	
+		<select id="viewVideo"  parameterType="int"  resultType="PartnerVideo">
+		SELECT * FROM partner_video
+		WHERE partner_no = #{partnerNo}
+	</select>
+		<delete parameterType="int" id="deleteVideo">
+		DELETE partner_video
+		WHERE partner_video_no = #{partnerVideoNo}
+	</delete>
  
 </mapper>

@@ -24,8 +24,10 @@ import com.pointhome.www.admin.dto.AdminNoticeFile;
 import com.pointhome.www.admin.service.face.AdminService;
 import com.pointhome.www.freeboard.dto.FreeBoard;
 import com.pointhome.www.main.dto.Reservation;
+import com.pointhome.www.mypage.dto.Review;
 import com.pointhome.www.partner.dto.Partner;
 import com.pointhome.www.partner.dto.PartnerFile;
+import com.pointhome.www.partner.dto.PartnerVideo;
 import com.pointhome.www.user.dto.User;
 import com.pointhome.www.user.dto.UserFile;
 import com.pointhome.www.util.Paging;
@@ -53,14 +55,14 @@ public class AdminController {
 		logger.info("{}", admin);
 		
 		boolean adminLogin = adminService.adminLogin(admin);
-		logger.debug("{}", adminLogin);
+//		logger.debug("{}", adminLogin);
 		
 		
 		if(adminLogin) {
 			Admin ad = new Admin();
 			ad = adminService.getAdmin(admin);
 			
-			logger.debug("login{}:",adminLogin);
+//			logger.debug("login{}:",adminLogin);
 			
 			session.setAttribute("adminLogin", true);
 //			session.setAttribute("adminSession", true);
@@ -78,7 +80,7 @@ public class AdminController {
 	
 	@GetMapping("/logout")
 	public String logoutGet(HttpSession session) {
-		logger.info("/admin/logout [GET]");
+//		logger.info("/admin/logout [GET]");
 		session.invalidate();
 		return "redirect:/admin/login" ;	
 	}
@@ -90,7 +92,7 @@ public class AdminController {
 //	사용자 회원 관리
 	@GetMapping("/usermanage")
 	public void usermanage(@RequestParam(defaultValue = "0") int curPage,
-	         @RequestParam(defaultValue = "date")  String filter, Model model, 
+	         @RequestParam(defaultValue = "usernodesc")  String filter, Model model, 
 	         @RequestParam(value = "searchType",required = false, defaultValue = "title") String searchType,
 	         @RequestParam(value = "keyword",required = false, defaultValue = "") String keyword
 	         )throws Exception{
@@ -116,7 +118,7 @@ public class AdminController {
 	
 	@GetMapping("/userdetail")
 	public void userdetail(int userNo, Model model) {
-		logger.debug("userNo!!!!!!!!!!!!{}",userNo);
+//		logger.debug("userNo!!!!!!!!!!!!{}",userNo);
 		
 		Map<String, Object> detailList = adminService.userdetail(userNo);
 		
@@ -155,6 +157,101 @@ public class AdminController {
 		return "redirect:/admin/userdetail?userNo="+user.getUserNo();
 	}
 	
+	//사용자 예약
+	@GetMapping("/userreserve")
+	public void userreserveGet(int userNo, @RequestParam(defaultValue = "0") int curPage,
+	         @RequestParam(defaultValue = "date")  String filter, Model model, 
+	         @RequestParam(value = "searchType",required = false, defaultValue = "title") String searchType,
+	         @RequestParam(value = "keyword",required = false, defaultValue = "") String keyword
+	         )throws Exception{
+
+		   
+//		Paging paging = adminService.getUserReservePaging(userNo,curPage,filter,searchType,keyword);
+		List<Map<String, Object>> userReserveList = adminService.getUserReserveList(userNo);
+
+		
+		for (Map<String, Object> map : userReserveList) {
+			
+			map.get("RES_TIME");
+			logger.info("{}",map.get("RES_TIME"));
+
+			if(Integer.parseInt(String.valueOf(map.get("RES_TIME")))==1) {
+				map.put("RESERVE_TIME", String.valueOf(map.get("RES_DATE")) + " " + "10:00" );
+			}
+			if(Integer.parseInt(String.valueOf(map.get("RES_TIME")))==2) {
+				map.put("RESERVE_TIME",  String.valueOf(map.get("RES_DATE")) + " " + "10:30");
+			}
+			if(Integer.parseInt(String.valueOf(map.get("RES_TIME")))==3) {
+				map.put("RESERVE_TIME",  String.valueOf(map.get("RES_DATE")) + " " + "11:00");
+			}
+			if(Integer.parseInt(String.valueOf(map.get("RES_TIME")))==4) {
+				map.put("RESERVE_TIME",  String.valueOf(map.get("RES_DATE")) + " " + "11:30");
+			}
+			if(Integer.parseInt(String.valueOf(map.get("RES_TIME")))==5) {
+				map.put("RESERVE_TIME",  String.valueOf(map.get("RES_DATE")) + " " + "13:00");
+			}
+			if(Integer.parseInt(String.valueOf(map.get("RES_TIME")))==6) {
+				map.put("RESERVE_TIME",  String.valueOf(map.get("RES_DATE")) + " " + "13:30");
+			}
+			if(Integer.parseInt(String.valueOf(map.get("RES_TIME")))==7) {
+				map.put("RESERVE_TIME",  String.valueOf(map.get("RES_DATE")) + " " + "14:00");
+			}
+			if(Integer.parseInt(String.valueOf(map.get("RES_TIME")))==8) {
+				map.put("RESERVE_TIME",  String.valueOf(map.get("RES_DATE")) + " " + "14:30");
+			}
+			if(Integer.parseInt(String.valueOf(map.get("RES_TIME")))==9) {
+				map.put("RESERVE_TIME",   String.valueOf(map.get("RES_DATE")) + " " + "15:00");
+			}
+			if(Integer.parseInt(String.valueOf(map.get("RES_TIME")))==10) {
+				map.put("RESERVE_TIME",  String.valueOf(map.get("RES_DATE")) + " " + "15:30");
+			}
+			if(Integer.parseInt(String.valueOf(map.get("RES_TIME")))==11) {
+				map.put("RESERVE_TIME",  String.valueOf(map.get("RES_DATE")) + " " + "16:00");
+			}
+			if(Integer.parseInt(String.valueOf(map.get("RES_TIME")))==12) {
+				map.put("RESERVE_TIME",  String.valueOf(map.get("RES_DATE")) + " " + "16:30");
+			}
+			if(Integer.parseInt(String.valueOf(map.get("RES_TIME")))==13) {
+				map.put("RESERVE_TIME",  String.valueOf(map.get("RES_DATE")) + " " + "17:00");
+			}
+			if(Integer.parseInt(String.valueOf(map.get("RES_TIME")))==14) {
+				map.put("RESERVE_TIME",  String.valueOf(map.get("RES_DATE")) + " " + "17:30");
+			}
+			if(Integer.parseInt(String.valueOf(map.get("RES_TIME")))==15) {
+				map.put("RESERVE_TIME",  String.valueOf(map.get("RES_DATE")) + " " + "18:00");
+			}
+			if(Integer.parseInt(String.valueOf(map.get("RES_TIME")))==16) {
+				map.put("RESERVE_TIME",  String.valueOf(map.get("RES_DATE")) + " " + "18:30");
+			}
+			if(Integer.parseInt(String.valueOf(map.get("RES_TIME")))==17) {
+				map.put("RESERVE_TIME",  String.valueOf(map.get("RES_DATE")) + " " + "19:00");
+			}
+			if(Integer.parseInt(String.valueOf(map.get("RES_TIME")))==18) {
+				map.put("RESERVE_TIME",  String.valueOf(map.get("RES_DATE")) + " " + "19:30");
+			}
+			
+		}
+			
+		model.addAttribute("userNo", userNo);
+		model.addAttribute("userReserveList", userReserveList);
+//		model.addAttribute("paging", paging);
+//	      model.addAttribute("filter", filter);
+//	      model.addAttribute("searchType", searchType);
+//	      model.addAttribute("keyword", keyword);
+	      
+	      
+	      
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -163,7 +260,7 @@ public class AdminController {
 	// 제휴사 관리
 	@GetMapping("/partnermanage")
 	public void partnerrmanage(@RequestParam(defaultValue = "0") int curPage,
-	         @RequestParam(defaultValue = "date")  String filter, Model model, 
+	         @RequestParam(defaultValue = "partnernodesc")  String filter, Model model, 
 	         @RequestParam(value = "searchType",required = false, defaultValue = "title") String searchType,
 	         @RequestParam(value = "keyword",required = false, defaultValue = "") String keyword
 	         )throws Exception{
@@ -185,6 +282,7 @@ public class AdminController {
 		
 		Partner detailList = adminService.partnerdetail(partnerNo);
 		 
+		logger.debug("!!!!!!!!!!!!!!!!{}",detailList);
 		model.addAttribute("detailList", detailList);
 		
 	}
@@ -237,6 +335,7 @@ public class AdminController {
 		Paging paging = adminService.getPartReservePaging(partNo,curPage,filter,searchType,keyword);
 		List<Map<String, Object>> partReserveList = adminService.getPartReserveList(partNo,paging,filter,searchType,keyword);
 
+		model.addAttribute("partNo", partNo);
 		model.addAttribute("partReserveList", partReserveList);
 		model.addAttribute("paging", paging);
 	      model.addAttribute("filter", filter);
@@ -247,7 +346,9 @@ public class AdminController {
 	      
 	}
 	@GetMapping("/partupdatereserve")
-	public void partUpdateReserveGet(HttpSession session, Model model, String date, String time, int resNo) {
+	public void partUpdateReserveGet(HttpSession session, Model model, String date, String time, int resNo,int partnerNo) {
+		
+		model.addAttribute("partnerNo", partnerNo);
 		model.addAttribute("date", date);
 		model.addAttribute("time", time);
 		model.addAttribute("resNo", resNo);
@@ -256,13 +357,13 @@ public class AdminController {
 	
 	
 	@GetMapping("/reserveDateAjax")
-	public void reserveDateAjaxGet(Reservation reservation,int partnerPrice, Model model) {	
+	public void reserveDateAjaxGet(Reservation reservation,int partnerPrice, Model model,int partnerNo) {	
 		
 		List<Integer> reserveList = adminService.reserveTime(reservation);
 		
 		logger.debug("!!!!!!!!!!!!!!!!!!!!!!!!!!{}", reserveList);
 		
-		
+		model.addAttribute("partnerNo", partnerNo);
 		model.addAttribute("reserveList", reserveList);
 		model.addAttribute("resDate", reservation.getResDate());
 		model.addAttribute("partnerPrice", partnerPrice);
@@ -271,11 +372,12 @@ public class AdminController {
 	
 	
 	@GetMapping("/partupdatereserveajax")
-	public void updateReserveAjax(int partnerNo,Reservation reservation, int resNo, HttpSession session, Model model) {
+	public void updateReserveAjax( int partnerNo,Reservation reservation, int resNo, HttpSession session, Model model) {
 		reservation.setPartNo(partnerNo);
 		List<Integer> reserveList = adminService.reserveTime(reservation);
 		logger.debug("partnerNo { } :",partnerNo);
 		
+		model.addAttribute("partnerNo", partnerNo);
 		model.addAttribute("reserveList", reserveList);
 		model.addAttribute("resNo", resNo);
 		model.addAttribute("resDate", reservation.getResDate());
@@ -480,6 +582,53 @@ public class AdminController {
 	      
 	      return "down";
 	   }
+	   
+	   //리뷰관리
+	   
+	   @GetMapping("/review")
+	   public void review(@RequestParam(name = "partnerNo") int partNo,Model model,Reservation reservation) {
+		   
+		   List<Map<String, Object>> reList = adminService.getReviewAll(partNo);
+		   
+		   model.addAttribute("reList", reList);
+		   
+		   
+	   }
+		// 사용자가 작성한 게시물 삭제
+	    @RequestMapping(value = "/removeReview", method = RequestMethod.GET)
+	    public String reviewDelete(String reviewNo,Review review) throws Exception {
+	    	adminService.userReviewDelete(reviewNo);
+	    	
+	    	return "redirect:/admin/review?partnerNo="+review.getPartNo(); 
+	    }
+	    
+	    //게시물 선택삭제
+	    @RequestMapping(value = "/removeReview",method = RequestMethod.POST)
+	    public String ajaxTest(HttpServletRequest request,Review review) throws Exception {
+	            
+	        String[] ajaxMsg = request.getParameterValues("valueArr");
+	        int size = ajaxMsg.length;
+	        for(int i=0; i<size; i++) {
+	        	adminService.userReviewDelete(ajaxMsg[i]);
+	        }
+	    	return "redirect:/admin/review?partnerNo="+review.getPartNo(); 
+	    }	
 	
+	    
+	    @GetMapping("/partnervideo")
+	    public void video(Model model, int partnerNo) {
+	    	
+	    	List<PartnerVideo> video = adminService.viewVideo(partnerNo);
+	    	
+	    	model.addAttribute("video", video);
+	    }
+		@PostMapping("/partnervideodelete")
+		public String deleteVideo(int partnerVideoNo,PartnerVideo partnerVideo) {
+	
+			
+			adminService.deleteVideo(partnerVideoNo);
+			
+			return "redirect:./partnervideo?partnerNo="+partnerVideo.getPartnerNo();
+		}	   
 }
 

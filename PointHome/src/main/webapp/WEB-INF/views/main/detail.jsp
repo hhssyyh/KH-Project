@@ -49,8 +49,9 @@ function pickPart(th) {
 #calendarDiv {
 	display: flex;
  	justify-content: center;
- 	align-items: center;
- 	margin-top: 20px;
+/*  	align-items: center; */
+	margin-top: 40px;
+/* 	margin-bottom: 80px; */
 }
 
 .fc-day-sun a {
@@ -140,17 +141,40 @@ a {
 .partner-btn {
 	background-color: #7e00c2; 
 	border-color: #7e00c2;
+	font-size: 22px;
 	color: white; 
-	width: 170px; 
+	width: 190px; 
 	height: 47px; 
 }
 
 .partner-btn:hover {
-	background-color: #6913AB; 
-	border-color: #6913AB;
+	background-color: #7e00c2; 
+	border-color: #7e00c2;
 	color: white; 
 }
 
+.tab-title {
+ 	margin-left: 20px;  
+ 	font-size: 42px; 
+/*  	font-weight: bold; */
+}
+
+.tab-border {
+	border: 1px solid #ccc; 
+/* 	border-radius: 18px;  */
+	margin: 20px; 
+/* 	padding: 30px; */
+}
+
+.tdCenter {
+	position: relative;
+	top: 50%;
+	transform: translateY(15%);
+}
+
+table {
+	text-align: center;
+}
 </style>
 
 
@@ -215,7 +239,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <div style="font-family: Noto_Sans_KR500">
 
-<div id="container" style="padding-left: 180px;">
+<div id="container" style="padding-left: 130px;">
 	<div style="margin-right: 80px;">
 		<c:choose>
 			<c:when test="${partnerFile.partnerImg eq null}">
@@ -252,11 +276,26 @@ document.addEventListener('DOMContentLoaded', function() {
 		<div style="font-size: 50px;">
 			${partner.partnerShopname }(${partner.partnerNick })
 		</div>
+		<div style="font-size: 28px;">
+			${partner.partnerPrice }원
+		</div>
+		<div style="font-size: 25px;">
+			후기(${reviewCnt })  
+			<span class="star-ratings">
+				<span class="star-ratings-fill space-x-2 text-lg" style="width: ${avgGrade * 20 - 3.5 }%;">
+					<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+				</span>
+				<span class="star-ratings-base space-x-2 text-lg">
+					<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+				</span>
+			</span>
+			(${avgGrade })
+		</div>
 		<div style="font-size: 19px; width: 400px; padding-top: 10px;">
 			${partner.partnerPr }
 		</div>
-		<div style="margin-top: 50px;">
-			<button class="btn partner-btn" style="margin-right: 10px;">1:1 채팅</button>
+		<div style="margin-top: 50px; text-align: center;">
+			<button class="btn partner-btn" style="margin-right: 10px; background-color: orange; border-color: orange;">1:1 채팅</button>
 			<span class="pick" style="margin-top: 20px;"> 
 				<input class="partNo" type="hidden" value="${partNo}">
 				<c:if test="${isPick eq 0}">
@@ -271,52 +310,58 @@ document.addEventListener('DOMContentLoaded', function() {
 </div>
 
 <div class="container" style="margin: 150px auto;">
-	<ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
-	  <li class="nav-item" role="presentation">
-	    <button class="nav-link active partner-tab-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">예약</button>
+	<ul class="nav nav-tabs justify-content-center" style="text-align:center; z-index: 2; background-color: white; position: sticky; top: 80px;" id="myTab" role="tablist">
+	  <li class="nav-item">
+	    <a class="nav-link partner-tab-link" href="#guide" style="font-size: 23px;">안내</a>
 	  </li>
-	  <li class="nav-item" role="presentation">
-	    <button class="nav-link partner-tab-link" id="review-tab" data-bs-toggle="tab" data-bs-target="#review-tab-pane" type="button" role="tab" aria-controls="review-tab-pane" aria-selected="false">위치안내</button>
+	  <li class="nav-item">
+	  	<a class="nav-link partner-tab-link" href="#reserve" style="font-size: 23px;">예약</a>
 	  </li>
-	  <li class="nav-item" role="presentation">
-	    <button class="nav-link partner-tab-link" id="notice-tab" data-bs-toggle="tab" data-bs-target="#notice-tab-pane" type="button" role="tab" aria-controls="notice-tab-pane" aria-selected="false">리뷰</button>
+	  <li class="nav-item">
+	    <a class="nav-link partner-tab-link" href="#review" style="font-size: 23px;">리뷰</a>
 	  </li>
-	  <li class="nav-item" role="presentation">
-	    <button class="nav-link partner-tab-link" id="reserve-tab" data-bs-toggle="tab" data-bs-target="#reserve-tab-pane" type="button" role="tab" aria-controls="reserve-tab-pane" aria-selected="false">공지사항</button>
+	  <li class="nav-item">
+	    <a class="nav-link partner-tab-link" href="#notice" style="font-size: 23px;">공지</a>
+	  </li>
+	  <li class="nav-item">
+	    <a class="nav-link partner-tab-link" href="#vedio" style="font-size: 23px;">영상</a>
 	  </li>
 	</ul>
-	<div class="tab-content" id="myTabContent">
-	  <!-- 예약 페이지 -->
-	  <div class="tab-pane fade show active content-pd" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
-	  	<div id="calendarDiv">
-			<div id='calendar' style="width: 600px; height: 600px; margin-right: 30px; margin-left: 20px;"></div>
-			<div id="reserveTime" style="width: 550px; height: 500px; padding: 20px; padding-top: 60px;">
-				<div style="font-size: 20px; text-align: center; margin-top: 150px;">원하는 날짜를 선택하세요</div> 
-			</div>
+	<div data-bs-spy="scroll" class="scrollspy-example p-5 rounded-3 tab-border" data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" tabindex="0">
+		<div class="tab-title">안내</div>
+		<hr>
+		<!-- 지도 -->
+		<div style="margin: 20px; margin-top: 40px;">
+			<div id="map" style="width:600px; height:500px; display: inline-block;"></div>
+			<div id="guide" style="width:300px; display: inline-block;">오시는 길</div>
 		</div>
-		<hr style="margin: px auto;">
-	    <!-- 지도 -->
-		<div style="margin: 40px;">
-			<div id="map" style="width:600px; height:500px; "></div>
-		</div>
-		<div style="margin: 70px auto; padding: 20px 130px;">
+		<!-- 안내 -->
+		<div style="padding: 25px; padding-left: 35px; margin-bottom: 50px;">
 			<div style="margin-bottom: 30px;">
-				<div style="font-size: 25px;">- 유의사항 안내</div>
-				<div style="font-size: 20px; padding: 5px;">유의사항사항사항</div>
+				<div style="font-size: 28px;">- 유의사항 안내</div>
+				<div style="font-size: 25px; padding: 5px;">유의사항사항사항</div>
 			</div>
 			<div>
-				<div style="font-size: 25px;">- 환불 안내</div>
+				<div style="font-size: 28px;">- 환불 안내</div>
+				<div style="font-size: 25px; padding: 5px;">유의사항사항사항</div>
 			</div>
 		</div>
-	  </div>
-	  <div class="tab-pane fade content-pd" id="review-tab-pane" role="tabpanel" aria-labelledby="review-tab" tabindex="0">
-	  	
-	  </div>
-	  <!-- 리뷰 -->
-	  <div class="tab-pane fade content-pd" id="notice-tab-pane" role="tabpanel" aria-labelledby="notice-tab" tabindex="0">
-	  	<div style="border: 1px solid #ccc; padding: 20px 30px; width: 1000px; margin: 0 auto; margin-top: 20px;">
+	    <!-- 예약 페이지 -->
+	    <div class="tab-title">예약</div>
+	    <hr>
+	  	<div id="calendarDiv" class="clearfix" >
+			<div id='calendar' style="float:left; width: 600px; height: 500px; margin-right: 30px;"></div>
+			<div id="reserveTime" style="float:right; width: 500px; height: 600px; padding-top: 100px;">
+				<div style="font-size: 20px; text-align: center; margin-top: 170px;">원하는 날짜를 선택하세요</div> 
+			</div>
+		</div>
+		<div id="reserve" style="margin-bottom: 70px;"></div>
+		<div class="tab-title">리뷰</div>
+		<hr>
+	    <!-- 리뷰 -->
+	  	<div id="review" style="border: 1px solid #ccc; padding: 20px 30px; margin: 10px; margin-top: 30px; margin-bottom: 70px;">
 		  	<c:forEach var="review" items="${reviewList }">
-		  		<div style="margin: 0 auto; font-size: 18px;">
+		  		<div style="margin: 0 auto; font-size: 22px;">
 			  		<div style="padding: 20px;">
 			  			<span style="font-weight: bold; margin-right: 10px;"><i class="bi bi-person-circle"></i> ${review.USER_NICK }</span>
 						<span style="float: right;"><fmt:formatDate value="${review.REVIEW_DATE }" pattern="yy/MM/dd hh:mm"/></span>
@@ -335,9 +380,51 @@ document.addEventListener('DOMContentLoaded', function() {
 		  		</div>
 		  	</c:forEach>
 	  	</div>
-	  </div>
-	  <!-- 공지사항 -->
-	  <div class="tab-pane fade content-pd" id="reserve-tab-pane" role="tabpanel" aria-labelledby="reserve-tab" tabindex="0">...</div>
+	  	<!-- 공지사항 -->
+	  	<div class="tab-title">공지</div>
+		<hr>
+		<div style="margin: 40px;">
+			<table class="table table-hover" style="font-size: 20px;">
+				<thead style="height: 50px;">
+					<tr>
+						<th>번호</th>
+						<th>제목</th>
+						<th>내용</th>
+						<th>날짜 <a href="/admin/noticelist"><button class="btn btn-secondary" style="float: right;">목록</button></a></th>
+					</tr>
+				</thead>
+				<tbody class="table-group-divider">
+				<c:forEach var="notice" items="${noticeList }">
+					<tr>
+						<td><div class="tdCenter">${notice.partnerNoticeNo }</div></td>
+						<td><div class="tdCenter"><a href="#">${notice.partnerNoticeTitle }</a></div></td>
+						<td><div class="tdCenter">${notice.partnerNoticeContent }</div></td>
+						<td><div class="tdCenter">${notice.partnerNoticeDate }</div></td>
+					</tr>
+				</c:forEach>
+				</tbody>
+			</table>
+		</div>
+	  	<div class="tab-title">영상</div>
+		<hr>
+		<!-- 영상 -->
+	  	<table id="notice" class="table table-hover" style="width: 1100px; margin: 20px auto;">
+			<c:forEach var="video" items="${video}">
+				<tr>
+					<td><iframe width="560" height="315"
+							src="https://www.youtube.com/embed/${video.partnerVideoUrl}"
+							title="YouTube video player" frameborder="0"
+							allow="accelerometer; autoplay; clipboard-write;
+	                        encrypted-media; gyroscope; picture-in-picture; web-share"
+							allowfullscreen></iframe></td>
+	
+					<td><fmt:formatDate value="${video.partnerVideoDate}"
+							pattern="yy/MM/dd hh:mm" /></td>
+				</tr>
+			</c:forEach>
+		</table>
+		  <!-- 공지사항 -->
+	  	<div id="video"></div>
 	</div>
 </div>
 

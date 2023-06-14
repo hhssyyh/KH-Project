@@ -17,7 +17,7 @@
 <!-- 폰트모음 -->
 <link href="/resources/common/css/font.css" rel="stylesheet">
 
-<link href="/resources/login/user/css/login.css?d=<%= new Date() %>"" rel="stylesheet">
+<link href="/resources/login/user/css/login.css?d=<%= new Date() %>" rel="stylesheet">
 <link href="/resources/login/user/css/ani-background.css" rel="stylesheet">
 </head>
 <body>

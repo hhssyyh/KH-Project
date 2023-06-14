@@ -6,6 +6,13 @@
 <c:import url="/WEB-INF/views/layout/adminLayout/sidebar.jsp"/>
 
 <style type="text/css">
+#container {
+	margin-left: 20%;
+	width:90%;
+	display: inline-block;
+}
+</style>
+<style type="text/css">
 #calendarDiv {
 	display: flex;
  	justify-content: center;
@@ -26,12 +33,6 @@
   text-decoration: none;
  }
 
-.reservemanage {
-	display: inline-block;
-	margin-top: 85px;
-	margin-left: 14%;
-	width: 85%;
-}
 
 table {
 	text-align: center;
@@ -72,8 +73,10 @@ function updateReservation(th) {
 	var date = $(th).parents(".listTr").find(".resdate").text()
 	var time = $(th).parents(".listTr").find(".restime").text()
 	var resNo = $(th).parents(".listTr").find(".resno").text()
+	 var partNo = "${param.partnerNo}";
 	
-	location.href = "./partupdatereserve?date=" + date + "&time=" + time + "&resNo=" + resNo 
+	location.href = "./partupdatereserve"+"?partnerNo="+partNo+"&date=" + date + "&time=" + time + "&resNo=" + resNo 
+			
 }
 </script>
 
@@ -128,9 +131,9 @@ window.onload=function(){
 </script>
 
  <!-- 검색 기능 -->
- <div style="margin-top: 200px;">
-   <div class="input-group mt-2" >
-      <select class="form-contril search-select" name="searchType" style="margin-left:650px;">
+ <div style="margin-top: 0; padding-top:60px; width:85%; margin-left:200px;">
+   <div class="input-group " >
+      <select class="form-contril search-select" name="searchType" style="margin-left:400px;">
          <option value="user_email">유저아이디</option>
          <option value="user_nick">유저닉네임</option>
          <option value="user_name">유저이름</option>
@@ -158,12 +161,12 @@ window.onload=function(){
       </select>
 
 </div>
-<div class="reservemanage">
-	<div style="width: 90%; margin: 0 auto;">
+<div class="reservemanage" style="padding-right:300px; padding-top:50px;">
+	<div id="container">
 		<h2>예약관리</h2>
 		<hr>
 
-		<table class="table table-hover" style="width: 80%; margin: 50px;">
+		<table class="table table-hover" >
 			<thead style="height: 50px;">
 				<tr style="background-color: #ECECEC">
 					<th>번호</th>

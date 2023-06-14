@@ -5,8 +5,8 @@
 
 <style type="text/css">
 #container {
-	padding-top: 60px;
-	margin-left: 40%;
+	margin-left: 20%;
+	width:80%;
 }
 </style>
 <c:import url="/WEB-INF/views/layout/adminLayout/adminHeader.jsp"/>
@@ -59,12 +59,14 @@ window.onload=function(){
 </script>
 
  <!-- 검색 기능 -->
- <div style="margin-top: 200px;">
-   <div class="input-group mt-2" >
-      <select class="form-contril search-select" name="searchType" style="margin-left:650px;">
+ <div style="margin-top: 0; padding-top:60px; width:85%; margin-left:200px;">
+   <div class="input-group " >
+      <select class="form-contril search-select" name="searchType" style="margin-left:400px;">
          <option value="partner_no">번호</option>
          <option value="partner_email">아이디</option>
          <option value="partner_nick">닉네임</option>
+         <option value="partner_shopname">상호명</option>
+         <option value="partner_type">타로/신점/사주</option>
       </select>
       <input name="keyword" type="text" placeholder="검색어 입력" aria-label="search"
    aria-describedby="button-addon2" name="serchName" id="search">
@@ -122,7 +124,7 @@ window.onload=function(){
 			<td>${partner.partnerNo }</td>
 			<td>${partner.partnerName }</td>
 			<td>${partner.partnerNick }</td>
-			<td><fmt:formatDate value="${partner.partnerJoindate}" pattern="yyyy.MM.dd"/><br /></td>
+			<td><fmt:formatDate value="${partner.partnerJoindate}" pattern="yyyy년 MM월 dd일"/><br /></td>
 			<td><a href="/admin/partnerdetail?partnerNo=${partner.partnerNo }">
 					<button class="btn btn-info btn-sm">상세 조회</button>
 				</a>

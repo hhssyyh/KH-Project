@@ -25,6 +25,7 @@ import com.pointhome.www.freeboard.dto.FreeBoardComment;
 import com.pointhome.www.main.dto.Reservation;
 import com.pointhome.www.partner.dto.Partner;
 import com.pointhome.www.partner.dto.PartnerFile;
+import com.pointhome.www.partner.dto.PartnerVideo;
 import com.pointhome.www.partner.dto.PartnerFile;
 import com.pointhome.www.user.dto.User;
 import com.pointhome.www.user.dto.UserFile;
@@ -472,5 +473,42 @@ public class AdminServiceImpl implements AdminService {
 	public void updateReservation(Reservation reservation) {
 		adminDao.updateReservation(reservation);
 	}
-	
+
+	@Override
+	public Paging getUserReservePaging(int userNo, int curPage, String filter, String searchType, String keyword) {
+		int totalPage = adminDao.selectUserReserveCntAll(userNo,filter, searchType, keyword);
+	      
+	      Paging paging = new Paging(totalPage, curPage); 
+	      
+		return paging;
+	}
+
+	@Override
+	public List<Map<String, Object>> getUserReserveList(int userNo) {
+		
+		List<Map<String, Object>> userReserveList = adminDao.selectUserReserveList(userNo);
+		return userReserveList;
+	}
+	@Override
+	public List<Map<String, Object>> getReviewAll(int partNo) {
+		
+		List<Map<String, Object>> allReviewList = adminDao.selectAllReview(partNo);
+		
+		return allReviewList;
+	}
+	@Override
+	public void userReviewDelete(String reviewNo) {
+		adminDao.userReviewDelete(reviewNo);
+	}
+
+	@Override
+	public List<PartnerVideo> viewVideo(int partnerNo) {
+		List<PartnerVideo> video = adminDao.viewVideo(partnerNo);
+		
+		return video;
+	}
+	@Override
+	public void deleteVideo(int partnerVideoNo) {
+		adminDao.deleteVideo(partnerVideoNo);
+	}
 }

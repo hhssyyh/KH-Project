@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.pointhome.www.main.dto.Reservation;
 import com.pointhome.www.partner.dto.Partner;
+import com.pointhome.www.partner.dto.PartnerNotice;
 import com.pointhome.www.util.Paging;
 
 public interface MainDao {
@@ -46,6 +47,8 @@ public interface MainDao {
 	 * @param res - 예약 정보 담은 DTO
 	 */
 	public void insertReserveAlert(Reservation res);
+
+	public List<PartnerNotice> selectPartnerNotice(int partNo);
 
 
 }
