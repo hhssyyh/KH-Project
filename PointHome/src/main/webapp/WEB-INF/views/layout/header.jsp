@@ -182,17 +182,17 @@ $( () => {
 	
 		<li class="nav-item">
 			<i class="bi bi-info-circle-fill"></i>
-			<a class="nav-link d-inline" href="#">공지사항</a>
+			<a class="nav-link d-inline" href="/user/adminnoticelist">공지사항</a>
 		</li>
 	
 		<li class="nav-item">
 			<i class="bi bi-telephone-fill"></i>
-			<a class="nav-link d-inline" href="#">고객센터</a>
+			<a class="nav-link d-inline" href="/user/serviceCenter">고객센터</a>
 		</li>
 		
 		<li class="nav-item">
 			<i class="bi bi-pen"></i>
-			<a class="nav-link d-inline" href="#">제휴신청</a>
+			<a class="nav-link d-inline" href="/partner/join">제휴신청</a>
 		</li>
 	  
 		<li class="nav-item"><hr></li>
