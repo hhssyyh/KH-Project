@@ -3,7 +3,9 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+	xmlns:websocket="http://www.springframework.org/schema/websocket"
+	xsi:schemaLocation="http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket-4.3.xsd
+		http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
@@ -65,6 +67,10 @@
 	<!-- DownloadView클래스를 스피링 빈으로 등록 -->
 <!-- 	<beans:bean id="down" class="file.view.DownloadView"/> -->
 
+
+
+	
+	
 	<!--JsonView -->
 	<beans:bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"/>
 	
@@ -92,7 +98,29 @@
 		com.pointhome.www.user.kakao.controller,
 		com.pointhome.www.user.kakao.service,
 		com.pointhome.www.admin.controller,
-		com.pointhome.www.admin.service
+		com.pointhome.www.admin.service,
+		com.pointhome.www.chat.controller,
+		com.pointhome.www.chat.service,
+		com.pointhome.www.chat.handler,
+		
 		" />
- 
+		 
+	<beans:bean id="echoHandler" class="com.pointhome.www.chat.handler.WebSocketHandler"/>
+		
+     <websocket:handlers allowed-origins="*">
+        <websocket:mapping path="/websocket/*" handler="echoHandler"/>
+        
+   <!--      <websocket:handshake-interceptors>
+        handshake-interceptors : 요청 관련 데이터 중 httpSession(로그인정보, 채팅방번호)을 
+					가로채서 webSocketSession에게 넣어준다.
+        	<beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
+        </websocket:handshake-interceptors> -->
+        
+    </websocket:handlers>
+	
+
+ 		
 </beans:beans>
+
+
+	

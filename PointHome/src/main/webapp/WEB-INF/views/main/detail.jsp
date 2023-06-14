@@ -398,11 +398,17 @@ document.addEventListener('DOMContentLoaded', function() {
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 mapOption = {
     center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+  
     level: 3 // 지도의 확대 레벨
 };  
 
 //지도를 생성합니다    
 var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+function setDraggable(draggable) {
+    // 마우스 드래그로 지도 이동 가능여부를 설정합니다
+    map.setDraggable(draggable);    
+}
 
 //주소-좌표 변환 객체를 생성합니다
 var geocoder = new kakao.maps.services.Geocoder();

@@ -72,7 +72,6 @@ public class mainController {
 			int isPick = mypageService.isPick(userNo, partNo);
 			int alertCnt = mypageService.getAlertCnt(userNo);
 			
-			
 			model.addAttribute("isPick", isPick);
 			model.addAttribute( "alertCnt" , alertCnt);
 		}
