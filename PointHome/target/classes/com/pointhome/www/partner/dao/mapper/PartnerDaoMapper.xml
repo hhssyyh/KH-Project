@@ -384,6 +384,27 @@
 		WHERE partner_video_url = #{videoId}
 	</select>
 
+	<select id="selectPickListByVideo" parameterType="PartnerVideo" resultType="MyPick">
+		select * from partner_pick where part_no = #{partnerNo}
+	</select>
+	
+	<insert id="insertVideoAlert" parameterType="map">
+		insert into user_alert (
+		alert_no, 
+		user_no, 
+		is_read, 
+		content, 
+		num, 
+		type
+		)
+	   	values 
+	   	(user_alert_no_seq.nextval, 
+	   	#{pickUser.userNo}, 
+	   	'N', 
+	   	'찜한 제휴사의 비디오가 올라왔습니다. 확인해주세요!', 
+	   	#{video.partnerNo}, 
+	   	'V'  )
+	</insert>
 
 </mapper>
 

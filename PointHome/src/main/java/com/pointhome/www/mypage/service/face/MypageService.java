@@ -12,6 +12,7 @@ import com.pointhome.www.mypage.dto.Review;
 import com.pointhome.www.partner.dto.Partner;
 import com.pointhome.www.user.dto.User;
 import com.pointhome.www.user.dto.UserFile;
+import com.pointhome.www.util.Paging;
 
 public interface MypageService {
 	
@@ -67,11 +68,12 @@ public interface MypageService {
 
 	/**
 	 * 내가 쓴 글 내역 조회
+	 * @param paging 
 	 * 
 	 * @param userNo - 회원 번호
 	 * @return 작성 글 리스트
 	 */
-	public List<FreeBoard> selectboard(int userNo);
+	public List<FreeBoard> selectboard(Paging paging, int userNo);
 
 	/**
 	 * 찜 내역 조회
@@ -133,6 +135,17 @@ public interface MypageService {
 	 * @return 내가 쓴 리뷰 내역 리스트
 	 */
 	public List<Map<String, Object>> selectReviewList(int userNo);
+
+	public Paging getPaging(int curPage, int userNo);
+
+	/**
+	 * 사용자가 작성한 게시글 삭제
+	 * 
+	 * @param freeboardNo - 게시글 번호
+	 */
+	public void removeboardlist(String freeboardNo);
+
+	
 
 
 	

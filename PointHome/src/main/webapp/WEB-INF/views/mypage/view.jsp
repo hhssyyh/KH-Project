@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <c:import url="/WEB-INF/views/layout/header.jsp"/>
 
@@ -34,7 +35,8 @@ a {
 	margin-bottom: 55px;
 	text-align: left;
 	
-	border: 1px solid #ccc;
+	border: 2px solid #ccc;
+	border-style: dotted;
  	background-color: white; 
 }
 
@@ -49,14 +51,6 @@ a {
 	height: 300px;
 }
 
-#reserveDiv {
-	margin-right: 70px;
-}
-
-#noticeDiv {
-	
-}
-
 #btnCon {
 	width: 1080px;
 	height: 500px;
@@ -69,10 +63,35 @@ a {
 .myBtn {
 	width: 10%;
 	margin-right: 10px;
+	background-color: #E8F5FF;
+		border: 5px solid #A696CD;
+	border-style: dotted;
+	border-radius: 10px;
 }
 
 * {
- 	font-family: 'SBAggroL';
+ 	font-family: 'Noto_Sans_KR500';
+}
+
+hr{
+	color: #7e00c2;
+}
+
+#reserveDiv {
+	margin-right: 70px;
+	border: 10px solid #A696CD;
+	border-style: dotted;
+	border-radius: 10px;
+}
+
+#noticeDiv {
+	border: 10px solid #A696CD;
+	border-style: dotted;
+	border-radius: 10px;
+}
+
+.line{
+	border:3px solid red;
 }
 
 </style>
@@ -96,11 +115,24 @@ a {
 
 	<div class="conRow">
 		<div id="reserveDiv" class="conRowDiv">
-			<div class="conTitle">예약관리</div>
-			<button class="btn btn-outline-secondary" style="float: right; font-size: 13px;">전체 예약 조회</button>
-			<hr>
-		</div>
+
 		
+		
+		
+			<div class="conTitle" id="conTitle">예약관리</div>
+			<button class="btn btn-outline-secondary" style="float: right; font-size: 13px;"><a href="./myreserve">전체 예약 조회</a></button>
+			<hr>
+				<c:forEach var="list" items="${reservelist}" begin="0" end="7">
+				<fmt:parseDate value="${RESERVE_TIME}" var="resDate" pattern="yyyy-MM-dd HH:mm"/>
+				<table>
+					<tr class="line">
+					<td scope="col">${list.RNUM }</td>
+					<td scope="col">${list.RESERVE_TIME }</td>
+					<td scope="col">${list.PARTNER_SHOPNAME }</td>
+					</tr>
+				</table>
+				</c:forEach>
+		</div>
 		<span class="stripe"></span>
 		
 		<div id="noticeDiv" class="conRowDiv">

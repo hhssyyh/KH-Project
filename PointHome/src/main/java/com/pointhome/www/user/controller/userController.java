@@ -135,9 +135,8 @@ public class userController {
 		return "redirect:/";
 	}
 	
-	@GetMapping("/user/qna")
+	@GetMapping("/user/serviceCenter")
 	public void qna() {}
-
 
 	@GetMapping("/user/searchid")
 	public void searchId() {
