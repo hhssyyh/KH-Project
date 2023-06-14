@@ -160,7 +160,7 @@ body{
 		<div class="modal">
 			<div class="modal_body">
 				게시글을 등록하시겠습니까?&nbsp;&nbsp;&nbsp;
-				<button type="button"
+				<button type="submit"
 					class="btn btn-info btn-sm">확인</button>
 				<button type="button"
 					class="btnModalCancle btn btn-info btn-sm ">취소</button>
