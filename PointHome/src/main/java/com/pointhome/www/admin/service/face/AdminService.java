@@ -15,6 +15,7 @@ import com.pointhome.www.freeboard.dto.FreeBoardComment;
 import com.pointhome.www.main.dto.Reservation;
 import com.pointhome.www.partner.dto.Partner;
 import com.pointhome.www.partner.dto.PartnerFile;
+import com.pointhome.www.partner.dto.PartnerVideo;
 import com.pointhome.www.user.dto.User;
 import com.pointhome.www.user.dto.UserFile;
 import com.pointhome.www.util.Paging;
@@ -331,6 +332,20 @@ public interface AdminService {
 	 * @return 삭제된 리뷰
 	 */
 	public void userReviewDelete(String reviewNo);
+	/**
+	 * 영상 보여주기
+	 * 
+	 * @param partnerNo - 제휴사 고유 번호
+	 * @return video - 영상 출력 정보를 담은 DTO
+	 */
+	public List<PartnerVideo> viewVideo(int partnerNo);
+	/**
+	 * 영상 삭제
+	 * 
+	 * @param partnerVideoNo - 제휴사 고유 번호
+	 * @return video - 영상 출력 정보를 담은 DTO
+	 */
+	public void deleteVideo(int partnerVideoNo);
 	
 	
 

@@ -25,6 +25,7 @@ import com.pointhome.www.freeboard.dto.FreeBoardComment;
 import com.pointhome.www.main.dto.Reservation;
 import com.pointhome.www.partner.dto.Partner;
 import com.pointhome.www.partner.dto.PartnerFile;
+import com.pointhome.www.partner.dto.PartnerVideo;
 import com.pointhome.www.partner.dto.PartnerFile;
 import com.pointhome.www.user.dto.User;
 import com.pointhome.www.user.dto.UserFile;
@@ -498,5 +499,16 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public void userReviewDelete(String reviewNo) {
 		adminDao.userReviewDelete(reviewNo);
+	}
+
+	@Override
+	public List<PartnerVideo> viewVideo(int partnerNo) {
+		List<PartnerVideo> video = adminDao.viewVideo(partnerNo);
+		
+		return video;
+	}
+	@Override
+	public void deleteVideo(int partnerVideoNo) {
+		adminDao.deleteVideo(partnerVideoNo);
 	}
 }

@@ -27,6 +27,7 @@ import com.pointhome.www.main.dto.Reservation;
 import com.pointhome.www.mypage.dto.Review;
 import com.pointhome.www.partner.dto.Partner;
 import com.pointhome.www.partner.dto.PartnerFile;
+import com.pointhome.www.partner.dto.PartnerVideo;
 import com.pointhome.www.user.dto.User;
 import com.pointhome.www.user.dto.UserFile;
 import com.pointhome.www.util.Paging;
@@ -613,5 +614,21 @@ public class AdminController {
 	    	return "redirect:/admin/review?partnerNo="+review.getPartNo(); 
 	    }	
 	
+	    
+	    @GetMapping("/partnervideo")
+	    public void video(Model model, int partnerNo) {
+	    	
+	    	List<PartnerVideo> video = adminService.viewVideo(partnerNo);
+	    	
+	    	model.addAttribute("video", video);
+	    }
+		@PostMapping("/partnervideodelete")
+		public String deleteVideo(int partnerVideoNo,PartnerVideo partnerVideo) {
+	
+			
+			adminService.deleteVideo(partnerVideoNo);
+			
+			return "redirect:./partnervideo?partnerNo="+partnerVideo.getPartnerNo();
+		}	   
 }
 

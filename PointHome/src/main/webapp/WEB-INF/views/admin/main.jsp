@@ -2,9 +2,20 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 
-<c:import url="/WEB-INF/views/layout/adminLayout/adminHeader.jsp"/>
-<c:import url="/WEB-INF/views/layout/adminLayout/sidebar.jsp"/>
 
+
+<c:choose>
+	<c:when test="${not empty adminLogin and adminLogin}">
+		    <c:import url="/WEB-INF/views/layout/adminLayout/adminHeader.jsp"/>
+			<c:import url="/WEB-INF/views/layout/adminLayout/sidebar.jsp"/>
 	
+	</c:when>
+	
+	<c:otherwise>
+			  <c:import url="/WEB-INF/views/admin/login.jsp" />
+	</c:otherwise>
+
+</c:choose>
+
 </body>
 </html>
