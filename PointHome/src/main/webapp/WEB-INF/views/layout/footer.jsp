@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.util.Date" %>
 
-<link rel="stylesheet" href="/resources/layout/css/footer.css">
+<link rel="stylesheet" href="/resources/layout/css/footer.css?=<%= new Date() %>">
 
 <div class="d-flex flex-wrap justify-content-between align-items-center py-2 border-top"></div>
 <div class="container" id="footer">
@@ -13,17 +14,17 @@
 		<a href="/admin/login" class="footA pe-2">관리자 로그인</a>
 	</div>
 
-		<div class="col">
-			<div class="footInfo mb-2">
-				회사명: page 404(주) | 대표: 곽도현 | 사업자 등록 번호: 130-87-02397
-			</div>
-			<div class="footInfo mb-2">
-				통신판매업신고: 제 2023-서울강남-1004호 | 주소: 서울특별시 강남구 테헤란로 130, 5층
-			</div>
-			<div class="footInfo">
-				© 2023 KH.Academy Team page404
-			</div>
+	<div class="col">
+		<div class="footInfo mb-2">
+			회사명: page 404(주) | 대표: 곽도현 | 사업자 등록 번호: 130-87-02397
 		</div>
+		<div class="footInfo mb-2">
+			통신판매업신고: 제 2023-서울강남-1004호 | 주소: 서울특별시 강남구 테헤란로 130, 5층
+		</div>
+		<div class="footInfo">
+			© 2023 KH.Academy Team page404
+		</div>
+	</div>
 
 </div>
 

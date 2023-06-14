@@ -12,6 +12,7 @@ import com.pointhome.www.admin.dto.AdminNotice;
 import com.pointhome.www.admin.dto.AdminNoticeFile;
 import com.pointhome.www.freeboard.dto.FreeBoard;
 import com.pointhome.www.freeboard.dto.FreeBoardComment;
+import com.pointhome.www.main.dto.Reservation;
 import com.pointhome.www.partner.dto.Partner;
 import com.pointhome.www.partner.dto.PartnerFile;
 import com.pointhome.www.user.dto.User;
@@ -270,6 +271,66 @@ public interface AdminService {
 	 * @return - 계산이 완료된 Paging 객체
 	 */
 	public Paging getPagingUserCmt(int userNo, int curPage, String filter, String searchType, String keyword);
+	/**
+	 * 예약 목록을 위한 페이징 객체 생성
+	 * 
+	 * @param curPage- 현재페이지
+	 * @param filter - 필터
+	 * @param searchType - 검색 타입
+	 * @param keyword - 키워드
+	 * @return - 계산이 완료된 Paging 객체
+	 */
+	public Paging getPartReservePaging(int partNo, int curPage, String filter, String searchType, String keyword);
+	
+	/**
+	 *  예약 전체 조회
+	 * @param partnerNo - 유저 번호
+	 * @return 제휴사 번호로 조회한 전체 예약
+	 */
+	public List<Map<String, Object>> getPartReserveList(int partNo, Paging paging, String filter, String searchType,
+			String keyword);
+	/**
+	 * 예약완료시 예약 테이블에 저장
+	 * 
+	 * @param res
+	 */
+	public List<Integer> reserveTime(Reservation res);
+	/**
+	 * 운영사 페이지에서 예약 수정
+	 * 
+	 * @param reservation
+	 */
+	public void updateReservation(Reservation reservation);
+	/**
+	 * 예약 목록을 위한 페이징 객체 생성
+	 * 
+	 * @param curPage- 현재페이지
+	 * @param filter - 필터
+	 * @param searchType - 검색 타입
+	 * @param keyword - 키워드
+	 * @return - 계산이 완료된 Paging 객체
+	 */
+	public Paging getUserReservePaging(int userNo, int curPage, String filter, String searchType, String keyword);
+	/**
+	 *  예약 전체 조회
+	 * @param userNo - 유저 번호
+	 * @return 제휴사 번호로 조회한 전체 예약
+	 */
+	public List<Map<String, Object>> getUserReserveList(int userNo);
+	
+	/**
+	 * 제휴사에게 달린 리뷰 조회
+	 * @param partnerNo - 제휴사 번호
+	 * @return 리뷰
+	 */
+	
+	public List<Map<String, Object>> getReviewAll(int partNo);
+	/**
+	 * 사용자가 작성한 리뷰 삭제 
+	 * @param reviewNo - 게시글 번호 
+	 * @return 삭제된 리뷰
+	 */
+	public void userReviewDelete(String reviewNo);
 	
 	
 

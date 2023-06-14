@@ -96,11 +96,20 @@ a {
 	  
 	  <!-- #4 -->
 	  <div class="accordion-item">
-	    <div class="accordion-body">
-			<a href="./reservemanage">공지사항</a>			   		
-	    </div>
+	  <h2 class="accordion-header" id="flush-headingFour">
+	      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+	        공지사항
+	      </button>
+	    </h2>
+	    <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
+	    	<div class="accordion-body"><a href="./partnernotice">공지사항 작성</a></div>
 	  </div>
+<!-- 	  <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
+	    <div class="accordion-body"><a href="./adminnoticelist">운영사 공지사항 조회</a></div>
+	  </div> -->
 	  
+	</div>
+	
 	</div>
 </div>
 

@@ -378,6 +378,16 @@ public class PartnerServiceImpl implements PartnerService {
 	public void insertVideo(PartnerVideo video) {
 		
 		partnerDao.insertVideo(video);
+		
+		List<MyPick> pickUser = partnerDao.selectPickListByVideo(video);
+		logger.info("{}", pickUser);
+		if (pickUser != null) {
+			for( MyPick mp: pickUser) {
+				partnerDao.insertVideoAlert(video, mp );
+			}
+			logger.info("partnerno: {}", video.getPartnerNo());
+		}
+		
 	}
 
 	@Override

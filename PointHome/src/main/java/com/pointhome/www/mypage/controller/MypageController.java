@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -48,9 +50,73 @@ public class MypageController {
 		logger.debug("userno : {}", userno);
 		
 		User res= mypageService.selectInfo(userno);
+		List<Map<String, Object>> reservelist = mypageService.selectReserve(userno);
+		
+		for (Map<String, Object> map : reservelist) {
+			
+			map.get("RES_TIME");
+			logger.info("{}",map.get("RES_TIME"));
+
+			if(Integer.parseInt(String.valueOf(map.get("RES_TIME")))==1) {
+				map.put("RESERVE_TIME", String.valueOf(map.get("RES_DATE")) + " " + "10:00" );
+			}
+			if(Integer.parseInt(String.valueOf(map.get("RES_TIME")))==2) {
+				map.put("RESERVE_TIME",  String.valueOf(map.get("RES_DATE")) + " " + "10:30");
+			}
+			if(Integer.parseInt(String.valueOf(map.get("RES_TIME")))==3) {
+				map.put("RESERVE_TIME",  String.valueOf(map.get("RES_DATE")) + " " + "11:00");
+			}
+			if(Integer.parseInt(String.valueOf(map.get("RES_TIME")))==4) {
+				map.put("RESERVE_TIME",  String.valueOf(map.get("RES_DATE")) + " " + "11:30");
+			}
+			if(Integer.parseInt(String.valueOf(map.get("RES_TIME")))==5) {
+				map.put("RESERVE_TIME",  String.valueOf(map.get("RES_DATE")) + " " + "13:00");
+			}
+			if(Integer.parseInt(String.valueOf(map.get("RES_TIME")))==6) {
+				map.put("RESERVE_TIME",  String.valueOf(map.get("RES_DATE")) + " " + "13:30");
+			}
+			if(Integer.parseInt(String.valueOf(map.get("RES_TIME")))==7) {
+				map.put("RESERVE_TIME",  String.valueOf(map.get("RES_DATE")) + " " + "14:00");
+			}
+			if(Integer.parseInt(String.valueOf(map.get("RES_TIME")))==8) {
+				map.put("RESERVE_TIME",  String.valueOf(map.get("RES_DATE")) + " " + "14:30");
+			}
+			if(Integer.parseInt(String.valueOf(map.get("RES_TIME")))==9) {
+				map.put("RESERVE_TIME",   String.valueOf(map.get("RES_DATE")) + " " + "15:00");
+			}
+			if(Integer.parseInt(String.valueOf(map.get("RES_TIME")))==10) {
+				map.put("RESERVE_TIME",  String.valueOf(map.get("RES_DATE")) + " " + "15:30");
+			}
+			if(Integer.parseInt(String.valueOf(map.get("RES_TIME")))==11) {
+				map.put("RESERVE_TIME",  String.valueOf(map.get("RES_DATE")) + " " + "16:00");
+			}
+			if(Integer.parseInt(String.valueOf(map.get("RES_TIME")))==12) {
+				map.put("RESERVE_TIME",  String.valueOf(map.get("RES_DATE")) + " " + "16:30");
+			}
+			if(Integer.parseInt(String.valueOf(map.get("RES_TIME")))==13) {
+				map.put("RESERVE_TIME",  String.valueOf(map.get("RES_DATE")) + " " + "17:00");
+			}
+			if(Integer.parseInt(String.valueOf(map.get("RES_TIME")))==14) {
+				map.put("RESERVE_TIME",  String.valueOf(map.get("RES_DATE")) + " " + "17:30");
+			}
+			if(Integer.parseInt(String.valueOf(map.get("RES_TIME")))==15) {
+				map.put("RESERVE_TIME",  String.valueOf(map.get("RES_DATE")) + " " + "18:00");
+			}
+			if(Integer.parseInt(String.valueOf(map.get("RES_TIME")))==16) {
+				map.put("RESERVE_TIME",  String.valueOf(map.get("RES_DATE")) + " " + "18:30");
+			}
+			if(Integer.parseInt(String.valueOf(map.get("RES_TIME")))==17) {
+				map.put("RESERVE_TIME",  String.valueOf(map.get("RES_DATE")) + " " + "19:00");
+			}
+			if(Integer.parseInt(String.valueOf(map.get("RES_TIME")))==18) {
+				map.put("RESERVE_TIME",  String.valueOf(map.get("RES_DATE")) + " " + "19:30");
+			}
+			
+		}
 		
 		logger.debug("res{}",res);
 		model.addAttribute("res", res);
+		model.addAttribute("reservelist", reservelist);
 		
 		int alertCnt = mypageService.getAlertCnt(userno);
 		model.addAttribute( "alertCnt" , alertCnt);
@@ -82,6 +148,10 @@ public class MypageController {
 		logger.info("userFile : {}",userFile);
 		
 		model.addAttribute("userFile", userFile);
+		
+		int alertCnt = mypageService.getAlertCnt(userno);
+		model.addAttribute( "alertCnt" , alertCnt);
+		
 		
 	}
 	
@@ -158,6 +228,14 @@ public class MypageController {
 
 		model.addAttribute("reservelist", reservelist);
 		
+		int alertCnt = mypageService.getAlertCnt(userNo);
+		model.addAttribute( "alertCnt" , alertCnt);
+		
+		UserFile userFile = mypageService.selectImg(userNo);
+		logger.info("userFile : {}",userFile);
+		
+		model.addAttribute("userFile", userFile);
+		
 	}
 	
 	
@@ -200,12 +278,16 @@ public class MypageController {
 		logger.info("{}", reviewList);
 		
 		model.addAttribute("reviewlist", reviewList);
+		
+		int alertCnt = mypageService.getAlertCnt(userNo);
+		model.addAttribute( "alertCnt" , alertCnt);
+		
+		UserFile userFile = mypageService.selectImg(userNo);
+		logger.info("userFile : {}",userFile);
+		
+		model.addAttribute("userFile", userFile);
 	}
 	
-	
-	@GetMapping("/serviceCenter")
-	public void mypageService() {}
-
 	@PostMapping("/update")
 	public String userEdit(User user, MultipartFile file, HttpSession session, Model model) {
 		
@@ -258,20 +340,40 @@ public class MypageController {
 		
 		model.addAttribute( "pickList" , list);
 		
+		int alertCnt = mypageService.getAlertCnt(userNo);
+		model.addAttribute( "alertCnt" , alertCnt);
+		
+		UserFile userFile = mypageService.selectImg(userNo);
+		logger.info("userFile : {}",userFile);
+		
+		model.addAttribute("userFile", userFile);
+		
 		
 	}
 	
 	@GetMapping("/myboardList")
-	public void myboardList(HttpSession session, Model model ) {
+	public void myboardList(HttpSession session, Model model, @RequestParam(defaultValue = "0") int curPage ) {
 		
 		int userNo = (Integer)session.getAttribute("userno");
 		
-		List<FreeBoard> boardList = mypageService.selectboard(userNo);
+		Paging paging = mypageService.getPaging(curPage, userNo);
+		
+		logger.info("paging {}" , paging);
+		
+		List<FreeBoard> boardList = mypageService.selectboard(paging, userNo);
 		
 		logger.info("{}", boardList);
 		
-		
+		model.addAttribute("paging", paging);
 		model.addAttribute( "boardList" , boardList);
+		
+		int alertCnt = mypageService.getAlertCnt(userNo);
+		model.addAttribute( "alertCnt" , alertCnt);
+		
+		UserFile userFile = mypageService.selectImg(userNo);
+		logger.info("userFile : {}",userFile);
+		
+		model.addAttribute("userFile", userFile);
 		
 		
 	}
@@ -290,6 +392,11 @@ public class MypageController {
 		model.addAttribute( "alarmList" , alertlist);
 		model.addAttribute( "alertCnt" , alertCnt);
 		
+		UserFile userFile = mypageService.selectImg(userNo);
+		logger.info("userFile : {}",userFile);
+		
+		model.addAttribute("userFile", userFile);
+		
 	}
 	
 	@RequestMapping("/deleteAlert")
@@ -306,8 +413,12 @@ public class MypageController {
 	}
 	
 	@GetMapping("/writeReview")
-	public void writeReview(HttpSession session, int resNo) {
+	public void writeReview(HttpSession session, int resNo, Model model) {
 		session.setAttribute("resNo", resNo);
+		
+		int userNo = (Integer)session.getAttribute("userno");
+		int alertCnt = mypageService.getAlertCnt(userNo);
+		model.addAttribute( "alertCnt" , alertCnt);
 	}
 	
 	@PostMapping("/writeReview")
@@ -323,6 +434,7 @@ public class MypageController {
 		logger.info("ㅎㅎㅎ!!!!!!!!!!{}", myreview);
 		
 		mypageService.insertReview(myreview);
+		
 		
 //		return null;
 		
@@ -344,6 +456,44 @@ public class MypageController {
 		return "redirect:./myreserve";
 		
 	}	
+	
+	//boardlist 전체 삭제
+	@RequestMapping(value = "/removeboardlist", method = RequestMethod.GET)
+    public void cmtdelete(String freeboardNo,FreeBoard freeBoard) throws Exception {
+    	mypageService.removeboardlist(freeboardNo);
+    	
+    }
+    
+    //boardlist 선택삭제
+    @RequestMapping(value = "/removeboardlist",method = RequestMethod.POST)
+    public void cmtajax(HttpServletRequest request,FreeBoard freeBoard, 
+    		HttpSession session, Model model, @RequestParam(defaultValue = "0") int curPage ) throws Exception {
+            
+        String[] ajaxMsg = request.getParameterValues("valueArr");
+ 
+        int size = ajaxMsg.length;
+        for(int i=0; i<size; i++) {
+        	mypageService.removeboardlist(ajaxMsg[i]);
+        }
+        
+        
+        int userNo = (Integer)session.getAttribute("userno");
+        
+		Paging paging = mypageService.getPaging(curPage, userNo);
+		
+		logger.info("paging {}" , paging);
+		
+		List<FreeBoard> boardList = mypageService.selectboard(paging, userNo);
+		
+		logger.info("{}", boardList);
+		
+		model.addAttribute("paging", paging);
+		model.addAttribute( "boardList" , boardList);
+        
+        
+        
+    
+    }	
 	
 	
 }
