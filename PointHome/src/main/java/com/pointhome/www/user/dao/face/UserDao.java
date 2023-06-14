@@ -1,5 +1,7 @@
 package com.pointhome.www.user.dao.face;
 
+import java.util.Map;
+
 import com.pointhome.www.user.dto.User;
 
 import com.pointhome.www.user.dto.UserSocial;
@@ -79,6 +81,13 @@ public interface UserDao {
 	 * @return 사용자의 userno
 	 */
 	public User selectUserNoByEmail(User userInfo);
+
+	/**
+	 * 사용자 회원가입시 이메일 중복 체크
+	 * @param param - 조회할 Email 
+	 * @return 조회된 이메일
+	 */
+	public String selectUserEmailByEmail(String param);
 
 
 }
