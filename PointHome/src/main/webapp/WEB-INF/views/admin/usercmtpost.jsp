@@ -108,23 +108,22 @@ window.onload=function(){
 		    }
 		    else{
 				var chk = confirm("정말 삭제하시겠습니까?");				 
-				$.ajax({
-				    url : url,                  
-				    type : 'POST',              
-				    traditional : true,
-				    data : {
-				    	valueArr : valueArr       
-				    },
-	                success: function(jdata){
-	                    if(jdata = 1) {
-	                        location.replace("usercmtpost?userNo=" + "${param.userNo}");
-	                    }
-	                    else{
-	                        alert("삭제 실패");
-	                    }
-	                }
-				});
-			}
+				if (chk) {
+		            $.ajax({
+		                url: url,
+		                type: 'POST',
+		                traditional: true,
+		                data: {
+		                    valueArr: valueArr
+		                },
+		                success: function (jdata) {
+		                        location.replace("usercmtpost?userNo=" + "${param.userNo}");
+		                }
+		            });
+		        } else {
+		        	 location.replace("usercmtpost?userNo=" + "${param.userNo}");
+		        }
+		    }
 		}
 		
 		

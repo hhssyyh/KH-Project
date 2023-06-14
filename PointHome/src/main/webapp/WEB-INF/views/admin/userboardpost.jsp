@@ -108,7 +108,8 @@ window.onload=function(){
 		    	alert("선택된 글이 없습니다.");
 		    }
 		    else{
-				var chk = confirm("정말 삭제하시겠습니까?");				 
+				var chk = confirm("정말 삭제하시겠습니까?");
+				if (chk) {
 				$.ajax({
 				    url : url,                  
 				    type : 'POST',              
@@ -117,16 +118,14 @@ window.onload=function(){
 				    	valueArr : valueArr       
 				    },
 	                success: function(jdata){
-	                    if(jdata = 1) {
 	                        location.replace("userboardpost?userNo=" + "${param.userNo}");
-	                    }
-	                    else{
-	                        alert("삭제 실패");
-	                    }
 	                }
 				});
-			}
-		}
+		    } else {
+	        	 location.replace("userboardpost?userNo=" + "${param.userNo}");
+	        }
+	    }
+	}
 		
 		
 	</script>
@@ -193,13 +192,7 @@ window.onload=function(){
          </c:forEach>
       </table>
 
-      <c:if test="${not empty adminLogin and adminLogin}">
-         <!-- 작성 버튼 -->
- <!--        <div class="float-end mb-3">
-            <a href="./write"><button id="btnWrite" class="btn btn-info">수정</button></a>
-         </div>
-         <div class="clearfix"></div> 
-          -->        
+      <c:if test="${not empty adminLogin and adminLogin}">    
          <div class="float-end mb-3">
          <input type="button" value="삭제" class="btn btn-outline-info" onclick="deleteValue();">
 		</div>

@@ -472,5 +472,31 @@ public class AdminServiceImpl implements AdminService {
 	public void updateReservation(Reservation reservation) {
 		adminDao.updateReservation(reservation);
 	}
-	
+
+	@Override
+	public Paging getUserReservePaging(int userNo, int curPage, String filter, String searchType, String keyword) {
+		int totalPage = adminDao.selectUserReserveCntAll(userNo,filter, searchType, keyword);
+	      
+	      Paging paging = new Paging(totalPage, curPage); 
+	      
+		return paging;
+	}
+
+	@Override
+	public List<Map<String, Object>> getUserReserveList(int userNo) {
+		
+		List<Map<String, Object>> userReserveList = adminDao.selectUserReserveList(userNo);
+		return userReserveList;
+	}
+	@Override
+	public List<Map<String, Object>> getReviewAll(int partNo) {
+		
+		List<Map<String, Object>> allReviewList = adminDao.selectAllReview(partNo);
+		
+		return allReviewList;
+	}
+	@Override
+	public void userReviewDelete(String reviewNo) {
+		adminDao.userReviewDelete(reviewNo);
+	}
 }

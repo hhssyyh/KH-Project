@@ -65,11 +65,19 @@
 				</div>
 			</div>
 
+
+	<!-- 로고 -->
+	<div class="h1 mt-5 mb-5">
+		<a class="navbar-brand h1 text-center col-5" href="/">운칠기삼</a>
+	</div>
+	<!-- 로고 시작 끝 -->
+
 			<div class="col-3">
 				<div class="form-floating">
 					<button type="button" class="btn btn-secondary btn-lg btn-duplChk">중복</button>
 				</div>
 			</div>
+
 
 		<input type="hidden" class="form-control" name="userEmail" id="userEmail" placeholder="이메일" value="${userInfo.userEmail}" readonly="readonly">
 

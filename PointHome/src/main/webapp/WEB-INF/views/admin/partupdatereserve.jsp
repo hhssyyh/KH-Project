@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <div class="body">
 	<div style="width: 90%; margin: 0 auto;">
-		<h2>원래 예약: ${date } ${time }</h2>
+		<h2>기존 예약 시간: ${date } ${time }</h2>
 		<hr>
 		<div id="calendarDiv">
 			<div id='calendar' style="width: 600px; height: 600px; margin: 80px; margin-right: 60px;"></div>
