@@ -22,7 +22,7 @@
 
 	<!-- 로고 -->
 	<div class="h1 mt-5 mb-5">
-		<a class="navbar-brand h1 text-center col-5" href="/">운기칠삼</a>
+		<a class="navbar-brand h1 text-center col-5" href="/">운칠기삼</a>
 	</div>
 	<!-- 로고 시작 끝 -->
 

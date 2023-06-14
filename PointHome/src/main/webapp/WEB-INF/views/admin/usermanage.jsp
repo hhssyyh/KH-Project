@@ -5,7 +5,8 @@
 
 <style type="text/css">
 #container {
-	margin-left: 40%;
+
+	margin-left: 20%;
 	
 }
 </style>
@@ -62,9 +63,9 @@ window.onload=function(){
 </script>
 
  <!-- 검색 기능 -->
- <div style="margin-top: 200px;">
-   <div class="input-group mt-2" >
-      <select class="form-contril search-select" name="searchType" style="margin-left:650px;">
+ <div style="margin-top: 0; padding-top:60px; width:85%; margin-left:200px;">
+   <div class="input-group " >
+      <select class="form-contril search-select" name="searchType" style="margin-left:400px;">
          <option value="user_no">번호</option>
          <option value="user_email">아이디</option>
          <option value="user_nick">닉네임</option>

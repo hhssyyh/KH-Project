@@ -346,6 +346,38 @@ public interface AdminDao {
 	 * @param reservation
 	 */
 	public void updateReservation(Reservation reservation);
+
+	/**
+	 * 총 예약 건 수 조회
+	 * @param type 
+	 * @param filter 
+	 * @return 총 예약 수 
+	 */
+	public int selectUserReserveCntAll(@Param("userNo") int userNo,@Param("filter") String filter, @Param("searchType") String searchType, @Param("keyword") String keyword);
+
+	   /**
+	    * 페이징과 필터적용된 예약 목록 조회
+	    * 
+	    * @param paging - 페이징
+	    * @param filter - 필터
+	 * @param searchType - 검색 타입
+	    * @param keyword - 키워드 
+	    * @return -페이징과 필터,검색타입,키워드가 적용된 게시글 목록
+	    */
+	public List<Map<String, Object>> selectUserReserveList(@Param("userNo") int userNo);
+
+	/**
+	 * 파트너에게 달린 모든 리뷰 조회
+	 * @param partnerNo
+	 * @return
+	 */
+	public List<Map<String, Object>> selectAllReview(@Param("partNo") int partNo);
+
+	/**
+	 * 사용자가 작성한 리뷰 삭제
+	 * @param reviewNo
+	 */
+	public void userReviewDelete(String reviewNo);
 	
 	
 
