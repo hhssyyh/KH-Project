@@ -288,10 +288,6 @@ public class MypageController {
 		model.addAttribute("userFile", userFile);
 	}
 	
-	
-	@GetMapping("/serviceCenter")
-	public void mypageService() {}
-
 	@PostMapping("/update")
 	public String userEdit(User user, MultipartFile file, HttpSession session, Model model) {
 		
