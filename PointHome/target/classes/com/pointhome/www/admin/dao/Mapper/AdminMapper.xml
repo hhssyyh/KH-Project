@@ -773,5 +773,14 @@
  
 	
 	</delete>
+	
+		<select id="viewVideo"  parameterType="int"  resultType="PartnerVideo">
+		SELECT * FROM partner_video
+		WHERE partner_no = #{partnerNo}
+	</select>
+		<delete parameterType="int" id="deleteVideo">
+		DELETE partner_video
+		WHERE partner_video_no = #{partnerVideoNo}
+	</delete>
  
 </mapper>
