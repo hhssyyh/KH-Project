@@ -6,6 +6,10 @@
 <c:import url="../layout/header.jsp" />
 
 <style type="text/css">
+.partnernoticeView {
+	font-family: SBAggroL;
+}
+
 div.content {
 	min-height: 300px;
 }
@@ -86,7 +90,7 @@ div.fr {
 
 
 
-<div class="container" style="margin-top: 180px; margin-bottom: 200px;">
+<div class="container partnernoticeView" style="margin-top: 180px; margin-bottom: 200px;">
 
 <h1 style="text-align: center">게시글 상세보기</h1>
 <hr>

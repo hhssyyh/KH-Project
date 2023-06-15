@@ -17,8 +17,21 @@
 </c:if>
 
 <style type="text/css">
-#container {
-	margin-left: 70%;
+.partnernotice-div {
+	margin-top: 100px;
+	font-family: SBAggroL;
+}
+
+a {
+	color: black;
+	text-decoration: none;
+}
+
+#listTable {
+	margin: 30px auto;
+	font-size: 20px;
+	text-align: center;
+	width: 1200px;
 }
 </style>
 
@@ -51,37 +64,32 @@ window.onload=function(){
 
 
 
-<div class="container text-center">
+<div class="container text-center partnernotice-div">
 
-   <h1 style="text-align: center">공지사항</h1>
+   <h1 style="margin-top: 130px; margin-bottom: 30px;">공지사항</h1>
+   <hr>
 
-
-      <hr>
-
-      <table id="listTable" class="table table-hover table-sm text-center">
-         <thead>
-            <tr>
-               <th>글번호</th>
-               <th>제목</th>
-               <th>작성일</th>
-               <th>닉네임</th>
-            </tr>
-         </thead>
-         
-         
-         <c:forEach var="notice" items="${noticelist }">
-            <tr>
-               <td>${notice.partnerNoticeNo }</td>
-               <td class="text-start"><a
-                  href="./view?partnerNoticeNo=${notice.partnerNoticeNo }">${notice.partnerNoticeTitle }</a></td>
-                  
-               <td><fmt:formatDate value="${notice.partnerNoticeDate }"  
-                     pattern="yy/MM/dd hh:mm" /> 
-                 <td>${partnerInfo.partnerNick }</td>
-            </tr>
-         </c:forEach>
-         
-      </table>
+   <table id="listTable" class="table table-hover">
+      <thead>
+         <tr>
+            <th>글번호</th>
+            <th>제목</th>
+            <th>작성일</th>
+         </tr>
+      </thead>
+      
+      <tbody class="table-group-divider">
+      <c:forEach var="notice" items="${noticelist }">
+         <tr>
+            <td>${notice.partnerNoticeNo }</td>
+            <td class=""><a
+               href="./view?partnerNoticeNo=${notice.partnerNoticeNo }">${notice.partnerNoticeTitle }</a></td>
+            <td><fmt:formatDate value="${notice.partnerNoticeDate }" pattern="yy/MM/dd hh:mm" /></td>
+         </tr>
+      </c:forEach>
+      </tbody>
+      
+   </table>
 
 
       <c:if test="${not empty partnerLogin and partnerLogin}">
@@ -172,6 +180,8 @@ window.onload=function(){
       </ul>
 
    </div>
+   
+</div>
 
 
 

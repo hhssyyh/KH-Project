@@ -68,7 +68,6 @@ $(".resRadio").click(function() {
 	
 }) 
 
-
 function updateReservation(th) {
 	var date = $(th).parents(".listTr").find(".resdate").text()
 	var time = $(th).parents(".listTr").find(".restime").text()
@@ -128,8 +127,8 @@ function updateReservation(th) {
 					</div></td>
 					<td><div class="tdCenter resprice">${reservation.RES_PRICE }</div></td>
 					<td>
-						<button onclick="updateReservation(this)" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
-						수정
+						<button onclick="updateReservation(this)" class="btn btn-secondary btn-sm">
+							수정
 						</button>
 					</td>
 				</tr>

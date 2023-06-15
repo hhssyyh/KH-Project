@@ -87,7 +87,8 @@ public class mainController {
 		for(Map review : reviewList) {
 		    grade += ((BigDecimal) review.get("REVIEW_GRADE")).doubleValue();
 		}
-		double avgGrade = grade/reviewList.size();
+		grade = grade/reviewList.size();
+		String avgGrade = String.format("%.1f", grade);
 		
 		model.addAttribute("reviewList", reviewList);
 		model.addAttribute("reviewCnt", reviewList.size());
