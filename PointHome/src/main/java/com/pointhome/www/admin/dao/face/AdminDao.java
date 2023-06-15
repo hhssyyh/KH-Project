@@ -394,6 +394,21 @@ public interface AdminDao {
 	 * @return video - 영상 출력 정보를 담은 DTO
 	 */
 	public void deleteVideo(int partnerVideoNo);
+
+	/**
+	 * 파트너사에 결제한 유저의 결제내역 조회
+	 * @param partnerNo - 제휴사번호
+	 * @return 결제내역
+	 */
+	public List<Map<String,Object>> selectPayment(@Param("partnerNo")int partnerNo,@Param("paging") Paging paging,@Param("filter") String filter, @Param("searchType") String searchType, @Param("keyword") String keyword);
+
+	/**
+	 * 총 결제 건 수 조회
+	 * @param type 
+	 * @param filter 
+	 * @return 총 결제 수 
+	 */
+	public int getPagingPayment(@Param("partnerNo")int partnerNo,@Param("filter") String filter, @Param("searchType") String searchType, @Param("keyword") String keyword);
 	
 	
 
