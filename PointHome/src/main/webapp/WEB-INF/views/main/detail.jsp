@@ -139,6 +139,10 @@ a {
 	width: 258px;
 }
 
+.partner-tab-link:hover {
+	color: black;
+}
+
 .partner-btn {
 	background-color: #7e00c2; 
 	border-color: #7e00c2;
@@ -188,6 +192,7 @@ table {
     border-radius: 50%;
     text-align: center;
     box-shadow: 2px 2px 5px -1px gray;
+    padding-top: 10px;
 }
 
 .scroll_top_btn {
@@ -268,7 +273,7 @@ $(document).ready(function() {
 
 
 
-<div style="font-family: SBAggroL">
+<div style="font-family: SBAggroM">
 
 <div id="container" style="padding-left: 130px;">
 	<div style="margin-right: 80px;">
@@ -386,7 +391,7 @@ $(document).ready(function() {
 	    <hr>
 	  	<div id="calendarDiv" class="clearfix" >
 			<div id='calendar' style="float:left; width: 600px; height: 500px; margin-right: 30px;"></div>
-			<div id="reserveTime" style="float:right; width: 500px; height: 600px; padding-top: 100px;">
+			<div id="reserveTime" style="float:right; width: 500px; height: 600px; padding-top: 80px;">
 				<div style="font-size: 23px; text-align: center; margin-top: 170px;">원하는 날짜를 선택하세요</div> 
 			</div>
 		</div>
@@ -434,7 +439,7 @@ $(document).ready(function() {
 						<td><div class="tdCenter">${notice.partnerNoticeNo }</div></td>
 						<td><div class="tdCenter"><a href="/partner/view?partnerNoticeNo=${notice.partnerNoticeNo }">${notice.partnerNoticeTitle }</a></div></td>
 						<td><div class="tdCenter">${notice.partnerNoticeContent }</div></td>
-						<td><div class="tdCenter">${notice.partnerNoticeDate }</div></td>
+						<td><div class="tdCenter"><fmt:formatDate value="${notice.partnerNoticeDate }" pattern="yy/MM/dd hh:mm" /></div></td>
 					</tr>
 				</c:forEach>
 				</tbody>
@@ -465,7 +470,7 @@ $(document).ready(function() {
 
 </div>
 
-<div style="font-family: SBAggroL;">
+<div style="font-family: SBAggroM;">
 	<button type="button" class="scroll_top_btn btn btn-warning" id="topbtn">
 		<span>TOP</span>
 	</button>

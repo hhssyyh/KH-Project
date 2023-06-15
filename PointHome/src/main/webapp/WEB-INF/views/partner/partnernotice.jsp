@@ -19,7 +19,7 @@
 <style type="text/css">
 .partnernotice-div {
 	margin-top: 100px;
-	font-family: SBAggroL;
+	font-family: SBAggroM;
 }
 
 a {
