@@ -1,6 +1,5 @@
 package com.pointhome.www.user.service.face;
 
-
 import java.io.IOException;
 import java.util.Map;
 
@@ -155,12 +154,5 @@ public interface UserService {
 	public String createNaverLogoutURL(String accessToken);
 
 	public String requestToServer(String logoutURL, String headerStr) throws IOException ;
-
-	/**
-	 * 회원가입시 Email 중복확인 메소드
-	 * @param email - 입력된 Email 파라미터
-	 * @return 조회 성공한 경우, 입력때 받은 data
-	 */
-	public String chkUserEmail(String email);
 
 }

@@ -6,7 +6,7 @@ body {
 }
 
 .join-form-background {
-	width:40%;
+	width: 40%;
 	border: 1px solid none;
 	background-color: white;
 	border-radius: 50px;
@@ -14,14 +14,14 @@ body {
 }
 
 form {
-	color:gray;
+	color: gray;
 	margin: 0px auto;
 	margin-bottom: 60px;
 	width: 70%;
 }
 
 svg {
-	margin-top:80px;
+	margin-top: 80px;
 	margin-bottom: 50px;
 	width: 300px;
 }
@@ -29,10 +29,15 @@ svg {
 .btn-postcode {
 	margin-top: 5px;
 }
-.btn-duplChk{
+
+.btn-duplChk {
 	margin-top: 5px;
-	
 }
+
+.btn-EmailCode {
+	margin-top: 5px;
+}
+
 .btn-join {
 	background-color: #7e00c2;
 	color: white;

@@ -337,18 +337,4 @@ public class userController {
 		return "redirect:/partner/partnernotice";
 	}
 	
-	@PostMapping("/user/chkDupEmail")
-	@ResponseBody
-	public Map<String, Object> chkDupEmail(@RequestBody Map<String, Object> jsonData) {
-		logger.debug("/user/chkDupEmail [POST]");
-		logger.debug("Email 중복 확인차 받은 param : {}", jsonData);
-		String param = (String) jsonData.get("Email");
-		
-		String Email = userService.chkUserEmail(param);
-		logger.debug("Email 중복 확인차 검색된 Email : {}", Email);
-		
-		Map<String, Object> map = new HashMap<>();
-		map.put("Email", Email);
-		return map;
-	}
 }
