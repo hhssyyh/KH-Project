@@ -87,9 +87,11 @@
 		select user_no,user_nick from user_tb
 		where user_email = #{userEmail}
 	</select>
-	
-	
-	
+
+	<select id="selectUserEmailByEmail" parameterType="String" resultType="String">
+		SELECT user_Email FROM user_tb
+		WHERE user_email = #{email}
+	</select>
 	
 </mapper>
 

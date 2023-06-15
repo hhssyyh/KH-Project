@@ -146,8 +146,21 @@ public interface UserService {
 	 */
 	public User getUserEmailByNamePhone(User param);
 
-	String createNaverLogoutURL(String accessToken);
+	/**
+	 * 네이버 엑세스토큰 제거하기 위한 메소드
+	 * (실제 네이버 로그아웃은 아님)
+	 * @param accessToken - 엑세스토큰
+	 * @return 네이버URL주소
+	 */
+	public String createNaverLogoutURL(String accessToken);
 
 	public String requestToServer(String logoutURL, String headerStr) throws IOException ;
+
+	/**
+	 * 회원가입시 Email 중복확인 메소드
+	 * @param email - 입력된 Email 파라미터
+	 * @return 조회 성공한 경우, 입력때 받은 data
+	 */
+	public String chkUserEmail(String email);
 
 }
