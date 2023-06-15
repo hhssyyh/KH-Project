@@ -406,5 +406,9 @@
 	   	'V'  )
 	</insert>
 
+	<select id="selectUserName" parameterType="int" resultType="String">
+		select user_name from user_tb 
+		where user_no = #{userSessionNo}
+	</select>
 </mapper>
 

@@ -285,7 +285,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <%-- 			${partner.partnerPr } --%>
 <!-- 		</div> -->
 		<div style="margin-top: 50px; text-align: center;">
-			<button class="btn partner-btn" style="margin-right: 10px; background-color: orange; border-color: orange;">1:1 채팅</button>
+			<a href="/chat/room"><button id="chatBtn"  class="btn partner-btn" style="margin-right: 10px; background-color: orange; border-color: orange;">1:1 채팅</button></a>
 			<span class="pick" style="margin-top: 20px;"> 
 				<input class="partNo" type="hidden" value="${partNo}">
 				<c:if test="${isPick eq 0}">
@@ -318,7 +318,9 @@ document.addEventListener('DOMContentLoaded', function() {
 		<div class="tab-title">안내</div>
 		<hr>
 		<!-- 지도 -->
+		<div id="guide" style="margin: 20px; display: inline-block;">오시는 길</div>
 		<div style="margin: 20px; margin-top: 40px;">
+		
 			<div id="map" style="width:600px; height:500px; display: inline-block;"></div>
 			<div id="guide" style="width:300px; display: inline-block;">오시는 길</div>
 		</div>
@@ -438,6 +440,12 @@ geocoder.addressSearch('${partner.partnerAddress}', function(result, status) {
 });
 </script>
 
+<script type="text/javascript">
+$("#chatBtn").on('click', function(e) {
+	  e.preventDefault();
+	  window.open("/chat/room", "chat/room", "width=500, height=700, top=200, left=200, resizable=no");
+	});
+</script>
 
 <c:import url="/WEB-INF/views/layout/footer.jsp"/>
 

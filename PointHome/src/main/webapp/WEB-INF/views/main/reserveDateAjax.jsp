@@ -106,9 +106,11 @@ $(".resRadio").click(function() {
 	
 	<script type="text/javascript">
 	var resDate = $("input[name=resDate]").val()
-	var costomername = ;
-    var clientKey = 'test_ck_D5GePWvyJnrK0W0k6q8gLzN97Eoq' // 테스트용 클라이언트 키
+	var costomerName = '${userName}'
+    var clientKey = 'test_ck_k6bJXmgo28eXg4nE7L6rLAnGKWx4' // 테스트용 클라이언트 키
     var price = ${partnerPrice}
+	var orderid = '${orderId}'
+	console.log(orderid)
         // 2. 결제창 SDK 초기화
     var tossPayments = TossPayments(clientKey)
 	$("#payBtn").click(function() {
@@ -116,9 +118,9 @@ $(".resRadio").click(function() {
 		var resDiv = $("input[name=resDiv]:checked").val()
 		tossPayments.requestPayment('카드', {
 			amount: price,
-			orderId: 'Dl8baxDJc-HODLm8KBv14',
-			orderName: '토스 티셔츠 외 2건',
-			customerName: '박토스',
+			orderId: orderid,
+			orderName: resDiv,
+			customerName: costomerName,
 			successUrl: "http://localhost:8888/main/reserveComplete?partNo=" + ${param.partNo} + "&resDate=" + resDate + "&resTime=" + resTime + "&resDiv=" + resDiv + "&resPrice=" + price,
 			failUrl: 'http://localhost:8888/reserveFail',
 		})
