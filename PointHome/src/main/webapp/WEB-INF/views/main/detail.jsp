@@ -51,7 +51,7 @@ function pickPart(th) {
  	justify-content: center;
 /*  	align-items: center; */
 	margin-top: 40px;
-/* 	margin-bottom: 80px; */
+/*  	margin-bottom: 80px;  */
 }
 
 .fc-day-sun a {
@@ -132,10 +132,11 @@ function pickPart(th) {
 
 a {
 	color: black;
+	text-decoration: none;
 }
 
 .partner-tab-link {
-	width: 323px;
+	width: 258px;
 }
 
 .partner-btn {
@@ -169,11 +170,33 @@ a {
 .tdCenter {
 	position: relative;
 	top: 50%;
-	transform: translateY(15%);
+	transform: translateY(32%);
 }
 
 table {
 	text-align: center;
+}
+
+#topbtn {
+    position: fixed;
+    right: 54%;
+    bottom: 80px;
+    transform: translateX(1150%);
+    height: 70px;
+    width: 70px;
+    font-size: 20px;
+    border-radius: 50%;
+    text-align: center;
+    box-shadow: 2px 2px 5px -1px gray;
+}
+
+.scroll_top_btn {
+    position: absolute;
+    right: 30px;
+    bottom: 30px;
+    z-index: 999;
+    border: 0;
+    outline: none;
 }
 </style>
 
@@ -235,9 +258,17 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 </script>
 
+<script type="text/javascript">
+$(document).ready(function() {
+	$(".scroll_top_btn").bind('click', function() {
+		$('html, body').animate({scrollTop: '0'}, 380);
+	});
+});
+</script>
 
 
-<div style="font-family: Noto_Sans_KR500">
+
+<div style="font-family: SBAggroL">
 
 <div id="container" style="padding-left: 130px;">
 	<div style="margin-right: 80px;">
@@ -281,8 +312,8 @@ document.addEventListener('DOMContentLoaded', function() {
 		</div>
 		<div style="font-size: 25px;">
 			후기(${reviewCnt })  
-			<span class="star-ratings">
-				<span class="star-ratings-fill space-x-2 text-lg" style="width: ${avgGrade * 20 - 3.5 }%;">
+			<span class="star-ratings" style="font-family: Noto_Sans_KR400">
+				<span class="star-ratings-fill space-x-2 text-lg" style="width: ${avgGrade * 20 - 4 }%;">
 					<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
 				</span>
 				<span class="star-ratings-base space-x-2 text-lg">
@@ -294,7 +325,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		<div style="font-size: 19px; width: 400px; padding-top: 10px;">
 			${partner.partnerPr }
 		</div>
-		<div style="margin-top: 50px; text-align: center;">
+		<div style="margin-top: 30px; text-align: center;">
 			<button class="btn partner-btn" style="margin-right: 10px; background-color: orange; border-color: orange;">1:1 채팅</button>
 			<span class="pick" style="margin-top: 20px;"> 
 				<input class="partNo" type="hidden" value="${partNo}">
@@ -324,48 +355,52 @@ document.addEventListener('DOMContentLoaded', function() {
 	    <a class="nav-link partner-tab-link" href="#notice" style="font-size: 23px;">공지</a>
 	  </li>
 	  <li class="nav-item">
-	    <a class="nav-link partner-tab-link" href="#vedio" style="font-size: 23px;">영상</a>
+	    <a class="nav-link partner-tab-link" href="#video" style="font-size: 23px;">영상</a>
 	  </li>
 	</ul>
 	<div data-bs-spy="scroll" class="scrollspy-example p-5 rounded-3 tab-border" data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" tabindex="0">
 		<div class="tab-title">안내</div>
 		<hr>
-		<!-- 지도 -->
-		<div style="margin: 20px; margin-top: 40px;">
-			<div id="map" style="width:600px; height:500px; display: inline-block;"></div>
-			<div id="guide" style="width:300px; display: inline-block;">오시는 길</div>
-		</div>
-		<!-- 안내 -->
-		<div style="padding: 25px; padding-left: 35px; margin-bottom: 50px;">
-			<div style="margin-bottom: 30px;">
-				<div style="font-size: 28px;">- 유의사항 안내</div>
-				<div style="font-size: 25px; padding: 5px;">유의사항사항사항</div>
+		<div style="margin: 20px; margin-top: 40px; margin-bottom: 90px;" class="clearfix">
+			<!-- 지도 -->
+			<div id="map" style="width:550px; height:500px; float: left;"></div>
+			<div style="width:530px; height: 500px; float: right; padding: 50px; font-size: 25px; padding-top: 90px;">
+				<p style="font-size: 28px;">- 오시는 길</p>
+				<div style="margin-bottom: 10px;">주소: ${partner.partnerAddress }</div>
+				<div style="margin-bottom: 2px;">신사역 8번 출구에서 300m</div>
+				<div>미르빌딩 3층</div>
+			<!-- 안내 -->
+<!-- 				<div style="margin-bottom: 30px;"> -->
+<!-- 					<div style="font-size: 28px;">- 유의사항 안내</div> -->
+<!-- 					<div style="font-size: 25px; padding: 5px;">유의사항사항사항</div> -->
+<!-- 				</div> -->
+				<div style="margin-top: 40px;">
+					<p style="font-size: 28px;">- 환불 안내</p>
+					<div>환불은 어렵습니다. 신중히 결정하세요.</div>
+				</div>
 			</div>
-			<div>
-				<div style="font-size: 28px;">- 환불 안내</div>
-				<div style="font-size: 25px; padding: 5px;">유의사항사항사항</div>
-			</div>
+			<div id="guide"></div>
 		</div>
-	    <!-- 예약 페이지 -->
+	    <!-- 예약 -->
 	    <div class="tab-title">예약</div>
 	    <hr>
 	  	<div id="calendarDiv" class="clearfix" >
 			<div id='calendar' style="float:left; width: 600px; height: 500px; margin-right: 30px;"></div>
 			<div id="reserveTime" style="float:right; width: 500px; height: 600px; padding-top: 100px;">
-				<div style="font-size: 20px; text-align: center; margin-top: 170px;">원하는 날짜를 선택하세요</div> 
+				<div style="font-size: 23px; text-align: center; margin-top: 170px;">원하는 날짜를 선택하세요</div> 
 			</div>
 		</div>
-		<div id="reserve" style="margin-bottom: 70px;"></div>
+		<div id="reserve" style="margin-bottom: 90px;"></div>
 		<div class="tab-title">리뷰</div>
 		<hr>
 	    <!-- 리뷰 -->
-	  	<div id="review" style="border: 1px solid #ccc; padding: 20px 30px; margin: 10px; margin-top: 30px; margin-bottom: 70px;">
+	  	<div id="review" style="border: 1px solid #ccc; padding: 20px 30px; margin: 10px; margin-top: 30px; margin-bottom: 90px;">
 		  	<c:forEach var="review" items="${reviewList }">
 		  		<div style="margin: 0 auto; font-size: 22px;">
 			  		<div style="padding: 20px;">
 			  			<span style="font-weight: bold; margin-right: 10px;"><i class="bi bi-person-circle"></i> ${review.USER_NICK }</span>
 						<span style="float: right;"><fmt:formatDate value="${review.REVIEW_DATE }" pattern="yy/MM/dd hh:mm"/></span>
-			  			<span class="star-ratings">
+			  			<span class="star-ratings" style="font-family: Noto_Sans_KR400">
 							<span class="star-ratings-fill space-x-2 text-lg" style="width: ${review.REVIEW_GRADE * 20 }%;">
 								<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
 							</span>
@@ -383,21 +418,21 @@ document.addEventListener('DOMContentLoaded', function() {
 	  	<!-- 공지사항 -->
 	  	<div class="tab-title">공지</div>
 		<hr>
-		<div style="margin: 40px;">
+		<div style="margin: 40px; margin-bottom: 90px;">
 			<table class="table table-hover" style="font-size: 20px;">
 				<thead style="height: 50px;">
 					<tr>
 						<th>번호</th>
 						<th>제목</th>
 						<th>내용</th>
-						<th>날짜 <a href="/admin/noticelist"><button class="btn btn-secondary" style="float: right;">목록</button></a></th>
+						<th>날짜 <a href="/partner/partnernotice"><button class="btn btn-secondary" style="float: right;">목록</button></a></th>
 					</tr>
 				</thead>
 				<tbody class="table-group-divider">
 				<c:forEach var="notice" items="${noticeList }">
 					<tr>
 						<td><div class="tdCenter">${notice.partnerNoticeNo }</div></td>
-						<td><div class="tdCenter"><a href="#">${notice.partnerNoticeTitle }</a></div></td>
+						<td><div class="tdCenter"><a href="/partner/view?partnerNoticeNo=${notice.partnerNoticeNo }">${notice.partnerNoticeTitle }</a></div></td>
 						<td><div class="tdCenter">${notice.partnerNoticeContent }</div></td>
 						<td><div class="tdCenter">${notice.partnerNoticeDate }</div></td>
 					</tr>
@@ -429,6 +464,14 @@ document.addEventListener('DOMContentLoaded', function() {
 </div>
 
 </div>
+
+<div style="font-family: SBAggroL;">
+	<button type="button" class="scroll_top_btn btn btn-warning" id="topbtn">
+		<span>TOP</span>
+	</button>
+</div>
+
+
 
 
 <!-- 지도 -->
