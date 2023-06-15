@@ -97,9 +97,11 @@ $(".resRadio").click(function() {
    
    <br><br>
    
-   <input type="radio" class="form-check-input radio-check ms-3 me-1" name="resDiv" id="visit" value="visit"><label for="visit" class="me-2">방문</label>
-   <input type="radio" class="form-check-input radio-check me-1" name="resDiv" id="video" value="video"><label for="video" class="me-2">화상전화</label>
-   <input type="radio" class="form-check-input radio-check me-1" name="resDiv" id="chat" value="chat"><label for="chat">채팅</label>
+   <div style="font-size: 18px;">
+	   <input type="radio" class="form-check-input radio-check ms-3 me-1" name="resDiv" id="visit" value="visit"><label for="visit" class="me-2">방문</label>
+	   <input type="radio" class="form-check-input radio-check me-1" name="resDiv" id="video" value="video"><label for="video" class="me-2">화상전화</label>
+	   <input type="radio" class="form-check-input radio-check me-1" name="resDiv" id="chat" value="chat"><label for="chat">채팅</label>
+	</div>
 	
 	<br>
 	
@@ -129,10 +131,10 @@ $(".resRadio").click(function() {
 	
 	
 	<c:if test="${empty login }">
-	   <button style="float: right; background-color: #7e00c2; color: white; font-size: 17px;" id="payBtn" class="btn" disabled="disabled">예약하기</button>
+	   <button style="float: right; background-color: #7e00c2; color: white; font-size: 18px;" id="payBtn" class="btn" disabled="disabled">예약하기</button>
 	</c:if>
 	<c:if test="${login }">
-	   <button style="float: right; background-color: #7e00c2; color: white; font-size: 17px;" id="payBtn" class="btn">예약하기</button>
+	   <button style="float: right; background-color: #7e00c2; color: white; font-size: 18px;" id="payBtn" class="btn">예약하기</button>
 	</c:if>
    
 </body>

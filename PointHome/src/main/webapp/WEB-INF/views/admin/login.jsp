@@ -15,7 +15,7 @@
 <body>
 <div class="container">
 
-<h1 class="text-center mt-5 mb-5">adminPage</h1>
+<h1 class="text-center mt-5 mb-5">관리자페이지</h1>
 <form class="form" action="/admin/login" method="post">
 <div class="form-signin m-auto">
 <div class="d-grid gap-2 col-4 mx-auto">

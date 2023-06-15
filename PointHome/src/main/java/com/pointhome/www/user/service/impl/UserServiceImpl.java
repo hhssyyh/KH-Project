@@ -504,5 +504,12 @@ public class UserServiceImpl implements UserService {
 
 		return logoutURL;
 	}
+
+	@Override
+	public String chkUserEmail(String param) {
+
+		String email = userDao.selectUserEmailByEmail(param);
+		return email;
+	}
 	
 }

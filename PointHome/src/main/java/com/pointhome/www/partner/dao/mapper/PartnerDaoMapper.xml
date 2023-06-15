@@ -366,6 +366,7 @@
 	<select parameterType="int" id="viewVideo" resultType="PartnerVideo">
 		SELECT * FROM partner_video
 		WHERE partner_no = #{partnerNo}
+		ORDER BY partner_video_no DESC
 	</select>
 
 	<insert parameterType="PartnerVideo" id="insertVideo">

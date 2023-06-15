@@ -16,6 +16,7 @@ import com.pointhome.www.freeboard.dto.FreeBoardComment;
 import com.pointhome.www.main.dto.Reservation;
 import com.pointhome.www.partner.dto.Partner;
 import com.pointhome.www.partner.dto.PartnerFile;
+import com.pointhome.www.partner.dto.PartnerVideo;
 import com.pointhome.www.user.dto.User;
 import com.pointhome.www.user.dto.UserFile;
 import com.pointhome.www.util.Paging;
@@ -346,6 +347,68 @@ public interface AdminDao {
 	 * @param reservation
 	 */
 	public void updateReservation(Reservation reservation);
+
+	/**
+	 * 총 예약 건 수 조회
+	 * @param type 
+	 * @param filter 
+	 * @return 총 예약 수 
+	 */
+	public int selectUserReserveCntAll(@Param("userNo") int userNo,@Param("filter") String filter, @Param("searchType") String searchType, @Param("keyword") String keyword);
+
+	   /**
+	    * 페이징과 필터적용된 예약 목록 조회
+	    * 
+	    * @param paging - 페이징
+	    * @param filter - 필터
+	 * @param searchType - 검색 타입
+	    * @param keyword - 키워드 
+	    * @return -페이징과 필터,검색타입,키워드가 적용된 게시글 목록
+	    */
+	public List<Map<String, Object>> selectUserReserveList(@Param("userNo") int userNo);
+
+	/**
+	 * 파트너에게 달린 모든 리뷰 조회
+	 * @param partnerNo
+	 * @return
+	 */
+	public List<Map<String, Object>> selectAllReview(@Param("partNo") int partNo);
+
+	/**
+	 * 사용자가 작성한 리뷰 삭제
+	 * @param reviewNo
+	 */
+	public void userReviewDelete(String reviewNo);
+	/**
+	 * 영상 보여주기
+	 * 
+	 * @param partnerNo - 제휴사 고유 번호
+	 * @return video - 영상 출력 정보를 담은 DTO
+	 */
+	public List<PartnerVideo> viewVideo(int partnerNo);
+
+	/**
+	 * 영상 삭제
+	 * 
+	 * @param partnerVideoNo - 제휴사 고유 번호
+	 * @return video - 영상 출력 정보를 담은 DTO
+	 */
+	public void deleteVideo(int partnerVideoNo);
+
+	/**
+	 * 파트너사에 결제한 유저의 결제내역 조회
+	 * @param partnerNo - 제휴사번호
+	 * @return 결제내역
+	 */
+	public List<Map<String,Object>> selectPayment(@Param("partnerNo")int partnerNo,@Param("paging") Paging paging,@Param("filter") String filter, @Param("searchType") String searchType, @Param("keyword") String keyword);
+
+	/**
+	 * 총 결제 건 수 조회
+	 * @param type 
+	 * @param filter 
+	 * @return 총 결제 수 
+	 */
+	public int getPagingPayment(@Param("partnerNo")int partnerNo,@Param("filter") String filter, @Param("searchType") String searchType, @Param("keyword") String keyword);
 	
 	
 
