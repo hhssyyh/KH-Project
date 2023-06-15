@@ -401,5 +401,11 @@ public class PartnerServiceImpl implements PartnerService {
 	public int test(String videoId) {
 		return partnerDao.test(videoId);
 	}
+
+	@Override
+	public String getUserName(int userSessionNo) {
+		
+		return partnerDao.selectUserName(userSessionNo);
+	}
 			
 }

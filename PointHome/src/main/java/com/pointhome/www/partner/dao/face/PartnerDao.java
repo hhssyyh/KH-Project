@@ -293,6 +293,8 @@ public interface PartnerDao {
 
 	public List<MyPick> selectPickListByVideo(PartnerVideo video);
 
-	public void insertVideoAlert(@Param("video") PartnerVideo video, @Param("pickUser") MyPick mp);	
+	public void insertVideoAlert(@Param("video") PartnerVideo video, @Param("pickUser") MyPick mp);
+
+	public String selectUserName(int userSessionNo);	
 
 }
