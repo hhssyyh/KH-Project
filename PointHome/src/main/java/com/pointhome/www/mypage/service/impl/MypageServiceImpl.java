@@ -119,13 +119,13 @@ public class MypageServiceImpl implements MypageService {
 	}
 
 	@Override
-	public List<Map<String, Object>> selectPickList(int userNo) {
-		return mypageDao.getPickList(userNo);
+	public List<Map<String, Object>> selectPickList(Paging paging, int userNo) {
+		return mypageDao.getPickList(paging, userNo);
 	}
 
 	@Override
-	public List<Map<String, Object>> selectAlList(int userNo) {
-		return mypageDao.selectAlarmList(userNo);
+	public List<Map<String, Object>> selectAlList(Paging paging, int userNo) {
+		return mypageDao.selectAlarmList(paging, userNo);
 	}
 
 	@Override
@@ -139,8 +139,8 @@ public class MypageServiceImpl implements MypageService {
 	}
 
 	@Override
-	public List<Map<String, Object>> selectReserve(int userNo) {
-		return mypageDao.selectReserveList(userNo);
+	public List<Map<String, Object>> selectReserve(Paging paging, int userNo) {
+		return mypageDao.selectReserveList(paging, userNo);
 	}
 	
 	@Override
@@ -155,14 +155,14 @@ public class MypageServiceImpl implements MypageService {
 	}
 	
 	@Override
-	public List<Map<String, Object>> selectReviewList(int userNo) {
-		return mypageDao.selectMyReviewList(userNo);
+	public List<Map<String, Object>> selectReviewList(Paging paging, int userNo) {
+		return mypageDao.selectMyReviewList(paging, userNo);
 	}
 
 	@Override
 	public Paging getPaging(int curPage, int userNo) {
 		
-		int totalPage = mypageDao.selectAllPaging(curPage, userNo);
+		int totalPage = mypageDao.selectBoardPaging(curPage, userNo);
 		
 		logger.info("total: {}", totalPage);
 		
@@ -181,7 +181,66 @@ public class MypageServiceImpl implements MypageService {
 		mypageDao.myBoardListDelete(freeboardNo);
 	}
 	
+	@Override
+	public Paging getPickPaging(int curPage, int userNo) {
+		
+		int totalPage = mypageDao.selectPickPaging(curPage, userNo);
+		
+		Paging paging = new Paging(totalPage, curPage);
+		
+		return paging;
+	}
 	
+	@Override
+	public void removepicklist(String partnerNo) {
+		mypageDao.myPickListDelete(partnerNo);
+	}
 	
+	@Override
+	public Paging getAlertPaging(int curPage, int userNo) {
 
+		int totalPage = mypageDao.selectAlertPaging(curPage, userNo);
+		
+		Paging paging = new Paging(totalPage, curPage);
+		return paging;
+	}
+
+	@Override
+	public void removeAlertlist(String alertNo) {
+		mypageDao.myAlertListDelete(alertNo);
+	}
+	
+	@Override
+	public Paging getReservePaging(int curPage, int userNo) {
+		int totalPage = mypageDao.selectReservePaging(curPage, userNo);
+		
+		Paging paging = new Paging(totalPage, curPage);
+		return paging;
+	}
+	
+	@Override
+	public List<Map<String, Object>> selectReserve(int userno) {
+		return mypageDao.selectNewReserveList(userno);
+	}
+
+	@Override
+	public Paging getReviewPaging(int curPage, int userNo) {
+		int totalPage = mypageDao.selectReviewPaging(curPage, userNo);
+		
+		Paging paging = new Paging(totalPage, curPage);
+		
+		logger.info("!!!!!{}", paging);
+		
+		return paging;
+	}
+	
+	@Override
+	public void removeReviewlist(String reviewNo) {
+		mypageDao.myReviewListDelete(reviewNo);
+	}
+
+	@Override
+	public Map<String, Object> selectPay(int userNo, int resNo) {
+		return mypageDao.selectPaylist(userNo, resNo);
+	}
 }

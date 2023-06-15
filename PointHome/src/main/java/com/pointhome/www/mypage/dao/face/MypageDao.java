@@ -91,22 +91,32 @@ public interface MypageDao {
 	 * @return 작성 글 리스트
 	 */
 	public List<FreeBoard> selectBoardByUserNo(int userNo);
+	
+	/**
+	 * 예약 내역 조회
+	 * 
+	 * @param userNo - 회원 번호
+	 * @return 예약 내역 리스트
+	 */
+	public List<Map<String, Object>> selectReserveList(@Param("paging")Paging paging, @Param("userNo") int userNo);
 
 	/**
 	 * 찜 내역 조회
 	 * 
+	 * @param paging - 페이징 객체
 	 * @param userNo - 회원 번호
 	 * @return 찜 내역 리스트
 	 */
-	public List<Map<String, Object>> getPickList(int userNo);
+	public List<Map<String, Object>> getPickList(@Param("paging") Paging paging, @Param("userNo") int userNo);
 
 	/**
 	 * 알림 내역 조회
 	 * 
+	 * @param paging - 페이징
 	 * @param userNo - 회원 번호
 	 * @return 알림 내역 리스트
 	 */
-	public List<Map<String, Object>> selectAlarmList(int userNo);
+	public List<Map<String, Object>> selectAlarmList(@Param("paging") Paging paging, @Param("userNo") int userNo);
 
 	/**
 	 * 읽지 않은 알림 총 갯수
@@ -122,14 +132,6 @@ public interface MypageDao {
 	 * @param userNo - 회원 번호
 	 */
 	public void deleteAlertByUserno(int userNo);
-
-	/**
-	 * 예약 내역 조회
-	 * 
-	 * @param userNo - 회원 번호
-	 * @return 예약 내역 리스트
-	 */
-	public List<Map<String, Object>> selectReserveList(int userNo);
 
 	/**
 	 * 리뷰 작성
@@ -148,13 +150,28 @@ public interface MypageDao {
 	/**
 	 * 리뷰 내역 조회
 	 * 
+	 * @param paging - 페이징 객체
 	 * @param userNo - 회원 번호
 	 * @return 내가 쓴 리뷰 내역 리스트
 	 */
-	public List<Map<String, Object>> selectMyReviewList(int userNo);
+	public List<Map<String, Object>> selectMyReviewList(@Param("paging") Paging paging, @Param("userNo") int userNo);
 
-	public int selectAllPaging(@Param("curPage")int curPage, @Param("userNo") int userNo);
+	/**
+	 * 내가 쓴 글 페이징
+	 * 
+	 * @param curPage - 현재 페이지
+	 * @param userNo - 회원 번호
+	 * @return - 찜한 내역 총 수와 적용한 페이징
+	 */
+	public int selectBoardPaging(@Param("curPage")int curPage, @Param("userNo") int userNo);
 
+	/**
+	 * 내가 쓴 글 내역 페이징 포함 조회
+	 *
+	 * @param paging - 페이징 객체
+	 * @param userNo - 회원 번호
+	 * @return - 페이징이 적용된 작성 글 리스트
+	 */
 	public List<FreeBoard> getMyBoardList(@Param("paging") Paging paging, @Param("userNo") int userNo);
 
 	/**
@@ -163,6 +180,34 @@ public interface MypageDao {
 	 * @param freeboardNo - 게시글 번호
 	 */
 	public void myBoardListDelete(String freeboardNo);
+
+	/**
+	 * 찜한 내역 페이징
+	 * 
+	 * @param curPage - 현재 페이지
+	 * @param userNo - 회원 번호
+	 * @return 찜한 내역 총 수와 적용한 페이징
+	 */
+	public int selectPickPaging(@Param("curPage")int curPage, @Param("userNo") int userNo);
+
+	public void myPickListDelete(String partnerNo);
+
+	public int selectAlertPaging(@Param("curPage")int curPage, @Param("userNo") int userNo);
+
+	public void myAlertListDelete(String alertNo);
+
+	public int selectReservePaging(@Param("curPage")int curPage, @Param("userNo") int userNo);
+
+	public List<Map<String, Object>> selectNewReserveList(int userno);
+
+	public int selectReviewPaging(@Param("curPage")int curPage, @Param("userNo") int userNo);
+
+	public void myReviewListDelete(String reviewNo);
+
+	public Map<String, Object> selectPaylist(@Param("userNo") int userNo,@Param("resNo") int resNo);
+	
+	
+	
 
 
 	

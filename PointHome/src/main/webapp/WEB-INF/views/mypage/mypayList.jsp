@@ -158,7 +158,7 @@ td {
 <c:import url="/WEB-INF/views/layout/myprofile.jsp" />
 
 <div id="userInfo" class="container" style="padding: 30px; border-radius: 30px; border: 3px solid #c8c8c8;">
-	<h4><i class="bi bi-calendar2-check"></i>      나의 예약 내역</h4>
+	<h4><i class="bi bi-credit-card"></i>       나의 결제 내역</h4>
 	<hr id="line">
 	
 	
@@ -167,9 +167,8 @@ td {
     <tr>
       <th scope="col">번호</th>
       <th scope="col">제휴사 이름</th>
-      <th scope="col">예약시간</th>
-      <th scope="col">예약번호</th>
-      <th scope="col">예약현황</th>
+      <th scope="col">결제 시간</th>
+      <th scope="col">결제 금액</th>
     </tr>
   </thead>
 
@@ -177,41 +176,17 @@ td {
 <fmt:formatDate value="${now}" pattern="yyyy-MM-dd HH:mm" var="today" />
 
     <tbody class="table-group-divider">
-     <c:forEach var="list" items="${reservelist}">
-		<fmt:parseDate value="${RESERVE_TIME}" var="resDate" pattern="yyyy-MM-dd HH:mm"/>
-		<c:choose>
-
-			<c:when test="${list.RESERVE_TIME < today && list.ISREVIEW eq 0}">
-				 <tr>
-			      <td scope="row">${list.RNUM}</td>
-			      <td>${list.PARTNER_SHOPNAME}</td>
-			      <td>${list.RESERVE_TIME}</td>
-			      <td><a href="./myreserveDetail?resNo=${list.RES_NO }">${list.RES_RESERVENO }</a></td>
-			      <td><a href="./writeReview?resNo=${list.RES_NO }"><button type="button" class="btn btn-outline-dark reBtn">리뷰쓰기</button></a></td> 
-				 </tr>     
-			</c:when>	 
-
-			<c:when test="${list.RESERVE_TIME < today}">
-				 <tr>
-			      <td scope="row">${list.RNUM}</td>
-			      <td>${list.PARTNER_SHOPNAME}</td>
-			      <td>${list.RESERVE_TIME}</td>
-			      <td><a href="./myreserveDetail?resNo=${list.RES_NO }">${list.RES_RESERVENO }</a></td>
-			      <td><a href="./deleteReview?resNo=${list.RES_NO}"><button class="btn btn-outline-dark deBtn">삭제</button></a></td>
-				 </tr>     
-			</c:when>	 
-
-			<c:otherwise>
-				<tr>
-			      <td scope="row">${list.RNUM}</td>
-			      <td>${list.PARTNER_SHOPNAME}</td>
-			      <td>${list.RESERVE_TIME}</td>
-			      <td><a href="./myreserveDetail?resNo=${list.RES_NO}">${list.RES_RESERVENO }</a></td>
-			      <td>예약완료</td>
-			     </tr>
-			</c:otherwise>
+     <c:forEach var="list" items="${paylist}">
+		<fmt:parseDate value="${RES_RESERVENO}" var="resDate" pattern="yyyy-MM-dd HH:mm:ss"/>
 		
-		</c:choose>
+
+				 <tr>
+			      <td scope="row">${list.RNUM}</td>
+			      <td>${list.PARTNER_SHOPNAME}</td>
+			      <td><fmt:parseDate value="${list.RES_RESERVENO}" var="date" pattern="yyyyMMddHHmmss"/>
+						<fmt:formatDate value="${date}" pattern="yyyy년 MM월 dd일 HH:mm:ss"/></td>
+			      <td>${list.RES_PRICE}원</td>
+				 </tr>     
   	</c:forEach>
   </tbody>
 </table>

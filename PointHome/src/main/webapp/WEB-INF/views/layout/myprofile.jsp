@@ -21,24 +21,25 @@ a {
 	margin:0 auto; 
 	margin-top: 130px;
 	margin-bottom: 100px;
- 	background-color: #E8F5FF;
+ 	background-color: #fffff0; 
 	justify-content: center;
-	border-radius: 50px;
+/* 	border-radius: 50px; */
 /* 	border:3px solid #A696CD; */
-	border: 10px solid #A696CD;
-	border-style: dotted;
+ 	border-bottom: 7px solid #A696CD; 
+ 	border-top: 7px solid #A696CD; 
+
 }
 
 #profile {
 	display: flex;
 	align-items: center;
 	float: left;
-	padding-top: 70px;
-	padding-left: 15%;
+	padding-top: 50px;
+	padding-left: 10%;
 }
 
 #profileImg {
-	width: 150px;
+	width: 180px;
 }
 
 #nickDiv {
@@ -60,9 +61,9 @@ a {
 	align-items: center;
 	float: right;
  	height: 300px; 
- 	width: 50%; 
- 	padding: 50px; 
-/*  	padding-right: 25%; */
+ 	width: 45%; 
+ 	padding: 40px; 
+  	padding-right: 5%; 
 
 } 
  .btnRow { 	
@@ -81,16 +82,25 @@ a {
 	font-size: 15px;
 	color: white;
 	margin: 10px;
-	background-color: #8C8CBE;
-	border-color: #8C8CBE;
+	background-color: #A696CD;
+	border-color: #A696CD;
+	 vertical-align:middle;
 }
 
-#myImg {width: 150px; height: 150px;}
+#myImg {
+	width: 180px; 
+	height: 180px;
+	border-radius:30%;
+}
+
+
 
 table {
   border-spacing: 10px;
   border-collapse: separate;
 }
+
+
 
 </style>
 
@@ -98,6 +108,7 @@ table {
 <!-- <div style="margin: 10px; margin-left: 40px; margin-top: 80px;"> -->
 <!-- 	<a href="./view" style="font-size: 30px;">MYMENU</a> -->
 <!-- </div> -->
+
 
 <div id="myBanner">
 	<div id="box" style="width: 1500px; margin: 0 auto;">
@@ -115,7 +126,7 @@ table {
 			
 			
 			<div id="nickDiv">
-				<div style="font-size: 30px;">${res.userNick }</div>
+				<div style="font-size: 30px;">${userNick }</div>
 				${profile }
 	<%-- 			<img src="/upload/${profile.userImg}"  alt=""> --%>
 				<a href="./userinfo"><button class="btn btn-outline-dark nickBtn">회원정보수정</button></a>
@@ -135,6 +146,7 @@ table {
 	
 	</div>
 </div>
+
 
 
 

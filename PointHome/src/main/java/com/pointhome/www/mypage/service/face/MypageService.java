@@ -68,8 +68,8 @@ public interface MypageService {
 
 	/**
 	 * 내가 쓴 글 내역 조회
-	 * @param paging 
-	 * 
+	 *
+	 * @param paging - 페이징 객체
 	 * @param userNo - 회원 번호
 	 * @return 작성 글 리스트
 	 */
@@ -78,18 +78,20 @@ public interface MypageService {
 	/**
 	 * 찜 내역 조회
 	 * 
+	 * @param paging - 페이징 객체
 	 * @param userNo - 회원 번호
 	 * @return 찜 내역 리스트
 	 */
-	public List<Map<String, Object>> selectPickList(int userNo);
+	public List<Map<String, Object>> selectPickList(Paging paging, int userNo);
 
 	/**
 	 * 알림 내역 조회
 	 * 
+	 * @param paging - 페이징
 	 * @param userNo - 회원 번호
 	 * @return 알림 내역 리스트
 	 */
-	public List<Map<String, Object>> selectAlList(int userNo);
+	public List<Map<String, Object>> selectAlList(Paging paging, int userNo);
 
 	/**
 	 * 읽지 않은 알림 총 갯수
@@ -109,10 +111,11 @@ public interface MypageService {
 	/**
 	 * 예약 내역 조회
 	 * 
+	 * @param paging - 페이징 객체
 	 * @param userNo - 회원 번호
 	 * @return 예약 내역 리스트
 	 */
-	public List<Map<String, Object>> selectReserve(int userNo);
+	public List<Map<String, Object>> selectReserve(Paging paging, int userNo);
 
 	/**
 	 * 리뷰 작성
@@ -131,11 +134,19 @@ public interface MypageService {
 	/**
 	 * 리뷰 내역 조회
 	 * 
+	 * @param paging - 페이징 객체
 	 * @param userNo - 회원 번호
 	 * @return 내가 쓴 리뷰 내역 리스트
 	 */
-	public List<Map<String, Object>> selectReviewList(int userNo);
+	public List<Map<String, Object>> selectReviewList(Paging paging, int userNo);
 
+	/**
+	 * 내가 쓴 글 페이징
+	 * 
+	 * @param curPage - 현재 페이지
+	 * @param userNo - 회원 번호
+	 * @return - 찜한 내역 총 수와 적용한 페이징
+	 */
 	public Paging getPaging(int curPage, int userNo);
 
 	/**
@@ -144,6 +155,31 @@ public interface MypageService {
 	 * @param freeboardNo - 게시글 번호
 	 */
 	public void removeboardlist(String freeboardNo);
+
+	/**
+	 * 찜한 내역 페이징
+	 * 
+	 * @param curPage - 현재 페이지
+	 * @param userNo - 회원 번호
+	 * @return 찜한 내역 총 수와 적용한 페이징
+	 */
+	public Paging getPickPaging(int curPage, int userNo);
+
+	public void removepicklist(String partnerNo);
+
+	public Paging getAlertPaging(int curPage, int userNo);
+
+	public void removeAlertlist(String alertNo);
+
+	public Paging getReservePaging(int curPage, int userNo);
+
+	public List<Map<String, Object>> selectReserve(int userno);
+
+	public Paging getReviewPaging(int curPage, int userNo);
+
+	public void removeReviewlist(String reviewNo);
+
+	public Map<String, Object> selectPay(int userNo, int resNo);
 
 	
 

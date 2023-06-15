@@ -36,7 +36,6 @@ a {
 	text-align: left;
 	
 	border: 2px solid #ccc;
-	border-style: dotted;
  	background-color: white; 
 }
 
@@ -56,21 +55,20 @@ a {
 	height: 500px;
 	margin: 0 auto;
 	
-	border: 1px solid #ccc;
  	background-color: white;
 }
 
-.myBtn {
-	width: 10%;
-	margin-right: 10px;
-	background-color: #E8F5FF;
-		border: 5px solid #A696CD;
-	border-style: dotted;
-	border-radius: 10px;
-}
+/* .myBtn { */
+/* 	width: 10%; */
+/* 	margin-right: 10px; */
+/* 	background-color: #E8F5FF; */
+/* 	border: 5px solid #A696CD; */
+/* 	border-style: dotted; */
+/* 	border-radius: 10px; */
+/* } */
 
 * {
- 	font-family: 'Noto_Sans_KR500';
+ 	font-family: 'SBAggroM';
 }
 
 hr{
@@ -79,19 +77,21 @@ hr{
 
 #reserveDiv {
 	margin-right: 70px;
-	border: 10px solid #A696CD;
-	border-style: dotted;
+	background-color: #fcfcf5;
 	border-radius: 10px;
+	box-shadow: 5px 5px gray;
 }
 
 #noticeDiv {
-	border: 10px solid #A696CD;
-	border-style: dotted;
-	border-radius: 10px;
+
 }
 
 .line{
 	border:3px solid red;
+}
+
+td.l{
+	border-bottom: 1px solid #b4b4b4;
 }
 
 </style>
@@ -101,6 +101,7 @@ hr{
 <div id="mypage">
 
 <c:import url="/WEB-INF/views/layout/myprofile.jsp" />
+
 
 <div class="text-center mb-4">
 	<button class="btn btn-outline-secondary myBtn">상담내역</button>
@@ -115,22 +116,24 @@ hr{
 
 	<div class="conRow">
 		<div id="reserveDiv" class="conRowDiv">
-
 		
+			<jsp:useBean id="now" class="java.util.Date" />
+			<fmt:formatDate value="${now}" pattern="yyyy-MM-dd HH:mm" var="today" />
 		
-		
-			<div class="conTitle" id="conTitle">예약관리</div>
+			<div class="conTitle" id="conTitle">예약내역</div>
 			<button class="btn btn-outline-secondary" style="float: right; font-size: 13px;"><a href="./myreserve">전체 예약 조회</a></button>
 			<hr>
 				<c:forEach var="list" items="${reservelist}" begin="0" end="7">
 				<fmt:parseDate value="${RESERVE_TIME}" var="resDate" pattern="yyyy-MM-dd HH:mm"/>
+				<c:if test="${list.RESERVE_TIME > today}">
 				<table>
 					<tr class="line">
-					<td scope="col">${list.RNUM }</td>
-					<td scope="col">${list.RESERVE_TIME }</td>
-					<td scope="col">${list.PARTNER_SHOPNAME }</td>
+					<td scope="col">#</td>
+					<td scope="col" class="l">${list.RESERVE_TIME }</td>
+					<td scope="col" class="l" style="text-align: center;">${list.PARTNER_SHOPNAME }</td>
 					</tr>
 				</table>
+				</c:if>
 				</c:forEach>
 		</div>
 		<span class="stripe"></span>

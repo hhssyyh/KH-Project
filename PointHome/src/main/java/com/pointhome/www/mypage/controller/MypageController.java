@@ -25,6 +25,7 @@ import com.pointhome.www.freeboard.dto.FreeBoard;
 import com.pointhome.www.main.dto.Reservation;
 import com.pointhome.www.mypage.dto.Alert;
 import com.pointhome.www.mypage.dto.AlertRecomm;
+import com.pointhome.www.mypage.dto.MyPick;
 import com.pointhome.www.mypage.dto.Review;
 import com.pointhome.www.mypage.service.face.MypageService;
 import com.pointhome.www.partner.dto.Partner;
@@ -48,6 +49,7 @@ public class MypageController {
 		
 		int userno= (int) session.getAttribute("userno"); 
 		logger.debug("userno : {}", userno);
+		String usernick = (String)session.getAttribute("usernick");
 		
 		User res= mypageService.selectInfo(userno);
 		List<Map<String, Object>> reservelist = mypageService.selectReserve(userno);
@@ -125,7 +127,7 @@ public class MypageController {
 		logger.info("userFile : {}",userFile);
 		
 		model.addAttribute("userFile", userFile);
-		
+		model.addAttribute("userNick", usernick);
 	}
 		
 	
@@ -135,6 +137,7 @@ public class MypageController {
 		logger.debug("/mypage/userinfo [GET]");
 		
 		int userno= (int) session.getAttribute("userno"); 
+		String usernick = (String)session.getAttribute("usernick");
 		logger.debug("userno : {}", userno);
 		
 		User res= mypageService.selectInfo(userno);
@@ -151,16 +154,21 @@ public class MypageController {
 		
 		int alertCnt = mypageService.getAlertCnt(userno);
 		model.addAttribute( "alertCnt" , alertCnt);
+		model.addAttribute("userNick", usernick);
 		
 		
 	}
 	
 	@GetMapping("/myreserve")
-	public void myreserve(HttpSession session, Model model) {
+	public void myreserve(HttpSession session, Model model, @RequestParam(defaultValue = "0") int curPage) {
 		
 		int userNo = (Integer)session.getAttribute("userno");
+		String usernick = (String)session.getAttribute("usernick");
 		
-		List<Map<String, Object>> reservelist = mypageService.selectReserve(userNo);
+		
+		Paging paging = mypageService.getReservePaging(curPage, userNo);
+		
+		List<Map<String, Object>> reservelist = mypageService.selectReserve(paging, userNo);
 		
 		for (Map<String, Object> map : reservelist) {
 			
@@ -226,6 +234,7 @@ public class MypageController {
 		
 		logger.info("{}",reservelist);
 
+		model.addAttribute("paging", paging);
 		model.addAttribute("reservelist", reservelist);
 		
 		int alertCnt = mypageService.getAlertCnt(userNo);
@@ -235,12 +244,23 @@ public class MypageController {
 		logger.info("userFile : {}",userFile);
 		
 		model.addAttribute("userFile", userFile);
+		model.addAttribute("userNick", usernick);
 		
 	}
 	
 	
-	@GetMapping("/myreservedetail")
-	public void myreservedetail() {}
+	@GetMapping("/myreserveDetail")
+	public void myreservedetail(HttpSession session, Model model, int resNo) {
+
+		int userNo = (Integer)session.getAttribute("userno");
+		
+		Map<String, Object> mypay = mypageService.selectPay(userNo, resNo);
+		
+		logger.info("과연  {}", mypay);
+		
+		model.addAttribute("pay", mypay);
+		
+	}
 	
 	@RequestMapping("/mypick")
 	public ModelAndView mypick(int partNo, 
@@ -270,12 +290,15 @@ public class MypageController {
 	}
 	
 	@RequestMapping("/myreview")
-	public void myreviewList(HttpSession session, Model model) {
+	public void myreviewList(HttpSession session, Model model,  @RequestParam(defaultValue = "0") int curPage) {
 		int userNo = (Integer)session.getAttribute("userno");
+		String usernick = (String)session.getAttribute("usernick");
 		
-		List<Map<String, Object>> reviewList = mypageService.selectReviewList(userNo);
+		Paging paging = mypageService.getReviewPaging(curPage, userNo);
 		
-		logger.info("{}", reviewList);
+		List<Map<String, Object>> reviewList = mypageService.selectReviewList(paging,userNo);
+		
+		logger.info("ㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎ{}", reviewList);
 		
 		model.addAttribute("reviewlist", reviewList);
 		
@@ -285,7 +308,9 @@ public class MypageController {
 		UserFile userFile = mypageService.selectImg(userNo);
 		logger.info("userFile : {}",userFile);
 		
+		model.addAttribute("paging", paging);
 		model.addAttribute("userFile", userFile);
+		model.addAttribute("userNick", usernick);
 	}
 	
 	
@@ -333,12 +358,15 @@ public class MypageController {
 	}
 	
 	@GetMapping("/mypickList")
-	public void mypickList(HttpSession session, Model model) {
+	public void mypickList(HttpSession session, Model model,  @RequestParam(defaultValue = "0") int curPage) {
 		
 		int userNo = (Integer)session.getAttribute("userno");
+		String usernick = (String)session.getAttribute("usernick");
+		
+		Paging paging = mypageService.getPickPaging(curPage, userNo);
 		
 		
-		List<Map<String, Object >> list = mypageService.selectPickList(userNo);
+		List<Map<String, Object >> list = mypageService.selectPickList(paging, userNo);
 		
 		logger.info("!!!!!!!!!!!!!!!!{}", list);
 		
@@ -350,7 +378,9 @@ public class MypageController {
 		UserFile userFile = mypageService.selectImg(userNo);
 		logger.info("userFile : {}",userFile);
 		
+		model.addAttribute("paging", paging);
 		model.addAttribute("userFile", userFile);
+		model.addAttribute("userNick", usernick);
 		
 		
 	}
@@ -359,6 +389,7 @@ public class MypageController {
 	public void myboardList(HttpSession session, Model model, @RequestParam(defaultValue = "0") int curPage ) {
 		
 		int userNo = (Integer)session.getAttribute("userno");
+		String usernick = (String)session.getAttribute("usernick");
 		
 		Paging paging = mypageService.getPaging(curPage, userNo);
 		
@@ -378,16 +409,21 @@ public class MypageController {
 		logger.info("userFile : {}",userFile);
 		
 		model.addAttribute("userFile", userFile);
-		
+		model.addAttribute("userNick", usernick);
 		
 	}
 	
 	@GetMapping("/alertList")
-	public void myAlarm(HttpSession session, Model model) {
+	public void myAlarm(HttpSession session, Model model, @RequestParam(defaultValue = "0") int curPage) {
 		
 		int userNo = (Integer)session.getAttribute("userno");
-			
-		List<Map<String, Object>> alertlist = mypageService.selectAlList(userNo);
+		String usernick = (String)session.getAttribute("usernick");
+		
+		Paging paging = mypageService.getAlertPaging(curPage, userNo);
+		
+		logger.info("paging {}" , paging);
+		
+		List<Map<String, Object>> alertlist = mypageService.selectAlList(paging, userNo);
 		
 		int alertCnt = mypageService.getAlertCnt(userNo);
 		
@@ -399,7 +435,9 @@ public class MypageController {
 		UserFile userFile = mypageService.selectImg(userNo);
 		logger.info("userFile : {}",userFile);
 		
+		model.addAttribute("paging", paging);
 		model.addAttribute("userFile", userFile);
+		model.addAttribute("userNick", usernick);
 		
 	}
 	
@@ -463,14 +501,14 @@ public class MypageController {
 	
 	//boardlist 전체 삭제
 	@RequestMapping(value = "/removeboardlist", method = RequestMethod.GET)
-    public void cmtdelete(String freeboardNo,FreeBoard freeBoard) throws Exception {
+    public void boarddelete(String freeboardNo,FreeBoard freeBoard) throws Exception {
     	mypageService.removeboardlist(freeboardNo);
     	
     }
     
     //boardlist 선택삭제
     @RequestMapping(value = "/removeboardlist",method = RequestMethod.POST)
-    public void cmtajax(HttpServletRequest request,FreeBoard freeBoard, 
+    public void boardajax(HttpServletRequest request,FreeBoard freeBoard, 
     		HttpSession session, Model model, @RequestParam(defaultValue = "0") int curPage ) throws Exception {
             
         String[] ajaxMsg = request.getParameterValues("valueArr");
@@ -493,11 +531,107 @@ public class MypageController {
 		
 		model.addAttribute("paging", paging);
 		model.addAttribute( "boardList" , boardList);
-        
-        
-        
     
     }	
 	
+    //picklist 전체 삭제
+    @RequestMapping(value = "/removePicklist", method = RequestMethod.GET)
+    public void pickdelete(String partnerNo, MyPick mypick) throws Exception {
+    	mypageService.removepicklist(partnerNo);	
+    }
+    
+    //picklist 선택삭제
+    @RequestMapping(value = "/removePicklist",method = RequestMethod.POST)
+    public void pickajax(HttpServletRequest request, MyPick mypick,
+    		HttpSession session, Model model, @RequestParam(defaultValue = "0") int curPage ) throws Exception {
+        String[] ajaxMsg = request.getParameterValues("valueArr");
+        
+        int size = ajaxMsg.length;
+        for(int i=0; i<size; i++) {
+        	mypageService.removepicklist(ajaxMsg[i]);
+        }
+    	
+		int userNo = (Integer)session.getAttribute("userno");		
+		Paging paging = mypageService.getPickPaging(curPage, userNo);
+		List<Map<String, Object >> list = mypageService.selectPickList(paging, userNo);
+
+		model.addAttribute( "pickList" , list);
+		model.addAttribute("paging", paging);
+
+        
+    }	
+    
+    
+    //alertlist 전체 삭제
+    @RequestMapping(value = "/removeAlertlist", method = RequestMethod.GET)
+    public void alertelete(String alertNo, Alert alert) throws Exception {
+    	mypageService.removeAlertlist(alertNo);	
+    }
+    
+    //alertlist 선택삭제
+    @RequestMapping(value = "/removeAlertlist",method = RequestMethod.POST)
+    public void alertajax(HttpServletRequest request, Alert alert, 
+    		HttpSession session, Model model, @RequestParam(defaultValue = "0") int curPage ) throws Exception {
+    	String[] ajaxMsg = request.getParameterValues("valueArr");
+    	
+    	int size = ajaxMsg.length;
+    	for(int i=0; i<size; i++) {
+    		mypageService.removeAlertlist(ajaxMsg[i]);
+    	}
+    	
+    	int userNo = (Integer)session.getAttribute("userno");		
+    	Paging paging = mypageService.getAlertPaging(curPage, userNo);
+    	List<Map<String, Object>> alertlist = mypageService.selectAlList(paging, userNo);
+		
+		model.addAttribute( "alarmList" , alertlist);
+		model.addAttribute("paging", paging);
+    	
+    }	
+
+    //reviewlist 전체 삭제
+    @RequestMapping(value = "/removeReviewlist", method = RequestMethod.GET)
+    public void reviewdelete(String reviewNo, Review review) throws Exception {
+    	mypageService.removeReviewlist(reviewNo);	
+    }
+    
+    //reviewlist 선택삭제
+    @RequestMapping(value = "/removeReviewlist",method = RequestMethod.POST)
+    public void reviewajax(HttpServletRequest request,Review review, 
+    		HttpSession session, Model model, @RequestParam(defaultValue = "0") int curPage ) throws Exception {
+    	String[] ajaxMsg = request.getParameterValues("valueArr");
+    	
+    	int size = ajaxMsg.length;
+    	for(int i=0; i<size; i++) {
+    		mypageService.removeReviewlist(ajaxMsg[i]);
+    	}
+    	
+    	int userNo = (Integer)session.getAttribute("userno");
+		Paging paging = mypageService.getReviewPaging(curPage, userNo);
+		List<Map<String, Object>> reviewList = mypageService.selectReviewList(paging,userNo);
+
+		model.addAttribute("reviewlist", reviewList);
+		model.addAttribute("paging", paging);
+
+    }	
+    
+    @RequestMapping("/mypayList")
+    public void mypay(HttpSession session, Model model,  @RequestParam(defaultValue = "0") int curPage ) {
+    	
+		int userNo = (Integer)session.getAttribute("userno");
+		String usernick = (String)session.getAttribute("usernick");
+		
+		Paging paging = mypageService.getReservePaging(curPage, userNo);
+    
+		List<Map<String, Object>> paylist = mypageService.selectReserve(paging, userNo);
+		
+		logger.info("{}",paylist);
+		logger.info("{}",paging);
+		
+		model.addAttribute("paging", paging);
+		model.addAttribute("paylist", paylist);
+		
+		
+    }
+    
 	
 }

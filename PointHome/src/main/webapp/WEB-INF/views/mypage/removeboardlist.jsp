@@ -33,9 +33,11 @@
 			</c:forEach>
 	</table>
 	
-	<div class="float-end mb-3">
-       <input type="button" value="삭제" class="btn btn-outline-info" onclick="deleteValue();">
+	<div class="float-end mx-3">
+       <label for="delete"><i class="bi bi-trash" ></i></label>
+       <input type="button"  id="delete" style="display: none;" value="삭제" class="btn btn-outline-info" onclick="deleteValue();">
 	</div>
+	
 	
 <!-- 페이징 -->
 <div style="margin-bottom: 200px;"><!-- href로 링크만 넣어주면 됨 -->
