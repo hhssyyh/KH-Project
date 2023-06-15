@@ -46,13 +46,13 @@ public class AdminController {
 	
 	@GetMapping("/login")
 	public void loginGet() {
-		logger.debug("/admin/login [GET]");
+//		logger.debug("/admin/login [GET]");
 		
 	}
 	
 	@PostMapping("/login") 
 	public String loginPost(Admin admin, HttpSession session) {
-		logger.info("{}", admin);
+//		logger.info("{}", admin);
 		
 		boolean adminLogin = adminService.adminLogin(admin);
 //		logger.debug("{}", adminLogin);
@@ -278,11 +278,11 @@ public class AdminController {
 	}
 	@GetMapping("/partnerdetail")
 	public void partnerdetail(int partnerNo, Model model) {
-		logger.debug("partnerNo!!!!!!!!!!!!{}",partnerNo);
+//		logger.debug("partnerNo!!!!!!!!!!!!{}",partnerNo);
 		
 		Partner detailList = adminService.partnerdetail(partnerNo);
 		 
-		logger.debug("!!!!!!!!!!!!!!!!{}",detailList);
+//		logger.debug("!!!!!!!!!!!!!!!!{}",detailList);
 		model.addAttribute("detailList", detailList);
 		
 	}
@@ -302,7 +302,7 @@ public class AdminController {
 
 		PartnerFile partnerFile = adminService.selectPartnerImg(partnerNo);
 		
-		logger.debug("file11 {}",partnerFile);
+//		logger.debug("file11 {}",partnerFile);
 		
 		model.addAttribute("partnerFile", partnerFile);
 		model.addAttribute("detailList", detailList);
@@ -314,7 +314,7 @@ public class AdminController {
 		
 		adminService.partnerupdate(partner,file);
 		
-		logger.debug("file222 {}",file);
+//		logger.debug("file222 {}",file);
 		
 		model.addAttribute("profile", file);
 		
@@ -330,7 +330,7 @@ public class AdminController {
 	         @RequestParam(value = "keyword",required = false, defaultValue = "") String keyword
 	         )throws Exception{
 
-		  logger.debug("partNo!!!!!!!!!!!{}:",partNo);  
+//		  logger.debug("partNo!!!!!!!!!!!{}:",partNo);  
 		   
 		Paging paging = adminService.getPartReservePaging(partNo,curPage,filter,searchType,keyword);
 		List<Map<String, Object>> partReserveList = adminService.getPartReserveList(partNo,paging,filter,searchType,keyword);
@@ -361,7 +361,7 @@ public class AdminController {
 		
 		List<Integer> reserveList = adminService.reserveTime(reservation);
 		
-		logger.debug("!!!!!!!!!!!!!!!!!!!!!!!!!!{}", reserveList);
+//		logger.debug("!!!!!!!!!!!!!!!!!!!!!!!!!!{}", reserveList);
 		
 		model.addAttribute("partnerNo", partnerNo);
 		model.addAttribute("reserveList", reserveList);
@@ -375,7 +375,7 @@ public class AdminController {
 	public void updateReserveAjax( int partnerNo,Reservation reservation, int resNo, HttpSession session, Model model) {
 		reservation.setPartNo(partnerNo);
 		List<Integer> reserveList = adminService.reserveTime(reservation);
-		logger.debug("partnerNo { } :",partnerNo);
+//		logger.debug("partnerNo { } :",partnerNo);
 		
 		model.addAttribute("partnerNo", partnerNo);
 		model.addAttribute("reserveList", reserveList);
@@ -396,7 +396,7 @@ public class AdminController {
 	//공지사항 
 	@GetMapping("/noticelist")
 	public void adminnotice(@RequestParam(defaultValue = "0") int curPage,Model model, @RequestParam(defaultValue = "a") String filter,HttpSession session,@RequestParam(defaultValue = "a") String type) throws Exception{
-		logger.debug("/admin/noticelist");	
+//		logger.debug("/admin/noticelist");	
 		
 		Paging paging = adminService.getPagingNotice(curPage,filter,type);
 		
@@ -460,7 +460,7 @@ public class AdminController {
 		
 		Paging paging = adminService.getPagingUserPost(userNo,curPage,filter,searchType,keyword);
 		
-		logger.debug("paging!!{}",paging);
+//		logger.debug("paging!!{}",paging);
 //		logger.debug("userboardpost --userno - {}", userNo);	
 		
 		List<FreeBoard> fblist = adminService.userPost(userNo,paging,filter,searchType,keyword);
@@ -483,9 +483,9 @@ public class AdminController {
 		
 		Paging paging = adminService.getPagingUserCmt(userNo,curPage,filter,searchType,keyword);
 		
-		logger.debug("paging!@#{}:",paging);
+//		logger.debug("paging!@#{}:",paging);
 		List<Map<String, Object>> cmtList = adminService.userCmt(userNo,paging,filter,searchType,keyword);
-		logger.debug("usercmt!@#{}:",cmtList);
+//		logger.debug("usercmt!@#{}:",cmtList);
 		
 		
 		model.addAttribute("cmtList", cmtList);
@@ -630,5 +630,23 @@ public class AdminController {
 			
 			return "redirect:./partnervideo?partnerNo="+partnerVideo.getPartnerNo();
 		}	   
+		
+		@GetMapping("/payment")
+		public void payment (int partnerNo, Model model,@RequestParam(defaultValue = "0") int curPage,
+		         @RequestParam(defaultValue = "resdatedesc")  String filter, 
+		         @RequestParam(value = "searchType",required = false, defaultValue = "title") String searchType,
+		         @RequestParam(value = "keyword",required = false, defaultValue = "") String keyword
+		         )throws Exception{
+			
+			Paging paging = adminService.getPagingPayment(partnerNo,curPage,filter,searchType,keyword);
+			
+			List<Map<String,Object>> payList = adminService.getpayment(partnerNo,paging,filter,searchType,keyword);
+		
+			model.addAttribute("payList", payList);
+			 model.addAttribute("paging", paging);
+		      model.addAttribute("filter", filter);
+		      model.addAttribute("searchType", searchType);
+		      model.addAttribute("keyword", keyword);
+		}
 }
 
