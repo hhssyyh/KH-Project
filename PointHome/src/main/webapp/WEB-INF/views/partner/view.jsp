@@ -7,7 +7,7 @@
 
 <style type="text/css">
 .partnernoticeView {
-	font-family: SBAggroL;
+	font-family: SBAggroM;
 }
 
 div.content {
