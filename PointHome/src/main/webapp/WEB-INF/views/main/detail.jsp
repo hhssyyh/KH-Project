@@ -327,11 +327,13 @@ $(document).ready(function() {
 			</span>
 			(${avgGrade })
 		</div>
-		<div style="font-size: 19px; width: 400px; padding-top: 10px;">
-			${partner.partnerPr }
-		</div>
-		<div style="margin-top: 30px; text-align: center;">
-			<button class="btn partner-btn" style="margin-right: 10px; background-color: orange; border-color: orange;">1:1 채팅</button>
+
+<!-- 		<div style="font-size: 19px; width: 400px; padding-top: 10px;"> -->
+<%-- 			${partner.partnerPr } --%>
+<!-- 		</div> -->
+		<div style="margin-top: 50px; text-align: center;">
+			<a href="/chat/room"><button id="chatBtn"  class="btn partner-btn" style="margin-right: 10px; background-color: orange; border-color: orange;">1:1 채팅</button></a>
+
 			<span class="pick" style="margin-top: 20px;"> 
 				<input class="partNo" type="hidden" value="${partNo}">
 				<c:if test="${isPick eq 0}">
@@ -366,6 +368,7 @@ $(document).ready(function() {
 	<div data-bs-spy="scroll" class="scrollspy-example p-5 rounded-3 tab-border" data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" tabindex="0">
 		<div class="tab-title">안내</div>
 		<hr>
+
 		<div style="margin: 20px; margin-top: 40px; margin-bottom: 90px;" class="clearfix">
 			<!-- 지도 -->
 			<div id="map" style="width:550px; height:500px; float: left;"></div>
@@ -383,6 +386,7 @@ $(document).ready(function() {
 					<p style="font-size: 28px;">- 환불 안내</p>
 					<div>환불은 어렵습니다. 신중히 결정하세요.</div>
 				</div>
+
 			</div>
 			<div id="guide"></div>
 		</div>
@@ -484,11 +488,17 @@ $(document).ready(function() {
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 mapOption = {
     center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+  
     level: 3 // 지도의 확대 레벨
 };  
 
 //지도를 생성합니다    
 var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+function setDraggable(draggable) {
+    // 마우스 드래그로 지도 이동 가능여부를 설정합니다
+    map.setDraggable(draggable);    
+}
 
 //주소-좌표 변환 객체를 생성합니다
 var geocoder = new kakao.maps.services.Geocoder();
@@ -518,6 +528,12 @@ geocoder.addressSearch('${partner.partnerAddress}', function(result, status) {
 });
 </script>
 
+<script type="text/javascript">
+$("#chatBtn").on('click', function(e) {
+	  e.preventDefault();
+	  window.open("/chat/room", "chat/room", "width=500, height=700, top=200, left=200, resizable=no");
+	});
+</script>
 
 <c:import url="/WEB-INF/views/layout/footer.jsp"/>
 
