@@ -5,7 +5,7 @@
 
 <c:import url="/WEB-INF/views/layout/header.jsp" />
 
-	
+
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
 <!-- include summernote css/js -->
@@ -37,11 +37,7 @@ $(function() {
 	
       
 })
-
-
 </script>
-
-
 
 <style type="text/css">
 a {
@@ -108,7 +104,6 @@ a {
 /* * { */
 /* 	font-family: 'Gowun Batang', serif; */
 /* } */
-
 #writeContainter {
 	margin-top: 54px;
 }
@@ -116,40 +111,112 @@ a {
 #header, #footer {
 	text-align: center;
 }
+
 .btn-info {
 	font-family: 'SBAggroM';
 	background-color: #7e00c2;
 	border-color: transparent;
 	color: white;
 }
-body{
-	font-family: 'SBAggroL';
 
+body {
+	font-family: 'SBAggroL';
 }
+
 .container {
 	margin: 0 auto;
 }
 
+.layer {
+	display: none;
+	position: absolute; /* 위치고정 임 */
+	transform: translate(-50%, -50%);
+	width: 300px;
+	background-color: #fefefe;
+	padding: 20px;
+	border: 1px solid #888;
+	z-index: 9999; /* 제일 위에 */
+	outline: none;
+}
+
+.close-btn {
+	color: #aaa;
+	float: right;
+	font-size: 20px;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.close-btn:hover, .close-btn:focus {
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+/* 레이어 창 위치 들 */
+#copyright_law {
+	left: 61%;
+	top: 46%;
+}
+
+#post_guide {
+	left: 69%;
+	top: 49%;
+}
+
+/* 버튼 모양 없애기  */
+.layer_show {
+	background: none;
+	border: none;
+	text-decoration: none;
+}
+
+.layer_show:focus {
+	outline: none;
+}
 </style>
 
 
 
 <div id="writeContainter" class="container">
 
-	<br>
-	<br>
+	<br> <br>
 
 	<h1 style="text-align: center; font-family: 'SBAggroM';">
-			<i class="bi bi-journal-text"></i>&nbsp;&nbsp;게시글 작성
-			</h1>
+		<i class="bi bi-journal-text"></i>&nbsp;&nbsp;게시글 작성
+	</h1>
+	<br> ※ 음란물, 차별, 비하, 혐오 및 초상권, 저작권 침해 게시물은 민, 형사상의 책임을 질 수 있습니다.
+	<button type="button" class="layer_show" layer="copyright_law">[저작권법
+		안내]</button>
+	<button type="button" class="layer_show" layer="post_guide">[게시물
+		활용 안내]</button>
+
+	<div id="copyright_law" class="layer">
+		<div class="layer-content">
+			<span class="close-btn">&times;</span>
+			<h3>저작권법 안내</h3>
+			<hr>
+			<p>이용자가 불법복제물을 게재, 유통하면 이에 대한 경고 및 불법복제물의 삭제 또는 전송 중단 조치를 할 수
+				있으며, 경고를 받은 이용자에게 사용 정지를 할 수 있습니다. (관련 법률: 저작권법 제133조의 제1항 및 제2항)</p>
+		</div>
+	</div>
+
+	<div id="post_guide" class="layer">
+		<div class="layer-content">
+			<span class="close-btn">&times;</span>
+			<h3>게시물 활용 안내</h3>
+			<hr>
+			<p>이용자가 게시한 게시물의 저작권은 게시한 이용자에게 귀속됩니다. 단, 회사는 서비스의 운영, 전시, 전송,
+				배포, 홍보의 목적으로 회원의 별도의 허락 없이 무상으로 저작권법에 규정하는 범위 내에서 이용자가 등록한 게시물을 사용할
+				수 있습니다. (세부조항 '이용약관' 제13조와 동일)</p>
+		</div>
+	</div>
 	<br>
 	<hr>
-	<br>
-
 	<form action="./write" method="post" enctype="multipart/form-data">
 
 		<input style="width: 450px;" name="freeboardTitle" type="text"
-		class="form-control" placeholder="제목" required><br>
+			class="form-control" placeholder="제목" required><br>
 
 
 		<textarea style="display: none" id="freeboardContent"
@@ -160,20 +227,16 @@ body{
 		<div class="modal">
 			<div class="modal_body">
 				게시글을 등록하시겠습니까?&nbsp;&nbsp;&nbsp;
-				<button type="submit"
-					class="btn btn-info btn-sm">확인</button>
-				<button type="button"
-					class="btnModalCancle btn btn-info btn-sm ">취소</button>
+				<button type="submit" class="btn btn-info btn-sm">확인</button>
+				<button type="button" class="btnModalCancle btn btn-info btn-sm ">취소</button>
 			</div>
 		</div>
 
 		<div class="modal2">
 			<div class="modal2_body">
 				게시글작성을 중단하시겠습니까?&nbsp;&nbsp;&nbsp;
-				<button type="button"
-					class="btn btn-info btn-sm" id="btnCancle" >확인</button>
-				<button type="button"
-					class="btnModalCancle2 btn btn-info btn-sm">취소</button>
+				<button type="button" class="btn btn-info btn-sm" id="btnCancle">확인</button>
+				<button type="button" class="btnModalCancle2 btn btn-info btn-sm">취소</button>
 			</div>
 		</div>
 
@@ -246,7 +309,54 @@ body{
     	  modal2.classList.remove('show'); 
       });
       
+      //레이어 창 구현
       
+      // x 버튼 누르면 레이어 창 꺼진다
+      var closeButtons = document.querySelectorAll('.close-btn');
+      closeButtons.forEach(function (button) {
+          button.addEventListener('click', function () {
+              var layer = this.parentElement.parentElement;
+              layer.style.display = 'none';
+          });
+      });
+
+      // 버튼 클릭 시 해당 레이어 창 표시하는 코드
+      var layerButtons = document.querySelectorAll('.layer_show');
+      layerButtons.forEach(function (button) {
+          button.addEventListener('click', function () {
+              var layerId = this.getAttribute('layer');
+              var layer = document.getElementById(layerId);
+              layer.style.display = 'block';
+          });
+      });
+      
+      
+      //여긴 버튼 클릭 했을 때 자동으로 옆에 꺼지게 구현하는 곳임 원래는 직접꺼야함
+      var closeButtons = document.querySelectorAll('.close-btn');
+      closeButtons.forEach(function (button) {
+          button.addEventListener('click', function () {
+              var layer = this.parentElement.parentElement;
+              layer.style.display = 'none';
+          });
+      });
+
+      var layerButtons = document.querySelectorAll('.layer_show');
+      layerButtons.forEach(function (button) {
+          button.addEventListener('click', function () {
+              var layerId = this.getAttribute('layer');
+              var layer = document.getElementById(layerId);
+              
+              // 모든 레이어 창을 숨김 처리
+              var allLayers = document.querySelectorAll('.layer');
+              allLayers.forEach(function (l) {
+                  l.style.display = 'none';
+              });
+              
+              // 선택한 레이어 창을 표시
+              layer.style.display = 'block';
+          });
+      });
+
     </script>
 
 

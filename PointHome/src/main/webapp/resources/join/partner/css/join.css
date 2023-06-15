@@ -6,20 +6,22 @@ body {
 }
 
 .join-form-background {
+	width:40%;
 	border: 1px solid none;
 	background-color: white;
-	border-radius: 20px;
+	border-radius: 50px;
 	box-shadow: 0 4px 5px rgba(0, 0, 0, 0.6);
 }
 
 form {
 	color:gray;
-	margin: 0 auto;
+	margin: 0px auto;
+	margin-bottom: 60px;
 	width: 70%;
 }
 
 svg {
-	margin-top: 50px;
+	margin-top:80px;
 	margin-bottom: 50px;
 	width: 300px;
 }
@@ -27,7 +29,10 @@ svg {
 .btn-postcode {
 	margin-top: 5px;
 }
-
+.btn-duplChk{
+	margin-top: 5px;
+	
+}
 .btn-join {
 	background-color: #7e00c2;
 	color: white;

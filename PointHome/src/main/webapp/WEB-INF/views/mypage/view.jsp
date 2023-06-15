@@ -106,7 +106,7 @@ hr{
 	<button class="btn btn-outline-secondary myBtn">상담내역</button>
 	<a href="./myreserve"><button class="btn btn-outline-secondary myBtn">결제내역</button></a>
 	<a href="./qna"><button class="btn btn-outline-secondary myBtn">나의 문의</button></a>
-	<a href="./serviceCenter"><button class="btn btn-outline-secondary myBtn">고객센터</button></a>
+	<a href="/user/serviceCenter"><button class="btn btn-outline-secondary myBtn">고객센터</button></a>
 </div>
 
 <hr style="width: 60%; margin: 0 auto; margin-bottom: 80px;">
@@ -115,12 +115,9 @@ hr{
 
 	<div class="conRow">
 		<div id="reserveDiv" class="conRowDiv">
-
-		
-		
 		
 			<div class="conTitle" id="conTitle">예약관리</div>
-			<button class="btn btn-outline-secondary" style="float: right; font-size: 13px;"><a href="./myreserve">전체 예약 조회</a></button>
+			<a href="./myreserve" class="btn btn-outline-secondary" style="float: right; font-size: 13px;">전체 예약 조회</a>
 			<hr>
 				<c:forEach var="list" items="${reservelist}" begin="0" end="7">
 				<fmt:parseDate value="${RESERVE_TIME}" var="resDate" pattern="yyyy-MM-dd HH:mm"/>

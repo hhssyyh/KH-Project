@@ -64,12 +64,12 @@ $( () => {
 <!-- 로고 영역 끝 -->
   
 <!-- 카테고리 영역 -->
-<div class="category">
-	<a class="category-item mx-5" href="/partner/list">전체</a>
-	<a class="category-item mx-5" href="/partner/list?partnerType=t">타로</a>
-	<a class="category-item mx-5" href="/partner/list?partnerType=c">철학</a>
-	<a class="category-item mx-5" href="/partner/list?partnerType=s">신점</a>
-</div>
+<ul class="category">
+	<li class="category-item mx-5"><a href="/partner/list">전체</a></li>
+	<li class="category-item mx-5"><a href="/partner/list?partnerType=t">타로</a></li>
+	<li class="category-item mx-5"><a href="/partner/list?partnerType=c">철학</a></li>
+	<li class="category-item mx-5"><a href="/partner/list?partnerType=s">신점</a></li>
+</ul>
 <!-- 카테고리 영역 -->
 
 <!-- 알림 영역 -->    
@@ -101,7 +101,7 @@ $( () => {
 <!-- 마이페이지, 찜, 예약결제, Real 상담, 자유게시판, 리뷰 -->
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
 	
-	<div class="offcanvas-header bg-dark mb-2">
+	<div class="offcanvas-header offcanvas-head mb-2">
 	
 	<!-- 로그인하지 않았을때 -->
 	<c:if test="${sessionScope.login eq false || sessionScope.login == null }">
@@ -203,13 +203,13 @@ $( () => {
 	<c:if test="${sessionScope.login eq true}">
 		<hr>
 		<div class="nav_ment d-grid gap-2 col-10 mx-auto">
-			<a class="btn btn-dark fs-4" href="/user/logout">로그아웃</a>
+			<a class="btn btn-logout fs-4" href="/user/logout">로그아웃</a>
 		</div>
 	</c:if>
 	<c:if test="${sessionScope.login ne true}">
 		<hr>
 		<div class="nav_ment d-grid gap-2 col-10 mx-auto">
-			<a class="btn btn-dark fs-4" href="/admin/login">관리자 로그인</a>
+			<a class="btn btn-adminLogin fs-4" href="/admin/login">관리자 로그인</a>
 		</div>
 	</c:if>
 </div>

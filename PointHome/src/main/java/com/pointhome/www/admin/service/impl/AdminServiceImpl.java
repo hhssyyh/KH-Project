@@ -511,4 +511,20 @@ public class AdminServiceImpl implements AdminService {
 	public void deleteVideo(int partnerVideoNo) {
 		adminDao.deleteVideo(partnerVideoNo);
 	}
+	@Override
+	public List<Map<String,Object>> getpayment(int partnerNo, Paging paging, String filter, String searchType,
+			String keyword) {
+		
+		List<Map<String,Object>> list = adminDao.selectPayment(partnerNo,paging,filter,searchType,keyword);
+		return list;
+	}
+
+	@Override
+	public Paging getPagingPayment(int partnerNo, int curPage, String filter, String searchType, String keyword) {
+		int totalPage = adminDao.getPagingPayment(partnerNo,filter, searchType, keyword);
+	      
+	      Paging paging = new Paging(totalPage, curPage); 
+	      
+		return paging;
+	}
 }

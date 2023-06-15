@@ -681,7 +681,7 @@
  </select>
  
  <select id="selectPartReserveList" parameterType="map" resultType="map">
-    select * from ( select * from (
+    select * from (
 		  select rownum rnum, A.* from(
 	  select re.res_no,re.part_no, re.res_date,re.res_reserveno,re.user_no,re.res_time,re.res_div,re.res_price,
 		  ut.user_name,ut.user_nick,ut.user_email,ut.user_phone
@@ -715,12 +715,12 @@
             </when>
 
          </choose>
-      
       ) A
       )
-	 WHERE rnum BETWEEN #{paging.startNo} and #{paging.endNo}    
+       WHERE rnum BETWEEN #{paging.startNo} and #{paging.endNo}   
 	 
-	 )
+	 
+
 </select>
  
  
@@ -783,4 +783,76 @@
 		WHERE partner_video_no = #{partnerVideoNo}
 	</delete>
  
+ 	
+  <select id="selectPayment" resultType="map" parameterType="map">
+     select * from (
+        select rownum rnum, A.* from (
+            SELECT P.partner_account, p.partner_bank, p.partner_no as pn,
+                R.res_no, r.res_reserveno, r.res_price, r.res_date, r.res_time,r.user_no
+                , u.user_name, u.user_email
+            FROM Reservation R
+            INNER JOIN Partner_tb P ON P.partner_no = R.part_no
+            INNER JOIN User_tb U ON U.user_no = R.user_no
+            where R.part_no = #{partnerNo}
+        
+            <if test='searchType.equals("user_email")'>
+                and U.user_email LIKE concat(concat('%', #{keyword}), '%')
+            </if>
+            
+            <if test='searchType.equals("user_name")'>
+                and U.user_name LIKE concat(concat('%', #{keyword}), '%')
+            </if>
+            
+            <choose>
+                <when test='filter.equalsIgnoreCase("resdateasc")'>
+                    ORDER BY r.res_date 
+                </when>
+                <when test='filter.equalsIgnoreCase("resdatedesc")'>
+                    ORDER BY r.res_date DESC
+                </when>
+
+            </choose>
+        ) A
+        )
+        WHERE rnum BETWEEN #{paging.startNo} and #{paging.endNo}
+   
+</select>
+    
+
+ 	
+ 	
+ 	<select id="getPagingPayment"  resultType="int">
+  
+         select count(*) from (
+            select rownum rnum, A.* from (
+                SELECT P.partner_account, p.partner_bank, p.partner_no as pn,
+                    R.res_no, r.res_reserveno, r.res_price, r.res_date, r.res_time,r.user_no
+                    , u.user_name, u.user_email
+                FROM Reservation R
+                INNER JOIN Partner_tb P ON P.partner_no = R.part_no
+                INNER JOIN User_tb U ON U.user_no = R.user_no
+                where R.part_no = #{partnerNo}
+            
+            <if test='searchType.equals("user_email")'>
+                and u.user_email LIKE concat(concat('%', #{keyword}), '%')
+            </if>
+            
+            <if test='searchType.equals("user_name")'>
+                and u.user_name LIKE concat(concat('%', #{keyword}), '%')
+            </if>
+            
+            <choose>
+                <when test='filter.equalsIgnoreCase("resdateasc")'>
+                    ORDER BY r.res_date 
+                </when>
+                <when test='filter.equalsIgnoreCase("resdatedesc")'>
+                    ORDER BY r.res_date DESC
+                </when>
+            </choose>
+            
+        ) A
+    )
+
+   
+ </select>
 </mapper>
