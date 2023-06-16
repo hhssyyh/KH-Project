@@ -211,7 +211,14 @@
 		</div>
 			
 		<hr>
-		
+		<div id="divPhone">
+			<h6 style="margin-left: 13px;">판매가격설정</h6>
+			<input type="text" class="form-control" id="floatingInput"
+					style="width: 23%;  margin-left: 215px; margin-top: -68px;"
+					value="${res.partnerPrice}" name="partnerPrice">
+			<label for="floatingInput"></label>
+		</div>
+		<hr>
 		
 		
 		

@@ -24,9 +24,11 @@ public class MailController {
 	public Map<String, Object> chkDupEmail(@RequestBody Map<String, Object> jsonData) {
 		logger.debug("/user/chkDupEmail [POST]");
 		logger.debug("Email 중복 확인차 받은 param : {}", jsonData);
-
+		
+		// 결과값을 담을 map객체
 		Map<String, Object> map = new HashMap<>();
 
+		// ajax로 받은 중복확인할 Email
 		String param = (String) jsonData.get("Email");
 
 		String Email = mailService.chkUserEmail(param);
