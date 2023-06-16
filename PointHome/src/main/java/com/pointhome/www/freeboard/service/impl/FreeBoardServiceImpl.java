@@ -196,7 +196,7 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	@Override
 	public void delete(FreeBoard board) {
 
-		freeBoardDao.deleteFile(board);
+//		freeBoardDao.deleteFile(board);
 		freeBoardDao.deleteBoard(board);
 
 	}
@@ -231,7 +231,7 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 
 	@Override
 	public void update( FreeBoard board, List<MultipartFile> dataMul) {
-		freeBoardDao.deleteFile(board);
+//		freeBoardDao.deleteFile(board);
 		freeBoardDao.update(board);
 
 		for(MultipartFile m : dataMul ) {
@@ -299,6 +299,11 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	public List<User> viewUserNick(int freeboardNo) {
 		
 		return freeBoardDao.viewUserNick(freeboardNo);
+	}
+
+	@Override
+	public void deleteFile(int boardFileNo) {
+		freeBoardDao.deleteBoardFile(boardFileNo);
 	}
 
 

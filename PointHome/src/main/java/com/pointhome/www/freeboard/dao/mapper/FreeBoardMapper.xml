@@ -114,10 +114,10 @@
 		#{freeboardFile_no}
 	</select>
 
-	<delete id="deleteFile" parameterType="int">
-		delete freeboard_file
-		where freeboard_no = #{freeboardNo}
-	</delete>
+<!-- 	<delete id="deleteFile" parameterType="int"> -->
+<!-- 		delete freeboard_file -->
+<!-- 		where freeboard_no = #{freeboardNo} -->
+<!-- 	</delete> -->
 
 	<delete id="deleteBoard" parameterType="FreeBoard">
 		delete freeboard
@@ -354,6 +354,9 @@
 <!-- 		fc.freeboard_no = #{freeboardNo} -->
 <!-- 	</select>	 -->
 	
+	<delete id="deleteBoardFile" parameterType="int">
+		DELETE FROM freeboard_file WHERE freeboardfile_no = #{boardFileNo}
+	</delete>
 	
 </mapper>
 

@@ -256,17 +256,17 @@
 		order by partner_notice_no desc)P
 	</select>
 	
-<!-- 	<select id="selectPickNoticeByuserno" parameterType="Map" resultType="Map"> -->
-<!-- 		select*from( -->
-<!-- 		select rownum rnum, P.* from ( -->
-<!-- 		select pn.partner_notice_date, pn.partner_notice_title, pn.partner_no, pt.partner_shopname -->
-<!-- 		FROM partner_pick pp, partner_notice pn, partner_tb pt -->
-<!-- 		where pp.part_no = pn.partner_no -->
-<!-- 		and pn.partner_no = pp.part_no -->
-<!-- 		and pp.user_no = 111 -->
-<!-- 		order by pn.partner_notice_no desc)P -->
-<!-- 		) -->
-<!-- 		where rnum between 1 and 20 -->
-<!-- 	</select> -->
+	<select id="selectPickNoticeByuserno" parameterType="Map" resultType="Map">
+		select * from(
+		select rownum rnum, P.* from (
+		select pn.partner_notice_date, pn.partner_notice_title, pn.partner_no, pt.partner_shopname
+		FROM partner_pick pp, partner_notice pn, partner_tb pt
+		where pp.part_no = pn.partner_no
+		and pt.partner_no = pp.part_no
+		and pp.user_no = #{userNo}
+		order by pn.partner_notice_no desc)P
+		)
+		where rnum between #{paging.startNo} AND #{paging.endNo}
+	</select>
 	
 </mapper>

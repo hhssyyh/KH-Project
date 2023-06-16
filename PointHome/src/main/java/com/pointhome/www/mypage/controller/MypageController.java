@@ -702,13 +702,14 @@ public class MypageController {
 		
 		logger.info("왜!!!!!!!!!! {}" , paging);
 		
-//		List<Map<String, Object>> pickNotice = mypageService.selectPickNotice(paging, userNo);
+		List<Map<String, Object>> pickNotice = mypageService.selectPickNotice(paging, userNo);
 		
-//		logger.info("왜!!!!!!!!!! {}" , pickNotice);
+		logger.info("왜!!!!!!!!!! {}" , pickNotice);
 		
 		UserFile userFile = mypageService.selectImg(userNo);
 		int alertCnt = mypageService.getAlertCnt(userNo);
 		
+		model.addAttribute( "pickNotice" , pickNotice);
 		model.addAttribute( "alertCnt" , alertCnt);
 		model.addAttribute("userFile", userFile);
 		model.addAttribute("userNick", usernick);
