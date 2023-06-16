@@ -301,6 +301,12 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 		return freeBoardDao.viewUserNick(freeboardNo);
 	}
 
+	@Override
+	public String nick(int userNo) {
+		
+		return freeBoardDao.nick(userNo);
+	}
+
 
 }
 

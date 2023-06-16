@@ -292,10 +292,13 @@ function updateCom(th, commNo) {
 
 		<c:if test="${not empty login and login || not empty adminLogin and adminLogin}">
 			<!-- post 댓글 인서트 -->
+			
 			<form action="./view" method="post">
+				
 				<div class="row">
 					<div class="col-md-6" style="width: 100%;">
 						<div class="d-flex align-items-center">
+							<span><b>${nick }</b></span>&nbsp;
 							<div class="input-group">
 								<input type="text" class="form-control rounded-0" name="commContent" id="cmt"
 									style="max-width: 650px;" placeholder="댓글 작성"
