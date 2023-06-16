@@ -43,36 +43,18 @@ $( () => {
 				, dataType : "json"
 				, success : function(res) {
 					console.log("중복확인 성공");
-					console.log(res);
-					console.log(res.Email);
 					
 					if (res.Email == null ){
 						console.log("이메일 사용 가능");
 						console.log("회원가입 인증 메일 발송!");
-						console.log($data);
-												
-						url = "/mail/mailCheck";
-						type = 'POST';
-						
-						$.ajax({
-							type : type
-							, url : url
-							, contentType: "application/json; charset=UTF-8"
-							, data : JSON.stringify($data)
-							, dataType : "json"
-							, success : function (code) {
-								console.log("이메일 발송 완료");
-								alert('인증번호가 전송되었습니다.')
-								console.log("서버에 알려준 인증코드 : " +  code.EmailCode);
-// 								 checkInput.attr('disabled',false);
-							}			
-						}); // end ajax
-						
 					}else{
 						console.log("이미 사용중인 이메일 입니다.");
-						
 					}
 					
+					console.log(res);
+					console.log(res.Email);
+					console.log(res.EmailCode);
+
 				}
 				, error : function() {
 					console.log("AJAX 실패")

@@ -24,39 +24,33 @@ public class MailController {
 	public Map<String, Object> chkDupEmail(@RequestBody Map<String, Object> jsonData) {
 		logger.debug("/user/chkDupEmail [POST]");
 		logger.debug("Email 중복 확인차 받은 param : {}", jsonData);
+
+		Map<String, Object> map = new HashMap<>();
+
 		String param = (String) jsonData.get("Email");
 
 		String Email = mailService.chkUserEmail(param);
 		logger.debug("Email 중복 확인차 검색된 Email [존재X : null] : {}", Email);
 		
-		Map<String, Object> map = new HashMap<>();
+		// 입력받은 Eamil로 가입이 가능한 경우 메일 발송
+		if (Email == null) {
+			
+			int authNumber = mailService.makeRandomNumber();
+			logger.debug("생성된 인증 코드 : {}", authNumber);
+			
+			String EmailCode = mailService.joinEmail(param, authNumber);
+			logger.debug("발송된 인증 코드 : {}", EmailCode);
+			
+			UserEmailCode userEmailCode = new UserEmailCode(param,EmailCode, null);
+			mailService.addEamilCode(userEmailCode);
+			
+			map.put("EmailCode", EmailCode);
+			logger.debug("발송된 인증 코드 : {}", map);
+
+		}
+		
 		map.put("Email", Email);
 		return map;
-	}
-	
-	@PostMapping("/mail/mailCheck")
-	@ResponseBody
-	public Map<String, Object> mailCheck(@RequestBody Map<String, Object> jsonData) {
-		logger.debug("/mail/mailCheck");
-		logger.debug("이메일 인증 이메일 : {}", jsonData);
-		
-		String email = (String) jsonData.get("Email");
-		logger.debug("String 인증 이메일 : {}", email);
-		
-		int authNumber = mailService.makeRandomNumber();
-		logger.debug("생성된 인증 코드 : {}", authNumber);
-		
-		String EmailCode = mailService.joinEmail(email, authNumber);
-		logger.debug("발송된 인증 코드 : {}", EmailCode);
-		
-		UserEmailCode userEmailCode = new UserEmailCode(email,EmailCode, null);
-		mailService.addEamilCode(userEmailCode);
-		
-		Map<String, Object> data = new HashMap<>();
-		data.put("EmailCode", EmailCode);
-		logger.debug("발송된 인증 코드 : {}", data);
-		
-		return data;
 	}
 	
 }

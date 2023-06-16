@@ -14,5 +14,5 @@
 		INSERT INTO user_EmailCode (user_Email, user_EmailCode)
 		VALUES (#{userEmail}, #{userEmailCode})
 	</insert>
-	
+
 </mapper>

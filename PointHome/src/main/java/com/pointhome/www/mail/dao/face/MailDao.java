@@ -16,4 +16,5 @@ public interface MailDao {
 	 * @param userEmailCode - 이메일 인증 코드
 	 */
 	public void insertEmailCode(UserEmailCode userEmailCode);
+
 }
