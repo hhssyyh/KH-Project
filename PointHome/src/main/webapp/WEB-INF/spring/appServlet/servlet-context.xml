@@ -117,7 +117,10 @@
 		com.pointhome.www.admin.controller,
 		com.pointhome.www.admin.service,
 		com.pointhome.www.mail.controller,
-		com.pointhome.www.mail.service
+		com.pointhome.www.mail.service,
+		com.pointhome.www.chat.controller,
+		com.pointhome.www.chat.service
+		
 		" />
 		 
 	<beans:bean id="echoHandler" class="com.pointhome.www.chat.handler.WebSocketHandler"/>

@@ -94,14 +94,19 @@ public class mainController {
 			model.addAttribute("isPick", isPick);
 			model.addAttribute( "alertCnt" , alertCnt);
 		}
-		
+
 		//평균 별점 계산
 		double grade = 0;
-		for(Map review : reviewList) {
-		    grade += ((BigDecimal) review.get("REVIEW_GRADE")).doubleValue();
+		String avgGrade = "0";
+		if(reviewList.size() != 0) {
+			for(Map review : reviewList) {
+				grade += ((BigDecimal) review.get("REVIEW_GRADE")).doubleValue();
+			}
+			grade = grade/reviewList.size();
+			avgGrade = String.format("%.1f", grade);
 		}
-		grade = grade/reviewList.size();
-		String avgGrade = String.format("%.1f", grade);
+		
+		logger.debug("!!!!!!!!!!!!!{}", avgGrade);
 		
 		model.addAttribute("reviewList", reviewList);
 		model.addAttribute("reviewCnt", reviewList.size());
@@ -272,7 +277,6 @@ public class mainController {
 	      } catch (ParseException e) {
 	         e.printStackTrace();
 	      }
-
 
 	 
 		mainService.insertReserveData(res);
