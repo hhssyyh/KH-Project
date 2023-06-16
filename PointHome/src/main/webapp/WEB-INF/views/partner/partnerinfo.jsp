@@ -1,18 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="java.util.Date" %>
 
 <c:import url="/WEB-INF/views/layout/partnerLayout/header.jsp" />
 
-<link href="/resources/mypage/userInfo.css" rel="stylesheet">
+<link href="/resources/mypage/userInfo.css?d=<%= new Date() %>" rel="stylesheet">
 
 <%-- <c:import url="/WEB-INF/views/layout/myprofile.jsp" /> --%>
-
-<style>
-	#profileImg2 {width: 100px; height: 100px;}
-	
-</style>
 
 <style type="text/css">
 
@@ -229,7 +224,7 @@
 				style="width: 23%; margin-left: 215px; margin-top: -68px;"
 				value="${res.partnerPostcode}" name="partnerPostcode">
 			<label for="floatingInput"></label>
-		<button type="button" class="btn btn-outline-dark PostCodeBtn" style="font-size: 15px;" onclick="kakaoPostcode()">우편번호 확인</button>
+		<button type="button" class="btn btn-outline-dark PostCodeBtn" style="font-size: 15px; margin-left: 500px;" onclick="kakaoPostcode()">우편번호 확인</button>
 		</span>
 		</div>
 

@@ -321,7 +321,8 @@
 		partner_postcode = #{partnerPostcode},
 		partner_address = #{partnerAddress},
 		partner_detailaddress = #{partnerDetailaddress},
-		partner_extraaddress = #{partnerExtraaddress}
+		partner_extraaddress = #{partnerExtraaddress},
+		partner_price = #{partnerPrice}
 		WHERE
 		partner_no = #{partnerNo}
 	</update>
