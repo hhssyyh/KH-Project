@@ -223,4 +223,50 @@
 		AND res_no = #{resNo}
 	</select>
 	
+	<select id="selectCommentPaging" parameterType="Map" resultType="int">
+		SELECT count(*) FROM freeboard_comment WHERE user_no=#{userNo}
+	</select>
+	
+	<select id="selectCommentList" parameterType="Map" resultType="Map">
+		SELECT * FROM(        
+        SELECT rownum rnum, C.* FROM
+        (select * from freeboard_comment WHERE user_no=#{userNo} ORDER BY comm_no DESC)C
+        )
+        WHERE rnum BETWEEN #{paging.startNo} AND #{paging.endNo}
+	</select>
+	
+	<delete id="deleteMyComment" parameterType="String">
+		DELETE FROM freeboard_comment WHERE comm_no = #{commNo}
+	</delete>
+	
+	<select id="selectNoticePaging" parameterType="Map" resultType="int">
+		select count(*)
+		FROM partner_pick pp, partner_notice pn
+		where pp.part_no = pn.partner_no
+		and user_no = #{userNo}
+	</select>
+	
+	<select id="selectPickNotice" parameterType="int" resultType="Map">
+		select rownum rnum, P.* from (
+		select pn.partner_notice_date, pn.partner_notice_title, pn.partner_no, pt.partner_shopname
+		FROM partner_pick pp, partner_notice pn, partner_tb pt
+		where pp.part_no = pn.partner_no
+		and pt.partner_no = pp.part_no
+		and pp.user_no = #{userNo}
+		order by partner_notice_no desc)P
+	</select>
+	
+<!-- 	<select id="selectPickNoticeByuserno" parameterType="Map" resultType="Map"> -->
+<!-- 		select*from( -->
+<!-- 		select rownum rnum, P.* from ( -->
+<!-- 		select pn.partner_notice_date, pn.partner_notice_title, pn.partner_no, pt.partner_shopname -->
+<!-- 		FROM partner_pick pp, partner_notice pn, partner_tb pt -->
+<!-- 		where pp.part_no = pn.partner_no -->
+<!-- 		and pn.partner_no = pp.part_no -->
+<!-- 		and pp.user_no = 111 -->
+<!-- 		order by pn.partner_notice_no desc)P -->
+<!-- 		) -->
+<!-- 		where rnum between 1 and 20 -->
+<!-- 	</select> -->
+	
 </mapper>

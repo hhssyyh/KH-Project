@@ -254,7 +254,6 @@ ${board.freeboardContent }
 
 
 <div style="font-size:12px;"  >
-
 <c:choose>
 <c:when test="${!empty file}">
 <hr>

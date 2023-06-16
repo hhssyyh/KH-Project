@@ -13,6 +13,7 @@
 body {
 	padding: 0;
 	margin: 0;
+	font-family: 'SBAggroL';
 }
 
 #userInfo {
@@ -56,10 +57,6 @@ body {
  border-radius: 50%;
  height:5px;
  width: 5px;
-}
-
-* {
- 	font-family: 'SBAggroM';
 }
 
 .pagination {
@@ -158,7 +155,7 @@ td {
 <c:import url="/WEB-INF/views/layout/myprofile.jsp" />
 
 <div id="userInfo" class="container" style="padding: 30px; border-radius: 30px; border: 3px solid #c8c8c8;">
-	<h4><i class="bi bi-calendar2-check"></i>      나의 예약 내역</h4>
+	<h4 style="margin: 0;"><i class="bi bi-calendar2-check"></i>&nbsp;&nbsp;나의 예약 내역</h4>
 	<hr id="line">
 	
 	

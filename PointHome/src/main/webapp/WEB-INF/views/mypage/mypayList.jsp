@@ -13,6 +13,8 @@
 body {
 	padding: 0;
 	margin: 0;
+    font-family: 'SBAggroL';
+  
 }
 
 #userInfo {
@@ -56,10 +58,6 @@ body {
  border-radius: 50%;
  height:5px;
  width: 5px;
-}
-
-* {
- 	font-family: 'SBAggroM';
 }
 
 .pagination {

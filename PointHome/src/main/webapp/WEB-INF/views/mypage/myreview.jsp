@@ -40,8 +40,8 @@
 	background-color: 
 }
 
-* {
- 	font-family: 'SBAggroM';
+body {
+	font-family: 'SBAggroL';
 }
 
 .pagination {
@@ -184,7 +184,14 @@ td, th {
       </span>
       </td>
       <td><fmt:formatDate value="${list.REVIEW_DATE }" pattern="yy/MM/dd HH:mm"/></td>
-      <td>${list.REVIEW_CONTENT }</td>
+      <td>${list.REVIEW_CONTENT }
+    		<c:set var="now" value="<%=new java.util.Date()%>" /><!-- 현재시간 -->
+			<fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="today" /><!-- 현재시간을 숫자로 -->
+			<fmt:parseNumber value="${list.REVIEW_DATE.time / (1000*60*60*24)}" integerOnly="true" var="reviewDate" /><!-- 게시글 작성날짜를 숫자로 -->
+			<c:if test="${today - reviewDate le 2}">
+			<img src="../resources/new.png" style="margin: 0 auto; width: 13px;" alt="">
+			</c:if>
+      </td>
  
     </tr>
     	</c:forEach>

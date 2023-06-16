@@ -30,6 +30,7 @@ import com.pointhome.www.mypage.dto.Review;
 import com.pointhome.www.mypage.service.face.MypageService;
 import com.pointhome.www.partner.dto.Partner;
 import com.pointhome.www.partner.dto.PartnerFile;
+import com.pointhome.www.partner.dto.PartnerNotice;
 import com.pointhome.www.partner.service.face.PartnerService;
 import com.pointhome.www.user.dto.User;
 import com.pointhome.www.user.dto.UserFile;
@@ -120,12 +121,16 @@ public class MypageController {
 		model.addAttribute("res", res);
 		model.addAttribute("reservelist", reservelist);
 		
+		List<PartnerNotice> partnerNotice = mypageService.selectNoticeList(userno);
+		logger.info("공지 리스트 {}" , partnerNotice);
+		
 		int alertCnt = mypageService.getAlertCnt(userno);
-		model.addAttribute( "alertCnt" , alertCnt);
 		
 		UserFile userFile = mypageService.selectImg(userno);
 		logger.info("userFile : {}",userFile);
-		
+				
+		model.addAttribute("pNotice", partnerNotice);
+		model.addAttribute( "alertCnt" , alertCnt);
 		model.addAttribute("userFile", userFile);
 		model.addAttribute("userNick", usernick);
 	}
@@ -253,12 +258,20 @@ public class MypageController {
 	public void myreservedetail(HttpSession session, Model model, int resNo) {
 
 		int userNo = (Integer)session.getAttribute("userno");
+		String usernick = (String)session.getAttribute("usernick");
 		
 		Map<String, Object> mypay = mypageService.selectPay(userNo, resNo);
 		
 		logger.info("과연  {}", mypay);
+		int alertCnt = mypageService.getAlertCnt(userNo);
 		
+		UserFile userFile = mypageService.selectImg(userNo);
+		logger.info("userFile : {}",userFile);
 		model.addAttribute("pay", mypay);
+
+		model.addAttribute( "alertCnt" , alertCnt);
+		model.addAttribute("userFile", userFile);
+		model.addAttribute("userNick", usernick);
 		
 	}
 	
@@ -633,5 +646,77 @@ public class MypageController {
 		
     }
     
+    @RequestMapping("/myCommentlist")
+    public void reviewlist(HttpSession session, Model model, @RequestParam(defaultValue = "0") int curPage) {
+		int userNo = (Integer)session.getAttribute("userno");
+		String usernick = (String)session.getAttribute("usernick");
+		
+		Paging paging = mypageService.getCommentPaging(curPage, userNo);
+		
+		List<Map<String, Object>> commentlist = mypageService.selectComment(paging, userNo);
+		
+		logger.info("댓글 내역 {}", commentlist);
+		
+		UserFile userFile = mypageService.selectImg(userNo);
+		logger.info("userFile : {}",userFile);
+		
+		int alertCnt = mypageService.getAlertCnt(userNo);
+		model.addAttribute( "alertCnt" , alertCnt);
+		model.addAttribute("userFile", userFile);
+		model.addAttribute("userNick", usernick);
+		model.addAttribute("paging", paging);
+		model.addAttribute("commentList", commentlist);
+		
+		
+    	
+    }
+    
 	
+    //commentlist 전체 삭제
+    @RequestMapping(value = "/removecommentlist", method = RequestMethod.GET)
+    public void commentdelete(String commNo) throws Exception {
+    	mypageService.removeCommentlist(commNo);	
+    }
+    
+    //reviewlist 선택삭제
+    @RequestMapping(value = "/removecommentlist",method = RequestMethod.POST)
+    public void commentajax(HttpServletRequest request, 
+    		HttpSession session, Model model, @RequestParam(defaultValue = "0") int curPage ) throws Exception {
+    	String[] ajaxMsg = request.getParameterValues("valueArr");
+    	
+    	int size = ajaxMsg.length;
+    	for(int i=0; i<size; i++) {
+    		mypageService.removeCommentlist(ajaxMsg[i]);
+    	}
+    	int userNo = (Integer)session.getAttribute("userno");
+    	
+		Paging paging = mypageService.getCommentPaging(curPage, userNo);
+		List<Map<String, Object>> commentlist = mypageService.selectComment(paging, userNo);
+		model.addAttribute("paging", paging);
+		model.addAttribute("commentList", commentlist);    	
+    }	
+    
+    @RequestMapping("/myPickNoticeList")
+    public void picknoticelist(HttpSession session, Model model, @RequestParam(defaultValue = "0") int curPage) {
+    	
+    	int userNo = (Integer)session.getAttribute("userno");
+		String usernick = (String)session.getAttribute("usernick");
+		
+		Paging paging = mypageService.getNoticelistPaging(curPage, userNo);
+		
+		logger.info("왜!!!!!!!!!! {}" , paging);
+		
+//		List<Map<String, Object>> pickNotice = mypageService.selectPickNotice(paging, userNo);
+		
+//		logger.info("왜!!!!!!!!!! {}" , pickNotice);
+		
+		UserFile userFile = mypageService.selectImg(userNo);
+		int alertCnt = mypageService.getAlertCnt(userNo);
+		
+		model.addAttribute( "alertCnt" , alertCnt);
+		model.addAttribute("userFile", userFile);
+		model.addAttribute("userNick", usernick);
+		model.addAttribute("paging", paging);
+    	
+    }
 }

@@ -12,6 +12,7 @@ import com.pointhome.www.mypage.dto.MyPick;
 import com.pointhome.www.mypage.dto.Review;
 import com.pointhome.www.mypage.dto.ReviewFile;
 import com.pointhome.www.partner.dto.Partner;
+import com.pointhome.www.partner.dto.PartnerNotice;
 import com.pointhome.www.user.dto.User;
 import com.pointhome.www.user.dto.UserFile;
 import com.pointhome.www.util.Paging;
@@ -190,21 +191,115 @@ public interface MypageDao {
 	 */
 	public int selectPickPaging(@Param("curPage")int curPage, @Param("userNo") int userNo);
 
+	/**
+	 * 찜한 내역 삭제
+	 * 
+	 * @param partnerNo- 찜한 제휴사 번호
+	 */
 	public void myPickListDelete(String partnerNo);
 
+	/**
+	 * 알림 리스트 페이징
+	 * 
+	 * @param curPage - 현재 페이지
+	 * @param userNo - 회원 번호
+	 * @return - 알림의 총 개수
+	 */
 	public int selectAlertPaging(@Param("curPage")int curPage, @Param("userNo") int userNo);
 
+	/**
+	 * 알림내역 삭제
+	 * 
+	 * @param alertNo - 알림 번호
+	 */
 	public void myAlertListDelete(String alertNo);
 
+	/**
+	 * 예약 내역 페이징
+	 * 
+	 * @param curPage - 현재 페이지
+	 * @param userNo - 회원 번호
+	 * @return - 총 예약 개수
+	 */
 	public int selectReservePaging(@Param("curPage")int curPage, @Param("userNo") int userNo);
 
+	/**
+	 * 마이페이지에 뷰에서 보여줄 예약 내역
+	 * 
+	 * @param userno - 회원 번호
+	 * @return 예약 내역
+	 */
 	public List<Map<String, Object>> selectNewReserveList(int userno);
 
+	/**
+	 * 리뷰 내역 페이징
+	 *  
+	 * @param curPage - 현재 페이지
+	 * @param userNo - 회원 번호
+	 * @return - 총 리뷰 개수
+	 */
 	public int selectReviewPaging(@Param("curPage")int curPage, @Param("userNo") int userNo);
 
+	/**
+	 * 리뷰 삭제
+	 * 
+	 * @param reviewNo - 리뷰 번호
+	 */
 	public void myReviewListDelete(String reviewNo);
 
+	/**
+	 * 결제 내역 조회
+	 * 
+	 * @param userNo - 회원 번호
+	 * @param resNo - 예약 번호
+	 * @return
+	 */
 	public Map<String, Object> selectPaylist(@Param("userNo") int userNo,@Param("resNo") int resNo);
+
+	/**
+	 * 댓글 내역 
+	 * 
+	 * @param curPage - 현재 페이지
+	 * @param userNo - 회원 번호
+	 * @return - 총 댓글 개수
+	 */
+	public int selectCommentPaging(@Param("curPage")int curPage, @Param("userNo") int userNo);
+
+	/**
+	 * 댓글 내역 조회
+	 * 
+	 * @param paging - 페이징 객체
+	 * @param userNo - 회원 번호
+	 * @return - 페이징 적용된 댓글 내역
+	 */
+	public List<Map<String, Object>> selectCommentList(@Param("paging") Paging paging, @Param("userNo") int userNo);
+
+	/**
+	 * 댓글 삭제
+	 * 
+	 * @param commNo- 댓글 번호
+	 */
+	public void deleteMyComment(String commNo);
+
+	/**
+	 * 마이페이지 뷰에서 보여줄 공지 내역 조회
+	 * 
+	 * @param userNo - 회원 번호
+	 * @return 찜한 제휴사 공지 내역
+	 */
+	public List<PartnerNotice> selectPickNotice(int userno);
+
+	/**
+	 * 찜한 제휴사 공지 페이징
+	 * 
+	 * @param curPage - 현재 페이지
+	 * @param userNo - 회원 번호
+	 * @return - 찜한 제휴사 공지의 총 개수
+	 */
+	public int selectNoticePaging(@Param("curPage")int curPage, @Param("userNo") int userNo);
+
+//	public List<Map<String, Object>> selectPickNoticeByuserno(@Param("paging") Paging paging, @Param("userNo") int userNo);
+
 	
 	
 	

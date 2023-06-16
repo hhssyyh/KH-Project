@@ -21,6 +21,8 @@ import com.pointhome.www.mypage.dto.MyPick;
 import com.pointhome.www.mypage.dto.Review;
 import com.pointhome.www.mypage.dto.ReviewFile;
 import com.pointhome.www.mypage.service.face.MypageService;
+import com.pointhome.www.partner.dao.face.PartnerDao;
+import com.pointhome.www.partner.dto.PartnerNotice;
 import com.pointhome.www.user.dto.User;
 import com.pointhome.www.user.dto.UserFile;
 import com.pointhome.www.util.Paging;
@@ -243,4 +245,48 @@ public class MypageServiceImpl implements MypageService {
 	public Map<String, Object> selectPay(int userNo, int resNo) {
 		return mypageDao.selectPaylist(userNo, resNo);
 	}
+
+	@Override
+	public Paging getCommentPaging(int curPage, int userNo) {
+		
+		int totalPage = mypageDao.selectCommentPaging(curPage, userNo);
+		
+		Paging paging = new Paging(totalPage, curPage);
+		
+		logger.info("!!!!!{}", paging);
+		
+		return paging;
+	}
+	
+	@Override
+	public List<Map<String, Object>> selectComment(Paging paging, int userNo) {
+		return mypageDao.selectCommentList(paging, userNo);
+	}
+	
+	@Override
+	public void removeCommentlist(String commNo) {
+		mypageDao.deleteMyComment(commNo);
+	}
+
+	@Override
+	public List<PartnerNotice> selectNoticeList(int userno) {
+		return mypageDao.selectPickNotice(userno);
+	}
+	
+	@Override
+	public Paging getNoticelistPaging(int curPage, int userNo) {
+		int totalPage = mypageDao.selectNoticePaging(curPage, userNo);
+		
+		Paging paging = new Paging(totalPage, curPage);
+		
+		logger.info("!!!!!{}", paging);
+		
+		return paging;
+	}
+	
+//	@Override
+//	public List<Map<String, Object>> selectPickNotice(Paging paging, int userNo) {
+//		return mypageDao.selectPickNoticeByuserno(paging, userNo);
+//	}
+	
 }

@@ -10,6 +10,7 @@
 body {
 	padding: 0;
 	margin: 0;
+	font-family: 'SBAggroL';
 }
 
 #userInfo {
@@ -33,16 +34,12 @@ body {
 	margin-right: 145px;
 }
 
-* {
- 	font-family: 'SBAggroM';
-}
-
 table{
 	 border-spacing: 2px;
 }
 
 .payAddress{
-	width:850px;
+	width:700px;
 }
 
 .payDate{

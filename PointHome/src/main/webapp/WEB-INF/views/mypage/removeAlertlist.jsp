@@ -34,6 +34,12 @@
 			<td class="checkbox"><input name="RowCheck" type="checkbox" value="${list.alertNo}"/></td>
 			<td><a href="/partner/view?partnerNoticeNo=${list.num}"><h5 style="margin: 20px; margin-left: 103px; margin-bottom: 60px; font-size: 16px;">
 			${list.content} 
+					<c:set var="now" value="<%=new java.util.Date()%>" /><!-- 현재시간 -->
+					<fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="today" /><!-- 현재시간을 숫자로 -->
+					<fmt:parseNumber value="${list.alertDate.time / (1000*60*60*24)}" integerOnly="true" var="alertDate" /><!-- 게시글 작성날짜를 숫자로 -->
+					<c:if test="${today - alertDate le 2}">
+					<img src="../resources/new.png" style="margin: 0 auto; width: 13px;" alt="">
+					</c:if>
 			</a>
 			<h6 style="margin: 20px; margin-left: 103px; margin-top: -52px; font-size: 10px;"><fmt:formatDate value="${list.alertDate }" pattern="yy/MM/dd HH:mm" /></h6>
 			</td>
@@ -43,6 +49,12 @@
 			<td class="checkbox"><input name="RowCheck" type="checkbox" value="${list.alertNo}"/></td>
 			<td><a href="/main/detail?partNo=${list.num}"><h5 style="margin: 20px; margin-left: 103px; margin-bottom: 60px; font-size: 16px;">
 			${list.content} 
+					<c:set var="now" value="<%=new java.util.Date()%>" /><!-- 현재시간 -->
+					<fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="today" /><!-- 현재시간을 숫자로 -->
+					<fmt:parseNumber value="${list.alertDate.time / (1000*60*60*24)}" integerOnly="true" var="alertDate" /><!-- 게시글 작성날짜를 숫자로 -->
+					<c:if test="${today - alertDate le 2}">
+					<img src="../resources/new.png" style="margin: 0 auto; width: 13px;" alt="">
+					</c:if>
 			</a>
 			<h6 style="margin: 20px; margin-left: 103px; margin-top: -52px; font-size: 10px;"><fmt:formatDate value="${list.alertDate }" pattern="yy/MM/dd HH:mm" /></h6>
 			</td>
@@ -52,6 +64,12 @@
 			<td class="checkbox"><input name="RowCheck" type="checkbox" value="${list.alertNo}"/></td>
 			<td><a href="/mypage/myreserve"><h5 style="margin: 20px; margin-left: 103px; margin-bottom: 60px; font-size: 16px;">
 			${list.content} 
+					<c:set var="now" value="<%=new java.util.Date()%>" /><!-- 현재시간 -->
+					<fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="today" /><!-- 현재시간을 숫자로 -->
+					<fmt:parseNumber value="${list.alertDate.time / (1000*60*60*24)}" integerOnly="true" var="alertDate" /><!-- 게시글 작성날짜를 숫자로 -->
+					<c:if test="${today - alertDate le 2}">
+					<img src="../resources/new.png" style="margin: 0 auto; width: 13px;" alt="">
+					</c:if>
 			</a>
 			<h6 style="margin: 20px; margin-left: 103px; margin-top: -52px; font-size: 10px;"><fmt:formatDate value="${list.alertDate }" pattern="yy/MM/dd HH:mm" /></h6>
 			</td>
@@ -61,6 +79,12 @@
 			<td class="checkbox"><input name="RowCheck" type="checkbox" value="${list.alertNo}"/></td>
 			<td><a href="/freeboard/view?freeboardNo=${list.num}"><h5 style="margin: 20px; margin-left: 103px; margin-bottom: 60px; font-size: 16px;">
 			${list.content} 
+					<c:set var="now" value="<%=new java.util.Date()%>" /><!-- 현재시간 -->
+					<fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="today" /><!-- 현재시간을 숫자로 -->
+					<fmt:parseNumber value="${list.alertDate.time / (1000*60*60*24)}" integerOnly="true" var="alertDate" /><!-- 게시글 작성날짜를 숫자로 -->
+					<c:if test="${today - alertDate le 2}">
+					<img src="../resources/new.png" style="margin: 0 auto; width: 13px;" alt="">
+					</c:if>
 			</a>
 			<h6 style="margin: 20px; margin-left: 103px; margin-top: -52px; font-size: 10px;"><fmt:formatDate value="${list.alertDate }" pattern="yy/MM/dd HH:mm" /></h6>
 			</td>

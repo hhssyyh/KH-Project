@@ -21,7 +21,7 @@ a {
 	margin:0 auto; 
 	margin-top: 130px;
 	margin-bottom: 100px;
- 	background-color: #fffff0; 
+	background: rgba(179, 156, 222, 0.06);
 	justify-content: center;
 /* 	border-radius: 50px; */
 /* 	border:3px solid #A696CD; */
@@ -35,7 +35,7 @@ a {
 	align-items: center;
 	float: left;
 	padding-top: 50px;
-	padding-left: 10%;
+ 	padding-left: 8%; 
 }
 
 #profileImg {
@@ -44,7 +44,7 @@ a {
 
 #nickDiv {
 	text-align: center;
-	padding-left: 40px;
+	padding-left: 30px;
 	color: #3C3C8C;
 }
 
@@ -62,7 +62,7 @@ a {
 	float: right;
  	height: 300px; 
  	width: 45%; 
- 	padding: 40px; 
+/*  	padding: 20px;  */
   	padding-right: 5%; 
 
 } 
@@ -129,18 +129,19 @@ table {
 				<div style="font-size: 30px;">${userNick }</div>
 				${profile }
 	<%-- 			<img src="/upload/${profile.userImg}"  alt=""> --%>
-				<a href="./userinfo"><button class="btn btn-outline-dark nickBtn">회원정보수정</button></a>
+				<a href="./userinfo"><button class="btn btn-outline-dark nickBtn">회원정보수정</button></a><br>
+				
 			</div>
 		</div>
 		
 		<div class="btnRowBox">
 			<div class="btnRow">
 				<a href="/mypage/myboardList"><button class="btn btn-outline-dark proBtn" style="margin: 8px; ">내가 쓴 글</button></a>
-				<a href="/mypage/alertList"><button class="btn btn-outline-dark proBtn" style="margin: 8px;">알림 내역</button></a>
+				<a href="/mypage/myreview"><button class="btn btn-outline-dark proBtn" style="margin: 8px;">리뷰 조회</button></a>   
 			</div>
 			<div class="btnRow2">
-				<a href="/mypage/mypickList"><button class="btn btn-outline-dark proBtn" style="margin: 8px;">찜 내역</button></a>
-				<a href="/mypage/myreview"><button class="btn btn-outline-dark proBtn" style="margin: 8px;">리뷰 조회</button></a>   
+				<a href="/mypage/myCommentlist"><button class="btn btn-outline-dark proBtn" style="margin: 8px;">내가 쓴 댓글</button></a>
+				<a href="/mypage/mypickList"><button class="btn btn-outline-dark proBtn" style="margin: 8px;">1:1 문의</button></a>
 			</div>
 		</div>
 	

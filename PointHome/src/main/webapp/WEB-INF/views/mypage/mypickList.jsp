@@ -9,6 +9,7 @@
 body {
 	padding: 0;
 	margin: 0;
+	font-family: 'SBAggroL';
 }
 
 #userInfo {
@@ -31,10 +32,6 @@ body {
 	width: 60px;
 	margin-left:20px;
 	
-}
-
-* {
- 	font-family: 'SBAggroM';
 }
 
 .pagination {
@@ -138,7 +135,7 @@ td {
 
 
 <div id="userInfo" class="container" style="padding: 30px; border-radius: 30px; border: 3px solid #c8c8c8;">
-	 <h4><i class="bi bi-box2-heart-fill"></i> 찜목록</h4>
+	 <h4><i class="bi bi-bag-heart"></i>&nbsp;&nbsp; 찜목록</h4>
 	<hr id="line">
 	
 	<table class="table table-hover table-sm text-center checkbox-table">
