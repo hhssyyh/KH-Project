@@ -197,5 +197,7 @@ public interface FreeBoardService {
 	 */
 	public List<User> viewUserNick(int freeboardNo);
 
+	public String nick(int userNo);
+
 }
 

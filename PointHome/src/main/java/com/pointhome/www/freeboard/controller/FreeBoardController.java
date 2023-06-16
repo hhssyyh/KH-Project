@@ -96,9 +96,13 @@ public class FreeBoardController {
 
       User viewUser = freeBoardService.viewUser(board.getUserNo());
 //    User commentUser = freeBoardService.commentUser();
-
       model.addAttribute("viewUser", viewUser);
       
+      int userNo = (Integer)session.getAttribute("userno");
+      String nick = freeBoardService.nick(userNo);
+      
+      logger.info(nick);
+      model.addAttribute("nick", nick);
 
 
 //      //닉네임 띄우기 댓글 리스트에
