@@ -16,7 +16,7 @@ import com.pointhome.www.partner.dto.PartnerVideo;
 import com.pointhome.www.util.Paging;
 
 public interface PartnerDao {
-
+	
 	/**
 	 * partner insert
 	 * 
@@ -299,6 +299,7 @@ public interface PartnerDao {
 	 */
 	public List<MyPick> selectPickListByVideo(PartnerVideo video);
 
+
 	/**
 	 * 찜한 제휴사의 영상 삽입시 알림 삽입
 	 * 
@@ -306,5 +307,8 @@ public interface PartnerDao {
 	 * @param mp - 찜 DTO
 	 */
 	public void insertVideoAlert(@Param("video") PartnerVideo video, @Param("pickUser") MyPick mp);	
+
+	public String selectUserName(int userSessionNo);	
+
 
 }

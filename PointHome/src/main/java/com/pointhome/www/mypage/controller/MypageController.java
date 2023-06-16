@@ -326,10 +326,6 @@ public class MypageController {
 		model.addAttribute("userNick", usernick);
 	}
 	
-	
-	@GetMapping("/serviceCenter")
-	public void mypageService() {}
-
 	@PostMapping("/update")
 	public String userEdit(User user, MultipartFile file, HttpSession session, Model model) {
 		

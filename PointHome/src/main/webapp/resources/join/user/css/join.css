@@ -1,5 +1,50 @@
 @charset "UTF-8";
 
-btn-signup{
-	
+body {
+	color: gray;
+	font-family: SBAggroM;
+}
+
+.join-form-background {
+	width: 40%;
+	border: 1px solid none;
+	background-color: white;
+	border-radius: 50px;
+	box-shadow: 0 4px 5px rgba(0, 0, 0, 0.6);
+}
+
+form {
+	color: gray;
+	margin: 0px auto;
+	margin-bottom: 60px;
+	width: 70%;
+}
+
+svg {
+	margin-top: 80px;
+	margin-bottom: 50px;
+	width: 300px;
+}
+
+.btn-postcode {
+	margin-top: 5px;
+}
+
+.btn-duplChk {
+	margin-top: 5px;
+}
+
+.btn-EmailCode {
+	margin-top: 5px;
+}
+
+.btn-join {
+	background-color: #7e00c2;
+	color: white;
+	margin-bottom: 10px;
+}
+
+.btn-join:hover {
+	background-color: #9432c9;
+	color: white;
 }

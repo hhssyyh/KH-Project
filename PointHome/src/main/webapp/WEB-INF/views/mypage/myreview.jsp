@@ -166,7 +166,6 @@ td, th {
       <th scope="col">리뷰작성일자</th>
       <th scope="col">리뷰내용</th>
      </tr>
-
     
    	<c:forEach var="list" items="${reviewlist}">
 	<tr>

@@ -11,7 +11,7 @@
        <property name="url" value="jdbc:oracle:thin:@Point_medium?TNS_ADMIN=D:/Projects/FinalProject/Wallet_Point"/>
        <property name="username" value="admin"/>
        <property name="password" value="Point!@34!@34!@34"/>
-   </bean>
+   </bean>  
 	<!-- 마이바티스 수행 객체 설정 (SqlSession) -->
 	<bean id="SqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		
@@ -38,4 +38,5 @@
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="com.pointhome.www.*.dao"/>
 	</bean>
+	
 </beans>

@@ -123,10 +123,12 @@ td.l{
 	<div class="conRow">
 		<div id="reserveDiv" class="conRowDiv">
 		
+
 			<jsp:useBean id="now" class="java.util.Date" />
 			<fmt:formatDate value="${now}" pattern="yyyy-MM-dd HH:mm" var="today" />
 			<div class="conTitle" id="conTitle">예약내역</div>
 			<button class="btn btn-outline-secondary resBtn" style="float: right; font-size: 13px;"><a href="./myreserve">전체 예약 조회</a></button>
+
 			<hr>
 				<c:forEach var="list" items="${reservelist}" begin="0" end="7">
 				<fmt:parseDate value="${RESERVE_TIME}" var="resDate" pattern="yyyy-MM-dd HH:mm"/>

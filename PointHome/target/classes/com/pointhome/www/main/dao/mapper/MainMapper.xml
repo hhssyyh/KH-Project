@@ -59,6 +59,16 @@
 	   	'P')
 	</insert>
 	
+	
+	<select id="selectPartnerNotice" parameterType="int" resultType="PartnerNotice">
+		SELECT rownum rnum, N.* FROM (
+			SELECT * FROM partner_notice
+			WHERE partner_no = #{partNo}
+			ORDER BY partner_notice_no DESC
+		) N
+		WHERE rownum BETWEEN 1 AND 4
+	</select>
+	
 </mapper>
 
 

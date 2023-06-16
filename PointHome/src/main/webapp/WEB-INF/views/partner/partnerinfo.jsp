@@ -127,6 +127,7 @@
 			<label for="floatingInput"></label>
 
 		</div>
+		
 		<hr>
 		<div id="divPw">
 			<h6 style="margin-left: 13px; display: inline-block; margin-right: 115px;">비밀번호</h6>

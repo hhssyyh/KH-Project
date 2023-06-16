@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.pointhome.www.main.dto.Reservation;
 import com.pointhome.www.partner.dto.Partner;
+import com.pointhome.www.partner.dto.PartnerNotice;
 import com.pointhome.www.util.Paging;
 
 public interface MainService {
@@ -43,5 +44,7 @@ public interface MainService {
 	 * @return 리뷰 정보와 유저 닉네임
 	 */
 	public List<Map<String, Object>> getReviewList(Paging paging, int partNo);
+
+	public List<PartnerNotice> getPartnerNotice(int partNo);
 
 }

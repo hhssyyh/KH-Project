@@ -97,18 +97,22 @@ $(".resRadio").click(function() {
    
    <br><br>
    
-   <input type="radio" class="form-check-input radio-check ms-3 me-1" name="resDiv" id="visit" value="visit"><label for="visit" class="me-2">방문</label>
-   <input type="radio" class="form-check-input radio-check me-1" name="resDiv" id="video" value="video"><label for="video" class="me-2">화상전화</label>
-   <input type="radio" class="form-check-input radio-check me-1" name="resDiv" id="chat" value="chat"><label for="chat">채팅</label>
+   <div style="font-size: 18px;">
+	   <input type="radio" class="form-check-input radio-check ms-3 me-1" name="resDiv" id="visit" value="visit"><label for="visit" class="me-2">방문</label>
+	   <input type="radio" class="form-check-input radio-check me-1" name="resDiv" id="video" value="video"><label for="video" class="me-2">화상전화</label>
+	   <input type="radio" class="form-check-input radio-check me-1" name="resDiv" id="chat" value="chat"><label for="chat">채팅</label>
+	</div>
 	
 	<br>
 	
 	
 	<script type="text/javascript">
 	var resDate = $("input[name=resDate]").val()
-	
-    var clientKey = 'test_ck_D5GePWvyJnrK0W0k6q8gLzN97Eoq' // 테스트용 클라이언트 키
+	var costomerName = '${userName}'
+    var clientKey = 'test_ck_k6bJXmgo28eXg4nE7L6rLAnGKWx4' // 테스트용 클라이언트 키
     var price = ${partnerPrice}
+	var orderid = '${orderId}'
+	console.log(orderid)
         // 2. 결제창 SDK 초기화
     var tossPayments = TossPayments(clientKey)
 	$("#payBtn").click(function() {
@@ -116,21 +120,21 @@ $(".resRadio").click(function() {
 		var resDiv = $("input[name=resDiv]:checked").val()
 		tossPayments.requestPayment('카드', {
 			amount: price,
-			orderId: 'Dl8baxDJc-HODLm8KBv14',
-			orderName: '토스 티셔츠 외 2건',
-			customerName: '박토스',
+			orderId: orderid,
+			orderName: resDiv,
+			customerName: costomerName,
 			successUrl: "http://localhost:8888/main/reserveComplete?partNo=" + ${param.partNo} + "&resDate=" + resDate + "&resTime=" + resTime + "&resDiv=" + resDiv + "&resPrice=" + price,
-			failUrl: 'http://localhost:8080/reserveFail',
+			failUrl: 'http://localhost:8888/reserveFail',
 		})
 	})
 	</script>
 	
 	
 	<c:if test="${empty login }">
-	   <button style="float: right; background-color: #7e00c2; color: white; font-size: 17px;" id="payBtn" class="btn" disabled="disabled">예약하기</button>
+	   <button style="float: right; background-color: #7e00c2; color: white; font-size: 18px;" id="payBtn" class="btn" disabled="disabled">예약하기</button>
 	</c:if>
 	<c:if test="${login }">
-	   <button style="float: right; background-color: #7e00c2; color: white; font-size: 17px;" id="payBtn" class="btn">예약하기</button>
+	   <button style="float: right; background-color: #7e00c2; color: white; font-size: 18px;" id="payBtn" class="btn">예약하기</button>
 	</c:if>
    
 </body>
