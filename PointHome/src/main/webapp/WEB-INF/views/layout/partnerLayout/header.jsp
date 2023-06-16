@@ -101,14 +101,22 @@ a {
 	        공지사항
 	      </button>
 	    </h2>
-	    <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
-	    	<div class="accordion-body"><a href="./partnernotice">공지사항 작성</a></div>
-	  </div>
-<!-- 	  <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
-	    <div class="accordion-body"><a href="./adminnoticelist">운영사 공지사항 조회</a></div>
-	  </div> -->
-	  
-	</div>
+		<div id="flush-collapseFour" class="accordion-collapse collapse"
+			aria-labelledby="flush-headingFour"
+			data-bs-parent="#accordionFlushExample">
+			<div class="accordion-body">
+				<a href="./partnernotice">공지사항 작성</a>
+			</div>
+		</div>
+		<div id="flush-collapseFour" class="accordion-collapse collapse"
+			aria-labelledby="flush-headingFour"
+			data-bs-parent="#accordionFlushExample">
+			<div class="accordion-body">
+				<a href="./adminnoticelist">운영사 공지사항 조회</a>
+			</div>
+		</div>
+
+			</div>
 	
 	</div>
 </div>
