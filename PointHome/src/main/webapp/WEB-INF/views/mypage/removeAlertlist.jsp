@@ -1,166 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
+    
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
 
-<c:import url="/WEB-INF/views/layout/header.jsp" />
-
-<style type="text/css">
-body {
-	padding: 0;
-	margin: 0;
-}
-
-#userInfo {
-	width: 1000px;
-	background-color: white;
-}
-
-#reservedetail {
-	height: 340px; 
-	width: 800px;
-	background-color: white;
-}
-
-#line {
-	border-top: 3px solid;
-}
-
-.nickBtn2 {
-	width: 150px;
-	font-size: 18px;
-	margin-top: 24px;
-	margin-right: 145px;
-}
-
-#profileImg2{
-	width: 60px;
-	margin-left:20px;
-	
-}
-
-.testImg{
-  position : relative;
-  }
-
-.alert{
- position: absolute;
- z-index: 5;
- font-size: 10px;
- color: white;
- background-color: red;
- border-radius: 50%;
- height:5px;
- width: 5px;
-}
-
-body{
-   font-family: 'SBAggroL';
-}
-  
-
-.pagination {
-	margin-top : 50px;
-	margin-bottom : -150px;
-}
-
-.page-link {
-  color: #483D8B; 
-  background-color: white;
-  border-color: #D2D2FF;
-}
-
-.page-item.active .page-link {
- z-index: 1;
- color: white;
- font-weight:bold;
- background-color: #A696CD;
-  border-color: #CBB8EE;
- 
-}
-
-.page-link:focus, .page-link:hover {
-  color: white;
-  background-color: #A696CD; 
-  border-color: #CBB8EE;
-}
-
-table  {
-    border-spacing: 0;
-    border-collapse: separate;
-}
-
-td {
-	height: 50px;
-	vertical-align:middle;
-}
-
-</style>
-
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script type="text/javascript">
-		$(function(){
-			var chkObj = document.getElementsByName("RowCheck");
-			var rowCnt = chkObj.length;
-			
-			$("input[name='allCheck']").click(function(){
-				var chk_listArr = $("input[name='RowCheck']");
-				for (var i=0; i<chk_listArr.length; i++){
-					chk_listArr[i].checked = this.checked;
-				}
-			});
-			$("input[name='RowCheck']").click(function(){
-				if($("input[name='RowCheck']:checked").length == rowCnt){
-					$("input[name='allCheck']")[0].checked = true;
-				}
-				else{
-					$("input[name='allCheck']")[0].checked = false;
-				}
-			});
-		});
-		function deleteValue(){
-			var url = "removeAlertlist";    
-			var valueArr = new Array();
-		    var list = $("input[name='RowCheck']");
-		    for(var i = 0; i < list.length; i++){
-		        if(list[i].checked){ 
-		            valueArr.push(list[i].value);
-		        }
-		    }
-		    if (valueArr.length == 0){
-		    	alert("선택된 글이 없습니다.");
-		    }
-		    else{
-				var chk = confirm("정말 삭제하시겠습니까?");
-				if(chk){
-					$.ajax({
-				    url : url,                  
-				    type : 'POST',              
-				    traditional : true,
-				    data : {
-				    	valueArr : valueArr       
-				    },
-	                success: function(jdata){
-	                	$("#userInfo").html(jdata)
-	                }
-				});
-					
-				}
-				else {
-					alert("삭제 실패");
-				}
-			
-			}
-		}
-</script>
-
-
-<div id="mypage">
-
-<c:import url="/WEB-INF/views/layout/myprofile.jsp" />
-
-<div id="userInfo" class="container" style="padding: 30px; border-radius: 30px; border: 3px solid #c8c8c8;">
 	 <div class="testImg">
 <!-- 	 <button class="alert">4</button><i class="bi bi-bell"></i>  -->
 	 <h4><img class="bell" src="../resources/bell.svg" style="width: 25px; height: 25px;"> 알림 내역</h4>
@@ -211,7 +62,7 @@ td {
 			
 			<c:when test="${list.type eq 'P'}">
 			<td class="checkbox"><input name="RowCheck" type="checkbox" value="${list.alertNo}"/></td>
-			<td><a href="/mypage/myreserveDetail?resNo=${list.num}"><h5 style="margin: 20px; margin-left: 103px; margin-bottom: 60px; font-size: 16px;">
+			<td><a href="/mypage/myreserve"><h5 style="margin: 20px; margin-left: 103px; margin-bottom: 60px; font-size: 16px;">
 			${list.content} 
 					<c:set var="now" value="<%=new java.util.Date()%>" /><!-- 현재시간 -->
 					<fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="today" /><!-- 현재시간을 숫자로 -->
@@ -322,23 +173,7 @@ td {
 </div>
 
 
-</div>
-
-</div>
-
-<c:import url="/WEB-INF/views/layout/footer.jsp" />
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+</body>
+</html>

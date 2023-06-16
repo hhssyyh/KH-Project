@@ -1,160 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+    
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
 
-<c:import url="/WEB-INF/views/layout/header.jsp" />
-
-<link href="/resources/mypage/userInfo.css" rel="stylesheet">
-
-<style>
-.star-ratings {
-  color: #aaa9a9; 
-  position: relative;
-  unicode-bidi: bidi-override;
-  width: max-content;
-  -webkit-text-fill-color: transparent; /* Will override color (regardless of order) */
-  -webkit-text-stroke-width: 1.3px;
-  -webkit-text-stroke-color: #2b2a29;
-}
- 
-.star-ratings-fill {
-  color: #fff58c;
-  padding: 0;
-  position: absolute;
-  z-index: 1;
-  display: flex;
-  left: 0;
-  overflow: hidden;
-  -webkit-text-fill-color: gold;
-}
- 
-.star-ratings-base {
-  z-index: 0;
-  padding: 0;
-}
-
-#reviewInfo {
-	width: 1000px;
-	background-color: 
-}
-
-body {
-	font-family: 'SBAggroL';
-}
-
-.pagination {
-	margin-top : 50px;
-	margin-bottom : -150px;
-}
-
-.page-link {
-  color: #483D8B; 
-  background-color: white;
-  border-color: #D2D2FF;
-}
-
-.page-item.active .page-link {
- z-index: 1;
- color: white;
- font-weight:bold;
- background-color: #A696CD;
-  border-color: #CBB8EE;
- 
-}
-
-.page-link:focus, .page-link:hover {
-  color: white;
-  background-color: #A696CD; 
-  border-color: #CBB8EE;
-}
-
-td, th {
-	height: 50px;
-	vertical-align:middle;
-}
-
-.dBtn{
-	width: 100px;
-	font-size: 15px;
-	color: white;
-	margin: 10px;
-	background-color: #FEBEBE;
-	border-color: #FEBEBE;
-	vertical-align:middle;
-}
-
-</style>
-
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script type="text/javascript">
-		$(function(){
-			var chkObj = document.getElementsByName("RowCheck");
-			var rowCnt = chkObj.length;
-			
-			$("input[name='allCheck']").click(function(){
-				var chk_listArr = $("input[name='RowCheck']");
-				for (var i=0; i<chk_listArr.length; i++){
-					chk_listArr[i].checked = this.checked;
-				}
-			});
-			$("input[name='RowCheck']").click(function(){
-				if($("input[name='RowCheck']:checked").length == rowCnt){
-					$("input[name='allCheck']")[0].checked = true;
-				}
-				else{
-					$("input[name='allCheck']")[0].checked = false;
-				}
-			});
-		});
-		function deleteValue(){
-			var url = "removeReviewlist";    
-			var valueArr = new Array();
-		    var list = $("input[name='RowCheck']");
-		    for(var i = 0; i < list.length; i++){
-		        if(list[i].checked){ 
-		            valueArr.push(list[i].value);
-		        }
-		    }
-		    if (valueArr.length == 0){
-		    	alert("선택된 글이 없습니다.");
-		    }
-		    else{
-				var chk = confirm("정말 삭제하시겠습니까?");
-				if(chk){
-					$.ajax({
-				    url : url,                  
-				    type : 'POST',              
-				    traditional : true,
-				    data : {
-				    	valueArr : valueArr       
-				    },
-	                success: function(jdata){
-	                	$("#userInfo").html(jdata)
-	                }
-				});
-					
-				}
-				else {
-					alert("삭제 실패");
-				}
-			
-			}
-		}
-</script>
-
-
-
-<div id="mypage">
-
-<c:import url="/WEB-INF/views/layout/myprofile.jsp" />
-
-<div id="userInfo" class="container" style="padding: 30px; border-radius: 30px; border: 3px solid #c8c8c8; background-color: white;">
-	
-	<h4 style="margin: 0;"><i class="bi bi-chat-left-text"></i> 내가 쓴 리뷰</h4>		
+	<h4 style="margin: 0;"><i class="bi bi-chat-left-text"></i> 내가 쓴 리뷰</h4>
 	<hr id="line" >
-
 <table class="table table-hover table-sm text-center checkbox-table">
 
   <tbody class="table-group-divider">
@@ -166,6 +24,7 @@ td, th {
       <th scope="col">리뷰작성일자</th>
       <th scope="col">리뷰내용</th>
      </tr>
+
     
    	<c:forEach var="list" items="${reviewlist}">
 	<tr>
@@ -184,14 +43,13 @@ td, th {
       </td>
       <td><fmt:formatDate value="${list.REVIEW_DATE }" pattern="yy/MM/dd HH:mm"/></td>
       <td>${list.REVIEW_CONTENT }
-    		<c:set var="now" value="<%=new java.util.Date()%>" /><!-- 현재시간 -->
+          	<c:set var="now" value="<%=new java.util.Date()%>" /><!-- 현재시간 -->
 			<fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="today" /><!-- 현재시간을 숫자로 -->
 			<fmt:parseNumber value="${list.REVIEW_DATE.time / (1000*60*60*24)}" integerOnly="true" var="reviewDate" /><!-- 게시글 작성날짜를 숫자로 -->
 			<c:if test="${today - reviewDate le 2}">
 			<img src="../resources/new.png" style="margin: 0 auto; width: 13px;" alt="">
 			</c:if>
       </td>
- 
     </tr>
     	</c:forEach>
   
@@ -203,6 +61,7 @@ td, th {
        <label for="delete"><i class="bi bi-trash" ></i></label>
        <input type="button"  id="delete" style="display: none;" value="삭제" class="btn btn-outline-info" onclick="deleteValue();">
 	</div>
+	
 	
 	
 <!-- 페이징 -->
@@ -277,22 +136,6 @@ td, th {
 </ul>
 </div>
 
-</div>
-</div>
 
-
-<c:import url="/WEB-INF/views/layout/footer.jsp" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+</body>
+</html>

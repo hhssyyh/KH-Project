@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,9 +11,7 @@
 </head>
 <body>
 
-
-
-	 <h4><i class="bi bi-pencil-square"></i> 내가 쓴 글 내역</h4>
+	 <h4><i class="bi bi-pencil-square"></i> 내가 쓴 댓글 내역</h4>
 	<hr id="line">
 	
 	<table class="table table-hover table-sm text-center checkbox-table">
@@ -24,18 +22,18 @@
                <th>작성일</th>
             </tr>
          </thead>
-			<c:forEach var="list" items="${boardList}">
+			<c:forEach var="list" items="${commentList}">
 			<tr>
-				<td class="checkbox"><input name="RowCheck" type="checkbox" value="${list.freeboardNo}"/></td>
-				<td><h5 style=" font-size: 16px;"><a href="/freeboard/view?freeboardNo=${list.freeboardNo}">${list.freeboardTitle }</a>
-					<c:set var="now" value="<%=new java.util.Date()%>" /><!-- 현재시간 -->
+				<td class="checkbox"><input name="RowCheck" type="checkbox" value="${list.COMM_NO}"/></td>
+				<td><h5 style=" font-size: 16px;"><a href="/freeboard/view?freeboardNo=${list.FREEBOARD_NO}">${list.COMM_CONTENT}</a>
+				<c:set var="now" value="<%=new java.util.Date()%>" /><!-- 현재시간 -->
 					<fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="today" /><!-- 현재시간을 숫자로 -->
-					<fmt:parseNumber value="${list.freeboardDate.time / (1000*60*60*24)}" integerOnly="true" var="boardDate" /><!-- 게시글 작성날짜를 숫자로 -->
-					<c:if test="${today - boardDate le 2}">
+					<fmt:parseNumber value="${list.COMM_DATE.time / (1000*60*60*24)}" integerOnly="true" var="commentDate" /><!-- 게시글 작성날짜를 숫자로 -->
+					<c:if test="${today - commentDate le 2}">
 					<img src="../resources/new.png" style="margin: 0 auto; width: 13px;" alt="">
 					</c:if>
 				</h5></td>
-				<td><h6 style=" font-size: 10px;"><fmt:formatDate value="${list.freeboardDate }" pattern="yy/MM/dd hh:mm" /></h6></td>		
+				<td><h6 style=" font-size: 12px;"><fmt:formatDate value="${list.COMM_DATE }" pattern="yy/MM/dd HH:mm" /></h6></td>		
 			</tr>
 			</c:forEach>
 	</table>
@@ -44,6 +42,7 @@
        <label for="delete"><i class="bi bi-trash" ></i></label>
        <input type="button"  id="delete" style="display: none;" value="삭제" class="btn btn-outline-info" onclick="deleteValue();">
 	</div>
+	
 	
 	
 <!-- 페이징 -->
@@ -118,8 +117,6 @@
 </ul>
 
 </div>
-
-
 
 </body>
 </html>
