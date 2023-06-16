@@ -33,13 +33,7 @@ public class ChatController {
 	
 	@RequestMapping(value = "/chat/chatting", method = RequestMethod.GET)
 	public void chat(HttpSession session, Model model) {
-		//userno 사용해서 userNick 가져오기
-		int userSession = (int) session.getAttribute("userno");
-		logger.debug("{}", userSession);
-		String userNick = chatService.getUserNice(userSession); 
 		
-		logger.debug("{}", userNick);
-		model.addAttribute("userNick", userNick);
 		
 	}
 	
@@ -69,9 +63,9 @@ public class ChatController {
 	public ModelAndView chating(@RequestParam HashMap<Object, Object> params, HttpSession session, Model model) {
 		ModelAndView mv = new ModelAndView();
 		int roomNumber = Integer.parseInt((String) params.get("roomNumber"));
-		int userSession = (int) session.getAttribute("userno");
-		logger.debug("{}", userSession);
-		String userNick = chatService.getUserNice(userSession); 
+//		int userSession = (int) session.getAttribute("userno");
+//		logger.debug("{}", userSession);
+//		String userNick = chatService.getUserNice(userSession); 
 		
 		
 		
@@ -80,7 +74,7 @@ public class ChatController {
 			mv.addObject("roomName", params.get("roomName"));
 			mv.addObject("roomNumber", params.get("roomNumber")); //쿼리스트링 값을 roomNumber로 사용 
 			mv.setViewName("/chat/chatting");
-			model.addAttribute("userNick", userNick);
+//			model.addAttribute("userNick", userNick);
 		}else {
 			mv.setViewName("/chat/room");
 		}
