@@ -16,7 +16,7 @@ import com.pointhome.www.partner.dto.PartnerVideo;
 import com.pointhome.www.util.Paging;
 
 public interface PartnerDao {
-
+	
 	/**
 	 * partner insert
 	 * 

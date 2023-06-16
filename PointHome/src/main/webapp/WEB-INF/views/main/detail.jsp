@@ -273,7 +273,7 @@ $(document).ready(function() {
 
 
 
-<div style="font-family: SBAggroM">
+<div style="font-family: SBAggroM;">
 
 <div id="container" style="padding-left: 130px;">
 	<div style="margin-right: 80px;">

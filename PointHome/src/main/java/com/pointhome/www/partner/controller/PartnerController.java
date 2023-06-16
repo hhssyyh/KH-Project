@@ -179,9 +179,6 @@ public class PartnerController {
        ) {
 
     Map<String, Object> pagingMap = new HashMap<String, Object>();      
-
-    logger.info("{}",partnerType);
-
     pagingMap.put("partnerType", partnerType);
     pagingMap.put("curPage", curPage);
     Paging paging  = partnerService.getTypePaging(pagingMap);
@@ -204,7 +201,6 @@ public class PartnerController {
 
     model.addAttribute("partnerType", partnerType);
     model.addAttribute("paging", paging);
-
  }
 	
 	
@@ -410,5 +406,7 @@ public class PartnerController {
 			return "redirect:./viewVideo";
 		}	   
 
+		
+		
 }
     
