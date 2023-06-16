@@ -278,6 +278,8 @@
 						rownum rnum , B.*
 						, (SELECT ROUND(NVL(AVG(r.review_grade), 0),1) FROM review r WHERE r.part_no = b.partner_no) avgGrade
         				, (SELECT count(*) FROM review r WHERE r.part_no = b.partner_no) cntReview
+        				, (SELECT partnerfile_no FROM partnerfile_tb f WHERE f.partner_no = b.partner_no) partnerfileNo
+        				, (SELECT partner_img FROM partnerfile_tb f WHERE f.partner_no = b.partner_no) partnerImg
 						<if test="userNo != 0">
 							, (SELECT count(*) FROM partner_pick p WHERE p.part_no=B.partner_no AND p.user_no=#{userNo}) ispick
 						</if>
@@ -294,6 +296,8 @@
 						rownum rnum , B.*
 						, (SELECT ROUND(NVL(AVG(r.review_grade), 0),1) FROM review r WHERE r.part_no = b.partner_no) avgGrade
        					, (SELECT count(*) FROM review r WHERE r.part_no = b.partner_no) cntReview
+       					, (SELECT partnerfile_no FROM partnerfile_tb f WHERE f.partner_no = b.partner_no) partnerfileNo
+        				, (SELECT partner_img FROM partnerfile_tb f WHERE f.partner_no = b.partner_no) partnerImg
 						<if test="userNo != 0">
 							, (SELECT count(*) FROM partner_pick p WHERE p.part_no=B.partner_no AND p.user_no=#{userNo}) ispick
 						</if>

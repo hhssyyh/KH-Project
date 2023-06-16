@@ -109,16 +109,22 @@ function pickPart(th) {
 
 <div id="partnerlist-div">
 
-<div class="container-fluid" style="margin-top: 50px; padding-left: 100px; padding-right: 100px;" >
+<div class="container-fluid" style="margin-top: 50px; padding-left: 100px; padding-right: 100px; margin-bottom: 80px;" >
 	<div class="row" id="mypPick">
 		<c:forEach var="partner" items="${list }">
 			<div class="col-md-3">
 				<div class="thumbnail">
 					<!-- card 1개-->
-					<div class="card" style="width: 310px; height: 390px; margin: 30px;">
+					<div class="card" style="width: 310px; height: 395px; margin: 30px;">
 						<input class="partNo" type="hidden" value="${partner.PARTNER_NO}">
 						<!-- 카드 사진 -->
-						<a href="/main/detail?partNo=${partner.PARTNER_NO }"><img src="../resources/main/img/partner_01.png" style="width: 100%;" class="card-img-top" alt="프로필사진"></a>
+						<c:if test="${empty partner.PARTNERIMG }">
+							<a href="/main/detail?partNo=${partner.PARTNER_NO }" style="width: 100%;"><img src="https://png.pngtree.com/png-clipart/20220112/ourmid/pngtree-cartoon-hand-drawn-default-avatar-png-image_4154232.png" style="width: 100%;" class="card-img-top"></a>
+						</c:if>
+						<c:if test="${not empty partner.PARTNERIMG }">
+							<a href="/main/detail?partNo=${partner.PARTNER_NO }" style="width: 100%;"><img src="/upload/${partner.PARTNERIMG }" style="width: 100%;" class="card-img-top"></a>
+						</c:if>
+						
 						<!-- 카드 사진 이하 내용 start-->
 						<div class="card-content" style="padding: 10px 5px; padding-left: 15px; padding-top: 15px;">
 							<div>
@@ -135,7 +141,7 @@ function pickPart(th) {
 							</div>
 							<!-- card 제휴사 상호/이름 -->
 							<div class="card-title">
-								<a href="#">
+								<a href="/main/detail?partNo=${partner.PARTNER_NO }">
 									<span class="card-title-name text-black">${partner.PARTNER_NICK }</span>
 									<span class="card-title-shop">${partner.PARTNER_SHOPNAME }</span>
 								</a>
@@ -143,10 +149,10 @@ function pickPart(th) {
 							<div>
 								<!-- 카드 별점 end -->
 								<div class="card-star"> 
-									<a href="#">
+									<a href="/main/detail?partNo=${partner.PARTNER_NO }">
 										<!-- 별 갯수 -->
 										<span class="star-ratings" style="font-family: Noto_Sans_KR400; font-size: 18px;">
-											<span class="star-ratings-fill space-x-2 text-lg" style="width: ${partner.AVGGRADE * 20 - 4 }%;">
+											<span class="star-ratings-fill space-x-2 text-lg" style="width: ${partner.AVGGRADE * 20 }%;">
 												<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
 											</span>
 											<span class="star-ratings-base space-x-2 text-lg">
@@ -159,7 +165,7 @@ function pickPart(th) {
 								</div>
 								<!-- 카드 리뷰 -->
 								<div class="card-comment">
-									<a href="#">
+									<a href="/main/detail?partNo=${partner.PARTNER_NO }">
 										<span><i class="bi bi-chat-left-dots-fill card-comment-icon"></i></span>
 										<span class="card-comment-cnt">(${partner.CNTREVIEW })</span>
 									</a>
@@ -168,10 +174,10 @@ function pickPart(th) {
 							
 							<!-- 카드 가격 -->
 							<div class="card-price">
-								<a href="#">
+								<a href="/main/detail?partNo=${partner.PARTNER_NO }">
 									<span class="card-price-discount">50%</span>
-									<span class="card-price-dismon">${partner_PARTNER_PRICE }원</span>
-									<span class="card-price-money">${partner_PARTNER_PRICE * 2 }원</span>
+									<span class="card-price-dismon">${partner.PARTNER_PRICE }원</span>
+									<span class="card-price-money">${partner.PARTNER_PRICE * 2 }원</span>
 								</a>
 							</div>
 							
@@ -204,10 +210,10 @@ function pickPart(th) {
 	   <%--첫 페이지로 이동 --%>
 	   <!--1번이 아닐때 = ne  -->
 	   <c:if test="${paging.curPage ne 1 }">
-	      <li class="page-item"><a class="page-link" href="./list">&larr; 처음</a></li>
+	      <li class="page-item"><a class="page-link" href="./list?partnerType=${param.partnerType}">&larr; 처음</a></li>
 	   </c:if>
 	   <c:if test="${paging.curPage eq 1 }">
-	      <li class="page-item disabled"><a class="page-link" href="./list">&larr; 처음</a></li>
+	      <li class="page-item disabled"><a class="page-link" href="./list?partnerType=${param.partnerType}">&larr; 처음</a></li>
 	   </c:if>
 	
 	   <%--이전 페이징 리스트로 이동 --%>
@@ -215,31 +221,31 @@ function pickPart(th) {
 	<%--    <li class="page-item"><a class="page-link" href="./list?curPage=${paging.endPage- paging.pageCount }">&laquo;</a></li> --%>
 	
 	   <c:if test="${paging.startPage ne 1 }">
-	      <li class="page-item"><a class="page-link" href="./list?curPage=${paging.startPage - paging.pageCount }">&laquo;</a></li>
+	      <li class="page-item"><a class="page-link" href="./list?curPage=${paging.startPage - paging.pageCount }&partnerType=${param.partnerType}">&laquo;</a></li>
 	   </c:if> 
 	
 	   <c:if test="${paging.startPage eq 1 }">
-	      <li class="page-item disabled"><a class="page-link" href="./list?curPage=${paging.startPage - paging.pageCount }">&laquo;</a></li>
+	      <li class="page-item disabled"><a class="page-link" href="./list?curPage=${paging.startPage - paging.pageCount }&partnerType=${param.partnerType}">&laquo;</a></li>
 	   </c:if> 
 	
 	
 	
 	   <%--이전 페이지로 이동 --%>
 	   <c:if test="${paging.curPage gt 1 }">
-	   <li class="page-item"><a class="page-link" href="./list?curPage=${paging.curPage -1 }">&lt;</a></li>
+	   <li class="page-item"><a class="page-link" href="./list?curPage=${paging.curPage -1 }&partnerType=${param.partnerType}">&lt;</a></li>
 	   </c:if>
 	
 	   <%--페이징 번호 리스트 --%>
 	   <c:forEach var="i" begin="${paging.startPage }" end="${paging.endPage }">
 	   <c:if test="${paging.curPage eq i }">
 	      <li class="page-item active">
-	         <a class="page-link" href="./list?curPage=${i }">${i }</a>
+	         <a class="page-link" href="./list?curPage=${i }&partnerType=${param.partnerType}">${i }</a>
 	      </li>
 	   </c:if>
 	      
 	   <c:if test="${paging.curPage ne i }">
 	      <li class="page-item ">
-	         <a class="page-link" href="./list?curPage=${i }">${i }</a>
+	         <a class="page-link" href="./list?curPage=${i }&partnerType=${param.partnerType}">${i }</a>
 	      </li>
 	   </c:if>
 	   
@@ -247,21 +253,21 @@ function pickPart(th) {
 	   
 	   <%--다음 페이지로 이동 --%>
 	   <c:if test="${paging.curPage lt paging.totalPage }">
-	   <li class="page-item"><a class="page-link" href="./list?curPage=${paging.curPage +1 }">&gt;</a></li>
+	   <li class="page-item"><a class="page-link" href="./list?curPage=${paging.curPage +1 }&partnerType=${param.partnerType}">&gt;</a></li>
 	   </c:if>
 	   
 	   <%--다음 페이징 리스트로 이동 --%>
 	   <c:if test="${paging.endPage ne paging.totalPage}">
-	      <li class="page-item"><a class="page-link" href="./list?curPage=${paging.startPage + paging.pageCount }">&raquo;</a></li>
+	      <li class="page-item"><a class="page-link" href="./list?curPage=${paging.startPage + paging.pageCount }&partnerType=${param.partnerType}">&raquo;</a></li>
 	   </c:if> 
 	
 	   <c:if test="${paging.endPage eq paging.totalPage }">
-	      <li class="page-item disabled"><a class="page-link" href="./list?curPage=${paging.startPage + paging.pageCount }">&raquo;</a></li>
+	      <li class="page-item disabled"><a class="page-link" href="./list?curPage=${paging.startPage + paging.pageCount }&partnerType=${param.partnerType}">&raquo;</a></li>
 	   </c:if> 
 	   
 	   <%--마지막 페이지로 이동 --%>
 	   <c:if test="${paging.curPage ne paging.totalPage }">
-	      <li class="page-item"><a class="page-link" href="./list?curPage=${paging.totalPage }">마지막&rarr; </a></li>
+	      <li class="page-item"><a class="page-link" href="./list?curPage=${paging.totalPage }&partnerType=${param.partnerType}">마지막&rarr; </a></li>
 	   </c:if>
 	   <c:if test="${paging.curPage eq paging.totalPage }">
 	      <li class="page-item "><a class="page-link" > 마지막&rarr; </a></li>
