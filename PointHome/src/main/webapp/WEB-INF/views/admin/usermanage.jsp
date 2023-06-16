@@ -3,13 +3,42 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+
 <style type="text/css">
 #container {
 
 	margin-left: 20%;
 	
 }
+
 </style>
+
+<style>
+td {
+    /* 셀 가운데 정렬 */
+    text-align: center;
+  }
+  table th {
+  text-align: center;
+}
+
+/* 이건 평소 모습 */
+.pagination .page-link {
+	font-family: 'SBAggroL';
+	color: black;
+}
+/* 이건 눌렀을때 모습 */
+.pagination .page-item.active .page-link {
+	font-family: 'SBAggroL';
+	color: black; /* 현재 보고 있는 페이지 번호 색상을 검정색으로 ㄱㄱ */
+	background-color: #dcdcdc; /* 현재 보고 있는 페이지 번호의 배경색 회색으로 */
+	border-color: transparent;
+	/* 현재 보고 있는 페이지 번호의 테두리 색상을 투명으로 해서 파랑색 안보이게 하는거 */
+}
+
+
+</style>
+
 
 
 <c:import url="/WEB-INF/views/layout/adminLayout/adminHeader.jsp"/>
@@ -61,28 +90,12 @@ window.onload=function(){
    });   
 }
 </script>
-	<div class="container-fluid" style="margin-top: 58px;">
-		<div class="row">
-			<div class="col-sm-6 offset-sm-3">
-				<div class="input-group mb-3">
-					<select class="form-contril search-select"
-						style="border-bottom-left-radius: 12%; border-top-left-radius: 12%;"
-						name="searchType">
-						<option value="user_no">번호</option>
-						<option value="user_email">아이디</option>
-						<option value="user_nick">닉네임</option>
-					</select> <input style="width: 200px;" name="keyword" type="text"
-						class="form-control" placeholder="검색어 입력" aria-label="search"
-						aria-describedby="button-addon2" name="serchName" id="search">
 
-					<button class="btn btn-info" type="button" id="searchBtn" style="font-family: 'SBAggroM';">검색</button>
-				</div>
-			</div>
-		</div>
-	</div>
+
+
  <!-- 검색 기능 -->
  <div style="margin-top: 0; padding-top:60px; width:85%; margin-left:200px;">
-   <div class="input-group " >
+   <div class="input-group " style="padding-top:30px;" >
       <select class="form-contril search-select" name="searchType" style="margin-left:400px;">
          <option value="user_no">번호</option>
          <option value="user_email">아이디</option>
@@ -91,10 +104,10 @@ window.onload=function(){
       <input name="keyword" type="text" placeholder="검색어 입력" aria-label="search"
    aria-describedby="button-addon2" name="serchName" id="search">
          
-      <button class="btn btn-info" type="button" id="searchBtn" >검색</button>
+      <button class="btn btn-dark" type="button" id="searchBtn" >검색</button>
    </div>
    
-   <div id="filterDiv" style="text-align: right; padding-right:150px;" >
+   <div id="filterDiv" style="text-align: right; padding-right:150px; " >
       <i class="bi bi-bar-chart-steps"></i>정렬기준 <select class="array"
          id="filter" name="filter" onchange="filterSelect()" >
          <c:choose>
@@ -147,7 +160,7 @@ window.onload=function(){
 			<td>${user.userNick }</td>
 			<td><fmt:formatDate value="${user.userJoindate}" pattern="yyyy.MM.dd"/><br /></td>
 			<td><a href="/admin/userdetail?userNo=${user.userNo }">
-					<button class="btn btn-info btn-sm">상세 조회</button>
+					<button class="btn btn-outline-dark">상세 조회</button>
 				</a>
 			</td>
 		</tr>
@@ -170,11 +183,11 @@ window.onload=function(){
          <!--1번이 아닐때 = ne  -->
          <c:if test="${paging.curPage ne 1 }">
             <li class="page-item"><a class="page-link" href="./usermanage?filter=${filter}&searchType=${searchType}&keyword=${keyword}">&larr;
-                  처음</a></li>
+                  </a></li>
          </c:if>
          <c:if test="${paging.curPage eq 1 }">
             <li class="page-item disabled"><a class="page-link"
-               href="./usermanage?filter=${filter}&searchType=${searchType}&keyword=${keyword}">&larr; 처음</a></li>
+               href="./usermanage?filter=${filter}&searchType=${searchType}&keyword=${keyword}">&larr; </a></li>
          </c:if>
 
  <!--  이전 페이징 리스트로 이동 -->
@@ -231,13 +244,12 @@ window.onload=function(){
          <%--마지막 페이지로 이동 --%>
          <c:if test="${paging.curPage ne paging.totalPage }">
             <li class="page-item"><a class="page-link"
-               href="./usermanage?curPage=${paging.totalPage }&filter=${filter}&searchType=${searchType}&keyword=${keyword}">마지막&rarr; </a></li>
+               href="./usermanage?curPage=${paging.totalPage }&filter=${filter}&searchType=${searchType}&keyword=${keyword}">&rarr; </a></li>
          </c:if>
          <c:if test="${paging.curPage eq paging.totalPage }">
-            <li class="page-item "><a class="page-link" href="./usermanage?curPage=${paging.totalPage }&filter=${filter}&searchType=${searchType}&keyword=${keyword}"> 마지막&rarr; </a></li>
+            <li class="page-item"><a class="page-link" href="./usermanage?curPage=${paging.totalPage }&filter=${filter}&searchType=${searchType}&keyword=${keyword}"> &rarr; </a></li>
          </c:if>
       </ul>
-
    </div>
 
 </div>
