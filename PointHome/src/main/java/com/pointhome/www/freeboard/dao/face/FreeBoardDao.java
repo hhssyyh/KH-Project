@@ -261,5 +261,7 @@ public interface FreeBoardDao {
 
 	public void deleteBoardFile(int boardFileNo);
 
+	public String nick(int userNo);
+
 
 }

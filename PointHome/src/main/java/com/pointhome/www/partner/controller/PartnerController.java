@@ -104,7 +104,7 @@ public class PartnerController {
 	public String logout(HttpSession session) {
 		session.invalidate();
 
-		return "redirect:./main";
+		return "redirect:/partner/login";
 	}
 	
 	@GetMapping("/shopsetting")

@@ -55,8 +55,9 @@ body {
  width: 5px;
 }
 
-body{
-   font-family: 'SBAggroL';
+body {
+ 	font-family : 'NotoSansKR-Regular';
+
 }
   
 

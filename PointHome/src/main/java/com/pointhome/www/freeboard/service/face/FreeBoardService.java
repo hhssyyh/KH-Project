@@ -199,5 +199,7 @@ public interface FreeBoardService {
 
 	public void deleteFile(int boardFileNo);
 
+	public String nick(int userNo);
+
 }
 

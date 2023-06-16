@@ -306,6 +306,12 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 		freeBoardDao.deleteBoardFile(boardFileNo);
 	}
 
+	@Override
+	public String nick(int userNo) {
+		
+		return freeBoardDao.nick(userNo);
+	}
+
 
 }
 

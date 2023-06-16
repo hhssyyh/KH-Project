@@ -71,6 +71,31 @@
 }
 </style>
 
+<style>
+td {
+    /* 셀 가운데 정렬 */
+    text-align: center;
+  }
+  table th {
+  text-align: center;
+}
+
+/* 이건 평소 모습 */
+.pagination .page-link {
+	font-family: 'SBAggroL';
+	color: black;
+}
+/* 이건 눌렀을때 모습 */
+.pagination .page-item.active .page-link {
+	font-family: 'SBAggroL';
+	color: black; /* 현재 보고 있는 페이지 번호 색상을 검정색으로 ㄱㄱ */
+	background-color: #dcdcdc; /* 현재 보고 있는 페이지 번호의 배경색 회색으로 */
+	border-color: transparent;
+	/* 현재 보고 있는 페이지 번호의 테두리 색상을 투명으로 해서 파랑색 안보이게 하는거 */
+}
+
+
+</style>
 
 
 <div class="container text-center">
@@ -99,17 +124,20 @@
 				</c:choose>
 			</select>
 		</c:if>
+</div>
 
+<div style="padding-right:300px; margin-left:200px; width: 100%;">
 
-
-		<h1 style="text-align: center; margin-top: 70px">공지사항</h1>
+		<div style="text-align: center; margin-top: 15px; font-size: 45px;" >
+		공지사항
+		</div>
 
 
 		<hr style="margin-left: 150px;">
 
-		<table id="listTable" class="table table-hover table-sm text-center"
+		<table class="table table-hover table-bordered" 
 			style="margin-left: 60px;">
-			<thead>
+			<thead class="table-dark">
 				<tr>
 					<th>글번호</th>
 					<th>제목</th>
@@ -120,10 +148,9 @@
 
 
 			<c:forEach var="notice" items="${noticelist }">
-				<tr>
+				<tr onclick="location.href='./view?noticeNo=${notice.NOTICE_NO }'">
 					<td>${notice.NOTICE_NO }</td>
-					<td class="text-start"><a
-						href="./view?noticeNo=${notice.NOTICE_NO }">${notice.NOTICE_TITLE }</a></td>
+					<td class="text-start" style="font-weight: bold;">${notice.NOTICE_TITLE }</td>
 
 					<td><fmt:formatDate value="${notice.NOTICE_DATE }"
 							pattern="yy/MM/dd hh:mm" />
@@ -133,6 +160,7 @@
 
 
 		</table>
+</div>
 
 
 
@@ -140,7 +168,7 @@
 			<!-- 작성 버튼 -->
 			<div class="float-end mb-3">
 				<a href="/admin/writenotice"><button id="btnWrite"
-						class="btn btn-info">공지사항 작성</button></a>
+						class="btn btn-dark">공지사항 작성</button></a>
 			</div>
 			<div class="clearfix"></div>
 		</c:if>
