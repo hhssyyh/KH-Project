@@ -27,15 +27,24 @@
 			<c:forEach var="list" items="${boardList}">
 			<tr>
 				<td class="checkbox"><input name="RowCheck" type="checkbox" value="${list.freeboardNo}"/></td>
-				<td><h5 style=" font-size: 16px;"><a href="/freeboard/view?freeboardNo=${list.freeboardNo}">${list.freeboardTitle }</a></h5></td>
+				<td><h5 style=" font-size: 16px;"><a href="/freeboard/view?freeboardNo=${list.freeboardNo}">${list.freeboardTitle }</a>
+					<c:set var="now" value="<%=new java.util.Date()%>" /><!-- 현재시간 -->
+					<fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="today" /><!-- 현재시간을 숫자로 -->
+					<fmt:parseNumber value="${list.freeboardDate.time / (1000*60*60*24)}" integerOnly="true" var="boardDate" /><!-- 게시글 작성날짜를 숫자로 -->
+					<c:if test="${today - boardDate le 2}">
+					<img src="../resources/new.png" style="margin: 0 auto; width: 13px;" alt="">
+					</c:if>
+				</h5></td>
 				<td><h6 style=" font-size: 10px;"><fmt:formatDate value="${list.freeboardDate }" pattern="yy/MM/dd hh:mm" /></h6></td>		
 			</tr>
 			</c:forEach>
 	</table>
 	
-	<div class="float-end mb-3">
-       <input type="button" value="삭제" class="btn btn-outline-info" onclick="deleteValue();">
+	<div class="float-end mx-3">
+       <label for="delete"><i class="bi bi-trash" ></i></label>
+       <input type="button"  id="delete" style="display: none;" value="삭제" class="btn btn-outline-info" onclick="deleteValue();">
 	</div>
+	
 	
 <!-- 페이징 -->
 <div style="margin-bottom: 200px;"><!-- href로 링크만 넣어주면 됨 -->

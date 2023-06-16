@@ -217,15 +217,29 @@ public class FreeBoardController {
    }
    
    @GetMapping("/update")
-   public void update(int freeboardNo, Model model) {
+   public void update(int freeboardNo, Model model, HttpSession session) {
       FreeBoard board = freeBoardService.selectBoard(freeboardNo);
+      
       logger.info("update freeboard: {}", board);
       
       model.addAttribute("board", board);
       
+      int cntRecommend = freeBoardService.getCntRecommend(freeboardNo);
       
       List<FreeBoardFile> boardFile = freeBoardService.selectBoardFile(freeboardNo);
       logger.info("update freeboardFile: {}", boardFile);
+      
+      List<Map<String, Object>> boardCommentList = freeBoardService.commentView(freeboardNo);
+      
+      User viewUser = freeBoardService.viewUser(board.getUserNo());
+      int userNo = (Integer)session.getAttribute("userno");
+      int alertCnt = mypageService.getAlertCnt(userNo);
+
+      model.addAttribute( "alertCnt" , alertCnt);
+      model.addAttribute("viewUser", viewUser);
+      model.addAttribute("commentCnt", boardCommentList.size());
+      model.addAttribute("file",boardFile);
+      model.addAttribute("cntRecommend", cntRecommend);
       
    }
    
@@ -249,6 +263,11 @@ public class FreeBoardController {
       model.addAttribute("downFile", freeboardFile);
       
       return "down";
+   }
+   
+   @RequestMapping("/fileDelete")
+   public void fileDelete(int freeboardfileNo) {
+	   
    }
    
 }

@@ -44,7 +44,7 @@ public class AdminServiceImpl implements AdminService {
 		int chk = adminDao.selectAdminIdPw(admin);
 		
 		if(chk > 0) {
-		logger.debug("회원정보 존재{}", chk);
+//		logger.debug("회원정보 존재{}", chk);
 		return true;
 		}
 		return false;
@@ -71,7 +71,7 @@ public class AdminServiceImpl implements AdminService {
 		
 		List<AdminNotice> alist = adminDao.selectAllAdminNotice(filter, paging);
 		
-		logger.debug("{}", alist);
+//		logger.debug("{}", alist);
 		return alist;
 	}
 	
@@ -103,18 +103,18 @@ public class AdminServiceImpl implements AdminService {
 	public void writeNotice(AdminNotice adminnotice,List<MultipartFile> dataMul) {
 		
 		adminDao.insertNotice(adminnotice);
-		logger.info("adminno: {}", adminnotice.getAdminNo());
+//		logger.info("adminno: {}", adminnotice.getAdminNo());
 		
 		for(MultipartFile m : dataMul ) {
 			if(m.getSize() <= 0 ) {
 				
-				logger.info("0보다 작음, 처리 중단");
+//				logger.info("0보다 작음, 처리 중단");
 				
 				continue;
 			}
 		
 			String storedPath = context.getRealPath("upload");
-			logger.info("storedPath : {}", storedPath);
+//			logger.info("storedPath : {}", storedPath);
 			
 			File storedFolder = new File(storedPath);
 			
@@ -127,7 +127,7 @@ public class AdminServiceImpl implements AdminService {
 			originName = m.getOriginalFilename();
 			storedName = originName + UUID.randomUUID().toString().split("-")[4];
 			
-			logger.info("storedName : {}", storedName);
+//			logger.info("storedName : {}", storedName);
 		
 			dest = new File(storedFolder, storedName);
 			
@@ -147,7 +147,7 @@ public class AdminServiceImpl implements AdminService {
 			noticeFile.setAdminFileOrigin(originName);
 			noticeFile.setAdminFileStored(storedName);
 			
-			logger.info("filetest :{} ", noticeFile);
+//			logger.info("filetest :{} ", noticeFile);
 			
 			adminDao.insertFile(noticeFile);
 			
@@ -219,14 +219,14 @@ public class AdminServiceImpl implements AdminService {
 		for(MultipartFile m : dataMul ) {
 	         if(m.getSize() <= 0 ) {
 	            
-	            logger.info("0보다 작음, 처리 중단");
+//	            logger.info("0보다 작음, 처리 중단");
 	            
 	            continue;
 	         }
 	         
 	      
 	         String storedPath = context.getRealPath("upload");
-	         logger.info("storedPath : {}", storedPath);
+//	         logger.info("storedPath : {}", storedPath);
 	         
 	         File storedFolder = new File(storedPath);
 	         
@@ -236,11 +236,11 @@ public class AdminServiceImpl implements AdminService {
 	         String storedName = null;
 	         
 	         do {
-	            logger.debug("!!!!!!!!!++++++++++++++++");
+//	            logger.debug("!!!!!!!!!++++++++++++++++");
 	            originName = m.getOriginalFilename();
 	            storedName = originName + UUID.randomUUID().toString().split("-")[4];
 	            
-	            logger.info("storedName : {}", storedName);
+//	            logger.info("storedName : {}", storedName);
 	         
 	            dest = new File(storedFolder, storedName);
 	         
@@ -260,9 +260,9 @@ public class AdminServiceImpl implements AdminService {
 	         adminNoticeFile.setAdminFileOrigin(originName);
 	         adminNoticeFile.setAdminFileStored(storedName);
 	         
-	         logger.info("filetest :{} ", adminNoticeFile);
+//	         logger.info("filetest :{} ", adminNoticeFile);
 	         
-	         logger.info("++++++++++++++++++++++++삭제");
+//	         logger.info("++++++++++++++++++++++++삭제");
 	         adminDao.insertFile(adminNoticeFile);
 		}
 
@@ -270,7 +270,7 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public AdminNoticeFile getFile(int adminFileNo) {
-		logger.info("ds{}", adminDao.selectFile(adminFileNo));
+//		logger.info("ds{}", adminDao.selectFile(adminFileNo));
 	      return adminDao.selectFile(adminFileNo);
 	}
 
@@ -303,7 +303,7 @@ public class AdminServiceImpl implements AdminService {
 		
 		File dest = new File(storedFolder, storedName);
 
-		logger.info("dsaffffffff{}",storedPath);
+//		logger.info("dsaffffffff{}",storedPath);
 		
 		try {
 			file.transferTo(dest);
@@ -317,7 +317,7 @@ public class AdminServiceImpl implements AdminService {
 		userFile.setUserNo(user.getUserNo());
 		userFile.setUserImg(storedName);
 		
-		logger.info("{}", userFile);
+//		logger.info("{}", userFile);
 		
 		adminDao.deleteUserFile(userFile);
 		adminDao.insertUserFile(userFile);
@@ -381,7 +381,7 @@ public class AdminServiceImpl implements AdminService {
 		
 		File dest = new File(storedFolder, storedName);
 
-		logger.info("dsaffffffff{}",storedPath);
+		//loger.info("dsaffffffff{}",storedPath);
 		
 		try {
 			file.transferTo(dest);
@@ -395,7 +395,7 @@ public class AdminServiceImpl implements AdminService {
 		partnerFile.setPartnerNo(partner.getPartnerNo());
 		partnerFile.setPartnerImg(storedName);
 		
-		logger.info("{}", partnerFile);
+		//loger.info("{}", partnerFile);
 		
 		adminDao.deletePartnerFile(partnerFile);
 		adminDao.insertPartnerFile(partnerFile);
@@ -510,5 +510,21 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public void deleteVideo(int partnerVideoNo) {
 		adminDao.deleteVideo(partnerVideoNo);
+	}
+	@Override
+	public List<Map<String,Object>> getpayment(int partnerNo, Paging paging, String filter, String searchType,
+			String keyword) {
+		
+		List<Map<String,Object>> list = adminDao.selectPayment(partnerNo,paging,filter,searchType,keyword);
+		return list;
+	}
+
+	@Override
+	public Paging getPagingPayment(int partnerNo, int curPage, String filter, String searchType, String keyword) {
+		int totalPage = adminDao.getPagingPayment(partnerNo,filter, searchType, keyword);
+	      
+	      Paging paging = new Paging(totalPage, curPage); 
+	      
+		return paging;
 	}
 }

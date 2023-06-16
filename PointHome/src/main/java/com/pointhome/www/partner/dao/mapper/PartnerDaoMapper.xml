@@ -270,36 +270,37 @@
    </update>
 
 	<select id="selectPartnerPick" parameterType="map" resultType="map"> 
+		<!-- 평균별점, 총 리뷰 수 필요함 - review 테이블 -->
 		<choose>
-		<when test="partnerType == null">
-			select * from (
-				select 
-					rownum rnum , B.*
-					<if test="userNo != 0">
-						, (SELECT count(*) FROM partner_pick p WHERE p.part_no=B.partner_no AND p.user_no=#{userNo}) ispick
-					</if>
-				from ( 
-					select * from partner_tb
-					order by partner_no desc 
-				) B 
-			)partner_tb
-			where rnum between #{paging.startNo} and #{paging.endNo}
-		</when>
-		<otherwise>
-			select * from (
-				select 
-					rownum rnum , B.*
-					<if test="userNo != 0">
-						, (SELECT count(*) FROM partner_pick p WHERE p.part_no=B.partner_no AND p.user_no=#{userNo}) ispick
-					</if>
-				from ( 
-					select * from partner_tb
-					where partner_type = #{partnerType}
-					order by partner_no desc 
-				) B 
-			)partner_tb
-			where rnum between #{paging.startNo} and #{paging.endNo}	
-		</otherwise>	
+			<when test="partnerType == null">
+				select * from (
+					select 
+						rownum rnum , B.*
+						<if test="userNo != 0">
+							, (SELECT count(*) FROM partner_pick p WHERE p.part_no=B.partner_no AND p.user_no=#{userNo}) ispick
+						</if>
+					from ( 
+						select * from partner_tb
+						order by partner_no desc 
+					) B 
+				)partner_tb
+				where rnum between #{paging.startNo} and #{paging.endNo}
+			</when>
+			<otherwise>
+				select * from (
+					select 
+						rownum rnum , B.*
+						<if test="userNo != 0">
+							, (SELECT count(*) FROM partner_pick p WHERE p.part_no=B.partner_no AND p.user_no=#{userNo}) ispick
+						</if>
+					from ( 
+						select * from partner_tb
+						where partner_type = #{partnerType}
+						order by partner_no desc 
+					) B 
+				)partner_tb
+				where rnum between #{paging.startNo} and #{paging.endNo}	
+			</otherwise>	
 		</choose>
 	</select>	
 
@@ -407,5 +408,9 @@
 	   	'V'  )
 	</insert>
 
+	<select id="selectUserName" parameterType="int" resultType="String">
+		select user_name from user_tb 
+		where user_no = #{userSessionNo}
+	</select>
 </mapper>
 

@@ -21,24 +21,24 @@
 
 <script type="text/javascript">
 $(function() {      
-      
-// 	$("#reviewContent").summernote({
-// // 		width: 700,
-//          height: 300,
-//          focus: true
-//       })
-      
+
     $("#btnCancle").click(function(){
   		history.go(-1)();
-  	});
-
-     
+  	});    
 })
 
 </script>
 
 
 <style type="text/css">
+
+body{
+   font-family: 'SBAggroL';
+}
+
+.btn{
+	font-family: 'SBAggroL';
+}
 
 .modal {
     position: absolute;
@@ -110,9 +110,6 @@ $(function() {
   -webkit-text-fill-color: #fff58c;
 }
 
-* {
- 	font-family : 'NotoSansKR-Regular';
-}
 
 input[type=text] {
 	width: 500px;
@@ -128,7 +125,24 @@ input[type=text] {
 #reviewContent {
 	width: 800px;
 	height: 300px;
+	border-radius: 15px;
+	text-align: center;
+	vertical-align: middle;
+	font-family: 'SBAggroL';
+	border: 3px dotted #A696CD;
 }
+
+.Xbtn{
+	width: 100px;
+	font-size: 15px;
+	color: white;
+	margin: 10px;
+	background-color: #A696CD;
+	border-color: #A696CD;
+	vertical-align:middle;
+	font-family: 'SBAggroL';
+}
+
 </style>
 </head>
 
@@ -138,8 +152,11 @@ input[type=text] {
 <hr>
 <div id="reviewContainter" class="container">
 
-<div class="text-center">
+   <h1 style="text-align: center; font-family: 'SBAggroM';">
+         <i class="bi bi-journal-text"></i>&nbsp;&nbsp;리뷰 작성
+         </h1>
 
+<div class="text-center">
 <form action="./writeReview" method="post" enctype="multipart/form-data">
    
 	<div class="reviewStar space-x-4 mx-auto">
@@ -156,8 +173,9 @@ input[type=text] {
 	</div>
    <br>
    
-   <div class="text-center"><textarea id="reviewContent" name="reviewContent"></textarea></div>
-
+   <div class="text-center"><textarea id="reviewContent" name="reviewContent" placeholder= "최대 100자까지 작성 가능합니다"></textarea></div>
+	<br>
+	
    <div class="modal">
       <div class="modal_body" >게시글을 등록하시겠습니까?&nbsp;&nbsp;&nbsp;    
       <button type="submit" class="btn btn-outline-primary btn-default btn-xs">확인</button>
@@ -165,9 +183,9 @@ input[type=text] {
       </div>     
     </div>
 
-   <div class="text-end">
-   <button type="button" class="btn-open-popup btn btn-secondary" >작성</button>
-   <button type="button" class="btn-reset-popup btn btn-secondary" id="btnCancle" >취소</button>
+   <div class="text-center">
+   <button type="button" class="btn-open-popup btn Xbtn" >작성</button>
+   <button type="button" class="btn-reset-popup btn Xbtn" id="btnCancle" >취소</button>
    </div>
 </form>
 </div>

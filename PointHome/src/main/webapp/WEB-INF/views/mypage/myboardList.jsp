@@ -40,10 +40,10 @@ body {
 	
 }
 
-* {
- 	font-family: 'SBAggroM';
+body{
+   font-family: 'SBAggroL';
 }
-
+  
 .pagination {
 	margin-top : 50px;
 	margin-bottom : -150px;
@@ -57,7 +57,7 @@ body {
 
 .page-item.active .page-link {
  z-index: 1;
- color: #483D8B;
+ color: white;
  font-weight:bold;
  background-color: #A696CD;
   border-color: #CBB8EE;
@@ -65,7 +65,7 @@ body {
 }
 
 .page-link:focus, .page-link:hover {
-  color: #483D8B;
+  color: white;
   background-color: #A696CD; 
   border-color: #CBB8EE;
 }
@@ -139,8 +139,8 @@ table  {
 <c:import url="/WEB-INF/views/layout/myprofile.jsp" />
 
 
-<div id="userInfo" class="container" style="padding: 30px; border-radius: 30px; border: 1px solid;">
-	 <h4><i class="bi bi-pencil-square"></i> 내가 쓴 글 내역</h4>
+<div id="userInfo" class="container" style="padding: 30px; border-radius: 30px; border: 3px solid #c8c8c8;">
+	<h4><i class="bi bi-pencil-square"></i>&nbsp;&nbsp;내가 쓴 글 내역</h4>
 	<hr id="line">
 	
 	<table class="table table-hover table-sm text-center checkbox-table">
@@ -154,15 +154,24 @@ table  {
 			<c:forEach var="list" items="${boardList}">
 			<tr>
 				<td class="checkbox"><input name="RowCheck" type="checkbox" value="${list.freeboardNo}"/></td>
-				<td><h5 style=" font-size: 16px;"><a href="/freeboard/view?freeboardNo=${list.freeboardNo}">${list.freeboardTitle }</a></h5></td>
-				<td><h6 style=" font-size: 10px;"><fmt:formatDate value="${list.freeboardDate }" pattern="yy/MM/dd hh:mm" /></h6></td>		
+				<td><h5 style=" font-size: 16px;"><a href="/freeboard/view?freeboardNo=${list.freeboardNo}">${list.freeboardTitle }</a>
+					<c:set var="now" value="<%=new java.util.Date()%>" /><!-- 현재시간 -->
+					<fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="today" /><!-- 현재시간을 숫자로 -->
+					<fmt:parseNumber value="${list.freeboardDate.time / (1000*60*60*24)}" integerOnly="true" var="boardDate" /><!-- 게시글 작성날짜를 숫자로 -->
+					<c:if test="${today - boardDate le 2}">
+					<img src="../resources/new.png" style="margin: 0 auto; width: 13px;" alt="">
+					</c:if>
+				</h5></td>
+				<td><h6 style=" font-size: 12px;"><fmt:formatDate value="${list.freeboardDate }" pattern="yy/MM/dd HH:mm" /></h6></td>		
 			</tr>
 			</c:forEach>
 	</table>
 	
-	<div class="float-end mb-3">
-       <input type="button" value="삭제" class="btn btn-outline-info" onclick="deleteValue();">
+	<div class="float-end mx-3">
+       <label for="delete"><i class="bi bi-trash" ></i></label>
+       <input type="button"  id="delete" style="display: none;" value="삭제" class="btn btn-outline-info" onclick="deleteValue();">
 	</div>
+	
 	
 <!-- 페이징 -->
 <div style="margin-bottom: 200px;"><!-- href로 링크만 넣어주면 됨 -->

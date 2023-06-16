@@ -1,6 +1,5 @@
 package com.pointhome.www.user.service.face;
 
-
 import java.io.IOException;
 import java.util.Map;
 
@@ -146,7 +145,13 @@ public interface UserService {
 	 */
 	public User getUserEmailByNamePhone(User param);
 
-	String createNaverLogoutURL(String accessToken);
+	/**
+	 * 네이버 엑세스토큰 제거하기 위한 메소드
+	 * (실제 네이버 로그아웃은 아님)
+	 * @param accessToken - 엑세스토큰
+	 * @return 네이버URL주소
+	 */
+	public String createNaverLogoutURL(String accessToken);
 
 	public String requestToServer(String logoutURL, String headerStr) throws IOException ;
 

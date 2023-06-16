@@ -346,6 +346,23 @@ public interface AdminService {
 	 * @return video - 영상 출력 정보를 담은 DTO
 	 */
 	public void deleteVideo(int partnerVideoNo);
+	/**
+	 * 파트너사에 결제한 유저의 결제내역 조회
+	 * @param partnerNo - 제휴사번호
+	 * @return 결제내역
+	 */
+	public List<Map<String,Object>> getpayment(int partnerNo, Paging paging, String filter, String searchType,
+			String keyword);
+	/**
+	 * 결제 내역을 위한 페이징 객체 생성
+	 * 
+	 * @param curPage- 현재페이지
+	 * @param filter - 필터
+	 * @param searchType - 검색 타입
+	 * @param keyword - 키워드
+	 * @return - 계산이 완료된 Paging 객체
+	 */
+	public Paging getPagingPayment(int partnerNo, int curPage, String filter, String searchType, String keyword);
 	
 	
 

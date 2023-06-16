@@ -16,7 +16,7 @@ import com.pointhome.www.partner.dto.PartnerVideo;
 import com.pointhome.www.util.Paging;
 
 public interface PartnerDao {
-
+	
 	/**
 	 * partner insert
 	 * 
@@ -291,8 +291,24 @@ public interface PartnerDao {
 	 */
 	public int test(String videoId);
 
+	/**
+	 * 영상을 올힌 제휴사중 회원의 찜한 제휴사 조회
+	 * 
+	 * @param video - 유투브 DTO
+	 * @return - 찜한 제휴사 내역과 영상 정보
+	 */
 	public List<MyPick> selectPickListByVideo(PartnerVideo video);
 
+
+	/**
+	 * 찜한 제휴사의 영상 삽입시 알림 삽입
+	 * 
+	 * @param video - 영상 DTO
+	 * @param mp - 찜 DTO
+	 */
 	public void insertVideoAlert(@Param("video") PartnerVideo video, @Param("pickUser") MyPick mp);	
+
+	public String selectUserName(int userSessionNo);	
+
 
 }

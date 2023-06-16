@@ -504,5 +504,5 @@ public class UserServiceImpl implements UserService {
 
 		return logoutURL;
 	}
-	
+
 }

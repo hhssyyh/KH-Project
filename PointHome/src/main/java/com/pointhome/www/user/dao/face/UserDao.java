@@ -80,5 +80,4 @@ public interface UserDao {
 	 */
 	public User selectUserNoByEmail(User userInfo);
 
-
 }

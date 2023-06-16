@@ -103,6 +103,7 @@
 		<a href="./partreserve?partnerNo=${param.partnerNo }"><button type="button" class="btn btn-primary">예약정보</button></a>
 		<a href="./review?partnerNo=${param.partnerNo }"><button type="button" class="btn btn-primary">리뷰조회</button></a>
 		<a href="./partnervideo?partnerNo=${param.partnerNo }"><button type="button" class="btn btn-primary">영상관리</button></a>
+		<a href="./payment?partnerNo=${param.partnerNo }"><button type="button" class="btn btn-primary">결제내역</button></a>
 	
 		<br>
 </div>

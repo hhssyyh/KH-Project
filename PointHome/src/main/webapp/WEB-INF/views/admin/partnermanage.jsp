@@ -9,6 +9,32 @@
 	width:80%;
 }
 </style>
+
+<style>
+td {
+    /* 셀 가운데 정렬 */
+    text-align: center;
+  }
+  table th {
+  text-align: center;
+}
+
+/* 이건 평소 모습 */
+.pagination .page-link {
+	font-family: 'SBAggroL';
+	color: black;
+}
+/* 이건 눌렀을때 모습 */
+.pagination .page-item.active .page-link {
+	font-family: 'SBAggroL';
+	color: black; /* 현재 보고 있는 페이지 번호 색상을 검정색으로 ㄱㄱ */
+	background-color: #dcdcdc; /* 현재 보고 있는 페이지 번호의 배경색 회색으로 */
+	border-color: transparent;
+	/* 현재 보고 있는 페이지 번호의 테두리 색상을 투명으로 해서 파랑색 안보이게 하는거 */
+}
+
+
+</style>
 <c:import url="/WEB-INF/views/layout/adminLayout/adminHeader.jsp"/>
 <c:import url="/WEB-INF/views/layout/adminLayout/sidebar.jsp"/>
 <script type="text/javascript">
@@ -60,7 +86,7 @@ window.onload=function(){
 
  <!-- 검색 기능 -->
  <div style="margin-top: 0; padding-top:60px; width:85%; margin-left:200px;">
-   <div class="input-group " >
+   <div class="input-group "  style="padding-top:30px;" >
       <select class="form-contril search-select" name="searchType" style="margin-left:400px;">
          <option value="partner_no">번호</option>
          <option value="partner_email">아이디</option>
@@ -71,7 +97,7 @@ window.onload=function(){
       <input name="keyword" type="text" placeholder="검색어 입력" aria-label="search"
    aria-describedby="button-addon2" name="serchName" id="search">
          
-      <button class="btn btn-info" type="button" id="searchBtn" >검색</button>
+      <button class="btn btn-dark" type="button" id="searchBtn" >검색</button>
    </div>
    
    <div id="filterDiv" style="text-align: right; padding-right:150px;" >
@@ -126,7 +152,7 @@ window.onload=function(){
 			<td>${partner.partnerNick }</td>
 			<td><fmt:formatDate value="${partner.partnerJoindate}" pattern="yyyy년 MM월 dd일"/><br /></td>
 			<td><a href="/admin/partnerdetail?partnerNo=${partner.partnerNo }">
-					<button class="btn btn-info btn-sm">상세 조회</button>
+					<button class="btn btn-outline-dark">상세 조회</button>
 				</a>
 			</td>
 		</tr>

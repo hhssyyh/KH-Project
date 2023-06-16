@@ -56,23 +56,27 @@
 	
 	  transform: translateX(-50%) translateY(-50%);
 	}
-	
+
+body{
+   font-family: 'SBAggroL';
+}	
+
+#userInfo {
+	width: 1000px;
+	background-color: white;
+}
 
 
 </style>
 
 
 
-<div id="mypage">
-
-
-
-
+<div id="userInfo" class="container" style="padding: 30px; border-radius: 30px; border: 3px solid #c8c8c8; margin-bottom: 100px;">
 
 <form action="./update" method="post" enctype="multipart/form-data">
 
-	<div id="userInfo" class="container mt-5" style="padding: 40px;">
-		<div style="font-size: 20px;">기본 회원정보</div>
+<!-- 	<div id="userInfo" class="container mt-5" style="padding: 40px;"> -->
+		<div style="font-size: 20px;"><i class="bi bi-person-vcard"></i>&nbsp;&nbsp;기본 회원정보</div>
 		<hr id="line">
 
 		<div id="photoDiv">
@@ -170,7 +174,7 @@
 				style="width: 23%; margin-left: 215px; margin-top: -68px;"
 				value="${res.userPostCode}" name="userPostCode">
 			<label for="floatingInput"></label>
-		<button type="button" class="btn btn-outline-dark PostCodeBtn" style="font-size: 15px;" onclick="kakaoPostcode()">우편번호 확인</button>
+		<button type="button" class="btn btn-outline-dark PostCodeBtn" style="font-size: 15px; margin-left: 480px;" onclick="kakaoPostcode()">우편번호 확인</button>
 		</span>
 		</div>
 
@@ -266,10 +270,7 @@
       }
     </script>
 
-
-</body>
-</html>
-
+<c:import url="/WEB-INF/views/layout/footer.jsp" />
 
 
 

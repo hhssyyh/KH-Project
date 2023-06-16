@@ -241,7 +241,14 @@ a:hover {
 					onclick="location.href='./view?freeboardNo=${board.FREEBOARD_NO }'"
 					style="text-align: center; vertical-align: middle; font-family: 'SBAggroL'; font-size: 15px;">
 					<td style="height: 75px;">${board.FREEBOARD_NO }</td>
-					<td class="text-start " style="font-weight: bold; font-size: 19px">${board.FREEBOARD_TITLE }</td>
+					<td class="text-start " style="font-weight: bold; font-size: 19px">${board.FREEBOARD_TITLE }			
+					<c:set var="now" value="<%=new java.util.Date()%>" /><!-- 현재시간 -->
+					<fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="today" /><!-- 현재시간을 숫자로 -->
+					<fmt:parseNumber value="${board.FREEBOARD_DATE.time / (1000*60*60*24)}" integerOnly="true" var="boardDate" /><!-- 게시글 작성날짜를 숫자로 -->
+					<c:if test="${today - boardDate le 2}">
+					<img src="../resources/new.png" style="margin: 0 auto; width: 13px;" alt="">
+					</c:if>
+					</td>
 					<td>${board.USER_NICK}</td>
 					<td>${board.FREEBOARD_HIT }</td>
 					<td><fmt:formatDate value="${board.FREEBOARD_DATE }"

@@ -43,16 +43,21 @@ public class AdminController {
 	public void Main() {
 		logger.debug("/admin/main [GET]");
 	}
+	@GetMapping("/main2")
+	public void Main2() {
+	}
+	
+	
 	
 	@GetMapping("/login")
 	public void loginGet() {
-		logger.debug("/admin/login [GET]");
+//		logger.debug("/admin/login [GET]");
 		
 	}
 	
 	@PostMapping("/login") 
 	public String loginPost(Admin admin, HttpSession session) {
-		logger.info("{}", admin);
+//		logger.info("{}", admin);
 		
 		boolean adminLogin = adminService.adminLogin(admin);
 //		logger.debug("{}", adminLogin);
@@ -173,7 +178,7 @@ public class AdminController {
 		for (Map<String, Object> map : userReserveList) {
 			
 			map.get("RES_TIME");
-			logger.info("{}",map.get("RES_TIME"));
+			//logger.info("{}",map.get("RES_TIME"));
 
 			if(Integer.parseInt(String.valueOf(map.get("RES_TIME")))==1) {
 				map.put("RESERVE_TIME", String.valueOf(map.get("RES_DATE")) + " " + "10:00" );
@@ -278,11 +283,11 @@ public class AdminController {
 	}
 	@GetMapping("/partnerdetail")
 	public void partnerdetail(int partnerNo, Model model) {
-		logger.debug("partnerNo!!!!!!!!!!!!{}",partnerNo);
+//		logger.debug("partnerNo!!!!!!!!!!!!{}",partnerNo);
 		
 		Partner detailList = adminService.partnerdetail(partnerNo);
 		 
-		logger.debug("!!!!!!!!!!!!!!!!{}",detailList);
+//		logger.debug("!!!!!!!!!!!!!!!!{}",detailList);
 		model.addAttribute("detailList", detailList);
 		
 	}
@@ -302,7 +307,7 @@ public class AdminController {
 
 		PartnerFile partnerFile = adminService.selectPartnerImg(partnerNo);
 		
-		logger.debug("file11 {}",partnerFile);
+//		logger.debug("file11 {}",partnerFile);
 		
 		model.addAttribute("partnerFile", partnerFile);
 		model.addAttribute("detailList", detailList);
@@ -314,7 +319,7 @@ public class AdminController {
 		
 		adminService.partnerupdate(partner,file);
 		
-		logger.debug("file222 {}",file);
+//		logger.debug("file222 {}",file);
 		
 		model.addAttribute("profile", file);
 		
@@ -330,7 +335,7 @@ public class AdminController {
 	         @RequestParam(value = "keyword",required = false, defaultValue = "") String keyword
 	         )throws Exception{
 
-		  logger.debug("partNo!!!!!!!!!!!{}:",partNo);  
+//		  logger.debug("partNo!!!!!!!!!!!{}:",partNo);  
 		   
 		Paging paging = adminService.getPartReservePaging(partNo,curPage,filter,searchType,keyword);
 		List<Map<String, Object>> partReserveList = adminService.getPartReserveList(partNo,paging,filter,searchType,keyword);
@@ -361,7 +366,7 @@ public class AdminController {
 		
 		List<Integer> reserveList = adminService.reserveTime(reservation);
 		
-		logger.debug("!!!!!!!!!!!!!!!!!!!!!!!!!!{}", reserveList);
+//		logger.debug("!!!!!!!!!!!!!!!!!!!!!!!!!!{}", reserveList);
 		
 		model.addAttribute("partnerNo", partnerNo);
 		model.addAttribute("reserveList", reserveList);
@@ -375,7 +380,7 @@ public class AdminController {
 	public void updateReserveAjax( int partnerNo,Reservation reservation, int resNo, HttpSession session, Model model) {
 		reservation.setPartNo(partnerNo);
 		List<Integer> reserveList = adminService.reserveTime(reservation);
-		logger.debug("partnerNo { } :",partnerNo);
+//		logger.debug("partnerNo { } :",partnerNo);
 		
 		model.addAttribute("partnerNo", partnerNo);
 		model.addAttribute("reserveList", reserveList);
@@ -396,7 +401,7 @@ public class AdminController {
 	//공지사항 
 	@GetMapping("/noticelist")
 	public void adminnotice(@RequestParam(defaultValue = "0") int curPage,Model model, @RequestParam(defaultValue = "a") String filter,HttpSession session,@RequestParam(defaultValue = "a") String type) throws Exception{
-		logger.debug("/admin/noticelist");	
+//		logger.debug("/admin/noticelist");	
 		
 		Paging paging = adminService.getPagingNotice(curPage,filter,type);
 		
@@ -460,7 +465,7 @@ public class AdminController {
 		
 		Paging paging = adminService.getPagingUserPost(userNo,curPage,filter,searchType,keyword);
 		
-		logger.debug("paging!!{}",paging);
+//		logger.debug("paging!!{}",paging);
 //		logger.debug("userboardpost --userno - {}", userNo);	
 		
 		List<FreeBoard> fblist = adminService.userPost(userNo,paging,filter,searchType,keyword);
@@ -483,9 +488,9 @@ public class AdminController {
 		
 		Paging paging = adminService.getPagingUserCmt(userNo,curPage,filter,searchType,keyword);
 		
-		logger.debug("paging!@#{}:",paging);
+//		logger.debug("paging!@#{}:",paging);
 		List<Map<String, Object>> cmtList = adminService.userCmt(userNo,paging,filter,searchType,keyword);
-		logger.debug("usercmt!@#{}:",cmtList);
+//		logger.debug("usercmt!@#{}:",cmtList);
 		
 		
 		model.addAttribute("cmtList", cmtList);
@@ -551,23 +556,23 @@ public class AdminController {
 	 @GetMapping("/update")
 	   public void update(int noticeNo, Model model) {
 	      AdminNotice notice = adminService.selectNotice(noticeNo);
-	      logger.info("update notice: {}", notice);
+//	      logger.info("update notice: {}", notice);
 	      
 	      model.addAttribute("notice", notice);
 	      
 	      
 	      List<AdminNoticeFile> noticeFile = adminService.selectNoticeFile(noticeNo);
-	      logger.info("update noticeFile: {}", noticeFile);
+	      //logger.info("update noticeFile: {}", noticeFile);
 	      
 	   }
 	   
 	   @PostMapping("/update")
 	   public String updateRes(AdminNotice notice, List<MultipartFile> dataMul) {
 	      
-	      logger.info("확인: {}", notice);
+	      //logger.info("확인: {}", notice);
 	      adminService.update(notice, dataMul);
-	      logger.debug("!!!!!!{}", dataMul);
-	      logger.info("!!!!!!!!확인: {}", notice.getNoticeNo());
+	      //logger.debug("!!!!!!{}", dataMul);
+	      //logger.info("!!!!!!!!확인: {}", notice.getNoticeNo());
 	      
 	      return "redirect:./view?noticeNo=" + notice.getNoticeNo();
 	   }  
@@ -577,7 +582,7 @@ public class AdminController {
 	   public String download(int adminFileNo, Model model) {
 	      
 	      AdminNoticeFile adminNoticeFile = adminService.getFile(adminFileNo);
-	      logger.info("ㄴ:{}",adminNoticeFile);
+	      //logger.info("ㄴ:{}",adminNoticeFile);
 	      model.addAttribute("downFile", adminNoticeFile);
 	      
 	      return "down";
@@ -630,5 +635,23 @@ public class AdminController {
 			
 			return "redirect:./partnervideo?partnerNo="+partnerVideo.getPartnerNo();
 		}	   
+		
+		@GetMapping("/payment")
+		public void payment (int partnerNo, Model model,@RequestParam(defaultValue = "0") int curPage,
+		         @RequestParam(defaultValue = "resdatedesc")  String filter, 
+		         @RequestParam(value = "searchType",required = false, defaultValue = "title") String searchType,
+		         @RequestParam(value = "keyword",required = false, defaultValue = "") String keyword
+		         )throws Exception{
+			
+			Paging paging = adminService.getPagingPayment(partnerNo,curPage,filter,searchType,keyword);
+			
+			List<Map<String,Object>> payList = adminService.getpayment(partnerNo,paging,filter,searchType,keyword);
+		
+			model.addAttribute("payList", payList);
+			 model.addAttribute("paging", paging);
+		      model.addAttribute("filter", filter);
+		      model.addAttribute("searchType", searchType);
+		      model.addAttribute("keyword", keyword);
+		}
 }
 

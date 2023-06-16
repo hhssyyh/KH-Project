@@ -12,10 +12,22 @@
 <!-- jQuery -->
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 </head>
+<style>
+body{
+background-color: #000000;
+display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+
+}
+
+
+</style>
 <body>
 <div class="container">
 
-<h1 class="text-center mt-5 mb-5">관리자페이지</h1>
+<h1 class="text-center mt-5 mb-5" style="color:white; font-weight: Bold; ">ADMIN</h1>
 <form class="form" action="/admin/login" method="post">
 <div class="form-signin m-auto">
 <div class="d-grid gap-2 col-4 mx-auto">
@@ -23,16 +35,15 @@
 
 
 	<input type="text" class="form-control" name="adminId" id="adminId" placeholder="ID">
-	  <label for="floatingInput">아이디</label>
+	  <label for="floatingInput">ID</label>
 	</div>
 	
 	<div class="form-floating">
 	  <input type="password" class="form-control" name="adminPw" id="adminPw" placeholder="비밀번호">
-	  <label for="floatingPassword">비밀번호</label>
+	  <label for="floatingPassword">PASSWORD</label>
 	</div>
 	
-	<button class="btn btn-primary btn-lg">로그인</button>
-
+<button class="btn btn-outline-dark" style="color:white; font-weight: lighter;">LOGIN</button>
 </div>
 </div>
 </form>

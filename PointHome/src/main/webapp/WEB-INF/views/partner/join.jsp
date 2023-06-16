@@ -43,7 +43,7 @@
 				<label for="Email">이메일</label>
 			</div>
 
-			<div class="form-floating col-6">
+			<div class="form-floating col-4">
 				<select class="form-select" name="partnerEmailSelect" id="partnerEmailSelect">
 					<option selected>직접입력</option>
 					<option value="@gmail.com">@gmail.com</option>
@@ -51,13 +51,18 @@
 					<option value="@hanmail.net">@hanmail.net</option>
 				</select> <label for="partnerEmailSelect">선택</label>
 			</div>
+			
+			<div class="form-floating col-2">
+				<a type="button" class="btn btn-secondary btn-lg btn-duplChk">중복</a>
+			</div>
+
 		</div>
 		
 		<input type="hidden" class="form-control" name="partnerEmail" id="partnerEmail" placeholder="이메일" value="${partnerInfo.partnerEmail}" readonly="readonly">
 
 		<div class="form-floating mb-3">
-			<input type="password" class="form-control" name="partnerPw"
-				id="partnerPw" placeholder="비밀번호"> <label for="partnerPw">비밀번호</label>
+			<input type="password" class="form-control" name="partnerPw" id="partnerPw" placeholder="비밀번호"> 
+			<label for="partnerPw">비밀번호</label>
 		</div>
 
 		<div class="form-floating mb-3">

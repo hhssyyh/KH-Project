@@ -80,15 +80,8 @@ public class PartnerServiceImpl implements PartnerService {
 	
 	@Override
 	public Paging getTypePaging(Map<String, Object> pagingMap) {
-
-		logger.info("맵 !!!!!!!!!!!!!!!!{}", pagingMap.get("partnerType"));
-		logger.info("맵 !!!!!!!!!!!!!!!!{}", pagingMap.get("curPage"));
-
 		int totalPage = partnerDao.selectCntTypeAll(pagingMap);
-
-		logger.info("total: {}", totalPage);
-
-		Paging paging = new Paging(totalPage, (int) pagingMap.get("curPage"));
+		Paging paging = new Paging(totalPage, (int) pagingMap.get("curPage"), 12, 10);
 
 		return paging;
 	}
@@ -400,6 +393,12 @@ public class PartnerServiceImpl implements PartnerService {
 	@Override
 	public int test(String videoId) {
 		return partnerDao.test(videoId);
+	}
+
+	@Override
+	public String getUserName(int userSessionNo) {
+		
+		return partnerDao.selectUserName(userSessionNo);
 	}
 			
 }

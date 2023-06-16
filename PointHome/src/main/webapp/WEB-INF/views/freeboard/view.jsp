@@ -215,6 +215,7 @@ function updateCom(th, commNo) {
 			<h5>${viewUser.userNick}</h5>
 			<span><fmt:formatDate value="${board.freeboardDate}" pattern="yy/MM/dd hh:mm"/></span>
 		</span>
+
 		<div class="fr" style="margin-left: auto;">
 			<span class="count me-2"><b>조회수</b> ${board.freeboardHit}</span>
 			<span class="cmtCount me-2"><b>댓글</b> ${commentCnt}</span>
@@ -266,6 +267,7 @@ function updateCom(th, commNo) {
 			</c:choose>
 		</div>
 	</div>
+
 
 	<br>
 

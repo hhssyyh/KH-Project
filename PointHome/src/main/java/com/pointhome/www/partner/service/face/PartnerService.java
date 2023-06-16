@@ -231,4 +231,12 @@ public interface PartnerService {
 	 * @return video - 중복 값이 있으면 반환
 	 */
 	public int test(String videoId);
+	/**
+	 * 유저의 세션 값으로 유저 이름 조회 (결제 구매자명)
+	 * @param attribute
+	 * @return
+	 */
+
+	public String getUserName(int userSessionNo);
+	
 }

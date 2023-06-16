@@ -68,15 +68,6 @@
 		SELECT freeboard_no, freeboard_title, freeboard_date, freeboard_hit FROM freeboard WHERE user_no = #{userNo} ORDER BY freeboard_no DESC
 	</select>
 	
-	<select id="getPickList" parameterType="int" resultType="Map" >
-		SELECT * from partnerfile_tb pf, (SELECT * FROM partner_tb pt, partner_pick pp where pt.partner_no = pp.part_no and user_no=#{userNo} ORDER BY pick_no DESC)B
- 		WHERE pf.partner_no(+) = B.partner_no
-	</select>
-
-	<select id="selectAlarmList" resultType="Map" parameterType="int">
-	select * from user_alert where user_no = #{userNo} order by alert_no desc
-	</select>
-	
 	<select id="selectAlertCnt" parameterType="int" resultType="int">
        select count(*) from user_alert where user_no = #{userNo} and is_read ='N'
 	</select>
@@ -85,11 +76,11 @@
 		 UPDATE user_alert set is_read = 'Y' where user_no = #{userNo}
 	</update>
 	
-	<select id="selectReserveList" parameterType="int" resultType="Map">
+	<select id="selectReserveList" parameterType="Map" resultType="Map">
        SELECT * FROM
        (SELECT ROWNUM rnum, PR.*
         FROM(
-        SELECT P.partner_shopname, P.partner_phone, P.partner_email, P.partner_type
+        SELECT P.partner_shopname, P.partner_phone, P.partner_email, P.partner_type, P.partner_name
         , R.*,
         (SELECT COUNT(*) From review WHERE user_no = #{userNo} and res_no = R.res_no) isReview
         FROM partner_tb P, reservation R
@@ -98,6 +89,8 @@
 		ORDER BY res_no DESC) PR
         ORDER BY rnum
         )
+        WHERE rnum BETWEEN #{paging.startNo} and #{paging.endNo}
+        
 	</select>
 	
 	<insert id="insertMyReview" parameterType="Review">
@@ -121,7 +114,7 @@
 		WHERE user_no = #{userNo} AND res_no = #{resNo}
 	</delete>
 	
-	<select id="selectMyReviewList" parameterType="int" resultType="Map">
+	<select id="selectMyReviewList" parameterType="Map" resultType="Map">
         select * from
         (select rownum rnum, RV. *
         from
@@ -133,9 +126,10 @@
         order by review_date desc) RV 
         order by rnum
         )
+        where rnum between #{paging.startNo} and #{paging.endNo}
 	</select>
 	
-	<select id="selectAllPaging" resultType="int" parameterType="map">
+	<select id="selectBoardPaging" resultType="int" parameterType="map">
 		SELECT count(*) from freeboard where user_no = #{userNo}
 	</select>
 	
@@ -153,4 +147,126 @@
 	<delete id="myBoardListDelete" parameterType="String">
 		DELETE FROM freeboard WHERE freeboard_no = #{freeboardNo}
 	</delete>
+	
+	<select id="selectPickPaging" resultType="int" parameterType="map">
+		SELECT count(*) FROM partner_pick WHERE user_no = #{userNo}
+	</select>
+	
+	<select id="getPickList" parameterType="int" resultType="Map" >
+            SELECT rownum rnum , B.*  from (
+            SELECT pf.partnerfile_no, pf.partner_no as pf_partner_no, pf.partner_img, pt.partner_no, pt.partner_shopname, pt.partner_type, pt.partner_nick, pp.pick_no 
+            FROM partner_tb pt, partner_pick pp ,partnerfile_tb pf 
+            where pt.partner_no = pp.part_no 
+            and pf.partner_no(+) = pt.partner_no 
+            and user_no= #{userNo} 
+            order by pp.pick_no DESC
+           ) B
+   			WHERE rownum between #{paging.startNo} and #{paging.endNo}
+	</select>
+	
+	<delete id="myPickListDelete" parameterType="String">
+		DELETE FROM partner_pick WHERE part_no =#{partnerNo}
+	</delete>
+	
+	<select id="selectAlertPaging" parameterType="Map" resultType="int">
+		 SELECT count(*) FROM user_alert WHERE user_no = #{userNo}
+	</select>
+
+	<select id="selectAlarmList" resultType="ALert" parameterType="Map">
+	 SELECT * FROM (
+            SELECT rownum rnum, A.* FROM (
+                SELECT * FROM user_alert WHERE user_no = #{userNo}
+                ORDER BY alert_no desc
+            ) A
+        )
+        WHERE rnum BETWEEN #{paging.startNo} and #{paging.endNo}
+	</select>
+	
+	<delete id="myAlertListDelete" parameterType="String">
+		DELETE FROM user_alert WHERE alert_no = #{alertNo}
+	</delete>
+	
+	<select id="selectReservePaging" parameterType="Map" resultType="int">
+		 SELECT count(*) FROM reservation WHERE user_no = #{userNo}
+	</select>
+	
+	<select id="selectNewReserveList" parameterType="int" resultType="Map">
+       SELECT * FROM
+       (SELECT ROWNUM rnum, PR.*
+        FROM(
+        SELECT P.partner_shopname, P.partner_phone, P.partner_email, P.partner_type
+        , R.*,
+        (SELECT COUNT(*) From review WHERE user_no = #{userNo} and res_no = R.res_no) isReview
+        FROM partner_tb P, reservation R
+        WHERE R.user_no = #{userNo}
+		AND P.partner_no = R.part_no
+		ORDER BY res_date, res_time) PR
+        ORDER BY rnum
+        )
+	</select>
+	
+	<select id="selectReviewPaging" parameterType="Map" resultType="int">
+		SELECT count(*) FROM review WHERE user_no = #{userNo}
+	</select>
+	
+	<delete id="myReviewListDelete" parameterType="String">
+		DELETE FROM review WHERE review_no = #{reviewNo}
+	</delete>
+	
+	<select id="selectPaylist" parameterType="Map" resultType="Map">
+	    SELECT P.partner_shopname, P.partner_phone, P.partner_email, P.partner_type, P.partner_name, P.partner_pr,
+	    P.partner_postcode, P.partner_address, P.partner_detailaddress, P.partner_extraaddress
+        , R.*
+        FROM partner_tb P, reservation R
+        WHERE user_no = #{userNo}
+        AND P.partner_no = R.part_no
+		AND res_no = #{resNo}
+	</select>
+	
+	<select id="selectCommentPaging" parameterType="Map" resultType="int">
+		SELECT count(*) FROM freeboard_comment WHERE user_no=#{userNo}
+	</select>
+	
+	<select id="selectCommentList" parameterType="Map" resultType="Map">
+		SELECT * FROM(        
+        SELECT rownum rnum, C.* FROM
+        (select * from freeboard_comment WHERE user_no=#{userNo} ORDER BY comm_no DESC)C
+        )
+        WHERE rnum BETWEEN #{paging.startNo} AND #{paging.endNo}
+	</select>
+	
+	<delete id="deleteMyComment" parameterType="String">
+		DELETE FROM freeboard_comment WHERE comm_no = #{commNo}
+	</delete>
+	
+	<select id="selectNoticePaging" parameterType="Map" resultType="int">
+		select count(*)
+		FROM partner_pick pp, partner_notice pn
+		where pp.part_no = pn.partner_no
+		and user_no = #{userNo}
+	</select>
+	
+	<select id="selectPickNotice" parameterType="int" resultType="Map">
+		select rownum rnum, P.* from (
+		select pn.partner_notice_date, pn.partner_notice_title, pn.partner_no, pt.partner_shopname
+		FROM partner_pick pp, partner_notice pn, partner_tb pt
+		where pp.part_no = pn.partner_no
+		and pt.partner_no = pp.part_no
+		and pp.user_no = #{userNo}
+		order by partner_notice_no desc)P
+	</select>
+	
+<!-- 	<select id="selectPickNoticeByuserno" parameterType="Map" resultType="Map"> -->
+<!-- 		select*from( -->
+<!-- 		select rownum rnum, P.* from ( -->
+<!-- 		select pn.partner_notice_date, pn.partner_notice_title, pn.partner_no, pt.partner_shopname -->
+<!-- 		FROM partner_pick pp, partner_notice pn, partner_tb pt -->
+<!-- 		where pp.part_no = pn.partner_no -->
+<!-- 		and pn.partner_no = pp.part_no -->
+<!-- 		and pp.user_no = 111 -->
+<!-- 		order by pn.partner_notice_no desc)P -->
+<!-- 		) -->
+<!-- 		where rnum between 1 and 20 -->
+<!-- 	</select> -->
+	
 </mapper>
