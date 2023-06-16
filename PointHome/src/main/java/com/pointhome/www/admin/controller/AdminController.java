@@ -43,6 +43,11 @@ public class AdminController {
 	public void Main() {
 		logger.debug("/admin/main [GET]");
 	}
+	@GetMapping("/main2")
+	public void Main2() {
+	}
+	
+	
 	
 	@GetMapping("/login")
 	public void loginGet() {
@@ -173,7 +178,7 @@ public class AdminController {
 		for (Map<String, Object> map : userReserveList) {
 			
 			map.get("RES_TIME");
-			logger.info("{}",map.get("RES_TIME"));
+			//logger.info("{}",map.get("RES_TIME"));
 
 			if(Integer.parseInt(String.valueOf(map.get("RES_TIME")))==1) {
 				map.put("RESERVE_TIME", String.valueOf(map.get("RES_DATE")) + " " + "10:00" );
@@ -551,23 +556,23 @@ public class AdminController {
 	 @GetMapping("/update")
 	   public void update(int noticeNo, Model model) {
 	      AdminNotice notice = adminService.selectNotice(noticeNo);
-	      logger.info("update notice: {}", notice);
+//	      logger.info("update notice: {}", notice);
 	      
 	      model.addAttribute("notice", notice);
 	      
 	      
 	      List<AdminNoticeFile> noticeFile = adminService.selectNoticeFile(noticeNo);
-	      logger.info("update noticeFile: {}", noticeFile);
+	      //logger.info("update noticeFile: {}", noticeFile);
 	      
 	   }
 	   
 	   @PostMapping("/update")
 	   public String updateRes(AdminNotice notice, List<MultipartFile> dataMul) {
 	      
-	      logger.info("확인: {}", notice);
+	      //logger.info("확인: {}", notice);
 	      adminService.update(notice, dataMul);
-	      logger.debug("!!!!!!{}", dataMul);
-	      logger.info("!!!!!!!!확인: {}", notice.getNoticeNo());
+	      //logger.debug("!!!!!!{}", dataMul);
+	      //logger.info("!!!!!!!!확인: {}", notice.getNoticeNo());
 	      
 	      return "redirect:./view?noticeNo=" + notice.getNoticeNo();
 	   }  
@@ -577,7 +582,7 @@ public class AdminController {
 	   public String download(int adminFileNo, Model model) {
 	      
 	      AdminNoticeFile adminNoticeFile = adminService.getFile(adminFileNo);
-	      logger.info("ㄴ:{}",adminNoticeFile);
+	      //logger.info("ㄴ:{}",adminNoticeFile);
 	      model.addAttribute("downFile", adminNoticeFile);
 	      
 	      return "down";

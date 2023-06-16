@@ -11,7 +11,6 @@ a {
 #sidebar ul {
 	padding:0;
 	list-style-type: none;
-	background-color: #ccc;
 	width: 15%;
 	margin: 54px 0 0 0;
 	/* margin-right:0;
@@ -24,29 +23,29 @@ a {
 #sidebar li a {
 	text-decoration: none;
 	display: block;
-	color: #000;
-	padding: 8px 15px 8px 15px;
+	color: #fff;
+	font-size: 18px;
+	padding: 30px 15px 8px 38px;
 	font-weight: bold;
+	transition: all 0.2s linear;
 }
-
 
 
 #sidebar li a:hover {
-	background-color: #333;
 	color: #fff;
+	  transform: scale(1.2);
 }
+
 
 </style>
 
 
 
 
-
 <div id="sidebar">
-	<ul class="bg-light">
+	<ul style="background-color: #000000;">
 		<li><a href="/admin/usermanage">사용자 회원관리</a></li>
 		<li><a href="/admin/partnermanage">제휴사 회원관리</a></li>
-		<li><a href="#">결제관리</a></li>
 		<li><a href="/admin/noticelist">공지사항</a></li>
 	</ul> 
 </div>

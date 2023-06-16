@@ -6,9 +6,8 @@
 
 <c:choose>
 	<c:when test="${not empty adminLogin and adminLogin}">
-		    <c:import url="/WEB-INF/views/layout/adminLayout/adminHeader.jsp"/>
-			<c:import url="/WEB-INF/views/layout/adminLayout/sidebar.jsp"/>
-	
+		    <c:import url="/WEB-INF/views/admin/main2.jsp"/>
+			
 	</c:when>
 	
 	<c:otherwise>
@@ -16,6 +15,9 @@
 	</c:otherwise>
 
 </c:choose>
+
+
+
 
 </body>
 </html>
