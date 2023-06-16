@@ -20,13 +20,6 @@ td {
 
 <div id="container">
 
-	<c:if test="${empty partnerLogin }">
-		<div style="margin: 50px 100px;">
-			<h2>로그인이 필요합니다</h2>
-			<a href="./login"><button>로그인</button></a>
-		</div>
-	</c:if>
-
 	<c:if test="${not empty partnerLogin }">
 		<div style="margin: 100px">
 			<h1>대시보드</h1>
