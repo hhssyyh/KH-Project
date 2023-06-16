@@ -49,7 +49,7 @@ a {
 }
 
 .modal {
-	position: absolute;
+	position: fixed;
 	top: 0;
 	left: 0;
 	width: 100%;
@@ -63,7 +63,7 @@ a {
 }
 
 .modal2 {
-	position: absolute;
+	position: fixed;
 	top: 0;
 	left: 0;
 	width: 100%;
@@ -77,7 +77,7 @@ a {
 }
 
 .modal_body {
-	position: absolute;
+	position: fixed;
 	top: 50%;
 	left: 50%;
 	width: 420px;
@@ -91,7 +91,7 @@ a {
 }
 
 .modal2_body {
-	position: absolute;
+	position: fixed;
 	top: 50%;
 	left: 50%;
 	width: 420px;

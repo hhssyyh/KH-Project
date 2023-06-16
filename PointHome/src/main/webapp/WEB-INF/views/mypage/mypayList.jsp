@@ -92,7 +92,7 @@ table  {
 }
 
 td {
-	height: 70px;
+ 	height: 50px; 
 	vertical-align: middle;
 }
 

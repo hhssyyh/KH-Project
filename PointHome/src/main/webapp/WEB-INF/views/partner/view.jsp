@@ -129,7 +129,7 @@ ${notice.partnerNoticeContent }
 
 <!-- 첨부파일 다운로드 -->
 
- <div style="font-size:12px;"  >
+ <div style="font-size:15px;"  >
 
 <c:choose>
 <c:when test="${!empty file}">

@@ -197,6 +197,8 @@ public interface FreeBoardService {
 	 */
 	public List<User> viewUserNick(int freeboardNo);
 
+	public void deleteFile(int boardFileNo);
+
 	public String nick(int userNo);
 
 }

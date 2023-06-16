@@ -273,7 +273,7 @@ public interface MypageService {
 	 */
 	public Paging getNoticelistPaging(int curPage, int userNo);
 
-//	public List<Map<String, Object>> selectPickNotice(Paging paging, int userNo);
+	public List<Map<String, Object>> selectPickNotice(Paging paging, int userNo);
 
 	
 

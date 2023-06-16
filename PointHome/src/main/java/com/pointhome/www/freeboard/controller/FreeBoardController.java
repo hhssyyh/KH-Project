@@ -12,8 +12,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.pointhome.www.freeboard.dto.FreeBoard;
@@ -264,9 +266,22 @@ public class FreeBoardController {
       
       return "down";
    }
+  
    
-   @RequestMapping("/fileDelete")
-   public void fileDelete(int freeboardfileNo) {
+   @PostMapping("/fileDelete")
+   @ResponseBody
+   public Map<String, Object> fileDelete(@RequestBody Map<String, Object> jsonData) {
+	   logger.debug("{}", jsonData);
+	   logger.debug("{}", jsonData.get("freeboardFileNo"));
+
+	   int boardFileNo = Integer.parseInt(String.valueOf(jsonData.get("freeboardFileNo")));
+	   
+	   
+	   logger.info("{}",boardFileNo);
+	   
+	   freeBoardService.deleteFile(boardFileNo);
+	   
+	return jsonData;
 	   
    }
    
