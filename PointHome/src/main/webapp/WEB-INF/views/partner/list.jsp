@@ -170,8 +170,8 @@ function pickPart(th) {
 							<div class="card-price">
 								<a href="#">
 									<span class="card-price-discount">50%</span>
-									<span class="card-price-dismon">${partner_PARTNER_PRICE }원</span>
-									<span class="card-price-money">${partner_PARTNER_PRICE * 2 }원</span>
+									<span class="card-price-dismon">${partner.PARTNER_PRICE }원</span>
+									<span class="card-price-money">${partner.PARTNER_PRICE * 2 }원</span>
 								</a>
 							</div>
 							
