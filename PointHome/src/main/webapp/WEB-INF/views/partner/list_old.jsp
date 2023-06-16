@@ -1,47 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="java.util.Date" %>
 
 <c:import url="/WEB-INF/views/layout/header.jsp" />
-
-<link rel="stylesheet" href="/resources/main/css/main.css?d=<%= new Date() %>">
 
 <style type="text/css">
 #partnerlist-div {
 	font-family: SBAggroM;
-	margin: 120px;
 }
 
 .row {
    margin: 0px auto; /*가운데 정렬*/
-}
-
-.star-ratings {
-  color: #aaa9a9; 
-  position: relative;
-  unicode-bidi: bidi-override;
-  width: max-content;
-  -webkit-text-fill-color: transparent; /* Will override color (regardless of order) */
-  -webkit-text-stroke-width: 1.3px;
-  -webkit-text-stroke-color: #2b2a29;
-}
- 
-.star-ratings-fill {
-  color: #fff58c;
-  padding: 0;
-  position: absolute;
-  z-index: 1;
-  display: flex;
-  top: 0;
-  left: 0;
-  overflow: hidden;
-  -webkit-text-fill-color: gold;
-}
- 
-.star-ratings-base {
-  z-index: 0;
-  padding: 0;
 }
 </style>
 
@@ -81,74 +50,35 @@ function pickPart(th) {
 
 <div class="container-fluid" style="margin-top: 50px; padding-left: 100px; padding-right: 100px;" >
 	<div class="row" id="mypPick">
-		<c:forEach var="partner" items="${list }">
+		<c:forEach var="board" items="${list }">
 			<div class="col-md-3">
 				<div class="thumbnail">
-					<!-- card 1개-->
-					<div class="card" style="width: 310px; height: 400px; margin: 30px;">
-						<input class="partNo" type="hidden" value="${partner.PARTNER_NO}">
-						<!-- 카드 사진 -->
-						<a href="#"><img src="../resources/main/img/partner_01.png" style="width: 100%;" class="card-img-top" alt="프로필사진"></a>
-						<!-- 카드 사진 이하 내용 start-->
-						<div class="card-content" style="padding: 10px 5px;">
-							<div>
-								<!-- 카드 타입 start -->
-								<div class="card-content-type ${partner.PARTNER_TYPE}">
-									<c:if test="${partner.PARTNER_TYPE eq 't'}">타로</c:if>
-									<c:if test="${partner.PARTNER_TYPE eq 's'}">신점</c:if>
-									<c:if test="${partner.PARTNER_TYPE eq 'c'}">철학</c:if>
-								</div>
-								<div class="card-content-place">
-									<i class="bi bi-geo-alt-fill"></i>
-									${partner.PARTNER_ADDRESS }
-								</div>
-							</div>
-							<!-- card 제휴사 상호/이름 -->
-							<div class="card-title">
-								<a href="#">
-									<span class="card-title-name text-black">${partner.PARTNER_NICK }</span>
-									<span class="card-title-shop">${partner.PARTNER_SHOPNAME }</span>
-								</a>
-							</div>
-							<div>
-								<!-- 카드 별점 end -->
-								<div class="card-star"> 
-									<a href="#">
-										<!-- 별 갯수 -->
-										<span class="star-ratings" style="font-family: Noto_Sans_KR400; font-size: 18px;">
-											<span class="star-ratings-fill space-x-2 text-lg" style="width: ${4 * 20 - 4 }%;">
-												<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-											</span>
-											<span class="star-ratings-base space-x-2 text-lg">
-												<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-											</span>
-										</span>
-										<!-- 별점 평균 -->
-										<span class="card-star-cnt">(4)</span>
-									</a>
-								</div>
-								<!-- 카드 리뷰 -->
-								<div class="card-comment">
-									<a href="#">
-										<span><i class="bi bi-chat-left-dots-fill card-comment-icon"></i></span>
-										<span class="card-comment-cnt">(200)</span>
-									</a>
-								</div>
-							</div>
-							
-							<!-- 카드 가격 start -->
-							<div class="card-price">
-								<a href="#">
-									<span class="card-price-discount">50%</span>
-									<span class="card-price-dismon">50,000원</span>
-									<span class="card-price-money">100,000원</span>
-								</a>
-							</div>
-							<!-- 카드 가격 end -->
+					<div class="card" style="width: 250px; margin-left: 10px; margin-top: 20px;">
+					
+						<img src="../resources/dog.jpeg" class="card-img-top"
+							height="200px" style="width: 100%" alt="ex">
+						
+						<input class="partNo" type="hidden" value="${board.PARTNER_NO}">
+						
+						<div class="card-body">
+							<h5 class="card-title">${board.PARTNER_SHOPNAME}</h5>
+							<p class="card-text">${board.PARTNER_NO}</p>
+							<p class="card-text">가격 ${board.PARTNER_PRICE }</p>
+							<p class="card-text">별점</p>
+							<p class="card-text">후기(?)</p>
+							<a href="/main/detail?partNo=${board.PARTNER_NO}" class="btn btn-primary">상세페이지</a>
+							<c:if test="${not empty userno }">
+								<span class="pick" >
+									<c:if test="${board.ISPICK eq 0}">
+										<button type="button" onclick="pickPart(this)" class="btn btn-primary"><i class="bi bi-heart"></i></button>
+									</c:if>
+									<c:if test="${board.ISPICK eq 1}">
+										<button type="button" onclick="pickPart(this)" class="btn btn-primary"><i class="bi bi-heart-fill"></i></button>
+									</c:if>
+								</span>
+							</c:if>
 						</div>
-						<!-- 카드 사진 이하 내용 end -->
 					</div>
-					<!-- card 1개 end -->
 				</div>
 			</div>
 		</c:forEach>
