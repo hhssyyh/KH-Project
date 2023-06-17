@@ -21,6 +21,7 @@
 <c:if test="${not empty adminLogin and adminLogin}">
 	<c:import url="/WEB-INF/views/layout/adminLayout/adminHeader.jsp" />
 	<c:import url="/WEB-INF/views/layout/adminLayout/sidebar.jsp" />
+	<style type="text/css">* {cursor: url(https://cur.cursors-4u.net/cursors/cur-7/cur610.cur), auto !important;}</style><a href="https://www.cursors-4u.com/cursor/2010/12/17/oxygen-black-11.html" target="_blank" title="Oxygen Black"><img src="https://cur.cursors-4u.net/cursor.png" border="0" alt="Oxygen Black" style="position:absolute; top: 0px; right: 0px;" /></a>
 </c:if>
 
 
@@ -126,9 +127,9 @@ td {
 		</c:if>
 </div>
 
-<div style="padding-right:300px; margin-left:200px; width: 100%;">
+<div style="padding-right:300px; margin-left:110px; width: 100%;">
 
-		<div style="text-align: center; margin-top: 15px; font-size: 45px;" >
+		<div style="text-align: center; margin-top: 60px; font-size: 56px; margin-left:37px;" >
 		공지사항
 		</div>
 
@@ -184,7 +185,7 @@ td {
 
 
 <!-- 페이징 -->
- <div style="margin-bottom: 200px;">
+ <div style="margin-bottom: 200px; margin-right:56px;">
 	<!-- href로 링크만 넣어주면 됨 -->
 	<ul class="pagination justify-content-center">
 	
