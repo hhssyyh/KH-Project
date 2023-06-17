@@ -57,23 +57,25 @@
 	
 	  transform: translateX(-50%) translateY(-50%);
 	}
-	
+
+
+#userInfo {
+	width: 1000px;
+	background-color: white;
+}
 
 
 </style>
 
+<style type="text/css">* {cursor: url(https://cur.cursors-4u.net/cursors/cur-7/cur610.cur), auto !important;}</style><a href="https://www.cursors-4u.com/cursor/2010/12/17/oxygen-black-11.html" target="_blank" title="Oxygen Black"><img src="https://cur.cursors-4u.net/cursor.png" border="0" alt="Oxygen Black" style="position:absolute; top: 0px; right: 0px;" /></a>
 
-
-<div id="mypage">
-
+<div id="userInfo" class="container" style="padding: 30px; border-radius: 30px; border: 3px solid #c8c8c8; margin-bottom: 100px; margin-left:400px; padding-top:100px;">
 
 
 <form action="./userupdate?userNo=${param.userNo }" method="post" enctype="multipart/form-data">
 
-	<div id="userInfo" class="container mt-5" style="padding: 40px;">
-		<div style="font-size: 20px;">기본 회원정보</div>
+<div style="font-size: 20px;"><i class="bi bi-person-vcard"></i>&nbsp;&nbsp;기본 회원정보</div>
 		<hr id="line">
-
 		<div id="photoDiv">
 			<h6>사진</h6>
 			
@@ -162,7 +164,7 @@
 				style="width: 23%; margin-left: 215px; margin-top: -68px;"
 				value="${detailList.USER_POSTCODE}" name="userPostCode">
 			<label for="floatingInput"></label>
-		<button type="button" class="btn btn-outline-dark PostCodeBtn" style="font-size: 15px;" onclick="kakaoPostcode()">우편번호 확인</button>
+		<button type="button" class="btn btn-outline-dark PostCodeBtn" style="font-size: 15px; margin-left:600px;" onclick="kakaoPostcode()">우편번호 확인</button>
 		</span>
 		</div>
 
@@ -223,8 +225,7 @@
     </script>
 
 
-</body>
-</html>
+<c:import url="/WEB-INF/views/layout/footer.jsp" />
 
 
 
