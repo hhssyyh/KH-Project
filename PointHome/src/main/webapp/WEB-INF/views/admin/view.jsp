@@ -8,7 +8,6 @@
 <%-- 사용자 헤더 (읽기전용)--%>
 <c:if test="${not empty login and login}">
 	<c:import url="/WEB-INF/views/layout/header.jsp" />
-
 </c:if>
 
 <%-- 운영사헤더 --%>
@@ -106,7 +105,7 @@ div.fr {
 <hr>
 <!-- title JSTL로 가지고 오기 -->
 <h3>${view.noticeTitle }</h3>
-<i class="bi bi-person-circle fs-1" style="height:200px"></i> ${viewAdmin.adminId } <br>
+<i class="bi bi-person-circle fs-1" style="height:200px"></i>운영자 <br>
 
 <!-- 날짜 -->
 <fmt:formatDate value="${view.noticeDate }" pattern="yy/MM/dd hh:mm"/>
@@ -162,17 +161,17 @@ ${view.noticeContent }
 <div class="modal2_body" >게시글을 삭제하시겠습니까?
 
 <a href="./delete?noticeNo=${view.noticeNo}"><button type="button" class="btn btn-outline-primary btn-default btn-xs">확인</button></a>
-<button type="button" class="btnModalCancle2 btn btn-outline-primary btn-default btn-xs">취소</button>
+<button type="button" class="btnModalCancle2 btn btn-primary btn-default btn-xs">취소</button>
 </div>
 </div> 
 
 <div class="text-end">
 
-	<a href="./noticelist"><button class="btn btn-secondary">목록</button></a>
+	<a href="./noticelist"><button class="btn btn-dark">목록</button></a>
 
 <c:if test="${adminNo eq view.adminNo}">
-<a href="./update?noticeNo=${view.noticeNo}"><button type="button" class="btn btn-secondary" >수정</button></a>
-<button type="button" class="btn-reset-popup btn btn-secondary" >삭제</button>
+<a href="./update?noticeNo=${view.noticeNo}"><button type="button" class="btn btn-dark" >수정</button></a>
+<button type="button" class="btn-reset-popup btn btn-dark" >삭제</button>
 </c:if> 
 </div>
 
