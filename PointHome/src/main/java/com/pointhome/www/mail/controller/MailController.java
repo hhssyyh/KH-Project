@@ -2,6 +2,8 @@ package com.pointhome.www.mail.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.pointhome.www.mail.dto.UserEmailCode;
 import com.pointhome.www.mail.service.face.MailService;
 
 @Controller
@@ -21,7 +22,7 @@ public class MailController {
 	
 	@PostMapping("/mail/chkDupEmail")
 	@ResponseBody
-	public Map<String, Object> chkDupEmail(@RequestBody Map<String, Object> jsonData) {
+	public Map<String, Object> chkDupEmail(@RequestBody Map<String, Object> jsonData, HttpSession session) {
 		logger.debug("/user/chkDupEmail [POST]");
 		logger.debug("Email 중복 확인차 받은 param : {}", jsonData);
 		
@@ -36,23 +37,42 @@ public class MailController {
 		
 		// 입력받은 Eamil로 가입이 가능한 경우 메일 발송
 		if (Email == null) {
-			
+			// 인증코드 난수 발생 메소드
 			int authNumber = mailService.makeRandomNumber();
 			logger.debug("생성된 인증 코드 : {}", authNumber);
 			
+			// 메일을 발송한 뒤의 인증코드를  저장
 			String EmailCode = mailService.joinEmail(param, authNumber);
 			logger.debug("발송된 인증 코드 : {}", EmailCode);
-			
-			UserEmailCode userEmailCode = new UserEmailCode(param,EmailCode, null);
-			mailService.addEamilCode(userEmailCode);
-			
-			map.put("EmailCode", EmailCode);
-			logger.debug("발송된 인증 코드 : {}", map);
 
+			// 인증코드를 세션에 저장
+			session.setAttribute("EmailCode", EmailCode);
 		}
 		
 		map.put("Email", Email);
 		return map;
 	}
+	
+	@PostMapping("/mail/chkEmailCode")
+	@ResponseBody
+	public Map<String, Object> chkEmailCode(@RequestBody Map<String, Object> jsonData, HttpSession session) {
+		logger.debug("/user/chkEmailCode [POST]");
+		logger.debug("입력 받은 인증번호 JSON : {}", jsonData);
+		
+		// 인증번호
+		String inputCode = (String) jsonData.get("inputCode");
+		
+		// 세션에 저장된 인증번호
+		String EmailCode = (String) session.getAttribute("EmailCode");
+		
+		if(inputCode.equals(EmailCode)) {
+			session.removeAttribute("EmailCode");
+			return jsonData;
+		} else {
+			return null;
+		}
+		
+	}
+	
 	
 }
