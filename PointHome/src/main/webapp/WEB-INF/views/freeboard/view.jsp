@@ -35,7 +35,7 @@ div.fr {
 }
 
 .modal2 {
-	position: fixed;
+	position: fixed; z-index:5;
 	top: 0;
 	left: 0;
 	width: 100%;
@@ -63,7 +63,7 @@ div.fr {
 }
 
 .modal2_body {
-	position: absolute;
+	position: absolute; 
 	top: 50%;
 	left: 50%;
 	width: 500px;
@@ -256,7 +256,7 @@ function updateCom(th, commNo) {
 			</c:choose>
 		</c:forEach>
 
-		<div style="font-size: 12px;">
+		<div style="font-size: 12px; font-family: 'SBAggroL';" >
 			<c:choose>
 				<c:when test="${!empty file}">
 					<hr>

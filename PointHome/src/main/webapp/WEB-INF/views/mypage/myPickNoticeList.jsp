@@ -159,7 +159,7 @@ td {
 <c:import url="/WEB-INF/views/layout/myprofile.jsp" />
 
 <div id="userInfo" class="container" style="padding: 30px; border-radius: 30px; border: 3px solid #c8c8c8;">
-	<h4 style="margin: 0auto;"><i class="bi bi-bag-heart"></i>       찜한 상점 공지사항</h4>
+	<h4 style="margin-top: 0; margin-bottom: 0;"><i class="bi bi-bag-heart"></i>       찜한 상점 공지사항</h4>
 	<hr id="line">
 	
 	
