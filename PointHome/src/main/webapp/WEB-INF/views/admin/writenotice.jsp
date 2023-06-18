@@ -3,8 +3,9 @@
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<c:import url="/WEB-INF/views/layout/header.jsp" />
-
+<c:import url="/WEB-INF/views/layout/adminLayout/adminHeader.jsp"/>
+	<c:import url="/WEB-INF/views/layout/adminLayout/sidebar.jsp"/>
+	
 <!-- include libraries(jQuery, bootstrap) -->
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
 
@@ -120,13 +121,14 @@ a {
 }
 
 #writeContainter {
-	margin-top: 54px;
+	margin-left:20%;
+	width: 1000px;
 }
 </style>
 
 
 
-<div id="writeContainter" class="container">
+<div id="writeContainter" class="container" >
 
 <br><br>
 
@@ -161,8 +163,8 @@ a {
     </div>
 
    <div class="text-end">
-   <button type="button" class="btn-open-popup btn btn-secondary" >작성</button>
-   <button type="button" class="btn-reset-popup btn btn-secondary" >취소</button>
+   <button type="button" class="btn-open-popup btn btn-dark" >작성</button>
+   <button type="button" class="btn-reset-popup btn btn-dark" >취소</button>
    </div>
    <hr>
 </form>

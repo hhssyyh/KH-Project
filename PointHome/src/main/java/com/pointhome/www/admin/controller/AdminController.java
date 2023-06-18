@@ -654,5 +654,10 @@ public class AdminController {
 		      model.addAttribute("searchType", searchType);
 		      model.addAttribute("keyword", keyword);
 		}
+		
+		@GetMapping("/error")
+		public void error () {
+			
+		}
 }
 
