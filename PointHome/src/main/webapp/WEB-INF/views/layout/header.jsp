@@ -145,11 +145,6 @@ $( () => {
 			<i class="bi bi-house-door-fill"></i>
 			<a class="nav-link d-inline" aria-current="page" href="#">홈</a>
 		</li>
-	  
-		<li class="nav-item">
-			<i class="bi bi-play-btn-fill" style="color:red;"></i>
-			<a class="nav-link d-inline" href="#">리얼상담 영상</a>
-		</li>
 	
 		<!-- 로그인시에만 출력 -->
 		<c:if test="${login}">

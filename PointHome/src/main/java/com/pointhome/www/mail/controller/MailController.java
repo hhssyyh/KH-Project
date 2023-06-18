@@ -46,6 +46,7 @@ public class MailController {
 			logger.debug("발송된 인증 코드 : {}", EmailCode);
 
 			// 인증코드를 세션에 저장
+			session.setAttribute("Email", param);
 			session.setAttribute("EmailCode", EmailCode);
 		}
 		
@@ -58,15 +59,17 @@ public class MailController {
 	public Map<String, Object> chkEmailCode(@RequestBody Map<String, Object> jsonData, HttpSession session) {
 		logger.debug("/user/chkEmailCode [POST]");
 		logger.debug("입력 받은 인증번호 JSON : {}", jsonData);
-		
+
+
 		// 인증번호
-		String inputCode = (String) jsonData.get("inputCode");
+		String inputEmail = (String) jsonData.get("Email");
+		String inputCode = (String) jsonData.get("EmailCode");
 		
 		// 세션에 저장된 인증번호
+		String Email = (String) session.getAttribute("Email");
 		String EmailCode = (String) session.getAttribute("EmailCode");
 		
-		if(inputCode.equals(EmailCode)) {
-			session.removeAttribute("EmailCode");
+		if(inputCode.equals(EmailCode) && inputEmail.equals(Email)) {
 			return jsonData;
 		} else {
 			return null;

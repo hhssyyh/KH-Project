@@ -24,28 +24,121 @@
 
 <script type="text/javascript">
 $( ()=> {
-
-	$('input').blur(function(){
+	
+	$('#Email, #userEmailSelect').blur(function(){
 		
+		const Email = $("#userEmail").val();
+		const Type = "Email";
+		const resultMap = fn_reg(Type, Email);
+		
+		// 입력창이 비었을때
 		if($('#Email').val() == '') {
-			$('#Email').parent().addClass('has-validation');
-			$('#Email').addClass('is-validation');
-		
-		}
-		
-		resultMap = fn_reg("Email", $("Email").val());
-		$('#msgEmail').html("");
-		$('#msgEmail').html("<span>" + resultMap.msg + "</span>");
-		$('#msgEmail').css("color","red");
-
-		if($('#userEmail').val() != '') {
 			$('#msgEmail').html("");
+			$('#msgEmail').html("이메일을 입력해주세요");
+			$('#msgEmail').css("color","red");
+			$('#input-Email').addClass('has-validation');
+			$('#Email').parent().addClass('is-invalid');
+			$('#Email').addClass('is-invalid');
+		}
+		
+		// 입력창이 비었을때 비지 않았을 때
+		if(resultMap.regResult) {
+			console.log(resultMap.regResult);
+			$('#msgEmail').html("");
+			$('#msgEmail').html("<span>" + resultMap.msg + "</span>");
+			$('#msgEmail').css("color","red");
+			$('#input-Email').removeClass('has-validation');
+			$('#Email').parent().removeClass('is-invalid');
+			$('#Email').removeClass('is-invalid');
 		}
 
+	})
+
+	$('#chkDupEmail').click(function() {
+		
+		const Email = $("#userEmail").val();
+		const regType = "Email";
+		const resultMap = fn_reg(regType, Email);
+		
+		const $data = {'Email':$('#userEmail').val()};
+		const type = "POST";
+		const url = "/mail/chkDupEmail";
+			
+		$.ajax({
+			type: type
+			, url: url
+			, data: JSON.stringify($data)
+			, dataType: 'json'
+			, contentType: "application/json; charset=UTF-8"
+			, success: function(res){
+				console.log('AJAX 성공');
+				
+				if (res.Email == null) {
+	 				$('#input-Email-code').css('display','block');
+	 				$('#userEmailSelect').attr('readonly','readonly');
+	 				$('#Email').attr('readonly','readonly');
+					$('#msgEmail').html("");
+					$('#msgEmail').html("인증코드 발송, 이메일을 확인해주세요");
+					$('#msgEmail').css("color","green");
+	 				
+				} else {
+					console.log("해당 이메일로 가입할 수 없습니다.");
+					$('#msgEmail').html("");
+					$('#msgEmail').html("해당 이메일로 가입할 수 없습니다.");
+					$('#msgEmail').css("color","red");
+					$('#input-Email').addClass('has-validation');
+					$('#Email').parent().addClass('is-invalid');
+					$('#Email').addClass('is-invalid');
+
+				}
+			}  
+			,  error : function(){ console.log('AJAX 실패');}
+		});
+		
+	})
+
+	$('#EmailCode').blur(function() {
+	
+		const $data = {'Email':$('#userEmail').val(), 'EmailCode':$('#EmailCode').val()};
+		const type = "POST";
+		const url = "/mail/chkEmailCode";
+
+		$.ajax({
+			type: type
+			, url: url
+			, data: JSON.stringify($data)
+			, dataType: 'json'
+			, contentType: "application/json; charset=UTF-8"
+			, success: function(res){
+				console.log('AJAX 성공');
+				console.log(res);
+				console.log('인증번호 일치');
+				$('#msgEmailCode').html("");
+				$('#msgEmailCode').html("인증번호 확인 완료");
+ 				$('#EmailCode').attr('readonly','readonly');
+				$('#msgEmailCode').css("color","green");
+		    }  
+			,  error : function(){ 
+				console.log('AJAX 실패');
+				console.log('인증번호 불일치');
+				$('#msgEmailCode').html("");
+				$('#msgEmailCode').html("인증번호가 일치하지 않습니다.");
+				$('#msgEmailCode').css("color","red");
+				$('#EmailCode').addClass('has-validation');
+			}
+		});  
+	
+	})
+	
+	$('#userPw').blur(function(){
+	
 		if($('#userPw').val() == '') {
 			$('#msgPw').html("");
 			$('#msgPw').html("<span>비밀번호를 입력해주세요.</span>");
 			$('#msgPw').css("color","red");
+			$('#input-Pw').addClass('has-validation');
+			$('#userPw').parent().addClass('is-invalid');
+			$('#userPw').addClass('is-invalid');
 		}
 		
 		if($('#userPw').val() != '') {
@@ -53,12 +146,15 @@ $( ()=> {
 			$('#msgPw').html("");
 			$('#msgPw').html("<span>" + resultMap.msg + "</span>");
 			$('#msgPw').css("color","red");
+			$('#input-Pw').addClass('has-validation');
+			$('#userPw').parent().addClass('is-invalid');
+			$('#userPw').addClass('is-invalid');
 		}
 	
-		
+		if(fn_reg("Pw", $("userPw").val())) {
+			
+		}
 	})
-	
-	
 	
 })
 
@@ -127,9 +223,9 @@ function fn_reg(type, data){
 
 <!-- 소셜 로그인일 경우, SNS에서 받은 정보를 넘길 파라미터 시작 -->
 <c:if test="${userInfo ne null }">
-	<input type="hidden" name="userPw" id="userPw" value="${userInfo.userPw}">
-	<input type="hidden" name="socialId" id="socialId" value="${userInfo.userPw}">
-	<input type="hidden" name="socialType" id="socialType" value="${socialType}">
+	<input type="hidden" name="userPw" id="userPw" value="${userInfo.userPw}" readonly="readonly">
+	<input type="hidden" name="socialId" id="socialId" value="${userInfo.userPw}" readonly="readonly">
+	<input type="hidden" name="socialType" id="socialType" value="${socialType}" readonly="readonly">
 </c:if>
 <!-- 소셜 로그인일 경우, SNS에서 받은 정보를 넘길 파라미터 끝 -->
 
@@ -145,6 +241,7 @@ function fn_reg(type, data){
 		<div class="form-floating col-5">
 			<input type="text" class="form-control" name="Email" id="Email" placeholder="이메일" value="${userInfo.userEmail}"> 
 			<label for="Email">이메일</label>
+			<span id="msgEmail"></span>
 		</div>
 	
 		<div class="form-floating col-5">
@@ -170,7 +267,7 @@ function fn_reg(type, data){
 			<div class="form-floating col-5">
 				<input type="email" class="form-control" name="Email" id="Email" placeholder="이메일"> 
 				<label for="Email">이메일</label>
-				<span id="msgEmail"></span>
+				<span class="invalid-feedback" id="msgEmail"></span>
 			</div>
 	
 			<div class="form-floating col-5">
@@ -212,35 +309,42 @@ function fn_reg(type, data){
 <!-- --------------------- -->
 <!-- 소셜 로그인이 아닐 경우, 비밀번호 입력숨김 -->	
 <c:if test="${userInfo eq null}">
-	<div class="form-floating mb-3" id="input-pw">
+<div id="input-Pw">
+	<div class="form-floating mb-3">
 		<input type="password" class="form-control" name="userPw" id="userPw" placeholder="비밀번호"> 
 		<label for="userPw">비밀번호</label>
 		<span id="msgPw"></span>
 	</div>
-
-	<div class="form-floating mb-3" id="input-pwChk">
+</div>
+<div id="input-PwChk">
+	<div class="form-floating mb-3">
 		<input type="password" class="form-control" name="userPwChk" id="userPwChk" placeholder="비밀번호 확인"> 
 		<label for="userPwChk">비밀번호 확인</label>
 		<span id="msgPwChk"></span>
 	</div>
+</div>
 </c:if>
 <!-- ------------------- -->
 <!-- 비밀번호 입력 폼 끝 -->
 <!-- ------------------- -->
 
 <!-- 닉네임 시작 -->
-<div class="form-floating mb-3" id="input-nick">
+<div id="input-nick">
+<div class="form-floating mb-3">
 	<input type="text" class="form-control" name="userNick" id="userNick" placeholder="이름"value="${userInfo.userNick}"> 
 	<label for="userNick">닉네임</label>
 	<span id="msgNick"></span>
 </div>
+</div>
 <!-- 닉네임 끝 -->
 
 <!-- 이름 시작 -->
-<div class="form-floating mb-3" id="input-name">
+<div id="input-name">
+<div class="form-floating mb-3">
 	<input type="text" class="form-control" name="userName" id="userName" placeholder="이름" value="${userInfo.userName}"> 
 	<label for="userName">이름</label>
 	<span id="msgName"></span>
+</div>
 </div>
 <!-- 이름 끝 -->
 
@@ -263,6 +367,7 @@ function fn_reg(type, data){
 
 <!-- 성별 시작 -->
 <div class="form-floating mb-3">
+
 	<!-- 소셜 로그인일 경우, 성별 처리 시작  -->
 	<c:if test="${userInfo.userGender ne null}"> 
 		<select class="form-select" name="userGender" id="userGender">

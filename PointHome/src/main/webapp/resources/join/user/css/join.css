@@ -6,6 +6,7 @@ body {
 }
 
 span {
+	margin-bottom: 10px;
     vertical-align: sub;
 }
 

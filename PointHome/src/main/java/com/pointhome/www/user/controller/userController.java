@@ -43,6 +43,8 @@ public class userController {
 
 	@PostMapping("/user/join")
 	public String joinProc(User user, UserSocial socialParam, HttpSession session) {
+		session.removeAttribute("EmailCode");
+
 		logger.debug("/user/join [POST]");
 		logger.debug("user : {}", user);
 		logger.debug("socialParam : {}", socialParam);
