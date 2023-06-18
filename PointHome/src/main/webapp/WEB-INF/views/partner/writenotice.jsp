@@ -202,6 +202,10 @@ font-family: 'Gowun Batang', serif;
       
       btnModalCancle.addEventListener('click', (event) => {
     	  modal.classList.remove('show'); 
+          
+    	  if (!modal.classList.contains('show')) {
+              body.style.overflow = 'auto';
+            }
       });
 
 
@@ -235,6 +239,10 @@ font-family: 'Gowun Batang', serif;
       
       btnModalCancle2.addEventListener('click', (event) => {
     	  modal2.classList.remove('show'); 
+    	  
+          if (!modal2.classList.contains('show')) {
+              body2.style.overflow = 'auto';
+            }
       });
       
       

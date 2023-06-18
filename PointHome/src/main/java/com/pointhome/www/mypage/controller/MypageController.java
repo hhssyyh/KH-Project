@@ -118,6 +118,7 @@ public class MypageController {
 		}
 		
 		logger.debug("res{}",res);
+		logger.debug("!!!!!!!!!!!!!!!!!!!res{}",reservelist);
 		model.addAttribute("res", res);
 		model.addAttribute("reservelist", reservelist);
 		

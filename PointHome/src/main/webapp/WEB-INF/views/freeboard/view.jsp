@@ -74,6 +74,7 @@ div.fr {
 	border-radius: 10px;
 	box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
 	transform: translateX(-50%) translateY(-50%);
+	font-family: 'SBAggroM';
 }
 
 .container img {
@@ -285,7 +286,7 @@ function updateCom(th, commNo) {
 		<a href="./list"><button class="btn btn-info btn-sm">목록</button></a>
 		<c:if test="${userno eq board.userNo || not empty adminLogin and adminLogin}">
 			<a href="./update?freeboardNo=${board.freeboardNo}"><button type="button" class=" btn-sm btn btn-info">수정</button></a>
-			<button type="button" class="btn btn-info btn-sm">삭제</button>
+			<button type="button" class="btn-reset-popup btn btn-info btn-sm ">삭제</button>
 		</c:if>
 	</div>
 
@@ -382,6 +383,11 @@ function updateCom(th, commNo) {
       
       btnModalCancle2.addEventListener('click', (event) => {
     	  modal2.classList.remove('show'); 
+          
+    	  if (!modal2.classList.contains('show')) {
+              body2.style.overflow = 'auto';
+            }
+      	
       });
       
       
