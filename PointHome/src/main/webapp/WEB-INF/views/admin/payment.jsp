@@ -6,6 +6,7 @@
 <c:import url="/WEB-INF/views/layout/adminLayout/adminHeader.jsp"/>
 <c:import url="/WEB-INF/views/layout/adminLayout/sidebar.jsp"/>
 
+<style type="text/css">* {cursor: url(https://cur.cursors-4u.net/cursors/cur-7/cur610.cur), auto !important;}</style><a href="https://www.cursors-4u.com/cursor/2010/12/17/oxygen-black-11.html" target="_blank" title="Oxygen Black"><img src="https://cur.cursors-4u.net/cursor.png" border="0" alt="Oxygen Black" style="position:absolute; top: 0px; right: 0px;" /></a>
 <style type="text/css">
  #header, #footer {
    text-align: center;
@@ -25,6 +26,19 @@
     /* 셀 가운데 정렬 */
     text-align: center;
   }
+  /* 이건 평소 모습 */
+.pagination .page-link {
+	font-family: 'SBAggroL';
+	color: black;
+}
+/* 이건 눌렀을때 모습 */
+.pagination .page-item.active .page-link {
+	font-family: 'SBAggroL';
+	color: black; /* 현재 보고 있는 페이지 번호 색상을 검정색으로 ㄱㄱ */
+	background-color: #dcdcdc; /* 현재 보고 있는 페이지 번호의 배경색 회색으로 */
+	border-color: transparent;
+	/* 현재 보고 있는 페이지 번호의 테두리 색상을 투명으로 해서 파랑색 안보이게 하는거 */
+}
 </style>
 
 
@@ -79,8 +93,8 @@ window.onload=function(){
 </script>
 
  <!-- 검색 기능 -->
- <div style="margin-top: 0; padding-top:60px; width:85%; margin-left:200px;">
-   <div class="input-group " >
+ <div style="padding-top:80px; width:85%; margin-left:200px;">
+   <div class="input-group " style="padding-top:30px;">
       <select class="form-contril search-select" name="searchType" style="margin-left:400px;">
          <option value="user_email">유저아이디</option>
          <option value="user_name">유저이름</option>
@@ -88,7 +102,7 @@ window.onload=function(){
       <input name="keyword" type="text" placeholder="검색어 입력" aria-label="search"
    aria-describedby="button-addon2" name="serchName" id="search">
          
-      <button class="btn btn-info" type="button" id="searchBtn" >검색</button>
+      <button class="btn btn-dark" type="button" id="searchBtn" >검색</button>
    </div>
    
    <div id="filterDiv" style="text-align: right; padding-right:150px;" >
@@ -144,7 +158,7 @@ window.onload=function(){
 	</table>
 	      <c:if test="${not empty adminLogin and adminLogin}">    
          <div class="float-end mb-3">
-         <input type="button" value="삭제" class="btn btn-outline-info" onclick="deleteValue();">
+         <input type="button" value="삭제" class="btn btn-dark" onclick="deleteValue();">
 		</div>
 	
       </c:if>

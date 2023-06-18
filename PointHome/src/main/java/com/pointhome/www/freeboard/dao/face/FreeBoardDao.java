@@ -98,7 +98,7 @@ public interface FreeBoardDao {
 	 * 
 	 * @param board - 삭제할 파일의 게시글 번호를 담은 DTO 객체
 	 */
-	public void deleteFile(FreeBoard board);
+//	public void deleteFile(FreeBoard board);
 
 	/**
 	 * 게시글 삭제 
@@ -258,6 +258,8 @@ public interface FreeBoardDao {
 	 * @return 그 값담아주기
 	 */
 	public List<User> viewUserNick(int freeboardNo);
+
+	public void deleteBoardFile(int boardFileNo);
 
 	public String nick(int userNo);
 

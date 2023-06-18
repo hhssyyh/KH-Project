@@ -7,11 +7,12 @@
 
 <c:import url="/WEB-INF/views/layout/adminLayout/sidebar.jsp" />
 
+<style type="text/css">* {cursor: url(https://cur.cursors-4u.net/cursors/cur-7/cur610.cur), auto !important;}</style><a href="https://www.cursors-4u.com/cursor/2010/12/17/oxygen-black-11.html" target="_blank" title="Oxygen Black"><img src="https://cur.cursors-4u.net/cursor.png" border="0" alt="Oxygen Black" style="position:absolute; top: 0px; right: 0px;" /></a>
 <div style="margin-left: 400px;">
 	<br>
 	<br><br><br>
 	<br>
-	<h1>제휴사 홍보 영상</h1>
+	<h1 style="font-weight: bold;" >제휴사 홍보 영상</h1>
 	<hr>
 	<br>
 	<table class="table table-hover">
@@ -30,7 +31,7 @@
 					<form action="partnervideodelete?partnerNo=${param.partnerNo }" method="post">
 						<input type="hidden" value="${video.partnerVideoNo}"
 							name="partnerVideoNo">
-						<button class="btn btn-secondary">삭제</button>
+						<button class="btn btn-dark">삭제</button>
 					</form>
 				</td>
 			</tr>

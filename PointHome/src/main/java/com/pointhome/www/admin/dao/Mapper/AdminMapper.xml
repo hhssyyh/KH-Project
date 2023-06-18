@@ -366,7 +366,8 @@
 	
 	<update id="updatePartner" parameterType="Partner" >
 		update partner_tb
-		set 
+		set
+
 		partner_name = #{partnerName},
 		partner_email = #{partnerEmail},
 		partner_nick = #{partnerNick},
@@ -374,7 +375,11 @@
 		partner_birthyear = #{partnerBirthyear},
 		partner_birthmonth = #{partnerBirthmonth},
 		partner_birthday = #{partnerBirthday},
-	 	partner_phone = #{partnerPhone},
+	 	partner_shopname = #{partnerShopname},
+	 	partner_type = #{partnerType},
+	 	partner_pr = #{partnerPr},
+	 	partner_bank = #{partnerBank},
+	 	partner_account = #{partnerAccount},
 	 	partner_postcode = #{partnerPostcode},
 	 	partner_address = #{partnerAddress},
 		partner_detailaddress = #{partnerDetailaddress},

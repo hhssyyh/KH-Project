@@ -8,11 +8,11 @@
 <%-- 사용자 헤더 (읽기전용)--%>
 <c:if test="${not empty login and login}">
 	<c:import url="/WEB-INF/views/layout/header.jsp" />
-
 </c:if>
 
 <%-- 운영사헤더 --%>
 <c:if test="${not empty adminLogin and adminLogin}">
+<style type="text/css">* {cursor: url(https://cur.cursors-4u.net/cursors/cur-7/cur610.cur), auto !important;}</style><a href="https://www.cursors-4u.com/cursor/2010/12/17/oxygen-black-11.html" target="_blank" title="Oxygen Black"><img src="https://cur.cursors-4u.net/cursor.png" border="0" alt="Oxygen Black" style="position:absolute; top: 0px; right: 0px;" /></a>
 	<c:import url="/WEB-INF/views/layout/adminLayout/adminHeader.jsp"/>
 	<c:import url="/WEB-INF/views/layout/adminLayout/sidebar.jsp"/>
 </c:if>
@@ -99,13 +99,13 @@ div.fr {
 
 
 
-<div class="container" style="margin-top: 180px; margin-bottom: 200px;">
+<div class="container" style="padding-top: 180px; margin-bottom: 200px; width:1000px;">
 
 <h1 style="text-align: center">공지사항</h1>
 <hr>
 <!-- title JSTL로 가지고 오기 -->
 <h3>${view.noticeTitle }</h3>
-<i class="bi bi-person-circle fs-1" style="height:200px"></i> ${viewAdmin.adminId } <br>
+<i class="bi bi-person-circle fs-1" style="height:200px"></i>운영자 <br>
 
 <!-- 날짜 -->
 <fmt:formatDate value="${view.noticeDate }" pattern="yy/MM/dd hh:mm"/>
@@ -161,17 +161,17 @@ ${view.noticeContent }
 <div class="modal2_body" >게시글을 삭제하시겠습니까?
 
 <a href="./delete?noticeNo=${view.noticeNo}"><button type="button" class="btn btn-outline-primary btn-default btn-xs">확인</button></a>
-<button type="button" class="btnModalCancle2 btn btn-outline-primary btn-default btn-xs">취소</button>
+<button type="button" class="btnModalCancle2 btn btn-primary btn-default btn-xs">취소</button>
 </div>
 </div> 
 
 <div class="text-end">
 
-	<a href="./noticelist"><button class="btn btn-secondary">목록</button></a>
+	<a href="./noticelist"><button class="btn btn-dark">목록</button></a>
 
 <c:if test="${adminNo eq view.adminNo}">
-<a href="./update?noticeNo=${view.noticeNo}"><button type="button" class="btn btn-secondary" >수정</button></a>
-<button type="button" class="btn-reset-popup btn btn-secondary" >삭제</button>
+<a href="./update?noticeNo=${view.noticeNo}"><button type="button" class="btn btn-dark" >수정</button></a>
+<button type="button" class="btn-reset-popup btn btn-dark" >삭제</button>
 </c:if> 
 </div>
 

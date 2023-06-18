@@ -13,7 +13,6 @@
 <style>
 	#profileImg2 {width: 100px; height: 100px;}
 </style>
-
 <style type="text/css">
 
 	a {
@@ -57,26 +56,28 @@
 	
 	  transform: translateX(-50%) translateY(-50%);
 	}
-	
+
+
+#userInfo {
+	width: 1000px;
+	background-color: white;
+}
 
 
 </style>
 
 
 
-<div id="mypage">
+<div id="userInfo" class="container" style="padding: 30px; border-radius: 30px; border: 3px solid #c8c8c8; margin-bottom: 100px; margin-left:400px; padding-top:100px;">
 
 
 
 <form action="./partnerupdate?partnerNo=${param.partnerNo }" method="post" enctype="multipart/form-data">
 
-	<div id="partnerInfo" class="container mt-5" style="padding: 40px;">
-		<div style="font-size: 20px;">기본 회원정보</div>
+<div style="font-size: 20px;"><i class="bi bi-person-vcard"></i>&nbsp;&nbsp;기본 회원정보</div>
 		<hr id="line">
-
 		<div id="photoDiv">
 			<h6>사진</h6>
-			
 			
 	</div>
 		<div id="profile2">
@@ -97,6 +98,7 @@
 		
 
 		</div>
+	
 		<hr>
 		<div id="partnerName">
 			<h6 style="margin-left: 13px;">이름(실명)</h6>
@@ -137,11 +139,21 @@
 
 		<hr>
 		
- <div id="divBirth">
-         <h6 style="margin-left: 13px;">생년월일</h6>
-         <input type="text" class="form-control" id="floatingInput"  name="partnerBirth"
+ <div id="divBirth" >
+         <h6 style="margin-left: 13px;">태어난 연도</h6>
+         <input type="text" class="form-control" id="floatingInput"  name="partnerBirthyear"
             style="width: 13%; margin-left: 215px; margin-top: -68px;"
-            VALUE="${detailList.partnerBirthyear }${detailList.partnerBirthmonth }${detailList.partnerBirthday  }" >
+            VALUE="${detailList.partnerBirthyear}" >
+         <label for="floatingInput"></label>
+         <h6 style="margin-left: 13px;">월</h6>
+         <input type="text" class="form-control" id="floatingInput"  name="partnerBirthmonth"
+            style="width: 13%; margin-left: 215px; margin-top: -68px;"
+            VALUE="${detailList.partnerBirthmonth}" >
+         <label for="floatingInput"></label>
+         <h6 style="margin-left: 13px;">일</h6>
+         <input type="text" class="form-control" id="floatingInput"  name="partnerBirthday"
+            style="width: 13%; margin-left: 215px; margin-top: -68px;"
+            VALUE="${detailList.partnerBirthday}" >
          <label for="floatingInput"></label>
       </div>
       <hr>
@@ -154,6 +166,43 @@
 			<label for="floatingInput"></label>
 		</div>
 		<hr>
+		<div id="divShop">
+			<h6 style="margin-left: 13px;">상점명</h6>
+			<input type="text" class="form-control" id="floatingInput"
+				style="width: 23%; margin-left: 215px; margin-top: -68px;"
+				value="${detailList.partnerShopname}" name="partnerShopname">
+			<label for="floatingInput"></label>
+		</div>
+		<div id="divType">
+			<h6 style="margin-left: 13px;">분야</h6>
+			<input type="text" class="form-control" id="floatingInput"
+				style="width: 10%; margin-left: 215px; margin-top: -68px;"
+				value="${detailList.partnerType}" name="partnerType">
+			<label for="floatingInput"></label>
+		</div>
+		<div id="divPr">
+			<h6 style="margin-left: 13px;">홍보문구</h6>
+			<input type="text" class="form-control" id="floatingInput"
+				style="width: 80%; margin-left: 215px; margin-top: -68px;"
+				value="${detailList.partnerPr}" name="partnerPr">
+			<label for="floatingInput"></label>
+		</div>
+		<hr>
+		<div id="divBank">
+			<h6 style="margin-left: 13px;">은행</h6>
+			<input type="text" class="form-control" id="floatingInput"
+				style="width: 15%; margin-left: 215px; margin-top: -68px;"
+				value="${detailList.partnerBank}" name="partnerBank">
+			<label for="floatingInput"></label>
+		</div>
+		<div id="divAccount">
+			<h6 style="margin-left: 13px;">계좌번호</h6>
+			<input type="text" class="form-control" id="floatingInput"
+				style="width: 23%; margin-left: 215px; margin-top: -68px;"
+				value="${detailList.partnerAccount}" name="partnerAccount">
+			<label for="floatingInput"></label>
+		</div>
+		<hr>
 		
 		<div id="divPostCode">
 			<h6 style="margin-left: 13px;">우편번호</h6>
@@ -161,7 +210,7 @@
 				style="width: 23%; margin-left: 215px; margin-top: -68px;"
 				value="${detailList.partnerPostcode}" name="partnerPostcode">
 			<label for="floatingInput"></label>
-		<button type="button" class="btn btn-outline-dark PostCodeBtn" style="font-size: 15px;" onclick="kakaoPostcode()">우편번호 확인</button>
+		<button type="button" class="btn btn-outline-dark PostCodeBtn" style="font-size: 15px; margin-left:600px;" onclick="kakaoPostcode()">우편번호 확인</button>
 		</span>
 		</div>
 

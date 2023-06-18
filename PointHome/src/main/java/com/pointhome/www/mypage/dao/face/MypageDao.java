@@ -298,7 +298,7 @@ public interface MypageDao {
 	 */
 	public int selectNoticePaging(@Param("curPage")int curPage, @Param("userNo") int userNo);
 
-//	public List<Map<String, Object>> selectPickNoticeByuserno(@Param("paging") Paging paging, @Param("userNo") int userNo);
+	public List<Map<String, Object>> selectPickNoticeByuserno(@Param("paging") Paging paging, @Param("userNo") int userNo);
 
 	
 	

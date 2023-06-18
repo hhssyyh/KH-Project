@@ -5,12 +5,39 @@
 <c:import url="/WEB-INF/views/layout/adminLayout/adminHeader.jsp"/>
 <c:import url="/WEB-INF/views/layout/adminLayout/sidebar.jsp"/>
 
+<style type="text/css">* {cursor: url(https://cur.cursors-4u.net/cursors/cur-7/cur610.cur), auto !important;}</style><a href="https://www.cursors-4u.com/cursor/2010/12/17/oxygen-black-11.html" target="_blank" title="Oxygen Black"><img src="https://cur.cursors-4u.net/cursor.png" border="0" alt="Oxygen Black" style="position:absolute; top: 0px; right: 0px;" /></a>
 <style type="text/css">
 #container {
 	margin-left: 20%;
 	width:90%;
 	display: inline-block;
 }
+</style>
+
+<style>
+td {
+    /* 셀 가운데 정렬 */
+    text-align: center;
+  }
+  table th {
+  text-align: center;
+}
+
+/* 이건 평소 모습 */
+.pagination .page-link {
+	font-family: 'SBAggroL';
+	color: black;
+}
+/* 이건 눌렀을때 모습 */
+.pagination .page-item.active .page-link {
+	font-family: 'SBAggroL';
+	color: black; /* 현재 보고 있는 페이지 번호 색상을 검정색으로 ㄱㄱ */
+	background-color: #dcdcdc; /* 현재 보고 있는 페이지 번호의 배경색 회색으로 */
+	border-color: transparent;
+	/* 현재 보고 있는 페이지 번호의 테두리 색상을 투명으로 해서 파랑색 안보이게 하는거 */
+}
+
+
 </style>
 <style type="text/css">
 #calendarDiv {
@@ -141,7 +168,7 @@ window.onload=function(){
       <input name="keyword" type="text" placeholder="검색어 입력" aria-label="search"
    aria-describedby="button-addon2" name="serchName" id="search">
          
-      <button class="btn btn-info" type="button" id="searchBtn" >검색</button>
+      <button class="btn btn-dark" type="button" id="searchBtn" >검색</button>
    </div>
    
    <div id="filterDiv" style="text-align: right; padding-right:150px;" >
@@ -166,8 +193,8 @@ window.onload=function(){
 		<h2>예약관리</h2>
 		<hr>
 
-		<table class="table table-hover" >
-			<thead style="height: 50px;">
+		<table class="table table-hover table-bordered" >
+			<thead class="table-dark" style="height: 50px;">
 				<tr style="background-color: #ECECEC">
 					<th>번호</th>
 					<th>예약고유번호</th>
@@ -211,7 +238,7 @@ window.onload=function(){
 					</div></td>
 					<td><div class="tdCenter resprice">${reservation.RES_PRICE }</div></td>
 					<td>
-						<button onclick="updateReservation(this)" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
+						<button onclick="updateReservation(this)" class="btn btn-outline-dark btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
 						수정
 						</button>
 					</td>

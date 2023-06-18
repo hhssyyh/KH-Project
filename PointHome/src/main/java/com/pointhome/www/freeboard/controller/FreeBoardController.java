@@ -12,8 +12,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.pointhome.www.freeboard.dto.FreeBoard;
@@ -92,19 +94,19 @@ public class FreeBoardController {
          int userNo = (Integer)session.getAttribute("userno");
          int alertCnt = mypageService.getAlertCnt(userNo);
          model.addAttribute( "alertCnt" , alertCnt);
+         
+         
+         String nick = freeBoardService.nick(userNo);
+         
+         logger.info(nick);
+         model.addAttribute("nick", nick);
       }
 
       User viewUser = freeBoardService.viewUser(board.getUserNo());
 //    User commentUser = freeBoardService.commentUser();
       model.addAttribute("viewUser", viewUser);
       
-      int userNo = (Integer)session.getAttribute("userno");
-      String nick = freeBoardService.nick(userNo);
       
-      logger.info(nick);
-      model.addAttribute("nick", nick);
-
-
 //      //닉네임 띄우기 댓글 리스트에
 //      List<User> viewUserNick = freeBoardService.viewUserNick(freeboardNo);
 //      model.addAttribute("viewUserNick", viewUserNick);
@@ -232,10 +234,11 @@ public class FreeBoardController {
       List<Map<String, Object>> boardCommentList = freeBoardService.commentView(freeboardNo);
       
       User viewUser = freeBoardService.viewUser(board.getUserNo());
-      int userNo = (Integer)session.getAttribute("userno");
-      int alertCnt = mypageService.getAlertCnt(userNo);
-
-      model.addAttribute( "alertCnt" , alertCnt);
+      Integer userNo = (Integer) session.getAttribute("userno");
+      if (userNo != null) {
+          int alertCnt = mypageService.getAlertCnt(userNo);
+          model.addAttribute("alertCnt", alertCnt);
+      }
       model.addAttribute("viewUser", viewUser);
       model.addAttribute("commentCnt", boardCommentList.size());
       model.addAttribute("file",boardFile);
@@ -264,9 +267,22 @@ public class FreeBoardController {
       
       return "down";
    }
+  
    
-   @RequestMapping("/fileDelete")
-   public void fileDelete(int freeboardfileNo) {
+   @PostMapping("/fileDelete")
+   @ResponseBody
+   public Map<String, Object> fileDelete(@RequestBody Map<String, Object> jsonData) {
+	   logger.debug("{}", jsonData);
+	   logger.debug("{}", jsonData.get("freeboardFileNo"));
+
+	   int boardFileNo = Integer.parseInt(String.valueOf(jsonData.get("freeboardFileNo")));
+	   
+	   
+	   logger.info("{}",boardFileNo);
+	   
+	   freeBoardService.deleteFile(boardFileNo);
+	   
+	return jsonData;
 	   
    }
    

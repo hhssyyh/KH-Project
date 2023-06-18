@@ -1,7 +1,5 @@
 package com.pointhome.www.mail.dao.face;
 
-import com.pointhome.www.mail.dto.UserEmailCode;
-
 public interface MailDao {
 	
 	/**
@@ -10,11 +8,5 @@ public interface MailDao {
 	 * @return 조회된 이메일
 	 */
 	public String selectUserEmailByEmail(String param);
-
-	/**
-	 * 발송된 이메일 코드를 DB에 저장하는 메소드
-	 * @param userEmailCode - 이메일 인증 코드
-	 */
-	public void insertEmailCode(UserEmailCode userEmailCode);
 
 }

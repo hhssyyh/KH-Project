@@ -284,9 +284,12 @@ public class MypageServiceImpl implements MypageService {
 		return paging;
 	}
 	
-//	@Override
-//	public List<Map<String, Object>> selectPickNotice(Paging paging, int userNo) {
-//		return mypageDao.selectPickNoticeByuserno(paging, userNo);
-//	}
+	@Override
+	public List<Map<String, Object>> selectPickNotice(Paging paging, int userNo) {
+		
+		logger.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!{}", userNo);
+		logger.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!{}", paging);
+		return mypageDao.selectPickNoticeByuserno(paging, userNo);
+	}
 	
 }

@@ -20,7 +20,7 @@ a {
 	text-align: center;
 	margin:0 auto; 
 	margin-top: 130px;
-	margin-bottom: 100px;
+	margin-bottom: 50px;
 	background: rgba(179, 156, 222, 0.06);
 	justify-content: center;
 /* 	border-radius: 50px; */
@@ -141,7 +141,7 @@ table {
 			</div>
 			<div class="btnRow2">
 				<a href="/mypage/myCommentlist"><button class="btn btn-outline-dark proBtn" style="margin: 8px;">내가 쓴 댓글</button></a>
-				<a href="/mypage/mypickList"><button class="btn btn-outline-dark proBtn" style="margin: 8px;">1:1 문의</button></a>
+				<a href="/chat/room"><button class="btn btn-outline-dark proBtn" style="margin: 8px;">1:1 문의</button></a>
 			</div>
 		</div>
 	

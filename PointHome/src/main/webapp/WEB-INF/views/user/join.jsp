@@ -14,130 +14,101 @@
 <!-- Jquery CDN -->
 <script type="text/javascript" src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 
+<!-- css파일 목록 -->
 <link href="/resources/join/user/css/join.css?d=<%= new Date() %>" rel="stylesheet">
 <link href="/resources/common/css/font.css?d=<%= new Date() %>" rel="stylesheet">
-<link href="/resources/common/css/ani-background-sizeup.css?d=<%= new Date() %>" rel="stylesheet">
+<link href="/resources/join/user/css/ani-background.css?d=<%= new Date() %>" rel="stylesheet">
 
 <!-- Email .js -->
-<script type="text/javascript" src="/resources/join/user/js/Email.js"></script>
+<script type="text/javascript" src="/resources/join/user/js/Email.js?d=<%= new Date() %>"></script>
+
 <script type="text/javascript">
-$( () => {
+$( ()=> {
 
-	// 이메일 중복확인 이메일 검증
-	$(document).on('click', '#chkDupEmail',function(){
-		console.log("click");
+	$('input').blur(function(){
 		
-		let Email =$('#userEmail').val();
-		let $data = {"Email" : Email};
-		let url = "/mail/chkDupEmail";
-		let type = "POST";
-		console.log(Email + ',' +  url + ',' + $data.Email);
+		if($('#Email').val() == '') {
+			$('#Email').parent().addClass('has-validation');
+			$('#Email').addClass('is-validation');
 		
-		if ( Email != "" ){
-			
-			$.ajax({
-				type: type
-				, url : url
-				, contentType: "application/json; charset=UTF-8"
-				, data : JSON.stringify($data)
-				, dataType : "json"
-				, success : function(res) {
-					console.log("중복확인 성공");
-					
-					if (res.Email == null ){
-						console.log("이메일 사용 가능");
-						console.log("회원가입 인증 메일 발송!");
-					}else{
-						console.log("이미 사용중인 이메일 입니다.");
-					}
-					
-					console.log(res);
-					console.log(res.Email);
-					console.log(res.EmailCode);
-
-				}
-				, error : function() {
-					console.log("AJAX 실패")
-				}
-			})// end ajax
-
-		} else {
-			console.log("값을 입력해주세요");
 		}
 		
-	})
+		resultMap = fn_reg("Email", $("Email").val());
+		$('#msgEmail').html("");
+		$('#msgEmail').html("<span>" + resultMap.msg + "</span>");
+		$('#msgEmail').css("color","red");
 
-	$('#EmailCode').blur(function(){
-		const inputCode = $(this).val();
-		console.log(inputCode);
-		
-		if(inputCode === code){
-			alert('인증번호가 일치합니다.');
-		}else{
-			alert('인증번호가 불일치 합니다. 다시 확인해주세요!.');
+		if($('#userEmail').val() != '') {
+			$('#msgEmail').html("");
 		}
+
+		if($('#userPw').val() == '') {
+			$('#msgPw').html("");
+			$('#msgPw').html("<span>비밀번호를 입력해주세요.</span>");
+			$('#msgPw').css("color","red");
+		}
+		
+		if($('#userPw').val() != '') {
+			resultMap = fn_reg("Pw", $("userPw").val());
+			$('#msgPw').html("");
+			$('#msgPw').html("<span>" + resultMap.msg + "</span>");
+			$('#msgPw').css("color","red");
+		}
+	
+		
 	})
-
-}) // ajax Dom end
-
-
-// 폼 유효성 검증
-function fn_validation(){
 	
-	// 아이디 중복 확인 검사 여부 확인
-	if($('#chkDupID').data('chk') != 1 ) {
-		create_msg('알림', '아이디 중복 확인을 진행 해 주시기 바랍니다.', '$("#reqID").focus();');
-		return false;
-	}
-
-	// 비밀번호 유효성 검사
-	var pwdReg = fn_reg("pwd", $('#regPwd').val());
-	if(pwdReg.regResult == false) {
-		create_msg('알림', pwdReg.msg, '$("#regPwd").focus();');
-		return false;
-	}
 	
-	// 비밀번호, 비밀번호 확인이 동일한지 검사
-	var sameResult = fn_same($("#regPwd").val(), $("#regRePwd").val());
-	if(sameResult == false) {
-		create_msg('알림', '비밀번호와 비밀번호 확인이 일치 하지 않습니다. 확인하여 주세요.', '$("#regRePwd").focus();');
-		return false;
-	}
+	
+})
 
-	// 이름 유효성 검사
-	var nmReg = fn_reg("name", $('#regNm').val());
-	if(nmReg.regResult == false) {
-		create_msg('알림', nmReg.msg, '$("#name").focus();');
-		return false;
+// 정규표현식 함수
+function fn_reg(type, data){
+	var reg;
+	var msg;
+	var regResult = false;
+	
+	switch(type){
+		case "Email" :
+			reg = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+			msg = "이메일을 확인 해 주세요.";
+			break;
+		case "Pw" :
+			reg = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/;
+			msg = "영문 대소문자, 숫자, 특수문자를 포함한 8 ~ 15자리";
+			break;
+		case "phone" :
+			reg = /^01(?:0|1|[6-9])-(?:\d{3}|\d{4})-\d{4}$/;
+			msg = "핸드폰 번호를 확인 해 주세요.";
+			break;
+		case "name" :
+			data = fn_replace(data);
+			reg = /[a-zA-Zㄱ-ㅎ|ㅏ-ㅣ|가-힣]{3,}/;
+			msg = "이름을 올바르게 입력해 주세요.";
 	}
 	
-	// 핸드폰 번호 유효성 검사
-	var data = {"phone1" : $('#regPhone1').val(), "phone2" : $('#regPhone2').val(), "phone3" : $('#regPhone3').val()};
-	var concatStr = fn_concat("phone", data);
-	var phoneReg = fn_reg("phone", concatStr);
-	if(phoneReg.regResult == false ){
-		create_msg('알림', phoneReg.msg, '$("#regPhone1").focus();');
-		return false;
+	regResult = reg.test(data);
+	if(regResult == true){
+		msg = "";
 	}
 	
-	// 이메일 인증 검사 확인
-	if($('#reqChkEmail').data('chk') != 1 ) {
-		create_msg('알림', '이메일 인증을 진행하여 주시기 바랍니다.', '$("#regEmail1").focus();');
-		return false;
-	}
-	// validation check 값이 모두 참일때 true 반환
-	return true;
+	resultMap = {regResult : regResult, msg : msg}
+	return resultMap;
 }
+
 </script>
 </head>
 <body>
 
 <!-- page 배경 start -->
 <div class="background-ani">
+
 <!-- form 배경 start -->
 <div class="join-form-background text-dark">
 
+<!-- ---------- -->
 <!-- 로고 start -->	
+<!-- ---------- -->
 <a class="join-form-logo" href="/">
 	<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" viewBox="1.7991995811462402 -96.91999816894531 462.00079345703125 105.29000091552734">
 		<g fill="#7e00c2">
@@ -145,148 +116,175 @@ function fn_validation(){
 		</g>
 	</svg>
 </a>
+<!-- ---------- -->
 <!-- 로고 end -->	
+<!-- ---------- -->
 
+<!-- ---------- -->
 <!-- form start -->
+<!-- ---------- -->
 <form action="/user/join" method="post">
-	
-<!-- 이메일 입력 폼 -->
-<!-- 소셜 로그인일 경우 -->
-<!-- 소셜가입일 경우 넘길 파라미터 -->
+
+<!-- 소셜 로그인일 경우, SNS에서 받은 정보를 넘길 파라미터 시작 -->
 <c:if test="${userInfo ne null }">
 	<input type="hidden" name="userPw" id="userPw" value="${userInfo.userPw}">
 	<input type="hidden" name="socialId" id="socialId" value="${userInfo.userPw}">
 	<input type="hidden" name="socialType" id="socialType" value="${socialType}">
 </c:if>
-<!-- 소셜가입일 경우 넘길 파라미터 끝 -->
+<!-- 소셜 로그인일 경우, SNS에서 받은 정보를 넘길 파라미터 끝 -->
 
-<c:if test="${userInfo.userNick ne null}">
-	<div class="row g-2 mb-3" id="input-Email">
+<!-- ------------------- -->
+<!-- 이메일 입력 폼 시작 -->
+<!-- ------------------- -->
+<div class="row g-2 mb-3" id="input-Email">
+
+
+	<!-- 소셜 로그인일 경우, 입력받을 이메일 시작 -->
+	<c:if test="${userInfo.userNick ne null}">
+		
 		<div class="form-floating col-5">
-			<input type="email" class="form-control" name="Email" id="Email" placeholder="이메일" value="${userInfo.userEmail}" readonly="readonly"> 
+			<input type="text" class="form-control" name="Email" id="Email" placeholder="이메일" value="${userInfo.userEmail}"> 
 			<label for="Email">이메일</label>
 		</div>
-
+	
 		<div class="form-floating col-5">
 			<select class="form-select" name="userEmailSelect" id="userEmailSelect">
 				<option selected>직접입력</option>
 				<option value="@gmail.com">@gmail.com</option>
 				<option value="@naver.com">@naver.com</option>
 				<option value="@hanmail.net">@hanmail.net</option>
-			</select> <label for="userEmailSelect">선택</label>
+			</select>
+			<label for="userEmailSelect">선택</label>
 		</div>
-
+	
 		<div class="form-floating col-2">
 			<button type="button" class="btn btn-secondary btn-lg btn-duplChk" id="chkDupEmail" value="중복">중복</button>
 		</div>
-	</div>
 	
-	<input type="hidden" class="form-control" name="userEmail" id="userEmail" placeholder="이메일" value="${userInfo.userEmail}" readonly="readonly">
-
 	</c:if>
-	
-	<!-- 소셜가입이 아닐 경우 -->
+	<!-- 소셜 로그인일 경우, 입력받을 이메일 끝 -->
+
+	<!-- 소셜가입이 아닐 경우, 입력받을 이메일 시작 -->
 	<c:if test="${userInfo.userNick eq null}">
+		
+			<div class="form-floating col-5">
+				<input type="email" class="form-control" name="Email" id="Email" placeholder="이메일"> 
+				<label for="Email">이메일</label>
+				<span id="msgEmail"></span>
+			</div>
 	
-	<div class="row g-2 mb-3" id="input-Email">
-		<div class="form-floating col-5">
-			<input type="email" class="form-control" name="Email" id="Email" placeholder="이메일"> 
-			<label for="Email">이메일</label>
-		</div>
-
-		<div class="form-floating col-5">
-			<select class="form-select" name="userEmailSelect" id="userEmailSelect">
-				<option selected>직접입력</option>
-				<option value="@gmail.com">@gmail.com</option>
-				<option value="@naver.com">@naver.com</option>
-				<option value="@hanmail.net">@hanmail.net</option>
-			</select> <label for="userEmailSelect">선택</label>
-		</div>
-
-		<div class="form-floating col-2">
-			<a type="button" class="btn btn-secondary btn-lg btn-duplChk" id="chkDupEmail">중복</a>
-		</div>
-	</div>
-	<input type="hidden" class="form-control" name="userEmail" id="userEmail" placeholder="이메일">
-
-	<div class="row g-2 mb-3" id="input-Email-code">
-		<div class="form-floating col-10">
-			<input type="text" class="form-control" name="EmailCode" id="EmailCode" placeholder="인증번호"> 
-			<label for="EmailCode">인증번호</label>
-		</div>
-
-		<div class="form-floating col-2">
-			<button type="button" class="btn btn-secondary btn-lg btn-EmailCode" id="EmailCode" value="확인">확인</button>
-		</div>
-	</div>
-
+			<div class="form-floating col-5">
+				<select class="form-select" name="userEmailSelect" id="userEmailSelect">
+					<option selected>직접입력</option>
+					<option value="@gmail.com">@gmail.com</option>
+					<option value="@naver.com">@naver.com</option>
+					<option value="@hanmail.net">@hanmail.net</option>
+				</select>
+				<label for="userEmailSelect">선택</label>
+			</div>
+	
+			<div class="form-floating col-2">
+				<a type="button" class="btn btn-secondary btn-lg btn-duplChk" id="chkDupEmail">중복</a>
+			</div>
+			
 	</c:if>
-	<!-- 소셜가입이 아닐 경우 -->
-	<!-- 이메일 입력 폼 -->
-	
-<!-- 비밀번호 시작 -->
-<!-- 소셜 로그인이 아닐 경우 -->	
+	<!-- 소셜가입이 아닐 경우, 입력받을 이메일 시작 -->
+
+	<input type="hidden" class="form-control" name="userEmail" id="userEmail" placeholder="이메일">
+</div>
+<!-- ----------------- -->
+<!-- 이메일 입력 폼 끝 -->
+<!-- ----------------- -->
+
+<!-- 인증번호 입력 시작 -->
+<div class="row g-2 mb-3" id="input-Email-code">
+	<div class="form-floating col-12">
+		<input type="text" class="form-control" name="EmailCode" id="EmailCode" placeholder="인증번호"> 
+		<label for="EmailCode">인증번호</label>
+		<span id="msgEmailCode"></span>
+	</div>	
+</div>
+<!-- 인증번호 입력 끝 -->
+
+
+<!-- --------------------- -->
+<!-- 비밀번호 입력 폼 시작 -->
+<!-- --------------------- -->
+<!-- 소셜 로그인이 아닐 경우, 비밀번호 입력숨김 -->	
 <c:if test="${userInfo eq null}">
 	<div class="form-floating mb-3" id="input-pw">
-		<input type="password" class="form-control" name="userPw"
-			id="userPw" placeholder="비밀번호"> <label for="userPw">비밀번호</label>
+		<input type="password" class="form-control" name="userPw" id="userPw" placeholder="비밀번호"> 
+		<label for="userPw">비밀번호</label>
+		<span id="msgPw"></span>
 	</div>
 
 	<div class="form-floating mb-3" id="input-pwChk">
-		<input type="password" class="form-control" name="userPwChk"
-			id="userPwChk" placeholder="비밀번호 확인"> <label
-			for="userPwChk">비밀번호 확인</label>
+		<input type="password" class="form-control" name="userPwChk" id="userPwChk" placeholder="비밀번호 확인"> 
+		<label for="userPwChk">비밀번호 확인</label>
+		<span id="msgPwChk"></span>
 	</div>
 </c:if>
-<!-- 비밀번호 시작 끝-->
+<!-- ------------------- -->
+<!-- 비밀번호 입력 폼 끝 -->
+<!-- ------------------- -->
 
+<!-- 닉네임 시작 -->
 <div class="form-floating mb-3" id="input-nick">
 	<input type="text" class="form-control" name="userNick" id="userNick" placeholder="이름"value="${userInfo.userNick}"> 
 	<label for="userNick">닉네임</label>
+	<span id="msgNick"></span>
 </div>
+<!-- 닉네임 끝 -->
 
+<!-- 이름 시작 -->
 <div class="form-floating mb-3" id="input-name">
 	<input type="text" class="form-control" name="userName" id="userName" placeholder="이름" value="${userInfo.userName}"> 
 	<label for="userName">이름</label>
+	<span id="msgName"></span>
 </div>
+<!-- 이름 끝 -->
 
 <!-- 연락처 시작 -->
 <div class="row g-2 mb-3" id="input-phone">
-	<div class="col-9">
+	<div class="col-10">
 		<div class="form-floating">
 			<input type="text" class="form-control" name="userPhone" id="userPhone" placeholder="연락처" value="${userInfo.userPhone }">
-			<label for="floatingInput">연락처</label>
+			<label for="userPhone">연락처</label>
+			<span id="msgPhone"></span>
 		</div>
 	</div>
-	<div class="col-3">
+	<div class="col-2">
 		<div class="form-floating">
 			<button type="button" class="btn btn-secondary btn-lg btn-duplChk">중복</button>
 		</div>
 	</div>
 </div>
+<!-- 연락처 끝 -->
 
 <!-- 성별 시작 -->
 <div class="form-floating mb-3">
-	<!-- 소셜 로그인일 경우 start  -->
+	<!-- 소셜 로그인일 경우, 성별 처리 시작  -->
 	<c:if test="${userInfo.userGender ne null}"> 
 		<select class="form-select" name="userGender" id="userGender">
 			<c:if test="${userInfo.userGender eq 'M'.charAt(0)}">
-					<option value="M" selected>남자</option>
+				<option value="M" selected>남자</option>
 			</c:if>
 		
 			<c:if test="${userInfo.userGender eq 'F'.charAt(0)}">
-					<option value="F" selected>여자</option>
+				<option value="F" selected>여자</option>
 			</c:if>
 		</select> 
 	</c:if>
-	<!-- 소셜 로그인일 경우 end  -->
+	<!-- 소셜 로그인일 경우, 성별 처리 끝 -->
 	
+	<!-- 소셜 로그인이 아닐 경우, 성별 처리 시작 -->
 	<c:if test="${userInfo.userGender eq null}"> 
 	<select class="form-select" name="userGender" id="userGender">
 		<option value="M" selected>남자</option>
 		<option value="F">여자</option>
 	</select> 
 	</c:if>
+	<!-- 소셜 로그인이 아닐 경우, 성별 처리 끝 -->
 
 	<label for="userEmailSelect">성별</label>
 
@@ -299,6 +297,7 @@ function fn_validation(){
 		<div class="form-floating">
 			<input type="text" class="form-control" name="userBirthYear" id="userBirthYear" placeholder="년" value="${userInfo.userBirthYear}">
 			<label for="userBirthYear">년</label>
+			<span id="msgBirthYear"></span>
 		</div>
 	</div>
 	<div class="col-md">
@@ -324,12 +323,14 @@ function fn_validation(){
 				</c:if>
 			</select> 
 			<label for="userBirthMonth">월</label>
+			<span id="msgBirthMonth"></span>
 		</div>
 	</div>
 	<div class="col-md">
 		<div class="form-floating">
 			<input type="text" class="form-control" name="userBirthDay" id="userBirthDay" placeholder="이메일" value="${userInfo.userBirthDay }">
 			<label for="userBirthDay">일</label>
+			<span id="msgBirthDay"></span>
 		</div>
 	</div>
 </div>
@@ -337,14 +338,15 @@ function fn_validation(){
 
 <!-- 주소 시작 -->
 <div class="row g-2 mb-3" id="input-address">
-	<div class="col-9">
+	<div class="col-10">
 		<div class="form-floating">
 			<input type="text" class="form-control" name="userPostCode" id="userPostCode" placeholder="우편번호">
-			<label for="">우편번호</label>
+			<label for="userPostCode">우편번호</label>
+			<span id="msgPostCode"></span>
 		</div>
 	</div>
 	
-	<div class="col-3">
+	<div class="col-2">
 		<div class="form-floating">
 			<button type="button" class="btn btn-secondary btn-lg btn-postcode" onclick="kakaoPostcode()" value="${userInfo.userPostCode }">검색</button>
 		</div>
@@ -353,21 +355,24 @@ function fn_validation(){
 
 <div class="form-floating mb-3">
 	<input type="text" class="form-control" name="userAddress" id="userAddress" placeholder="주소" value="${userInfo.userAddress }">
-	<label for="floatingInput">주소</label>
+	<label for="userAddress">주소</label>
+	<span id="msgAddress"></span>
 </div>
 
 <div class="row g-2 mb-3">
 	<div class="col-6">
 		<div class="form-floating">
 			<input type="text" class="form-control" name="userDetailAddress" id="userDetailAddress" placeholder="상세주소" value="${userInfo.userDetailAddress }">
-			<label for="">상세주소</label>
+			<label for="userDetailAddress">상세주소</label>
+			<span id="msgDetailAddress"></span>
 		</div>
 	</div>
 	
 	<div class="col-6 mb-3">
 		<div class="form-floating">
 			<input type="text" class="form-control" name="userExtraAddress" id="userExtraAddress" placeholder="참고항목" value="${userInfo.userExtraAddress }">
-			<label for="">참고사항</label>
+			<label for="userExtraAddress">참고사항</label>
+			<span id="msgExtraAddress"></span>
 		</div>
 	</div>
 </div>

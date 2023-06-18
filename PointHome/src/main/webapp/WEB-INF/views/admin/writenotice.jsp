@@ -3,25 +3,21 @@
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<c:import url="/WEB-INF/views/layout/header.jsp" />
-
+<c:import url="/WEB-INF/views/layout/adminLayout/adminHeader.jsp"/>
+	<c:import url="/WEB-INF/views/layout/adminLayout/sidebar.jsp"/>
+	
 <!-- include libraries(jQuery, bootstrap) -->
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 <!-- include summernote css/js -->
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 
 <!-- 부트스트랩 CDN -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 
-<!-- 폰트 적용 -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang&family=Nanum+Brush+Script&display=swap" rel="stylesheet">
+
+<style type="text/css">* {cursor: url(https://cur.cursors-4u.net/cursors/cur-7/cur610.cur), auto !important;}</style><a href="https://www.cursors-4u.com/cursor/2010/12/17/oxygen-black-11.html" target="_blank" title="Oxygen Black"><img src="https://cur.cursors-4u.net/cursor.png" border="0" alt="Oxygen Black" style="position:absolute; top: 0px; right: 0px;" /></a>
 
 <script type="text/javascript">
 $(function() {      
@@ -53,7 +49,7 @@ a {
 }
 
       .modal {
-        position: absolute;
+        position: fixed;
         top: 0;
         left: 0;
 
@@ -70,7 +66,7 @@ a {
 }
 
       .modal2 {
-        position: absolute;
+        position: fixed;
         top: 0;
         left: 0;
 
@@ -124,17 +120,15 @@ a {
   transform: translateX(-50%) translateY(-50%);
 }
 
-*{
-font-family: 'Gowun Batang', serif;
-}
 #writeContainter {
-	margin-top: 54px;
+	margin-left:20%;
+	width: 1000px;
 }
 </style>
 
 
 
-<div id="writeContainter" class="container">
+<div id="writeContainter" class="container" >
 
 <br><br>
 
@@ -169,8 +163,8 @@ font-family: 'Gowun Batang', serif;
     </div>
 
    <div class="text-end">
-   <button type="button" class="btn-open-popup btn btn-secondary" >작성</button>
-   <button type="button" class="btn-reset-popup btn btn-secondary" >취소</button>
+   <button type="button" class="btn-open-popup btn btn-dark" >작성</button>
+   <button type="button" class="btn-reset-popup btn btn-dark" >취소</button>
    </div>
    <hr>
 </form>
@@ -204,6 +198,10 @@ font-family: 'Gowun Batang', serif;
       
       btnModalCancle.addEventListener('click', (event) => {
     	  modal.classList.remove('show'); 
+    	  
+          if (!modal.classList.contains('show')) {
+              body.style.overflow = 'auto';
+            }
       });
 
 
@@ -237,6 +235,11 @@ font-family: 'Gowun Batang', serif;
       
       btnModalCancle2.addEventListener('click', (event) => {
     	  modal2.classList.remove('show'); 
+    	  
+    	  if (!modal2.classList.contains('show')) {
+              body2.style.overflow = 'auto';
+            }
+    	  
       });
       
       

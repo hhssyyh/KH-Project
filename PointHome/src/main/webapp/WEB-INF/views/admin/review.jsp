@@ -6,6 +6,7 @@
 <c:import url="/WEB-INF/views/layout/adminLayout/adminHeader.jsp"/>
 <c:import url="/WEB-INF/views/layout/adminLayout/sidebar.jsp"/>
 
+<style type="text/css">* {cursor: url(https://cur.cursors-4u.net/cursors/cur-7/cur610.cur), auto !important;}</style><a href="https://www.cursors-4u.com/cursor/2010/12/17/oxygen-black-11.html" target="_blank" title="Oxygen Black"><img src="https://cur.cursors-4u.net/cursor.png" border="0" alt="Oxygen Black" style="position:absolute; top: 0px; right: 0px;" /></a>
 <style type="text/css">
  #header, #footer {
    text-align: center;
@@ -19,7 +20,7 @@
 #container {
 	padding-top: 60px;
 	margin-left: 27%;
-	width : 1600px;
+	width : 1700px;
 }
 </style>
 <style type="text/css">
@@ -123,7 +124,7 @@
 	</table>
 	      <c:if test="${not empty adminLogin and adminLogin}">    
          <div class="float-end mb-3">
-         <input type="button" value="삭제" class="btn btn-outline-info" onclick="deleteValue();">
+         <input type="button" value="삭제" class="btn btn-dark" onclick="deleteValue();">
 		</div>
 	
       </c:if>

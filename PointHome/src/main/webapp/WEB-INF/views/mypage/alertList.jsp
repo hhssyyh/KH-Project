@@ -8,9 +8,12 @@
 
 <style type="text/css">
 body {
+	font-family: 'SBAggroL';
 	padding: 0;
 	margin: 0;
+    
 }
+
 
 #userInfo {
 	width: 1000px;
@@ -157,7 +160,7 @@ td {
 </script>
 
 
-<div id="mypage">
+<div id="mypage" style="font-family: 'SBAggroL';">
 
 <c:import url="/WEB-INF/views/layout/myprofile.jsp" />
 

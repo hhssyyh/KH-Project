@@ -104,7 +104,7 @@ public class PartnerController {
 	public String logout(HttpSession session) {
 		session.invalidate();
 
-		return "redirect:./main";
+		return "redirect:/partner/login";
 	}
 	
 	@GetMapping("/shopsetting")
@@ -174,7 +174,7 @@ public class PartnerController {
 	@RequestMapping("/list")
  public void typeList(@RequestParam(defaultValue = "0") int curPage, 
        Model model, 
-       String partnerType,
+       @RequestParam(defaultValue = "all") String partnerType,
        HttpSession session
        ) {
 
@@ -188,6 +188,7 @@ public class PartnerController {
        List<Map<String, Object >> list = partnerService.getPartTypePick(curPage, paging, userNo,partnerType);
 
        model.addAttribute("list", list);
+       logger.debug("!!!!!!!!!!!!!!!!!{}", list);
 
     } else {
        int userNo = (Integer)session.getAttribute("userno");

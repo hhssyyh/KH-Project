@@ -7,10 +7,29 @@
 
 <c:import url="/WEB-INF/views/layout/adminLayout/adminHeader.jsp"/>
 <c:import url="/WEB-INF/views/layout/adminLayout/sidebar.jsp"/>
-
+<style type="text/css">* {cursor: url(https://cur.cursors-4u.net/cursors/cur-7/cur610.cur), auto !important;}</style><a href="https://www.cursors-4u.com/cursor/2010/12/17/oxygen-black-11.html" target="_blank" title="Oxygen Black"><img src="https://cur.cursors-4u.net/cursor.png" border="0" alt="Oxygen Black" style="position:absolute; top: 0px; right: 0px;" /></a>
 <link href="/resources/mypage/userInfo.css" rel="stylesheet">
 
 <style>
+#userInfo {
+	width: 1000px;
+	background-color: white;
+}
+
+#reservedetail {
+	height: 340px; 
+	width: 800px;
+	background-color: white;
+}
+table  {
+    border-spacing: 0;
+    border-collapse: separate;
+}
+
+td {
+	height: 70px;
+	vertical-align: middle;
+}
       .modal {
         position: fixed;
         top: 0;
@@ -46,9 +65,8 @@
  </style> 
 
 
-<div id="userInfo"
-	style="margin: 0 auto; margin-top: 30px; padding: 30px;">
-	<h4>예약관리</h4>
+<div id="userInfo" class="container" style="padding: 30px; border-radius: 30px; border: 3px solid #c8c8c8; padding-top:100px;">
+	<h4 style="margin: 0;"><i class="bi bi-calendar2-check"></i>예약관리</h4>
 	<hr id="line">
 	
 	
@@ -79,7 +97,8 @@
 			      <th scope="row">${list.RNUM}</th>
 			      <td>${list.PARTNER_SHOPNAME}</td>
 			      <td>${list.RESERVE_TIME}</td>
-			     <td> <a href="./partreserve?partnerNo=${list.RES_RESERVENO }">${list.RES_RESERVENO }</a></td>
+			     <td> ${list.RES_RESERVENO }</td>
+			     <td style="color:red;">상담완료</td>
 				 </tr>     
 			</c:when>	 
 

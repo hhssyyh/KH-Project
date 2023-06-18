@@ -49,7 +49,7 @@ a {
 }
 
 .modal {
-	position: absolute;
+	position: fixed;
 	top: 0;
 	left: 0;
 	width: 100%;
@@ -63,7 +63,7 @@ a {
 }
 
 .modal2 {
-	position: absolute;
+	position: fixed;
 	top: 0;
 	left: 0;
 	width: 100%;
@@ -77,7 +77,7 @@ a {
 }
 
 .modal_body {
-	position: absolute;
+	position: fixed;
 	top: 50%;
 	left: 50%;
 	width: 420px;
@@ -91,7 +91,7 @@ a {
 }
 
 .modal2_body {
-	position: absolute;
+	position: fixed;
 	top: 50%;
 	left: 50%;
 	width: 420px;
@@ -285,6 +285,10 @@ body{
 
       btnModalCancle.addEventListener('click', (event) => {
          modal.classList.remove('show'); 
+         
+         if (!modal.classList.contains('show')) {
+             body.style.overflow = 'auto';
+           }
       });
       
     </script>
@@ -316,6 +320,10 @@ body{
       
       btnModalCancle2.addEventListener('click', (event) => {
          modal2.classList.remove('show'); 
+         
+         if (!modal2.classList.contains('show')) {
+             body2.style.overflow = 'auto';
+           }
       });
       
       //레이어 창 구현

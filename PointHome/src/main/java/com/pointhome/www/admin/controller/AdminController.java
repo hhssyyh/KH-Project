@@ -74,6 +74,7 @@ public class AdminController {
 			session.setAttribute("adminNo", ad.getAdminNo());
 			session.setAttribute("adminId", ad.getAdminId());
 			session.setAttribute("type", "a");
+			session.setMaxInactiveInterval(30*60); // 세션 유지시간 30분
 			
 			return "redirect:/admin/main";
 			
@@ -652,6 +653,11 @@ public class AdminController {
 		      model.addAttribute("filter", filter);
 		      model.addAttribute("searchType", searchType);
 		      model.addAttribute("keyword", keyword);
+		}
+		
+		@GetMapping("/error")
+		public void error () {
+			
 		}
 }
 
