@@ -20,7 +20,7 @@
 #container {
 	padding-top: 60px;
 	margin-left: 27%;
-	width : 1600px;
+	width : 1700px;
 }
 </style>
 <style type="text/css">
@@ -124,7 +124,7 @@
 	</table>
 	      <c:if test="${not empty adminLogin and adminLogin}">    
          <div class="float-end mb-3">
-         <input type="button" value="삭제" class="btn btn-outline-info" onclick="deleteValue();">
+         <input type="button" value="삭제" class="btn btn-dark" onclick="deleteValue();">
 		</div>
 	
       </c:if>

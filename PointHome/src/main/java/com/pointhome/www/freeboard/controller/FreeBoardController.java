@@ -234,10 +234,11 @@ public class FreeBoardController {
       List<Map<String, Object>> boardCommentList = freeBoardService.commentView(freeboardNo);
       
       User viewUser = freeBoardService.viewUser(board.getUserNo());
-      int userNo = (Integer)session.getAttribute("userno");
-      int alertCnt = mypageService.getAlertCnt(userNo);
-
-      model.addAttribute( "alertCnt" , alertCnt);
+      Integer userNo = (Integer) session.getAttribute("userno");
+      if (userNo != null) {
+          int alertCnt = mypageService.getAlertCnt(userNo);
+          model.addAttribute("alertCnt", alertCnt);
+      }
       model.addAttribute("viewUser", viewUser);
       model.addAttribute("commentCnt", boardCommentList.size());
       model.addAttribute("file",boardFile);

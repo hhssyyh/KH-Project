@@ -15,6 +15,31 @@
 
 </style>
 
+<style>
+td {
+    /* 셀 가운데 정렬 */
+    text-align: center;
+  }
+  table th {
+  text-align: center;
+}
+
+/* 이건 평소 모습 */
+.pagination .page-link {
+	font-family: 'SBAggroL';
+	color: black;
+}
+/* 이건 눌렀을때 모습 */
+.pagination .page-item.active .page-link {
+	font-family: 'SBAggroL';
+	color: black; /* 현재 보고 있는 페이지 번호 색상을 검정색으로 ㄱㄱ */
+	background-color: #dcdcdc; /* 현재 보고 있는 페이지 번호의 배경색 회색으로 */
+	border-color: transparent;
+	/* 현재 보고 있는 페이지 번호의 테두리 색상을 투명으로 해서 파랑색 안보이게 하는거 */
+}
+
+
+</style>
 <style type="text/css">* {cursor: url(https://cur.cursors-4u.net/cursors/cur-7/cur610.cur), auto !important;}</style><a href="https://www.cursors-4u.com/cursor/2010/12/17/oxygen-black-11.html" target="_blank" title="Oxygen Black"><img src="https://cur.cursors-4u.net/cursor.png" border="0" alt="Oxygen Black" style="position:absolute; top: 0px; right: 0px;" /></a>
 <script type="text/javascript">
 $(function() {
@@ -130,10 +155,11 @@ window.onload=function(){
 		
 	</script>
 
-<div class="container text-center">
+<div style="padding-right:300px; margin-left:110px; width: 100%;">
 
-   <h1 style="text-align: center">자유게시판</h1>
-
+		<div style="text-align: center; margin-top: 60px; font-size: 40px; margin-left:37px;" >
+		댓글 관리
+		</div>
    <!-- 검색 기능 -->
   <div class="input-group mt-2">
       <select class="form-contril search-select" name="searchType">
@@ -143,7 +169,7 @@ window.onload=function(){
          placeholder="검색어 입력" aria-label="search"
          aria-describedby="button-addon2" name="serchName" id="search">
          
-      <button class="btn btn-info" type="button" id="searchBtn">검색</button>
+      <button class="btn btn-dark" type="button" id="searchBtn">검색</button>
    </div>
 
 
@@ -190,7 +216,7 @@ window.onload=function(){
       <c:if test="${not empty adminLogin and adminLogin}">
        
          <div class="float-end mb-3">
-         <input type="button" value="삭제" class="btn btn-outline-info" onclick="deleteValue();">
+         <input type="button" value="삭제" class="btn btn-dark" onclick="deleteValue();">
 		</div>
 	
       </c:if>

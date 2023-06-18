@@ -98,14 +98,7 @@
 		
 
 		</div>
-		<div id="partnerNo">
-			<h6 style="margin-left: 13px;">제휴사 번호</h6>
-			<input type="text" class="form-control" id="floatingInput"
-				style="width: 10%; margin-left: 215px; margin-top: -68px;"
-				placeholder="${detailList.partnerNo}" name="partnerNo" >
-			<label for="floatingInput"></label>
-
-		</div>
+	
 		<hr>
 		<div id="partnerName">
 			<h6 style="margin-left: 13px;">이름(실명)</h6>
@@ -146,11 +139,21 @@
 
 		<hr>
 		
- <div id="divBirth">
-         <h6 style="margin-left: 13px;">생년월일</h6>
-         <input type="text" class="form-control" id="floatingInput"  name="partnerBirth"
+ <div id="divBirth" >
+         <h6 style="margin-left: 13px;">태어난 연도</h6>
+         <input type="text" class="form-control" id="floatingInput"  name="partnerBirthyear"
             style="width: 13%; margin-left: 215px; margin-top: -68px;"
-            VALUE="${detailList.partnerBirthyear }${detailList.partnerBirthmonth }${detailList.partnerBirthday  }" >
+            VALUE="${detailList.partnerBirthyear}" >
+         <label for="floatingInput"></label>
+         <h6 style="margin-left: 13px;">월</h6>
+         <input type="text" class="form-control" id="floatingInput"  name="partnerBirthmonth"
+            style="width: 13%; margin-left: 215px; margin-top: -68px;"
+            VALUE="${detailList.partnerBirthmonth}" >
+         <label for="floatingInput"></label>
+         <h6 style="margin-left: 13px;">일</h6>
+         <input type="text" class="form-control" id="floatingInput"  name="partnerBirthday"
+            style="width: 13%; margin-left: 215px; margin-top: -68px;"
+            VALUE="${detailList.partnerBirthday}" >
          <label for="floatingInput"></label>
       </div>
       <hr>

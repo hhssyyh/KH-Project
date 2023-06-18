@@ -140,11 +140,21 @@
 
 		<hr>
 		
- <div id="divBirth">
-         <h6 style="margin-left: 13px;">생년월일</h6>
-         <input type="text" class="form-control" id="floatingInput"  name="userBirth"
+ <div id="divBirth" >
+         <h6 style="margin-left: 13px;">태어난 연도</h6>
+         <input type="text" class="form-control" id="floatingInput"  name="userBirthYear"
             style="width: 13%; margin-left: 215px; margin-top: -68px;"
-            VALUE="${detailList.USER_BIRTHYEAR }${detailList.USER_BIRTHMONTH }${detailList.USER_BIRTHDAY  }" >
+            VALUE="${detailList.USER_BIRTHYEAR }" >
+         <label for="floatingInput"></label>
+         <h6 style="margin-left: 13px;">월</h6>
+         <input type="text" class="form-control" id="floatingInput"  name="userBirthMonth"
+            style="width: 13%; margin-left: 215px; margin-top: -68px;"
+            VALUE="${detailList.USER_BIRTHMONTH }" >
+         <label for="floatingInput"></label>
+         <h6 style="margin-left: 13px;">일</h6>
+         <input type="text" class="form-control" id="floatingInput"  name="userBirthDay"
+            style="width: 13%; margin-left: 215px; margin-top: -68px;"
+            VALUE="${detailList.USER_BIRTHDAY  }" >
          <label for="floatingInput"></label>
       </div>
       <hr>

@@ -33,7 +33,7 @@ font-family: 'Lato', sans-serif;
 
 <style type="text/css">* {cursor: url(https://cur.cursors-4u.net/cursors/cur-7/cur610.cur), auto !important;}</style><a href="https://www.cursors-4u.com/cursor/2010/12/17/oxygen-black-11.html" target="_blank" title="Oxygen Black"><img src="https://cur.cursors-4u.net/cursor.png" border="0" alt="Oxygen Black" style="position:absolute; top: 0px; right: 0px;" /></a>
 <div style="margin-left: 16%; width:60%; padding-top:100px;">
-<a href="./usermanage"><button type="button" class="btn btn-dark " style="  float: right;">목록</button></a>
+
 	<div style="padding-top: 70px;">
 		<h1 style="font-weight: bold; margin-left: 50%">회원 정보</h1>
 		<br>
@@ -110,7 +110,9 @@ font-family: 'Lato', sans-serif;
 
 </div>
 
-	
+<br>
+
+	<a href="./usermanage"><button type="button" class="btn btn-dark " style="  margin-left:1350px;">목록</button></a>
 
 
 
