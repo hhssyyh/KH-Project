@@ -128,7 +128,7 @@
 	
 	<select id="selectCntTypeAll" resultType="int" parameterType="map">
 		<choose>
-		<when test="partnerType == null">
+		<when test='partnerType == "all"'>
 		select count(*) from partner_tb
 		</when>
 		<otherwise>
@@ -270,9 +270,8 @@
    </update>
 
 	<select id="selectPartnerPick" parameterType="map" resultType="map"> 
-		<!-- 평균별점, 총 리뷰 수 필요함 - review 테이블 -->
 		<choose>
-			<when test="partnerType == null">
+			<when test='partnerType == "all"'>
 				select * from (
 					select 
 						rownum rnum , B.*

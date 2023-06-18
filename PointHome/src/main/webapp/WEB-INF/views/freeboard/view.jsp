@@ -35,7 +35,7 @@ div.fr {
 }
 
 .modal2 {
-	position: fixed;
+	position: fixed; z-index:5;
 	top: 0;
 	left: 0;
 	width: 100%;
@@ -63,7 +63,7 @@ div.fr {
 }
 
 .modal2_body {
-	position: absolute;
+	position: absolute; 
 	top: 50%;
 	left: 50%;
 	width: 500px;
@@ -74,6 +74,7 @@ div.fr {
 	border-radius: 10px;
 	box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
 	transform: translateX(-50%) translateY(-50%);
+	font-family: 'SBAggroM';
 }
 
 .container img {
@@ -255,7 +256,7 @@ function updateCom(th, commNo) {
 			</c:choose>
 		</c:forEach>
 
-		<div style="font-size: 12px;">
+		<div style="font-size: 12px; font-family: 'SBAggroL';" >
 			<c:choose>
 				<c:when test="${!empty file}">
 					<hr>
@@ -285,7 +286,7 @@ function updateCom(th, commNo) {
 		<a href="./list"><button class="btn btn-info btn-sm">목록</button></a>
 		<c:if test="${userno eq board.userNo || not empty adminLogin and adminLogin}">
 			<a href="./update?freeboardNo=${board.freeboardNo}"><button type="button" class=" btn-sm btn btn-info">수정</button></a>
-			<button type="button" class="btn btn-info btn-sm">삭제</button>
+			<button type="button" class="btn-reset-popup btn btn-info btn-sm ">삭제</button>
 		</c:if>
 	</div>
 
@@ -382,6 +383,11 @@ function updateCom(th, commNo) {
       
       btnModalCancle2.addEventListener('click', (event) => {
     	  modal2.classList.remove('show'); 
+          
+    	  if (!modal2.classList.contains('show')) {
+              body2.style.overflow = 'auto';
+            }
+      	
       });
       
       

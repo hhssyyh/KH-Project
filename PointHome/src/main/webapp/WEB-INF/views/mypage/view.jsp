@@ -21,7 +21,7 @@ a {
 }
 
 #mypageCon {
- 	margin-top: 30px; 
+ 	margin-top: 50px; 
 }
 
 .conRow {
@@ -54,18 +54,20 @@ a {
 	width: 1080px;
 	height: 500px;
 	margin: 0 auto;
-	
  	background-color: white;
 }
 
-/* .myBtn { */
-/* 	width: 10%; */
-/* 	margin-right: 10px; */
-/* 	background-color: #E8F5FF; */
-/* 	border: 5px solid #A696CD; */
-/* 	border-style: dotted; */
-/* 	border-radius: 10px; */
-/* } */
+ .myBtn { 
+	width: 10%; 
+ 	margin: 10px; 
+ 	border-radius: 10px; 
+ } 
+ 
+ .myBtn:hover{
+	color: white;
+	background-color: #A696CD;
+	border-color: #A696CD;
+}
 
 hr{
 	color: #7e00c2;
@@ -95,7 +97,7 @@ td.l{
 }
 
 .resBtn:hover{
-	color: white;
+	color: black;
 	background-color: white;
 	border-color: white;
 }
@@ -109,12 +111,12 @@ td.l{
 <c:import url="/WEB-INF/views/layout/myprofile.jsp" />
 
 
-<!-- <div class="text-center mb-4"> -->
-<!-- 	<button class="btn btn-outline-secondary myBtn">상담내역</button> -->
-<!-- 	<a href="./myreserve"><button class="btn btn-outline-secondary myBtn">결제내역</button></a> -->
-<!-- 	<a href="./qna"><button class="btn btn-outline-secondary myBtn">나의 문의</button></a> -->
-<!-- 	<a href="./serviceCenter"><button class="btn btn-outline-secondary myBtn">고객센터</button></a> -->
-<!-- </div> -->
+<div class="text-center">
+	<a href="/mypage/mypickList"><button class="btn btn-outline-secondary myBtn">찜 내역</button></a>
+	<a href="./mypayList"><button class="btn btn-outline-secondary myBtn">결제 내역</button></a>
+	<a href="./qna"><button class="btn btn-outline-secondary myBtn">나의 문의</button></a>
+	<a href="./serviceCenter"><button class="btn btn-outline-secondary myBtn">상담 내역</button></a>
+</div>
 
 <!-- <hr style="width: 60%; margin: 0 auto; margin-bottom: 80px;"> -->
 
@@ -127,7 +129,7 @@ td.l{
 			<jsp:useBean id="now" class="java.util.Date" />
 			<fmt:formatDate value="${now}" pattern="yyyy-MM-dd HH:mm" var="today" />
 			<div class="conTitle" id="conTitle">예약내역</div>
-			<button class="btn btn-outline-secondary resBtn" style="float: right; font-size: 13px;"><a href="./myreserve">전체 예약 조회</a></button>
+			<a href="./myreserve"><button class="btn btn-outline-secondary resBtn" style="float: right; font-size: 13px;">전체 예약 조회</button></a>
 
 			<hr>
 				<c:forEach var="list" items="${reservelist}" begin="0" end="7">
@@ -147,8 +149,7 @@ td.l{
 		
 		<div id="noticeDiv" class="conRowDiv" >
 			<div class="conTitle">공지사항</div>
-			<button class="btn btn-outline-secondary resBtn" style="float: right; font-size: 13px;"><a href="./myPickNoticeList">공지 조회</a></button>
-			<button class="btn btn-outline-secondary resBtn" style="float: right; font-size: 13px; margin-right: 10px;"><a href="/mypage/mypickList">찜 내역</a></button>
+			<a href="./myPickNoticeList"><button class="btn btn-outline-secondary resBtn" style="float: right; font-size: 13px;">공지 조회</button></a>
 			<hr>
 				<c:forEach var="list" items="${pNotice}" begin="0" end="7">
 

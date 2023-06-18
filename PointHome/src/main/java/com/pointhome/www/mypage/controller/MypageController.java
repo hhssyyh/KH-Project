@@ -118,6 +118,7 @@ public class MypageController {
 		}
 		
 		logger.debug("res{}",res);
+		logger.debug("!!!!!!!!!!!!!!!!!!!res{}",reservelist);
 		model.addAttribute("res", res);
 		model.addAttribute("reservelist", reservelist);
 		
@@ -633,11 +634,17 @@ public class MypageController {
     
 		List<Map<String, Object>> paylist = mypageService.selectReserve(paging, userNo);
 		
+		int alertCnt = mypageService.getAlertCnt(userNo);
+		UserFile userFile = mypageService.selectImg(userNo);
+		
 		logger.info("{}",paylist);
 		logger.info("{}",paging);
 		
 		model.addAttribute("paging", paging);
 		model.addAttribute("paylist", paylist);
+		model.addAttribute( "alertCnt" , alertCnt);
+		model.addAttribute("userFile", userFile);
+		model.addAttribute("userNick", usernick);
 		
 		
     }

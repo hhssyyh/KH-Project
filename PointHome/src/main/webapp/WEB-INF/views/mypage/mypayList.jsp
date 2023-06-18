@@ -14,7 +14,6 @@ body {
 	padding: 0;
 	margin: 0;
     font-family: 'SBAggroL';
-  
 }
 
 #userInfo {
@@ -156,7 +155,7 @@ td {
 <c:import url="/WEB-INF/views/layout/myprofile.jsp" />
 
 <div id="userInfo" class="container" style="padding: 30px; border-radius: 30px; border: 3px solid #c8c8c8;">
-	<h4><i class="bi bi-credit-card"></i>       나의 결제 내역</h4>
+	<h4 style="margin-top: 0; margin-bottom: 0;"><i class="bi bi-credit-card"></i>       나의 결제 내역</h4>
 	<hr id="line">
 	
 	
@@ -164,8 +163,9 @@ td {
   <thead>
     <tr>
       <th scope="col">번호</th>
-      <th scope="col">제휴사 이름</th>
+      <th scope="col">상점 이름</th>
       <th scope="col">결제 시간</th>
+      <th scope="col">결제 번호</th>
       <th scope="col">결제 금액</th>
     </tr>
   </thead>
@@ -183,6 +183,7 @@ td {
 			      <td>${list.PARTNER_SHOPNAME}</td>
 			      <td><fmt:parseDate value="${list.RES_RESERVENO}" var="date" pattern="yyyyMMddHHmmss"/>
 						<fmt:formatDate value="${date}" pattern="yyyy년 MM월 dd일 HH:mm:ss"/></td>
+				  <td><a href="./myreserveDetail?resNo=${list.RES_NO }">${list.RES_RESERVENO }</a></td>
 			      <td>${list.RES_PRICE}원</td>
 				 </tr>     
   	</c:forEach>

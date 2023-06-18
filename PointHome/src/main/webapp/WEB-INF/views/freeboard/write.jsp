@@ -287,6 +287,10 @@ body{
 
       btnModalCancle.addEventListener('click', (event) => {
          modal.classList.remove('show'); 
+         
+         if (!modal.classList.contains('show')) {
+             body.style.overflow = 'auto';
+           }
       });
       
     </script>
@@ -318,6 +322,10 @@ body{
       
       btnModalCancle2.addEventListener('click', (event) => {
          modal2.classList.remove('show'); 
+         
+         if (!modal2.classList.contains('show')) {
+             body2.style.overflow = 'auto';
+           }
       });
       
       //레이어 창 구현
