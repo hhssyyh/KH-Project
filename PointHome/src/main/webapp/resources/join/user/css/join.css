@@ -5,12 +5,16 @@ body {
 	font-family: SBAggroM;
 }
 
+span {
+    vertical-align: sub;
+}
+
 .join-form-background {
-	width: 40%;
-	border: 1px solid none;
+	width: 40%; border : 1px solid none;
 	background-color: white;
 	border-radius: 50px;
 	box-shadow: 0 4px 5px rgba(0, 0, 0, 0.6);
+	border: 1px solid none;
 }
 
 form {
@@ -47,4 +51,8 @@ svg {
 .btn-join:hover {
 	background-color: #9432c9;
 	color: white;
+}
+
+#input-Email-code {
+	display: none;
 }

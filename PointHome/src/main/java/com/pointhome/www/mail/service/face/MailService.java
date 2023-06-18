@@ -1,7 +1,5 @@
 package com.pointhome.www.mail.service.face;
 
-import com.pointhome.www.mail.dto.UserEmailCode;
-
 public interface MailService {
 
 	/**
@@ -26,11 +24,5 @@ public interface MailService {
 	 * @return authNumber - (String)인증코드 : 111111 ~ 999999 (6자리 난수)
 	 */
 	public String joinEmail(String email, int authNumber);
-
-	/**
-	 * 발송한 이메일을 DB에 추가
-	 * @param userEmailCode 
-	 */
-	public void addEamilCode(UserEmailCode userEmailCode);
 	
 }

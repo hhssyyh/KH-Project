@@ -16,7 +16,7 @@
 
 <link href="/resources/join/partner/css/join.css?d=<%= new Date() %>" rel="stylesheet">
 <link href="/resources/common/css/font.css?d=<%= new Date() %>" rel="stylesheet">
-<link href="/resources/common/css/ani-background-sizeup.css?d=<%= new Date() %>" rel="stylesheet">
+<link href="/resources/join/partner/css/ani-background.css?d=<%= new Date() %>" rel="stylesheet">
 
 <!-- Email .js -->
 <script type="text/javascript" src="/resources/join/partner/js/Email.js"></script>
