@@ -94,19 +94,19 @@ public class FreeBoardController {
          int userNo = (Integer)session.getAttribute("userno");
          int alertCnt = mypageService.getAlertCnt(userNo);
          model.addAttribute( "alertCnt" , alertCnt);
+         
+         
+         String nick = freeBoardService.nick(userNo);
+         
+         logger.info(nick);
+         model.addAttribute("nick", nick);
       }
 
       User viewUser = freeBoardService.viewUser(board.getUserNo());
 //    User commentUser = freeBoardService.commentUser();
       model.addAttribute("viewUser", viewUser);
       
-      int userNo = (Integer)session.getAttribute("userno");
-      String nick = freeBoardService.nick(userNo);
       
-      logger.info(nick);
-      model.addAttribute("nick", nick);
-
-
 //      //닉네임 띄우기 댓글 리스트에
 //      List<User> viewUserNick = freeBoardService.viewUserNick(freeboardNo);
 //      model.addAttribute("viewUserNick", viewUserNick);
