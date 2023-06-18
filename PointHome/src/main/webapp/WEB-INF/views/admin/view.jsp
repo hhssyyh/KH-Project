@@ -100,7 +100,7 @@ div.fr {
 
 
 
-<div class="container" style="margin-top: 180px; margin-bottom: 200px;">
+<div class="container" style="padding-top: 180px; margin-bottom: 200px; width:1000px;">
 
 <h1 style="text-align: center">공지사항</h1>
 <hr>

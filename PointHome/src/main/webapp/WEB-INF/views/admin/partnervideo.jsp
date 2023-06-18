@@ -12,7 +12,7 @@
 	<br>
 	<br><br><br>
 	<br>
-	<h1>제휴사 홍보 영상</h1>
+	<h1 style="font-weight: bold;" >제휴사 홍보 영상</h1>
 	<hr>
 	<br>
 	<table class="table table-hover">
@@ -31,7 +31,7 @@
 					<form action="partnervideodelete?partnerNo=${param.partnerNo }" method="post">
 						<input type="hidden" value="${video.partnerVideoNo}"
 							name="partnerVideoNo">
-						<button class="btn btn-secondary">삭제</button>
+						<button class="btn btn-dark">삭제</button>
 					</form>
 				</td>
 			</tr>

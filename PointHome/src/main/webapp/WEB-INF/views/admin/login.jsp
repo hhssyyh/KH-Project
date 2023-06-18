@@ -204,7 +204,7 @@ body {
 <body>
 <div class="container">
 
-<p class="title" data-content="ADMIN" style="margin-left: 520px; font-size:80px;">ADMIN</p>
+<p class="title" data-content="ADMIN" style="margin-left: 520px; font-size:80px;" onclick="location.href='/'">ADMIN</p>
 <form class="form" action="/admin/login" method="post">
 <div class="form-signin m-auto">
 <div class="d-grid gap-2 col-4 mx-auto">

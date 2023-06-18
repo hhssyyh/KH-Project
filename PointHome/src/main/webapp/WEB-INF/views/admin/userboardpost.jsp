@@ -163,7 +163,7 @@ td {
 <div style="padding-right:300px; margin-left:110px; width: 100%;">
 
 		<div style="text-align: center; margin-top: 60px; font-size: 40px; margin-left:37px;" >
-		자유게시판
+		자유게시판 관리
 		</div>
 
    <!-- 검색 기능 -->
