@@ -97,6 +97,7 @@ public class userController {
 			session.setAttribute("usernick", user.getUserNick());
 			session.setAttribute("type", "u");
 			session.setAttribute("keepLogin", keepLogin);
+			session.setAttribute("chatNick", user.getUserNick());
 			session.setMaxInactiveInterval(30*60); // 세션 유지시간 30분
 
 			return "redirect:/";
@@ -327,6 +328,17 @@ public class userController {
 	
 	@GetMapping("/user/partnernoticelist")
 	public String partnernoticelist(User Param, HttpSession session, Model model) {
+		
+		String type = (String) session.getAttribute("type");
+		
+		model.addAttribute("type", type); 
+		
+		
+		return "redirect:/partner/partnernotice";
+	}
+
+	@PostMapping("/user/chkPhone")
+	public String p(User Param, HttpSession session, Model model) {
 		
 		String type = (String) session.getAttribute("type");
 		

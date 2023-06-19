@@ -92,6 +92,7 @@ public class PartnerController {
 			session.setAttribute("partnerLogin", true);
 			session.setAttribute("partnerNo", part.getPartnerNo());
 			session.setAttribute("partnerNick", part.getPartnerNick());
+			session.setAttribute("chatNick", part.getPartnerNick());
 			session.setAttribute("type", "p");
 			
 			return "redirect:./main";

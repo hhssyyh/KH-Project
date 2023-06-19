@@ -182,6 +182,9 @@ a {
 </style>
 
 
+<div id="writeContainter">
+
+
 
 <div id="writeContainter" class="container">
 

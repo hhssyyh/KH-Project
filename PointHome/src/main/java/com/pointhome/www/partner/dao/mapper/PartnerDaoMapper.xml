@@ -61,7 +61,7 @@
 	</select> 
 
 	<select id="selectByPartnerEmailPw" resultType="Partner" parameterType="Partner">
-		select partner_no from partner_tb
+		select * from partner_tb
 		where partner_email=#{partnerEmail} and partner_pw =#{partnerPw}
 	</select>
 	
