@@ -8,12 +8,10 @@
 <%-- 사용자 헤더 (읽기전용)--%>
 <c:if test="${not empty login and login}">
 	<c:import url="/WEB-INF/views/layout/header.jsp" />
-
 </c:if>
-
-<%-- 제휴사헤더 --%>
+<%-- 제휴사 헤더 (읽기전용)--%>
 <c:if test="${not empty partnerLogin and partnerLogin}">
-<c:import url="/WEB-INF/views/layout/partnerLayout/header.jsp"/>
+	<c:import url="/WEB-INF/views/layout/partnerLayout/header.jsp" />
 </c:if>
 <%-- 운영사헤더 --%>
 <c:if test="${not empty adminLogin and adminLogin}">

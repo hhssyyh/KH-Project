@@ -422,5 +422,21 @@
 		select user_name from user_tb 
 		where user_no = #{userSessionNo}
 	</select>
+	
+	
+	<select id="selectMainReserveList" parameterType="int" resultType="map">
+		SELECT * FROM (
+		    SELECT rownum rnum, R.* 
+		    FROM (
+		        SELECT re.* ,user_name, user_email
+		        FROM user_tb u, reservation re 
+		        WHERE re.part_no = #{partNo}
+		        	AND u.user_no = re.user_no 
+		        ORDER BY res_no DESC
+		    ) R
+		    ORDER BY rnum
+		)
+		WHERE rnum BETWEEN 1 AND 5
+	</select>
 </mapper>
 

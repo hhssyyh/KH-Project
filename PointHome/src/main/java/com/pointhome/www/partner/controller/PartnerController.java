@@ -40,11 +40,18 @@ public class PartnerController {
 	@Autowired MainService mainService;
 	
 	@GetMapping("/main")
-	public void main(HttpSession session) {
+	public void main(HttpSession session, Model model) {
 		
 //		partnerService.getPartnerInfo((Integer)session.getAttribute("partnerNo"));
+		
+		if (session.getAttribute("partnerLogin") != null) {
+			List<Map<String, Object>> reserveList = partnerService.getMainReserveList((int)session.getAttribute("partnerNo"));
 			
+			model.addAttribute("reserveList", reserveList);
+		}
+		
 		logger.debug("/partner/main[GET]");
+		
 	}
 	
 	@GetMapping("/join")
