@@ -118,7 +118,7 @@ pageEncoding="UTF-8"%>
   
   <!-- 메시지 입력시 오른쪽 왼쪽으로 기입되는 방식 지정 -->
   <script>
-    var uid = "${userNick}";
+    var uid = "${chatNick}";
     Handlebars.registerHelper("printLeftRight", function (sender) {
       if (uid != sender) {
         return "left";
@@ -129,7 +129,7 @@ pageEncoding="UTF-8"%>
   </script>
 
   <script>
-    var uid = "${userNick}";
+    var uid = "${chatNick}";
     $("#txtMessage").on("keydown", function (e) {
       if (e.keyCode == 13 && !e.shiftKey) {
         e.preventDefault();

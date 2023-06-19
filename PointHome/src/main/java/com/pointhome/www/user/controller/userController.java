@@ -97,6 +97,7 @@ public class userController {
 			session.setAttribute("usernick", user.getUserNick());
 			session.setAttribute("type", "u");
 			session.setAttribute("keepLogin", keepLogin);
+			session.setAttribute("chatNick", user.getUserNick());
 			session.setMaxInactiveInterval(30*60); // 세션 유지시간 30분
 
 			return "redirect:/";
