@@ -63,7 +63,7 @@
 	</div>
 	
 	<div class="form-floating mt-3">
-		<input type="password" class="form-control" name="userPw" id="userPw" placeholder="비밀번호">
+		<input type="text" class="form-control" name="userPw" id="userPw" placeholder="비밀번호">
 		<label for="userPw">비밀번호</label>
 	</div>
 </div>

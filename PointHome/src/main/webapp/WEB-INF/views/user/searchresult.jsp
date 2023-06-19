@@ -17,17 +17,11 @@
 <!-- 폰트모음 -->
 <link href="/resources/common/css/font.css" rel="stylesheet">
 
-<link href="/resources/login/user/css/searchpw.css?d=<%= new Date() %>" rel="stylesheet">
+<link href="/resources/login/user/css/searchid.css?d=<%= new Date() %>" rel="stylesheet">
 <link href="/resources/login/user/css/ani-background.css" rel="stylesheet">
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
-<script type="text/javascript">
 
-	if(not empty msg){
-		alert(msg);
-	}
-
-</script>
 </head>
 <body>
 
@@ -36,9 +30,6 @@
 
 <!-- 부트스트랩 container -->
 <div class="background">
-
-<!-- 폼태그 시작 -->
-<form class="form" action="./searchpw" method="post">
 
 <!-- 로고 운칠기삼 start -->
 <a class="title mb-5" href="/">
@@ -49,35 +40,33 @@
 </svg>
 </a>
 <!-- 로고 운칠기삼 end -->
-<h1 class="text-center text-dark searchpw-title">비밀번호 찾기</h1>
-<!-- 사용자 / 제휴사 로그인 스위치 start -->
-<ul class="login-switch nav nav-tabs nav-justified">
-	<li class="nav-item">
-		<a class="selectLogin nav-link active text-dark" aria-current="page" href="./searchpw">사용자</a>
-	</li>
-	<li class="nav-item">
-		<a class="selectLogin nav-link text-secondary" href="/partner/searchpw">제휴사</a>
-	</li>
-</ul>
+<h1 class="text-center text-dark searchid-title mt-5">결과</h1>
 <!-- 사용자 / 제휴사 로그인 스위치 end -->
-
-<!-- 로그인 정보 입력 start -->
 <div class="login-info">
-	<div class="form-floating">
-		<input type="email" class="form-control" name="userEmail" id="userEmail" placeholder="이메일">
-		<label for="userEmail">이메일</label>
+
+	<hr>
+	<c:if test="${not empty user.userEmail}">
+	<div class="text-dark fs-3 mb-3 mt-5">
+		조회된 이메일 
 	</div>
+	<div class="text-dark fs-5 mb-5">
+		${user.userEmail}
+	</div>
+	</c:if>
 	
-	<div class="form-floating mt-3">
-		<input type="text" class="form-control" name="userPhone" id="userPhone" placeholder="연락처">
-		<label for="userPhone">연락처</label>
+	<c:if test="${not empty user.userPw}">
+	<div class="text-dark">
+		조회된 비밀번호
 	</div>
+	<div class="text-dark fs-5 mb-5">
+		${user.userPw}
+	</div>
+	</c:if>
+	
 </div>
-<!-- 로그인 정보 입력 end -->
 
 <!--  확인 / 뒤로가기 버튼 start -->
-<button class="btn btn-lg btn-login">&nbsp;&nbsp;&nbsp;확인&nbsp;&nbsp;&nbsp;</button>
-<a href="javascript:window.history.go(-1);" class="btn btn-outline-secondary btn-lg btn-signup" type="button">뒤로가기</a>
+<a href="/user/login"><button class="btn btn-lg btn-login" type="button">로그인 하기</button></a>
 <!--  확인 / 뒤로가기 버튼 end -->
 
 <!-- 아이디 찾기 / 비밀번호 찾기 start -->
@@ -87,7 +76,6 @@
 </div>
 <!-- 아이디 찾기 / 비밀번호 찾기 end -->
 
-</form>
 </div>
 
 </div>

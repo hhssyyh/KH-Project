@@ -153,6 +153,30 @@ public interface UserService {
 	 */
 	public String createNaverLogoutURL(String accessToken);
 
-	public String requestToServer(String logoutURL, String headerStr) throws IOException ;
+	/**
+	 * 로그아웃시 네이버 엑세스 토큰 삭제하기 위한 메소드
+	 * @param logoutURL - 네이버 apiURL
+	 * @param object - 엑세스 토큰
+	 * @return
+	 * @throws IOException 
+	 */
+	public String requestToServer(String logoutURL, String headerStr) throws IOException;
+
+	/**
+	 * 회원가입시 입력된 연락처의 가입여부를 조회하는 메소드
+	 * 
+	 * @param jsonData - ajax로 넘겨받은 연락처
+	 * @return Map<String, Object> - 조회된 회원의 정보
+	 */
+	public Map<String, Object> getUserByPhone(Map<String, Object> jsonData);
+
+	/**
+	 * 비밀번호을 찾는 메소드
+	 * 
+	 * @param param
+	 * @return
+	 */
+	public User getUserByEmailPhone(User param);
+
 
 }
