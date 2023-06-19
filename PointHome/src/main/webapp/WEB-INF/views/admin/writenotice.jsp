@@ -127,7 +127,7 @@ a {
 
 
 
-<div id="writeContainter" class="container" >
+<div id="writeContainter">
 
 <br><br>
 
