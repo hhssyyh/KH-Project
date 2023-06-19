@@ -318,7 +318,7 @@ $(document).ready(function() {
 		<div style="font-size: 25px;">
 			후기(${reviewCnt })  
 			<span class="star-ratings" style="font-family: Noto_Sans_KR400">
-				<span class="star-ratings-fill space-x-2 text-lg" style="width: ${avgGrade * 20 }%;">
+				<span class="star-ratings-fill space-x-2 text-lg" style="width: ${avgGrade * 20 -4 }%;">
 					<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
 				</span>
 				<span class="star-ratings-base space-x-2 text-lg">
@@ -439,10 +439,12 @@ $(document).ready(function() {
 				</thead>
 				<tbody class="table-group-divider">
 				<c:forEach var="notice" items="${noticeList }">
-					<tr>
+					<tr onclick="location.href='/partner/view?partnerNoticeNo=${notice.partnerNoticeNo }'">
 						<td><div class="tdCenter">${notice.partnerNoticeNo }</div></td>
-						<td><div class="tdCenter"><a href="/partner/view?partnerNoticeNo=${notice.partnerNoticeNo }">${notice.partnerNoticeTitle }</a></div></td>
-						<td><div class="tdCenter">${notice.partnerNoticeContent }</div></td>
+						<td><div class="tdCenter">${notice.partnerNoticeTitle }</div></td>
+						<td><div class="tdCenter" style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap; width: 600px; height: 50px;">
+							${notice.partnerNoticeContent }
+						</div></td>
 						<td><div class="tdCenter"><fmt:formatDate value="${notice.partnerNoticeDate }" pattern="yy/MM/dd hh:mm" /></div></td>
 					</tr>
 				</c:forEach>

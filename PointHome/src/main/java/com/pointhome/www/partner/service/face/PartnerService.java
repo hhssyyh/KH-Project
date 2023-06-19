@@ -238,5 +238,7 @@ public interface PartnerService {
 	 */
 
 	public String getUserName(int userSessionNo);
+
+	public List<Map<String, Object>> getMainReserveList(int partNo);
 	
 }

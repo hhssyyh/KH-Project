@@ -308,7 +308,9 @@ public interface PartnerDao {
 	 */
 	public void insertVideoAlert(@Param("video") PartnerVideo video, @Param("pickUser") MyPick mp);	
 
-	public String selectUserName(int userSessionNo);	
+	public String selectUserName(int userSessionNo);
+
+	public List<Map<String, Object>> selectMainReserveList(int partNo);	
 
 
 }

@@ -400,5 +400,12 @@ public class PartnerServiceImpl implements PartnerService {
 		
 		return partnerDao.selectUserName(userSessionNo);
 	}
+	
+	
+	@Override
+	public List<Map<String, Object>> getMainReserveList(int partNo) {
+		
+		return partnerDao.selectMainReserveList(partNo);
+	}
 			
 }
