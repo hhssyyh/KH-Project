@@ -4,7 +4,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:import url="/WEB-INF/views/layout/adminLayout/adminHeader.jsp"/>
-	<c:import url="/WEB-INF/views/layout/adminLayout/sidebar.jsp"/>
 	
 <!-- include libraries(jQuery, bootstrap) -->
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
@@ -128,7 +127,7 @@ a {
 
 
 
-<div id="writeContainter" class="container" >
+<div id="writeContainter">
 
 <br><br>
 

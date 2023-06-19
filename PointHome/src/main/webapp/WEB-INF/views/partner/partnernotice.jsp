@@ -15,11 +15,42 @@
 <c:if test="${not empty partnerLogin and partnerLogin}">
 <c:import url="/WEB-INF/views/layout/partnerLayout/header.jsp"/>
 </c:if>
+<%-- 운영사헤더 --%>
+<c:if test="${not empty adminLogin and adminLogin}">
+	<c:import url="/WEB-INF/views/layout/adminLayout/adminHeader.jsp" />
+	<c:import url="/WEB-INF/views/layout/adminLayout/sidebar.jsp" />
+	<style type="text/css">* {cursor: url(https://cur.cursors-4u.net/cursors/cur-7/cur610.cur), auto !important;}</style><a href="https://www.cursors-4u.com/cursor/2010/12/17/oxygen-black-11.html" target="_blank" title="Oxygen Black"><img src="https://cur.cursors-4u.net/cursor.png" border="0" alt="Oxygen Black" style="position:absolute; top: 0px; right: 0px;" /></a>
+	<style type="text/css">
+	
+/* 이건 평소 모습 */
+.pagination .page-link {
+	font-family: 'SBAggroL';
+	color: black;
+}
+/* 이건 눌렀을때 모습 */
+.pagination .page-item.active .page-link {
+	font-family: 'SBAggroL';
+	color: black; /* 현재 보고 있는 페이지 번호 색상을 검정색으로 ㄱㄱ */
+	background-color: #dcdcdc; /* 현재 보고 있는 페이지 번호의 배경색 회색으로 */
+	border-color: transparent;
+	/* 현재 보고 있는 페이지 번호의 테두리 색상을 투명으로 해서 파랑색 안보이게 하는거 */
+}
+	</style>
+</c:if>
 
+
+<style type="text/css">
+   .checkbox-table .checkbox-cell input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+   }
+</style>
 <style type="text/css">
 .partnernotice-div {
 	margin-top: 100px;
 	font-family: SBAggroM;
+	
+	width:1000px;
 }
 
 a {
@@ -31,7 +62,20 @@ a {
 	margin: 30px auto;
 	font-size: 20px;
 	text-align: center;
-	width: 1200px;
+	width: 1000px;
+}
+td {
+    /* 셀 가운데 정렬 */
+    text-align: center;
+  }
+  table th {
+  text-align: center;
+}
+
+</style>
+<style type="text/css">
+#container {
+	margin-left: 20%;
 }
 </style>
 
@@ -62,16 +106,76 @@ window.onload=function(){
 }
 </script>
 
+<script type="text/javascript">
+		$(function(){
+			var chkObj = document.getElementsByName("RowCheck");
+			var rowCnt = chkObj.length;
+			
+			$("input[name='allCheck']").click(function(){
+				var chk_listArr = $("input[name='RowCheck']");
+				for (var i=0; i<chk_listArr.length; i++){
+					chk_listArr[i].checked = this.checked;
+				}
+			});
+			$("input[name='RowCheck']").click(function(){
+				if($("input[name='RowCheck']:checked").length == rowCnt){
+					$("input[name='allCheck']")[0].checked = true;
+				}
+				else{
+					$("input[name='allCheck']")[0].checked = false;
+				}
+			});
+		});
+		function deleteValue(){
+			var url = "/admin/removepartnernotice";    
+			var valueArr = new Array();
+		    var list = $("input[name='RowCheck']");
+		    for(var i = 0; i < list.length; i++){
+		        if(list[i].checked){ 
+		            valueArr.push(list[i].value);
+		        }
+		    }
+		    if (valueArr.length == 0){
+		    	alert("선택된 글이 없습니다.");
+		    }
+		    else{
+				var chk = confirm("정말 삭제하시겠습니까?");
+				if (chk) {
+				$.ajax({
+				    url : url,                  
+				    type : 'POST',              
+				    traditional : true,
+				    data : {
+				    	valueArr : valueArr       
+				    },
+	                success: function(jdata){
+	                        location.replace("partnernotice");
+	                        
+	                }
+				});
+		    } else {
+	        	 location.replace("partnernotice");
+	        }
+	    }
+	}
+		
+		
+	</script>
 
 
-<div class="container text-center partnernotice-div">
 
-   <h1 style="margin-top: 130px; margin-bottom: 30px;">공지사항</h1>
-   <hr>
+<div style="padding-right:300px; margin-left:200px; width: 100%; padding-top:60px;'" >
 
-   <table id="listTable" class="table table-hover">
+		<div style="margin-top: 60px; font-size: 40px; margin-left:460px;" >
+		공지사항
+		</div>
+
+   <table id="listTable" class="table table-hover" style="margin-left: 130px;"> 
       <thead>
          <tr>
+         <c:if test="${not empty adminLogin and adminLogin}">
+         <th> <input id="allCheck" type="checkbox" name="allCheck" class="form-check-input" /></th>
+         </c:if>	
             <th>글번호</th>
             <th>제목</th>
             <th>작성일</th>
@@ -81,6 +185,9 @@ window.onload=function(){
       <tbody class="table-group-divider">
       <c:forEach var="notice" items="${noticelist }">
          <tr>
+         <c:if test="${not empty adminLogin and adminLogin}">
+         <td class="checkbox"><input name="RowCheck" type="checkbox" value="${notice.partnerNoticeNo}"/></td>
+         </c:if>
             <td>${notice.partnerNoticeNo }</td>
             <td class=""><a
                href="./view?partnerNoticeNo=${notice.partnerNoticeNo }">${notice.partnerNoticeTitle }</a></td>
@@ -99,6 +206,13 @@ window.onload=function(){
          </div>
          <div class="clearfix"></div>
       </c:if>
+       <c:if test="${not empty adminLogin and adminLogin}">    
+         <div class="float-end mb-3">
+         <input type="button" value="삭제" class="btn btn-dark" onclick="deleteValue();">
+		</div>
+	
+      </c:if>
+      
    <!-- div.container -->
 
 

@@ -9,6 +9,6 @@
 <body>
 
 
-<h1 style="color:red;">로그인을 해주세요.</h1>
+<h1 style="color:red; text-align: center;">로그인을 해주세요.</h1>
 </body>
 </html>

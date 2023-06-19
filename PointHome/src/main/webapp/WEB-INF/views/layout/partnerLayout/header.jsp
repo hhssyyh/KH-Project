@@ -106,6 +106,7 @@ a {
 			data-bs-parent="#accordionFlushExample">
 			<div class="accordion-body">
 				<a href="./partnernotice">공지사항 작성</a>
+				
 			</div>
 		</div>
 		<div id="flush-collapseFour" class="accordion-collapse collapse"
