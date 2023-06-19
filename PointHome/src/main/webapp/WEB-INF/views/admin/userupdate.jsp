@@ -133,7 +133,7 @@
 			<h6 style="margin-left: 13px; display: inline-block; margin-right: 115px;">비밀번호</h6>
 			<input type="text" class="form-control" id="floatingInput" name="userPw"
             style="width: 20%; margin-left: 215px; margin-top: -72px; margin-bottom: 10px;"
-            VALUE="${detailList.USER_PW}">
+            VALUE="">
 			
 		
 		</div>
