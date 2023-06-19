@@ -409,6 +409,12 @@ public interface AdminDao {
 	 * @return 총 결제 수 
 	 */
 	public int getPagingPayment(@Param("partnerNo")int partnerNo,@Param("filter") String filter, @Param("searchType") String searchType, @Param("keyword") String keyword);
+
+	/**
+	 * 제휴사가 작성한 공지사항 삭제
+	 * @param partnerNoticeNo
+	 */
+	public void partnerNoticeDelete(String partnerNoticeNo);
 	
 	
 

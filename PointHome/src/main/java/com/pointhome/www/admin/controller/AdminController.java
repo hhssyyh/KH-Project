@@ -27,6 +27,7 @@ import com.pointhome.www.main.dto.Reservation;
 import com.pointhome.www.mypage.dto.Review;
 import com.pointhome.www.partner.dto.Partner;
 import com.pointhome.www.partner.dto.PartnerFile;
+import com.pointhome.www.partner.dto.PartnerNotice;
 import com.pointhome.www.partner.dto.PartnerVideo;
 import com.pointhome.www.user.dto.User;
 import com.pointhome.www.user.dto.UserFile;
@@ -454,6 +455,14 @@ public class AdminController {
 	}
 	
 	
+	//제휴사가 작성한 공지사항 삭제 
+	@GetMapping("/partnernotice")
+	public String partnerNotice()
+	{
+		
+		
+		return "redirect:/partner/partnernotice";
+	}
 	
 	
 	//사용자가 작성한 글 가져오기 
@@ -543,7 +552,24 @@ public class AdminController {
     }	
 
 
-	
+	// 제휴사가 작성한 공지사항 게시물 삭제
+    @RequestMapping(value = "/removepartnernotice", method = RequestMethod.GET)
+    public String removepartnernotice(String partnerNoticeNo ) throws Exception {
+    	adminService.partnerNoticeDelete(partnerNoticeNo);
+    	return "redirect:/admin/partnernotice" ;
+    }
+    
+    //게시물 선택삭제
+    @RequestMapping(value = "/removepartnernotice",method = RequestMethod.POST)
+    public String ajaxpartnernotice(HttpServletRequest request,Partner partner) throws Exception {
+            
+        String[] ajaxMsg = request.getParameterValues("valueArr");
+        int size = ajaxMsg.length;
+        for(int i=0; i<size; i++) {
+        	adminService.partnerNoticeDelete(ajaxMsg[i]);
+        }
+        return "redirect:/admin/partnernotice" ;
+    }		
 	
 
 	@RequestMapping("/delete")

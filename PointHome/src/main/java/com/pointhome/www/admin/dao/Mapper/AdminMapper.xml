@@ -860,4 +860,13 @@
 
    
  </select>
+ 
+ <delete id="partnerNoticeDelete">
+ 	
+ 	delete partner_notice
+ 	where partner_notice_no =#{partnerNoticeNo}
+ 
+ </delete>
+ 
+ 
 </mapper>

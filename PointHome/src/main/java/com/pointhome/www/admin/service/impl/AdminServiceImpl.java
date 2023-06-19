@@ -527,4 +527,11 @@ public class AdminServiceImpl implements AdminService {
 	      
 		return paging;
 	}
+
+	@Override
+	public void partnerNoticeDelete(String partnerNoticeNo) {
+		
+		adminDao.partnerNoticeDelete(partnerNoticeNo);
+		
+	}
 }
