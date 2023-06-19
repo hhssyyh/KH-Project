@@ -157,18 +157,24 @@ $( () => {
 			<i class="bi bi-calendar3"></i>
 			<a class="nav-link d-inline" href="/mypage/myreserve">나의 예약내역</a>
 		</li>
+
+		<li class="nav-item">
+			<i class="bi bi-chat-left-dots-fill" style="color:dark;"></i>
+			<a class="nav-link d-inline" href="/mypage/myreview">나의 리뷰</a>
+		</li>
 		</c:if>
 		<!-- 로그인시에만 출력 -->
+		
 	  
 		<li class="nav-item"><hr></li>
 	</ul>
 		  
 	<ul class="navbar-nav flex-grow-1 pe-3 mx-3">
-		
 		<li class="nav-item">
-			<i class="bi bi-chat-left-dots-fill" style="color:dark;"></i>
-			<a class="nav-link d-inline" href="/mypage/myreview">리뷰 모음</a>
+			<i class="bi bi-play-btn-fill" style="color:red;"></i>
+			<a class="nav-link d-inline" href="#">리얼상담 영상</a>
 		</li>
+		
 
 		<li class="nav-item">
 			<i class="bi bi-journal-text"></i>

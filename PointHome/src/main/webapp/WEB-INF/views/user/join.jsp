@@ -31,6 +31,7 @@ $( ()=> {
 		const Type = "Email";
 		const resultMap = fn_reg(Type, Email);
 		
+		console.log(resultMap);
 		// 입력창이 비었을때
 		if($('#Email').val() == '') {
 			$('#msgEmail').html("");
@@ -42,14 +43,25 @@ $( ()=> {
 		}
 		
 		// 입력창이 비었을때 비지 않았을 때
-		if(resultMap.regResult) {
-			console.log(resultMap.regResult);
-			$('#msgEmail').html("");
-			$('#msgEmail').html("<span>" + resultMap.msg + "</span>");
-			$('#msgEmail').css("color","red");
-			$('#input-Email').removeClass('has-validation');
-			$('#Email').parent().removeClass('is-invalid');
-			$('#Email').removeClass('is-invalid');
+		if($('#Email').val() != ''){
+			if(resultMap.regResult) {
+				console.log('유효성 검증 성공 : ' + resultMap.regResult);
+				$('#msgEmail').html("");
+				$('#msgEmail').css("color","red");
+// 				$('#input-Email').removeClass('has-validation');
+// 				$('#Email').parent().removeClass('is-invalid');
+// 				$('#Email').removeClass('is-invalid');
+				$('#Email').css('border-color','green');
+			} else {
+				console.log('유효성 검증 실패 : ' + resultMap.regResult);
+				$('#msgEmail').html("");
+				$('#msgEmail').html("<span>" + resultMap.msg + "</span>");
+				$('#msgEmail').css("color","red");
+				$('#input-Email').addClass('has-validation');
+				$('#Email').parent().addClass('is-invalid');
+				$('#Email').css('border-color','');
+				$('#Email').addClass('is-invalid');
+			}
 		}
 
 	})
@@ -98,8 +110,11 @@ $( ()=> {
 	})
 
 	$('#EmailCode').blur(function() {
-	
-		const $data = {'Email':$('#userEmail').val(), 'EmailCode':$('#EmailCode').val()};
+
+		const EmailCode = $('#EmailCode');
+		const msgEmailCode = $('#msgEmailCode');
+		
+		const $data = {'Email':$('#userEmail').val(), 'EmailCode':EmailCode.val()};
 		const type = "POST";
 		const url = "/mail/chkEmailCode";
 
@@ -113,47 +128,207 @@ $( ()=> {
 				console.log('AJAX 성공');
 				console.log(res);
 				console.log('인증번호 일치');
-				$('#msgEmailCode').html("");
-				$('#msgEmailCode').html("인증번호 확인 완료");
- 				$('#EmailCode').attr('readonly','readonly');
-				$('#msgEmailCode').css("color","green");
+				msgEmailCode.html("");
+				msgEmailCode.html("인증번호 확인 완료");
+ 				EmailCode.attr('readonly','readonly');
+				msgEmailCode.css("color","green");
 		    }  
 			,  error : function(){ 
 				console.log('AJAX 실패');
 				console.log('인증번호 불일치');
-				$('#msgEmailCode').html("");
-				$('#msgEmailCode').html("인증번호가 일치하지 않습니다.");
-				$('#msgEmailCode').css("color","red");
-				$('#EmailCode').addClass('has-validation');
+				msgEmailCode.html("");
+				msgEmailCode.html("인증번호가 일치하지 않습니다.");
+				msgEmailCode.css("color","red");
+				EmailCode.addClass('has-validation');
 			}
 		});  
 	
 	})
 	
 	$('#userPw').blur(function(){
-	
-		if($('#userPw').val() == '') {
-			$('#msgPw').html("");
-			$('#msgPw').html("<span>비밀번호를 입력해주세요.</span>");
-			$('#msgPw').css("color","red");
-			$('#input-Pw').addClass('has-validation');
-			$('#userPw').parent().addClass('is-invalid');
-			$('#userPw').addClass('is-invalid');
+		
+		const Pw = $('#userPw');
+		const msgPw = $('#msgPw');
+		console.log("입력된 비밀번호 : " + Pw.val());
+
+		if(Pw.val() == '') {
+			msgPw.html("");
+			msgPw.html("<span>비밀번호를 입력해주세요.</span>");
+			msgPw.css("color","red");
+			Pw.parent().parent().addClass('has-validation');
+			Pw.parent().addClass('is-invalid');
+			Pw.addClass('is-invalid');
 		}
 		
-		if($('#userPw').val() != '') {
-			resultMap = fn_reg("Pw", $("userPw").val());
-			$('#msgPw').html("");
-			$('#msgPw').html("<span>" + resultMap.msg + "</span>");
-			$('#msgPw').css("color","red");
-			$('#input-Pw').addClass('has-validation');
-			$('#userPw').parent().addClass('is-invalid');
-			$('#userPw').addClass('is-invalid');
+		if(Pw.val() != '') {
+	
+			resultMap = fn_reg("Pw", Pw.val());
+			console.log(resultMap);
+			
+			if(resultMap.regResult == false) {
+				msgPw.html("");
+				msgPw.html("<span>" + resultMap.msg + "</span>");
+				msgPw.css("color","red");
+				Pw.parent().parent().addClass('has-validation');
+				Pw.parent().addClass('is-invalid');
+				Pw.addClass('is-invalid');
+			}
+			if(resultMap.regResult == true) {
+				msgPw.html("");
+				Pw.parent().parent().removeClass('has-validation');
+				Pw.parent().removeClass('is-invalid');
+				Pw.removeClass('is-invalid');
+			}
 		}
 	
-		if(fn_reg("Pw", $("userPw").val())) {
+	})
+
+	$('#userPwChk').blur(function(){
+	
+		const Pw = $('#userPw');
+		const PwChk = $('#userPwChk');
+		const msgPwChk = $('#msgPwChk');
+		
+		// 입력값이 없을때
+		if(PwChk.val() == '') {
+			msgPwChk.html("");
+			msgPwChk.html("<span>비밀번호를 입력해주세요.</span>");
+			msgPwChk.css("color","red");
+			PwChk.parent().parent().addClass('has-validation');
+			PwChk.parent().addClass('is-invalid');
+			PwChk.addClass('is-invalid');
+		}
+		
+		// 입력값이 있을때
+		if(PwChk.val() != '') {
+			
+			if(Pw.val() != PwChk.val()){ // 비밀번호 입력값과 같지 않을때
+				msgPwChk.html("");
+				msgPwChk.html("<span>비밀번호가 일치하지 않습니다</span>");
+				msgPwChk.css("color","red");
+				PwChk.parent().parent().addClass('has-validation');
+				PwChk.parent().addClass('is-invalid');
+				PwChk.addClass('is-invalid');
+			} else { // 비밀번호 입력값과 같을때
+				msgPwChk.html("");
+				PwChk.parent().parent().removeClass('has-validation');
+				PwChk.parent().removeClass('is-invalid');
+				PwChk.removeClass('is-invalid');
+			}
 			
 		}
+	
+	})
+	
+	$('#userNick').blur(function(){
+		
+		const Nick = $('#userNick');
+		const msgNick = $('#msgNick');
+		
+		if(Nick.val() == ''){
+			msgNick.html("");
+			msgNick.html("<span>닉네임을 입력해주세요.</span>");
+			msgNick.css("color","red");
+			Nick.parent().parent().addClass('has-validation');
+			Nick.parent().addClass('is-invalid');
+			Nick.addClass('is-invalid');
+						
+		}
+
+		if(Nick.val() != ''){
+			resultMap = fn_reg("Nick", Nick.val());
+			console.log(resultMap);
+			
+			if(resultMap.regResult == false) {
+				msgNick.html("");
+				msgNick.html("<span>" + resultMap.msg + "</span>");
+				msgNick.css("color","red");
+				Nick.parent().parent().addClass('has-validation');
+				Nick.parent().addClass('is-invalid');
+				Nick.addClass('is-invalid');
+			}
+			if(resultMap.regResult == true) {
+				msgNick.html("");
+				Nick.parent().parent().removeClass('has-validation');
+				Nick.parent().removeClass('is-invalid');
+				Nick.removeClass('is-invalid');
+			}
+		}
+		
+	})
+	
+	$('#userName').blur(function(){
+		
+		const Name = $('#userName');
+		const msgName = $('#msgName');
+		
+		if(Name.val() == ''){
+			msgName.html("");
+			msgName.html("<span>닉네임을 입력해주세요.</span>");
+			msgName.css("color","red");
+			Name.parent().parent().addClass('has-validation');
+			Name.parent().addClass('is-invalid');
+			Name.addClass('is-invalid');
+						
+		}
+
+		if(Name.val() != ''){
+			resultMap = fn_reg("Name", Name.val());
+			console.log(resultMap);
+			
+			if(resultMap.regResult == false) {
+				msgName.html("");
+				msgName.html("<span>" + resultMap.msg + "</span>");
+				msgName.css("color","red");
+				Name.parent().parent().addClass('has-validation');
+				Name.parent().addClass('is-invalid');
+				Name.addClass('is-invalid');
+			}
+			if(resultMap.regResult == true) {
+				msgName.html("");
+				Name.parent().parent().removeClass('has-validation');
+				Name.parent().removeClass('is-invalid');
+				Name.removeClass('is-invalid');
+			}
+		}
+		
+	})
+
+	$('#userName').blur(function(){
+		
+		const Name = $('#userName');
+		const msgName = $('#msgName');
+	
+		if(Name.val() == ''){
+			msgName.html("");
+			msgName.html("<span>이름을 입력해주세요.</span>");
+			msgName.css("color","red");
+			Name.parent().parent().addClass('has-validation');
+			Name.parent().addClass('is-invalid');
+			Name.addClass('is-invalid');
+						
+		}
+
+		if(Name.val() != ''){
+			resultMap = fn_reg("Name", Name.val());
+			console.log(resultMap);
+			
+			if(resultMap.regResult == false) {
+				msgName.html("");
+				msgName.html("<span>" + resultMap.msg + "</span>");
+				msgName.css("color","red");
+				Name.parent().parent().addClass('has-validation');
+				Name.parent().addClass('is-invalid');
+				Name.addClass('is-invalid');
+			}
+			if(resultMap.regResult == true) {
+				msgName.html("");
+				Name.parent().parent().removeClass('has-validation');
+				Name.parent().removeClass('is-invalid');
+				Name.removeClass('is-invalid');
+			}
+		}
+		
 	})
 	
 })
@@ -171,25 +346,38 @@ function fn_reg(type, data){
 			break;
 		case "Pw" :
 			reg = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/;
-			msg = "영문 대소문자, 숫자, 특수문자를 포함한 8 ~ 15자리";
+			msg = "영문 대소문자, 숫자, 특수문자를 포함한 8 ~ 16자리";
 			break;
-		case "phone" :
+		case "Nick" :
+			data = fn_replace(data);
+			reg = /[a-zA-Zㄱ-ㅎ|ㅏ-ㅣ|가-힣]{3,}/;
+			msg = "한글,영문포함 3글자 이상(숫자, 특수문자 제외) 입니다.";
+			break;
+		case "Phone" :
 			reg = /^01(?:0|1|[6-9])-(?:\d{3}|\d{4})-\d{4}$/;
 			msg = "핸드폰 번호를 확인 해 주세요.";
 			break;
-		case "name" :
+		case "Name" :
 			data = fn_replace(data);
 			reg = /[a-zA-Zㄱ-ㅎ|ㅏ-ㅣ|가-힣]{3,}/;
 			msg = "이름을 올바르게 입력해 주세요.";
+			break;
 	}
 	
 	regResult = reg.test(data);
+	
 	if(regResult == true){
 		msg = "";
 	}
 	
 	resultMap = {regResult : regResult, msg : msg}
 	return resultMap;
+}
+
+// 공백 제거함수
+function fn_replace(obj){
+	var resultObj = obj.trim();
+	return resultObj;	
 }
 
 </script>
@@ -331,7 +519,7 @@ function fn_reg(type, data){
 <!-- 닉네임 시작 -->
 <div id="input-nick">
 <div class="form-floating mb-3">
-	<input type="text" class="form-control" name="userNick" id="userNick" placeholder="이름"value="${userInfo.userNick}"> 
+	<input type="text" class="form-control" name="userNick" id="userNick" placeholder="닉네임"value="${userInfo.userNick}"> 
 	<label for="userNick">닉네임</label>
 	<span id="msgNick"></span>
 </div>
