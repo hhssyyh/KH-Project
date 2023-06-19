@@ -363,6 +363,12 @@ public interface AdminService {
 	 * @return - 계산이 완료된 Paging 객체
 	 */
 	public Paging getPagingPayment(int partnerNo, int curPage, String filter, String searchType, String keyword);
+	/**
+	 * 제휴사가 작성한 공지사항 삭제 
+	 * @param partnerNoticeNo - 게시글 번호 
+	 * @return 삭제된 공지사항글
+	 */
+	public void partnerNoticeDelete(String partnerNoticeNo);
 	
 	
 
