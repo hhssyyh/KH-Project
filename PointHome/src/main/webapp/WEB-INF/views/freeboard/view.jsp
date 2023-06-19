@@ -240,7 +240,7 @@ function updateCom(th, commNo) {
 
 	<div id="content">
 		<!-- 본문 내용 가져오기 -->
-		<div class="content" style="min-height: 450px;">${board.freeboardContent}</div>
+		<div class="content" style="min-height: 450px; word-break:break-all;">${board.freeboardContent}</div>
 		<c:forEach var="bfile" items="${file}">
 			<br>
 			<c:choose>
