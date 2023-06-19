@@ -458,6 +458,7 @@ public class MypageController {
 		logger.info("{}", userNo);
 		mypageService.deleteAlert(userNo);
 		
+		
 		mav.setViewName("jsonView");
 		
 		return mav;

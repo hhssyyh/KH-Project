@@ -131,6 +131,7 @@ public interface MypageDao {
 	 * 알림 누르면 읽은 알림(is_read : N -> Y) 으로 업데이트
 	 * 
 	 * @param userNo - 회원 번호
+	 * @return 
 	 */
 	public void deleteAlertByUserno(int userNo);
 
