@@ -159,12 +159,14 @@ body {
 /* 레이어 창 위치 들 */
 #copyright_law {
 	left: 61%;
-	top: 46%;
+/* 	top: 46%; */
+	top: 35%;
 }
 
 #post_guide {
 	left: 69%;
-	top: 49%;
+/* 	top: 49%; */
+	top: 38%;
 }
 
 /* 버튼 모양 없애기  */
