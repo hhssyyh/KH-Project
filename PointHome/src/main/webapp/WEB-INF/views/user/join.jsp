@@ -400,7 +400,7 @@ $( ()=> {
 
 		if(Phone.val() != ''){
 			
-			const $data = {'userPhone':userPhone.val()};
+			const $data = {'userPhone':Phone.val()};
 			const type = "POST";
 			const url = "/user/chkPhone";
 			
