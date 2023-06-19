@@ -92,6 +92,18 @@
 		SELECT user_Email FROM user_tb
 		WHERE user_email = #{email}
 	</select>
+
+	<select id="selectUserEmailByNamePhone" parameterType="User" resultType="User">
+		SELECT user_Email FROM user_tb
+		WHERE 1=1
+			AND user_Name = #{userName}
+			AND user_Phone = #{userPhone}
+	</select>
+	
+	<select id="selectUserByPhone" parameterType="Map" resultType="Map">
+		SELECT user_Phone FROM user_tb
+		WHERE user_Phone = #{userPhone}
+	</select>
 	
 </mapper>
 

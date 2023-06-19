@@ -267,8 +267,7 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public User getUserEmailByNamePhone(User param) {
-		// TODO Auto-generated method stub
-		return null;
+		return userDao.selectUserEmailByNamePhone(param);
 	}
 	
 	
@@ -503,6 +502,19 @@ public class UserServiceImpl implements UserService {
 		logoutURL += "&service_provider=NAVER";
 
 		return logoutURL;
+	}
+
+	@Override
+	public Map<String, Object> getUserByPhone(Map<String, Object> jsonData) {
+
+		return userDao.selectUserByPhone(jsonData);
+	}
+
+	@Override
+	public User getUserByEmailPhone(User param) {
+
+		
+		return userDao.selectUserByNamePhone(param);
 	}
 
 }

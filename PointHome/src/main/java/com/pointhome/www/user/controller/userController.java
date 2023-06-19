@@ -14,8 +14,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.JsonObject;
@@ -74,6 +76,7 @@ public class userController {
 	@GetMapping("/user/login")
 	public void login(HttpSession session) {
 		logger.debug("/user/login [GET]");
+		session.removeAttribute("msg");
 		
 	}
 
@@ -147,13 +150,24 @@ public class userController {
 	}
 
 	@PostMapping("/user/searchid")
-	public String searchIdProc(User param, Model model) {
+	public String searchIdProc(User param, Model model, HttpSession session) {
 		logger.debug("/user/searchid [POST]");
 		
 		User user = userService.getUserEmailByNamePhone(param);
-		model.addAttribute("user", user);
 		
-		return "/searchresult";
+		if(user == null) {
+			
+			logger.debug("조회결과 없음 : {}", user);
+			session.setAttribute("msg", "찾으시는 정보가 없습니다.");
+			return "redirect:/user/searchid";
+			
+		} else {
+			session.removeAttribute("msg");
+			logger.debug("조회결과 있음 :{}", user);
+			model.addAttribute("user", user);
+			return "/user/searchresult";
+		}
+
 	}
 
 	
@@ -164,9 +178,32 @@ public class userController {
 	}
 	
 	@PostMapping("/user/searchpw")
-	public void searchpwProc() {
+	public String searchpwProc(User param, Model model, HttpSession session) {
 		logger.debug("/user/searchpw [POST]");
+
+		User user = userService.getUserByEmailPhone(param);
+		logger.debug("{}", user);
 		
+		if(user == null) {
+			
+			logger.debug("조회결과 없음 : {}", user);
+			session.setAttribute("msg", "찾으시는 정보가 없습니다.");
+			return "redirect:/user/searchpw";
+			
+		} else {
+			session.removeAttribute("msg");
+			logger.debug("조회결과 있음 :{}", user);
+			model.addAttribute("user", user);
+			return "/user/searchresult";
+		}
+
+	}
+	
+	@GetMapping("/user/searchresult")
+	public void searchresult(Model model) {
+		logger.debug("/user/searchresult [GET]");
+
+		model.getAttribute("user");
 	}
 	
 	@GetMapping("/user/naverlogin")
@@ -338,14 +375,14 @@ public class userController {
 	}
 
 	@PostMapping("/user/chkPhone")
-	public String p(User Param, HttpSession session, Model model) {
+	@ResponseBody
+	public Map<String, Object> chkPhone(@RequestBody Map<String, Object> jsonData, HttpSession session) {
 		
-		String type = (String) session.getAttribute("type");
+		logger.debug("jsonData : {}", jsonData);
 		
-		model.addAttribute("type", type); 
-		
-		
-		return "redirect:/partner/partnernotice";
+		Map<String, Object> userPhone = userService.getUserByPhone(jsonData);
+		logger.debug("{}", userPhone);
+		return userPhone;
 	}
 	
 }
